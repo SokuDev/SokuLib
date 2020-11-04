@@ -1,5 +1,8 @@
 # SokuLib
-Disclaimer: All the code here is wasn't written by me.
+Library compiling reverse engineered elements of Touhou 12.3: Hisoutensoku from multiple source
+
+## Disclaimer
+All the code here is wasn't written by me.
 This is a compilation of code from swrs and from other source such as code Slen gave me.
 This is just an attempt to make it easier and more intuitive to interface with the game.
 The work I did is just reorganize files and move existing code inside them.
