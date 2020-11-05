@@ -13,7 +13,7 @@
 namespace SokuLib
 {
 	// new/delete
-	template<typename T>
+	template<typename T = void>
 	__forceinline T *New(size_t size)
 	{
 		return reinterpret_cast<T *(__cdecl *)(size_t)>(ADDR_NEW_FUNCTION)(size);

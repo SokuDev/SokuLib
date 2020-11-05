@@ -2,6 +2,8 @@
 // Created by Gegel85 on 04/11/2020.
 //
 
+#include <windows.h>
+#include <thread>
 #include "Scenes.hpp"
 
 namespace SokuLib
@@ -29,4 +31,25 @@ namespace SokuLib
 		"Scene 19",                          //???                = 19,
 		"Credits",                           //SCENE_ENDING       = 20,
 	};
+
+	void changeScene(Scene newScene)
+	{
+		if (sceneId() != newScene) {
+			sceneIdNew() = newScene;
+			LGThread() = CreateThread(
+				nullptr,
+				0,
+				(LPTHREAD_START_ROUTINE)ADDR_LOAD_GRAPHICS_FUN,
+				nullptr,
+				0,
+				(LPDWORD)ADDR_LOAD_GRAPHICS_THREAD_ID
+			);
+		}
+	}
+
+	void waitForSceneChange()
+	{
+		while (sceneId() != sceneIdNew())
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
 }

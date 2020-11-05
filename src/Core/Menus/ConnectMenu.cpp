@@ -2,7 +2,8 @@
 // Created by Gegel85 on 05/11/2020.
 //
 
-#include "ConnectMenu.hpp"
+#include "../Menus.hpp"
+#include "../../Data/Scenes.hpp"
 
 namespace SokuLib
 {
@@ -43,5 +44,12 @@ namespace SokuLib
 	{
 		getMenuObj()->choice = 0;
 		getMenuObj()->subchoice = 0;
+	}
+
+	void moveToConnectScreen()
+	{
+		changeScene(SCENE_TITLE);
+		waitForSceneChange();
+		activateMenu(networkMenuInit());
 	}
 }

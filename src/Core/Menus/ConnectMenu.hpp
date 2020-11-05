@@ -1,6 +1,7 @@
-// Made by S-len https://github.com/S-len
+// Made by Slen https://github.com/S-len
 #pragma once
 #include "../SokuAddresses.hpp"
+#include "../Memory.hpp"
 #include <Windows.h>
 #include <cwchar>
 
@@ -13,6 +14,10 @@ typedef unsigned uint;
 
 namespace SokuLib
 {
+	constexpr unsigned NetworkMenuBufferSize  = 0x118C;
+
+	typedef void *(__thiscall *Init_fun)(void *);
+
 	typedef struct {
 		void *vftable;
 		void *CNetworkBasePtr;
@@ -61,6 +66,17 @@ namespace SokuLib
 		return (MenuConnect*)CMENU_OBJ;
 	}
 
+	__forceinline void *networkMenuInit()
+	{
+		return ((Init_fun)ADDR_NETWORK_MENU_INIT)(New(NetworkMenuBufferSize));
+	}
+
+	__forceinline void *networkMenuInit(void *buffer)
+	{
+		return ((Init_fun)ADDR_NETWORK_MENU_INIT)(buffer);
+	}
+
+	void moveToConnectScreen();
 	void setupHost(uint port, bool spectate);
 	void joinHost(const char *ip, uint port, bool spectate = false);
 	//! @brief Resets choice/subchoice and clears any messagebox

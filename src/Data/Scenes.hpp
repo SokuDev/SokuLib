@@ -38,16 +38,27 @@ namespace SokuLib
 	//From swrs.h (SWRSToys)
 	// �V�[��ID
 	// DWORD
-	__forceinline Scene getSceneIdNew()
+	__forceinline Scene &sceneIdNew()
 	{
 		return *reinterpret_cast<Scene *>(ADDR_SCENE_ID_NEW);
 	}
 
 	//From swrs.h (SWRSToys)
-	__forceinline Scene getSceneId()
+	__forceinline Scene &sceneId()
 	{
 		return *reinterpret_cast<Scene *>(ADDR_SCENE_ID);
 	}
+
+	// Made by Slen https://github.com/S-len
+	__forceinline HANDLE &LGThread()
+	{
+		return *reinterpret_cast<HANDLE *>(ADDR_LOAD_GRAPHICS_THREAD);
+	}
+
+	// Made by Slen https://github.com/S-len
+	void changeScene(Scene newScene);
+	// Made by Slen https://github.com/S-len
+	void waitForSceneChange();
 
 	// From me
 	extern std::vector<std::string> sceneNames;
