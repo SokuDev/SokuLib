@@ -37,12 +37,12 @@ namespace SokuLib
 	// int
 	__forceinline BattleMode getMainMode()
 	{
-		return (*reinterpret_cast<BattleMode *>(ADDR_COMM_MODE));
+		return static_cast<BattleMode>(*reinterpret_cast<char *>(ADDR_COMM_MODE));
 	}
 
 	__forceinline BattleSubMode getSubMode()
 	{
-		return (*reinterpret_cast<BattleSubMode *>(ADDR_SUB_MODE));
+		return static_cast<BattleSubMode>(*reinterpret_cast<char *>(ADDR_SUB_MODE));
 	}
 
 	__forceinline int getMenuMode()
@@ -51,7 +51,7 @@ namespace SokuLib
 	}
 
 	//From me
-	extern std::vector<std::array<std::string, 3>> menuNames;
+	extern std::vector<std::array<std::string, 3>> modeNames;
 }
 
 #endif //SOKULIB_BATTLEMODE_HPP

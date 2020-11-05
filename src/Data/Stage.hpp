@@ -52,7 +52,7 @@ namespace SokuLib
 	#endif
 	__forceinline Stage getStageId()
 	{
-		return *reinterpret_cast<Stage *>(ADDR_LOADED_STAGE_ID);
+		return static_cast<Stage>(*reinterpret_cast<char *>(ADDR_LOADED_STAGE_ID));
 	}
 }
 

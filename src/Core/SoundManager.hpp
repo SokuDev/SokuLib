@@ -28,7 +28,7 @@ namespace SokuLib
 	enum {
 		GetPackagedBGMCallerAddr = 0x00418BE1,
 		GetPackagedSFLCallerAddr = 0x00418F41
-	}
+	};
 }
 
 

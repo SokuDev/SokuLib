@@ -15,7 +15,6 @@
 
 namespace SokuLib
 {
-	#pragma pack(push, 1)
 	enum Character {
 		CHARACTER_REIMU,
 		CHARACTER_MARISA,
@@ -39,7 +38,6 @@ namespace SokuLib
 		CHARACTER_SUWAKO,
 		CHARACTER_RANDOM
 	};
-	#pragma pack(pop)
 
 	extern std::vector<std::string> charactersName;
 
@@ -58,13 +56,13 @@ namespace SokuLib
 	// int
 	__forceinline Character getLeftChar()
 	{
-		return *reinterpret_cast<Character*>(ADDR_LCHARID);
+		return *reinterpret_cast<Character *>(ADDR_LCHARID);
 	}
 
 	//From swrs.h (SWRSToys)
 	__forceinline Character getRightChar()
 	{
-		return *reinterpret_cast<Character*>(ADDR_RCHARID);
+		return *reinterpret_cast<Character *>(ADDR_RCHARID);
 	}
 }
 

@@ -9,6 +9,7 @@
 //From swrs.h (SWRSToys)
 
 #include "SokuAddresses.hpp"
+#include "../Data/String.hpp"
 
 namespace SokuLib
 {
@@ -25,6 +26,16 @@ namespace SokuLib
 	__forceinline BattleManager *getBattleMgr()
 	{
 		return (*reinterpret_cast<BattleManager **>(ADDR_BATTLE_MANAGER));
+	}
+
+	__forceinline String &player1Profile()
+	{
+		return *reinterpret_cast<String *>(ADDR_PLAYER1_PROFILE_STR);
+	}
+
+	__forceinline String &player2Profile()
+	{
+		return *reinterpret_cast<String *>(ADDR_PLAYER2_PROFILE_STR);
 	}
 }
 
