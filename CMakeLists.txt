@@ -16,6 +16,7 @@ add_library(
 	src/Core/Key.hpp
 	src/Core/Math.hpp
 	src/Core/Memory.hpp
+	src/Core/Menus/
 	src/Core/Misc.hpp
 	src/Core/NetObject.hpp
 	src/Core/PackageLoader.hpp
@@ -45,7 +46,7 @@ add_library(
 	src/Data/String.cpp
 	src/Data/String.hpp
 	src/SokuLib.hpp
-	src/SokuLib.hpp)
+	src/Core/Menus/ConnectMenu.cpp src/Core/Menus.hpp)
 
 
 if (DEFINED VERSION_110a)

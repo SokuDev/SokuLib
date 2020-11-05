@@ -15,6 +15,7 @@
 #include "Key.hpp"
 #include "Math.hpp"
 #include "Memory.hpp"
+#include "Menus.hpp"
 #include "Misc.hpp"
 #include "NetObject.hpp"
 #include "PackageLoader.hpp"
