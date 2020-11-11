@@ -20,7 +20,7 @@ namespace SokuLib
 		//????                       VSNetwork                       VSNetwork (Spectator)
 		{"5.0",                      "Playing multiplayer (Online)",  "Spectating game"},
 		//????                       ?????                           ?????
-		{"6.0",                      "6.1",                           "6.2"},
+		{"6.0",                      "6.1",                           "Spectating game"},
 		//????                       Result                          Result replay
 		{"7.0",                      "Playing time trial",            "Watching a time trial replay"},
 		//Practice                   ?????                           ?????
