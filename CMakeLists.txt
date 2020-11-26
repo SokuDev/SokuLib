@@ -55,3 +55,5 @@ if (DEFINED VERSION_110a)
 		SOKU_VER_110a=${VERSION_110a}
 	)
 endif ()
+
+target_include_directories(SokuLib INTERFACE src/)
