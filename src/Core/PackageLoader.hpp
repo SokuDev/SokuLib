@@ -15,7 +15,7 @@
 namespace SokuLib
 {
 	// �p���b�g���[�h
-	#ifdef SOKU_VER_110a
+	#ifndef SOKU_VER_110
 	template<typename T = void>
 	#endif
 	__forceinline void LoadPackagePalette(void *pflag, LPCSTR name, void *pal, int bpp)
@@ -24,7 +24,7 @@ namespace SokuLib
 	}
 
 	// �f�[�^���[�h
-	#ifdef SOKU_VER_110a
+	#ifndef SOKU_VER_110
 	template<typename T = void>
 	#endif
 	__forceinline bool LoadPackageFile(void *ppfile, LPCSTR name)

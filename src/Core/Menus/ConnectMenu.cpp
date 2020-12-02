@@ -4,28 +4,40 @@
 
 #include "../Menus.hpp"
 #include "../../Data/Scenes.hpp"
+#include "ConnectMenu.hpp"
+#include "../Exceptions.hpp"
+
 
 namespace SokuLib
 {
+	void (__thiscall * const host)(void *) = (void (__thiscall *const)(void *))ADDR_HOST_FCT;
+	void (__thiscall * const join)(void *) = (void (__thiscall *const)(void *))ADDR_JOIN_FCT;
+	UnknownStruct1 *const menuManager = reinterpret_cast<UnknownStruct1 *>(ADDR_UNKNOWN_VAR_MENU);
+
 	void setupHost(uint port, bool spectate)
 	{
-		typedef void(__thiscall* func)(void*);
-		func hostFun = (func)ADDR_HOST_FCT;
+#ifdef _SOKU_LIB_DEBUG
+		if (!isInNetworkMenu())
+			throw InvalidMenuException(getCurrentMenuName(), "Network menu");
+#endif
 
-		MenuConnect *menu = getMenuObj();
+		auto menu = getMenuObj<MenuConnect>();
+
 		menu->port = port;
 		menu->spectate = spectate;
 		menu->choice = MenuConnect::CHOICE_HOST;
 		menu->subchoice = 2;
 
-		hostFun(menu);
+		host(menu);
 	}
 
 	void joinHost(const char *ip, uint port, bool spectate)
 	{
-		typedef void(__thiscall* func)(void*);
-		func joinFun = (func)ADDR_JOIN_FCT;
-		MenuConnect *menu = getMenuObj();
+#ifdef _SOKU_LIB_DEBUG
+		if (!isInNetworkMenu())
+			throw InvalidMenuException(getCurrentMenuName(), "Network menu");
+#endif
+		auto menu = getMenuObj<MenuConnect>();
 
 		if (ip != nullptr) {
 			//Unsafe
@@ -37,19 +49,32 @@ namespace SokuLib
 		menu->unknownJoinFlag = 1;
 		menu->notSpectateFlag = (byte)!spectate;
 
-		joinFun(menu);
+		join(menu);
 	}
 
 	void clearMenu()
 	{
-		getMenuObj()->choice = 0;
-		getMenuObj()->subchoice = 0;
+		//TODO: Add the clearing of the message box.
+		//GetMsgBox()->active = false;
+		getMenuObj<MenuConnect>()->choice = 0;
+		getMenuObj<MenuConnect>()->subchoice = 0;
 	}
 
-	void moveToConnectScreen()
+	void moveToConnectMenu()
 	{
 		changeScene(SCENE_TITLE);
 		waitForSceneChange();
-		activateMenu(networkMenuInit());
+		activateMenu(initNetworkMenu());
+	}
+
+	bool isInNetworkMenu()
+	{
+		return sceneId() == SCENE_TITLE && menuManager->isInMenu && !*reinterpret_cast<char *>(getMenuObj<MenuConnect>()->vftable);
+	}
+
+	std::string getCurrentMenuName()
+	{
+		//TODO: Code this function
+		return "Unknown menu";
 	}
 }

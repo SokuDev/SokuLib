@@ -47,7 +47,7 @@ namespace SokuLib
 	unsigned char flattenStageId(Stage id);
 
 	//! @return The currently loaded stage id
-	#ifndef SOKU_VER_110a
+	#ifdef SOKU_VER_110
 	template<typename T = void>
 	#endif
 	__forceinline Stage getStageId()

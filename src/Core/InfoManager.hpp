@@ -15,7 +15,7 @@ namespace SokuLib
 
 	// �C���t�H�}�l�[�W��
 	// CInfoManager *
-	#ifdef SOKU_VER_110a
+	#ifndef SOKU_VER_110
 	template<typename T = void>
 	#endif
 	__forceinline InfoManager *getInfoMgr()

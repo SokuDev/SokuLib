@@ -8,7 +8,7 @@
 
 namespace SokuLib
 {
-	#ifdef SOKU_VER_110a
+	#ifndef SOKU_VER_110
 		#define TEXT_SECTION_OFFSET  0x00401000
 		#define TEXT_SECTION_SIZE    0x00456000
 		#define RDATA_SECTION_OFFSET 0x00857000
@@ -25,8 +25,7 @@ namespace SokuLib
 	#endif
 
 	enum Address {
-	#ifdef SOKU_VER_110a
-		//From swrs.h (SWRSToys)
+	#ifndef SOKU_VER_110
 		ADDR_RENDERER_BEGIN               = 0x00401000,
 		ADDR_RENDERER_END                 = 0x00401040,
 		ADDR_ALLOCATE_FUNCTION            = 0x004026A0,
@@ -80,6 +79,7 @@ namespace SokuLib
 		ADDR_COMM_MODE                    = 0x00898690,
 		ADDR_PNETOBJECT                   = 0x008986A0,
 		ADDR_INPUT_MANAGER                = 0x00898718,
+		ADDR_UNKNOWN_VAR_MENU             = 0x0089a888,
 		ADDR_PLAYER2_PROFILE_STR          = 0x00899108,
 		ADDR_LCHARID                      = 0x00899D10,
 		ADDR_RCHARID                      = 0x00899D30,
@@ -91,7 +91,6 @@ namespace SokuLib
 		ADDR_SCENE_ID                     = 0x008A0044,
 		ADDR_D3D9_DEVICE                  = 0x008A0E30,
 	#else
-		//From swrs.h (SWRSToys)
 		ADDR_RENDERER_BEGIN                = 0x00401000,
 		ADDR_RENDERER_END                  = 0x00401040,
 		ADDR_ALLOCATE_FUNCTION             = 0x00402600,

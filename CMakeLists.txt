@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.13)
 project(SokuLib)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -46,14 +46,16 @@ add_library(
 	src/Data/String.cpp
 	src/Data/String.hpp
 	src/SokuLib.hpp
-	src/Core/Menus/ConnectMenu.cpp src/Core/Menus.hpp)
+	src/Core/Menus/ConnectMenu.cpp
+	src/Core/Menus.hpp
+	src/Core/Exceptions.hpp
+)
 
-
-if (DEFINED VERSION_110a)
+if (${CMAKE_BUILD_TYPE} STREQUAL Debug)
 	target_compile_definitions(
 		SokuLib PRIVATE
-		SOKU_VER_110a=${VERSION_110a}
+		_SOKU_LIB_DEBUG=1
 	)
-endif ()
+endif()
 
 target_include_directories(SokuLib INTERFACE src/)
