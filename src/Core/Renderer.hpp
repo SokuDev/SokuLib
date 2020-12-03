@@ -12,6 +12,7 @@ namespace SokuLib
 
 	extern bool (__thiscall Renderer::* const CRenderer_Begin)();
 	extern void (__thiscall Renderer::* const CRenderer_End)();
+	extern Renderer &renderer;
 }
 
 

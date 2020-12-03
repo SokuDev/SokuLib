@@ -16,7 +16,6 @@ struct IDirect3DTexture9;
 
 namespace SokuLib
 {
-	struct Renderer {};
 	struct TextureManager {};
 
 	extern int *(TextureManager::* const CTextureManager_LoadTexture)(int *ret, LPCSTR path, void *unk1, void *unk2);
@@ -51,7 +50,6 @@ namespace SokuLib
 
 	extern IDirect3DTexture9 &textureMgr;
 	extern IDirect3DDevice9 *(&pd3dDev);
-	extern Renderer &renderer;
 }
 
 

@@ -13,6 +13,7 @@ namespace SokuLib
 	void (__thiscall * const host)(void *) = (void (__thiscall *const)(void *))ADDR_HOST_FCT;
 	void (__thiscall * const join)(void *) = (void (__thiscall *const)(void *))ADDR_JOIN_FCT;
 	UnknownStruct1 *const menuManager = reinterpret_cast<UnknownStruct1 *>(ADDR_UNKNOWN_VAR_MENU);
+	const MenuInitFun networkMenuInit = (MenuInitFun)ADDR_NETWORK_MENU_INIT;
 
 	void setupHost(uint port, bool spectate)
 	{
@@ -58,6 +59,11 @@ namespace SokuLib
 		//GetMsgBox()->active = false;
 		getMenuObj<MenuConnect>()->choice = 0;
 		getMenuObj<MenuConnect>()->subchoice = 0;
+	}
+
+	void *initNetworkMenu()
+	{
+		return networkMenuInit(New(networkMenuBufferSize));
 	}
 
 	void moveToConnectMenu()

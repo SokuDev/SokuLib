@@ -11,4 +11,8 @@ namespace SokuLib
 {
 	extern bool (__thiscall Renderer::* const CRenderer_Begin)() = union_cast<bool (Renderer::*)()>(ADDR_RENDERER_BEGIN);
 	extern void (__thiscall Renderer::* const CRenderer_End)()   = union_cast<void (Renderer::*)()>(ADDR_RENDERER_END);
+
+	// �����_��
+	// CRenderer
+	Renderer &renderer = *reinterpret_cast<Renderer *>(ADDR_RENDERER);
 }

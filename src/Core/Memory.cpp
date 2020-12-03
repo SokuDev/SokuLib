@@ -4,6 +4,7 @@
 
 
 #include "SokuAddresses.hpp"
+#include "Memory.hpp"
 
 namespace SokuLib
 {

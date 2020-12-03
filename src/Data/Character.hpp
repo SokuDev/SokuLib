@@ -40,7 +40,7 @@ namespace SokuLib
 	extern std::vector<std::string> charactersName;
 
 	// �L�����N�^���̎擾
-	#ifndef SOKU_VER_110a
+	#ifndef SOKU_VER_110
 	template<typename T = void>
 	#endif
 	__forceinline LPCSTR GetCharacterAbbr(int id)

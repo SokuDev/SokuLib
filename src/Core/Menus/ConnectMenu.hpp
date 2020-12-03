@@ -27,7 +27,7 @@ namespace SokuLib
 	//! @param buffer Pointer to the buffer to use for the menu object.
 	//! @warning: This function is unsafe if the allocated buffer is not big enough.
 	//! @note It is recommended to use initNetworkMenu instead.
-	extern const MenuInitFun networkMenuInit = (MenuInitFun)ADDR_NETWORK_MENU_INIT;
+	extern const MenuInitFun networkMenuInit;
 
 	//! @brief The buffer size needed to hold the network menu.
 	constexpr unsigned networkMenuBufferSize  = 0x118C;
@@ -108,10 +108,7 @@ namespace SokuLib
 
 	//! @brief Inits a new network menu to give to activateMenu.
 	//! @return The newly created menu.
-	void *initNetworkMenu()
-	{
-		return networkMenuInit(New(networkMenuBufferSize));
-	}
+	void *initNetworkMenu();
 
 	//! @brief Returns the name of the currently active menu.
 	std::string getCurrentMenuName();

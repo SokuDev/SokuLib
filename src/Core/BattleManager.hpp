@@ -11,7 +11,16 @@
 
 namespace SokuLib
 {
-	struct BattleManager;
+	struct CharacterManager {
+		char unknown[0x573];
+		char score;
+	};
+
+	struct BattleManager {
+		char unknown[0xC];
+		CharacterManager *leftCharacterManager;
+		CharacterManager *rightCharacterManager;
+	};
 
 	//! @brief Changes the current battle mode
 	extern void (__cdecl * const setBattleMode)(int comm, int sub);

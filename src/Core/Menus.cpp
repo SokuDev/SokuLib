@@ -3,6 +3,7 @@
 //
 
 #include "SokuAddresses.hpp"
+#include "Menus.hpp"
 
 namespace SokuLib
 {
