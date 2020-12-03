@@ -32,17 +32,13 @@ namespace SokuLib
 	//! @brief The buffer size needed to hold the network menu.
 	constexpr unsigned networkMenuBufferSize  = 0x118C;
 
-	struct UnknownStruct4 {
+	struct UnknownStruct3 {
+		byte unknownField[8];
 		void *CMenuObj;
 	};
 
-	struct UnknownStruct3 {
-		byte unknownField[2];
-		UnknownStruct4 *unknownPointer;
-	};
-
 	struct UnknownStruct2 {
-		byte unknownField;
+		byte unknownField[4];
 		UnknownStruct3 *unknownPointer;
 	};
 
@@ -51,7 +47,7 @@ namespace SokuLib
 		bool isInMenu;
 	};
 
-	extern UnknownStruct1 *const menuManager;
+	extern UnknownStruct1 &menuManager;
 
 	typedef struct {
 		void *vftable;
@@ -103,7 +99,7 @@ namespace SokuLib
 	//! @return The current menu object.
 	T *getMenuObj()
 	{
-		return reinterpret_cast<T *>(menuManager->unknownPointer->unknownPointer->unknownPointer->CMenuObj);
+		return reinterpret_cast<T *>(menuManager.unknownPointer->unknownPointer->CMenuObj);
 	}
 
 	//! @brief Inits a new network menu to give to activateMenu.

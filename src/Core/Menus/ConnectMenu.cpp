@@ -12,7 +12,7 @@ namespace SokuLib
 {
 	void (__thiscall * const host)(void *) = (void (__thiscall *const)(void *))ADDR_HOST_FCT;
 	void (__thiscall * const join)(void *) = (void (__thiscall *const)(void *))ADDR_JOIN_FCT;
-	UnknownStruct1 *const menuManager = reinterpret_cast<UnknownStruct1 *>(ADDR_UNKNOWN_VAR_MENU);
+	UnknownStruct1 &menuManager = *reinterpret_cast<UnknownStruct1 *>(ADDR_UNKNOWN_VAR_MENU);
 	const MenuInitFun networkMenuInit = (MenuInitFun)ADDR_NETWORK_MENU_INIT;
 
 	void setupHost(uint port, bool spectate)
@@ -75,7 +75,7 @@ namespace SokuLib
 
 	bool isInNetworkMenu()
 	{
-		return sceneId == SCENE_TITLE && menuManager->isInMenu && !*reinterpret_cast<char *>(getMenuObj<MenuConnect>()->vftable);
+		return sceneId == SCENE_TITLE && menuManager.isInMenu && !*reinterpret_cast<char *>(getMenuObj<MenuConnect>());
 	}
 
 	std::string getCurrentMenuName()
