@@ -25,7 +25,6 @@ namespace SokuLib
 		operator char *();
 		operator const char *() const;
 	};
-
 	#pragma pack(pop)
 }
 

@@ -39,4 +39,6 @@ namespace SokuLib
 			index -= 4;
 		return index;
 	}
+
+	Stage &stageId = *reinterpret_cast<Stage *>(ADDR_LOADED_STAGE_ID);
 }

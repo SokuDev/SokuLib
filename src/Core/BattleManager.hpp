@@ -6,8 +6,6 @@
 #define SOKULIB_BATTLEMANAGER_HPP
 
 
-//From swrs.h (SWRSToys)
-
 #include "SokuAddresses.hpp"
 #include "../Data/String.hpp"
 
@@ -15,28 +13,11 @@ namespace SokuLib
 {
 	struct BattleManager;
 
-	// �o�g�����[�h�ݒ�
-	__forceinline void SetBattleMode(int comm, int sub)
-	{
-		return reinterpret_cast<void (__cdecl *)(int comm, int sub)>(ADDR_SET_BATTLE_MODE)(comm, sub);
-	}
-
-	// �o�g���}�l�[�W��
-	// CBattleManager *
-	__forceinline BattleManager *getBattleMgr()
-	{
-		return (*reinterpret_cast<BattleManager **>(ADDR_BATTLE_MANAGER));
-	}
-
-	__forceinline String &player1Profile()
-	{
-		return *reinterpret_cast<String *>(ADDR_PLAYER1_PROFILE_STR);
-	}
-
-	__forceinline String &player2Profile()
-	{
-		return *reinterpret_cast<String *>(ADDR_PLAYER2_PROFILE_STR);
-	}
+	//! @brief Changes the current battle mode
+	extern void (__cdecl * const setBattleMode)(int comm, int sub);
+	BattleManager &getBattleMgr();
+	extern const String &player1Profile;
+	extern const String &player2Profile;
 }
 
 

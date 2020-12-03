@@ -5,7 +5,6 @@
 #ifndef SOKULIB_SCENECREATERS_HPP
 #define SOKULIB_SCENECREATERS_HPP
 
-//From swrs.h (SWRSToys)
 
 #include "SokuAddresses.hpp"
 
@@ -13,7 +12,8 @@ namespace SokuLib
 {
 	// �N���X�\�z�֐�caller
 	enum SceneCreater {
-		#ifndef SOKU_VER_110a
+		//TODO: Add these for version 1.10a
+		#ifdef SOKU_VER_110
 		CLogo_Creater           = ADDR_LOGO_CREATER,
 		Opening_Creater         = ADDR_OPENING_CREATER,
 		CLoading_Creater        = ADDR_LOADING_CREATER,
@@ -34,5 +34,6 @@ namespace SokuLib
 		CBattleManager_Creater  = ADDR_BATTLE_MANAGER_CREATER,
 	};
 }
+
 
 #endif //SOKULIB_SCENECREATERS_HPP

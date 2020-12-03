@@ -32,11 +32,15 @@ namespace SokuLib
 		"Credits",                           //SCENE_ENDING       = 20,
 	};
 
+	Scene &newSceneId = *reinterpret_cast<Scene *>(ADDR_SCENE_ID_NEW);
+	Scene &sceneId = *reinterpret_cast<Scene *>(ADDR_SCENE_ID);
+	HANDLE &LGThread = *reinterpret_cast<HANDLE *>(ADDR_LOAD_GRAPHICS_THREAD);
+
 	void changeScene(Scene newScene)
 	{
-		if (sceneId() != newScene) {
-			sceneIdNew() = newScene;
-			LGThread() = CreateThread(
+		if (sceneId != newScene) {
+			newSceneId = newScene;
+			LGThread = CreateThread(
 				nullptr,
 				0,
 				(LPTHREAD_START_ROUTINE)ADDR_LOAD_GRAPHICS_FUN,
@@ -49,7 +53,7 @@ namespace SokuLib
 
 	void waitForSceneChange()
 	{
-		while (sceneId() != sceneIdNew())
+		while (sceneId != newSceneId)
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }

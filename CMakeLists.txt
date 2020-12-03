@@ -49,6 +49,17 @@ add_library(
 	src/Core/Menus/ConnectMenu.cpp
 	src/Core/Menus.hpp
 	src/Core/Exceptions.hpp
+	src/Core/BattleManager.cpp
+	src/Core/Font.cpp
+	src/Core/InputManager.cpp
+	src/Core/Key.cpp
+	src/Core/Memory.cpp
+	src/Core/Menus.cpp
+	src/Core/NetObject.cpp
+	src/Core/Renderer.cpp
+	src/Core/SceneSize.cpp
+	src/Core/SoundManager.cpp
+	src/Core/TextureManager.cpp
 )
 
 if (${CMAKE_BUILD_TYPE} STREQUAL Debug)

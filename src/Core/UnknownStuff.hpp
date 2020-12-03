@@ -5,7 +5,6 @@
 #ifndef SOKULIB_UNKNOWNSTUFF_HPP
 #define SOKULIB_UNKNOWNSTUFF_HPP
 
-//From swrs.h (SWRSToys)
 
 #include "SokuAddresses.hpp"
 
@@ -22,23 +21,26 @@ namespace SokuLib
 
 	// �R���o�[�g�f�[�^���p�t���O
 	// bool
-	#ifdef SOKU_VER_110a
+	#ifndef SOKU_VER_110
 	template<typename T = void>
 	#endif
 	__forceinline bool useCVxData()
 	{
+		//TODO: Find this for version 1.10a
 		return *(bool*)ADDR_USE_CV_X_DATA;
 	}
 
 	// �p���b�g�I�u�W�F�N�g
 	// void *
-	#ifdef SOKU_VER_110a
+	#ifndef SOKU_VER_110
 	template<typename T = void>
 	#endif
 	__forceinline void *getPaletter()
 	{
+		//TODO: Find this for version 1.10a
 		return *(void **)ADDR_PALETTER;
 	}
 }
+
 
 #endif //SOKULIB_UNKNOWNSTUFF_HPP

@@ -26,4 +26,8 @@ namespace SokuLib
 		//Practice                   ?????                           ?????
 		{"Playing in practice mode", "8.1",                           "8.2"}
 	};
+
+	const BattleMode &mainMode = *reinterpret_cast<BattleMode *>(ADDR_COMM_MODE);
+	const BattleSubMode &subMode = *reinterpret_cast<BattleSubMode *>(ADDR_SUB_MODE);
+	const int &menuMode = *reinterpret_cast<int *>(ADDR_MENU_MODE);
 }

@@ -5,7 +5,6 @@
 #ifndef SOKULIB_INFOMANAGER_HPP
 #define SOKULIB_INFOMANAGER_HPP
 
-//From swrs.h (SWRSToys)
 
 #include "SokuAddresses.hpp"
 
@@ -20,6 +19,7 @@ namespace SokuLib
 	#endif
 	__forceinline InfoManager *getInfoMgr()
 	{
+		//TODO: Find this for version 1.10a
 		return *(InfoManager **)ADDR_INFO_MANAGER;
 	}
 }

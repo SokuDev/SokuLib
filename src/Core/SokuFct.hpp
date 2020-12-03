@@ -11,6 +11,9 @@
 
 namespace SokuLib
 {
+	// thiscall
+	class C {};
+
 	// union_cast
 	template<typename TDest, typename TSrc>
 	__forceinline TDest union_cast(TSrc src) {
@@ -20,8 +23,6 @@ namespace SokuLib
 		return c.dst;
 	}
 
-	// thiscall
-	class C {};
 }
 
 #endif //SOKULIB_SOKUFCT_HPP

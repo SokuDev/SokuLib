@@ -6,14 +6,12 @@
 #define SOKULIB_MISC_HPP
 
 
-//From swrs.h (SWRSToys)
-
 #include "SokuAddresses.hpp"
 
 namespace SokuLib
 {
 	// argc/argv
-	#ifdef SOKU_VER_110a
+	#ifndef SOKU_VER_110
 	template<typename T = void>
 	#endif
 	__forceinline int __argc()
@@ -21,9 +19,9 @@ namespace SokuLib
 		return *(int*)ADDR_ARGC;
 	}
 
-		#ifdef SOKU_VER_110a
+	#ifndef SOKU_VER_110
 	template<typename T = void>
-		#endif
+	#endif
 	__forceinline char **__argv()
 	{
 		return *(char***)ADDR_ARGV;

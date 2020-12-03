@@ -11,11 +11,9 @@
 #include <windows.h>
 #include "../Core/SokuAddresses.hpp"
 
-//From me
-
 namespace SokuLib
 {
-	enum Character {
+	enum Character : unsigned int {
 		CHARACTER_REIMU,
 		CHARACTER_MARISA,
 		CHARACTER_SAKUYA,
@@ -41,29 +39,18 @@ namespace SokuLib
 
 	extern std::vector<std::string> charactersName;
 
-	//From swrs.h (SWRSToys)
 	// �L�����N�^���̎擾
-	#ifdef SOKU_VER_110a
+	#ifndef SOKU_VER_110a
 	template<typename T = void>
 	#endif
 	__forceinline LPCSTR GetCharacterAbbr(int id)
 	{
+		//TODO: Find this for version 1.10a
 		return ((LPCSTR (__cdecl *)(int id))ADDR_GET_CHARACTER_ABBR)(id);
 	}
 
-	//From swrs.h (SWRSToys)
-	// �L�����N�^ID
-	// int
-	__forceinline Character getLeftChar()
-	{
-		return *reinterpret_cast<Character *>(ADDR_LCHARID);
-	}
-
-	//From swrs.h (SWRSToys)
-	__forceinline Character getRightChar()
-	{
-		return *reinterpret_cast<Character *>(ADDR_RCHARID);
-	}
+	extern Character &leftChar;
+	extern Character &rightChar;
 }
 
 

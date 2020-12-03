@@ -6,15 +6,14 @@
 #define SOKULIB_VTABLES_HPP
 
 
-//From swrs.h (SWRSToys)
-
 #include "SokuAddresses.hpp"
 
 namespace SokuLib
 {
 	// ���z�֐��e�[�u��
 	enum VTable {
-		#ifndef SOKU_VER_110a
+		//TODO: Find this for version 1.10a
+		#ifdef SOKU_VER_110
 		vtbl_CLoadingSV           = ADDR_VTBL_LOADINGSV,
 		vtbl_CLoadingCL           = ADDR_VTBL_LOADINGCL,
 		vtbl_CBattleWatch         = ADDR_VTBL_BATTLE_WATCH,

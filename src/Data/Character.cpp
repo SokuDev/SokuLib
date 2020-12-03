@@ -29,4 +29,9 @@ namespace SokuLib
 		"Suwako Moriya",
 		"Random Select",
 	};
+
+	// �L�����N�^ID
+	// int
+	Character &leftChar = *reinterpret_cast<Character *>(ADDR_LCHARID);
+	Character &rightChar =  *reinterpret_cast<Character *>(ADDR_RCHARID);
 }

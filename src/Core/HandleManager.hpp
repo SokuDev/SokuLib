@@ -6,8 +6,6 @@
 #define SOKULIB_HANDLEMANAGER_HPP
 
 
-//From swrs.h (SWRSToys)
-
 #include "SokuFct.hpp"
 #include "SokuAddresses.hpp"
 
@@ -37,8 +35,9 @@ namespace SokuLib
 
 	// �n���h���}�l�[�W�����\�b�h
 	template <typename T>
-	__forceinline T *CHandleManager_Get(void *p, int id)
+	inline T *CHandleManager_Get(void *p, int id)
 	{
+		//TODO: Find thi in version 1.10a
 		return SokuLib_Ccall(p, ADDR_HANDLE_MANAGER_GET, T *, (int))(id);
 	}
 }

@@ -10,14 +10,11 @@
 #include <string>
 #include "../Core/SokuAddresses.hpp"
 
-//From me
-
 namespace SokuLib
 {
 	extern std::vector<std::string> stagesName;
 
-	#pragma pack(push, 1)
-	enum Stage {
+	enum Stage : unsigned char {
 		STAGE_HAKUREI_SHRINE_BROKEN,
 		STAGE_FOREST_OF_MAGIC,
 		STAGE_CREEK_OF_GENBU,
@@ -39,7 +36,6 @@ namespace SokuLib
 		STAGE_CATWALK_OF_GEYSER,
 		STAGE_FUSION_REACTOR_CORE,
 	};
-	#pragma pack(pop)
 
 	//! @brief Takes the raw stage id and restrict it in the range [0-19]
 	//! @param The stage id to convert
@@ -50,10 +46,7 @@ namespace SokuLib
 	#ifdef SOKU_VER_110
 	template<typename T = void>
 	#endif
-	__forceinline Stage getStageId()
-	{
-		return static_cast<Stage>(*reinterpret_cast<char *>(ADDR_LOADED_STAGE_ID));
-	}
+	extern Stage &stageId;
 }
 
 

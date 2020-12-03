@@ -6,8 +6,6 @@
 #define SOKULIB_TAMPER_HPP
 
 
-// From swrs.h (SWRSToys)
-
 #include <windows.h>
 
 namespace SokuLib

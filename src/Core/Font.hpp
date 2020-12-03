@@ -6,11 +6,7 @@
 #define SOKULIB_FONT_HPP
 
 
-//From swrs.h (SWRSToys)
-
 #include <Windows.h>
-#include "SokuFct.hpp"
-#include "SokuAddresses.hpp"
 
 namespace SokuLib
 {
@@ -37,27 +33,15 @@ namespace SokuLib
 	};
 	#pragma pack(pop)
 
+	struct SWRFont {};
+
 	// �t�H���g�I�u�W�F�N�g���\�b�h
-	__forceinline void SWRFont_Create(void *p)
-	{
-		SokuLib_Ccall(p, ADDR_SWR_FONT_CREATE, void, ())();
-	}
-
-	__forceinline void SWRFont_Destruct(void *p)
-	{
-		SokuLib_Ccall(p, ADDR_SWR_FONT_DESTRUCT, void, ())();
-	}
-
-	__forceinline void SWRFont_SetIndirect(void *p, void *pdesc)
-	{
-		SokuLib_Ccall(p, ADDR_SWR_FONT_SET_INDIRECT, void, (void * ))(pdesc);
-	}
+	extern void (__thiscall SWRFont::* const SWRFont_Create)();
+	extern void (__thiscall SWRFont::* const SWRFont_Destruct)();
+	extern void (__thiscall SWRFont::* const SWRFont_SetIndirect)(void *pdesc);
 
 	// �f�t�H���g�t�H���g��
-	__forceinline const char *getDefaultFontName()
-	{
-		return reinterpret_cast<const char *>(ADDR_DEFAULT_FONT_NAME);
-	}
+	extern const char * const defaultFontName;
 }
 
 

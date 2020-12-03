@@ -5,12 +5,11 @@
 #ifndef SOKULIB_NETOBJECT_HPP
 #define SOKULIB_NETOBJECT_HPP
 
+
 #include <vector>
 #include <winsock.h>
 #include "SokuFct.hpp"
 #include "SokuAddresses.hpp"
-
-//From swrs.h (SWRSToys)
 
 namespace SokuLib
 {
@@ -36,18 +35,16 @@ namespace SokuLib
 	};
 
 	// �l�b�g�I�u�W�F�N�g���\�b�h
-	#ifdef SOKU_VER_110a
+	#ifndef SOKU_VER_110
 	template<typename T = void>
 	#endif
 	__forceinline void NetObject_CreateProfileStringTexture(void *p)
 	{
+		//TODO: Find this for version 1.10a
 		SokuLib_Ccall(p, ADDR_NOBJ_CREATE_PROF_STR_TEXTURE, void, ())();
 	}
 
-	__forceinline NetObject *getNetObject()
-	{
-		return *reinterpret_cast<NetObject **>(ADDR_PNETOBJECT);
-	}
+	NetObject &getNetObject();
 }
 
 

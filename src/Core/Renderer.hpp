@@ -6,23 +6,12 @@
 #define SOKULIB_RENDERER_HPP
 
 
-//From swrs.h (SWRSToys)
-
-#include "SokuFct.hpp"
-#include "SokuAddresses.hpp"
-
 namespace SokuLib
 {
-	// �����_�����\�b�h
-	__forceinline bool CRenderer_Begin(void *p)
-	{
-		return SokuLib_Ccall(p, ADDR_RENDERER_BEGIN, bool, ())();
-	}
+	struct Renderer {};
 
-	__forceinline void CRenderer_End(void *p)
-	{
-		SokuLib_Ccall(p, ADDR_RENDERER_END, void, ())();
-	}
+	extern bool (__thiscall Renderer::* const CRenderer_Begin)();
+	extern void (__thiscall Renderer::* const CRenderer_End)();
 }
 
 

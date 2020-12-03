@@ -13,11 +13,12 @@
 namespace SokuLib
 {
 	// �Z���N�g�G�t�F�N�g�}�l�[�W�����\�b�h
-	#ifdef SOKU_VER_110a
+	#ifndef SOKU_VER_110
 	template<typename T = void>
 	#endif
 	__forceinline void CSelectEffectManager_Create(void *p)
 	{
+		//TODO: Add this for version 1.10a
 		SokuLib_Ccall(p, ADDR_SELECT_EFFECT_MANAGER_CREATE, void, ())();
 	}
 }

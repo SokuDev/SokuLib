@@ -6,12 +6,11 @@
 #define SOKULIB_HASH_HPP
 
 
-//From swrs.h (SWRSToys)
 #include <windows.h>
 
 namespace SokuLib
 {
-	extern const BYTE TARGET_HASH[16];
+	extern const BYTE targetHash[16];
 }
 
 

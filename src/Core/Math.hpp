@@ -13,11 +13,12 @@
 namespace SokuLib
 {
 	// �p�xcos
-	#ifdef SOKU_VER_110a
+	#ifndef SOKU_VER_110
 	template<typename T = void>
 	#endif
 	__forceinline float DegreeCosine(int deg)
 	{
+		//TODO: Find this for version 1.10a
 		return ((float (__cdecl *)(int deg))ADDR_DEGREE_COSINE)(deg);
 	}
 }
