@@ -31,8 +31,9 @@ namespace SokuLib
 		#endif
 		vtbl_CLogo                = ADDR_VTBL_LOGO,
 		vtbl_CBattle              = ADDR_VTBL_BATTLE,
-		vtbl_CBattleCL            = ADDR_VTBL_BATTLECL,
-		vtbl_CBattleSV            = ADDR_VTBL_BATTLESV,
+		vtbl_CBattleCL            = ADDR_VTBL_BATTLE_CL,
+		vtbl_CBattleSV            = ADDR_VTBL_BATTLE_SV,
+		vtbl_CBattleWatch         = ADDR_VTBL_BATTLE_WATCH,
 		vtbl_CSelectSV            = ADDR_VTBL_SELECT_SV,
 		vtbl_CSelectCL            = ADDR_VTBL_SELECT_CL,
 		vtbl_CBattleManager       = ADDR_VTBL_BATTLE_MANAGER,
