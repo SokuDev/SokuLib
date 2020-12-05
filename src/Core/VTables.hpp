@@ -30,6 +30,7 @@ namespace SokuLib
 		vtbl_CInfoManagerStory    = ADDR_VTBL_INFO_MANAGER_STORY,
 		#endif
 		vtbl_CLogo                = ADDR_VTBL_LOGO,
+		vtbl_CTitle               = ADDR_VTBL_TITLE,
 		vtbl_CBattle              = ADDR_VTBL_BATTLE,
 		vtbl_CBattleCL            = ADDR_VTBL_BATTLE_CL,
 		vtbl_CBattleSV            = ADDR_VTBL_BATTLE_SV,
