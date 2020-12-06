@@ -24,6 +24,7 @@
 #include "SceneCreaters.hpp"
 #include "SceneSize.hpp"
 #include "SelectManager.hpp"
+#include "Stack.hpp"
 #include "SokuAddresses.hpp"
 #include "SokuFct.hpp"
 #include "SoundManager.hpp"
@@ -32,5 +33,6 @@
 #include "UnknownStuff.hpp"
 #include "Vector.hpp"
 #include "VTables.hpp"
+#include "Weather.hpp"
 
 #endif //SOKULIB_CORE_HPP

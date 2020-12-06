@@ -6,25 +6,32 @@
 #define SWRSTOYS_CARDS_HPP
 
 
+#include "Stack.hpp"
+
 namespace SokuLib
 {
 	typedef unsigned int undefined4;
 
-	struct mDeckSubStructure { /* Possibly something from the visual studio runtime, vector? */
-		undefined4 UnknownObject; /* Created by retype action */
-		undefined4* UnknownPtr;
-		undefined4 mmAlwaysEight;
-		undefined4 UnknownCardCounter;
-		int CardsLeft;
+	struct Card {
+		unsigned short id;
+		unsigned short cost;
 	};
 
 	struct mDeckInfo2 {
 		char UNKNOWN[0x34];
-		struct mDeckSubStructure UnknownSubStructure;
+		mVC9Dequeue<short> deck;
+		char unknown[0x20];
+		unsigned short cardGauge;
+		unsigned char cardCount;
+		char unknown2[0x5];
+		Card **handCardBase;
+		int handCardMax;
+		int selectedCard; //The actual card is at handCardBase[selectedCard % handCardMax]
+		unsigned char cardCount2;
 	};
 
 	extern short (__thiscall * const getCard)(mDeckInfo2 *);
-	extern short *(__thiscall * const peekCard)(mDeckSubStructure *);
+	extern short *(__thiscall * const peekCard)(mVC9Dequeue<short> *);
 
 	struct mDeckData { /* Size unknown, function not completely known. */
 		undefined4 unknown1;
