@@ -6,6 +6,7 @@
 #define SOKULIB_CORE_HPP
 
 #include "BattleManager.hpp"
+#include "Cards.hpp"
 #include "Font.hpp"
 #include "HandleManager.hpp"
 #include "IEffectManager.hpp"

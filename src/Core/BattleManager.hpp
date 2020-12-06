@@ -6,6 +6,7 @@
 #define SOKULIB_BATTLEMANAGER_HPP
 
 
+#include "Cards.hpp"
 #include "SokuAddresses.hpp"
 #include "../Data/String.hpp"
 
@@ -14,6 +15,8 @@ namespace SokuLib
 	struct CharacterManager {
 		char unknown[0x573];
 		char score;
+		char UNKNOWN[8];
+		mDeckInfo2 mDeckInfo2Obj;
 	};
 
 	struct BattleManager {

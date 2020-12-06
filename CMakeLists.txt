@@ -60,7 +60,7 @@ add_library(
 	src/Core/SceneSize.cpp
 	src/Core/SoundManager.cpp
 	src/Core/TextureManager.cpp
-	src/Core/Weather.cpp src/Core/Weather.hpp)
+	src/Core/Weather.cpp src/Core/Weather.hpp src/Core/Cards.hpp src/Core/Cards.cpp)
 
 if (${CMAKE_BUILD_TYPE} STREQUAL Debug)
 	target_compile_definitions(
