@@ -11,7 +11,7 @@
 
 namespace SokuLib
 {
-	__declspec(naked) void **CHandleManager_Allocate(void *p, int *ret)
+	inline __declspec(naked) void **CHandleManager_Allocate(void *p, int *ret)
 	{
 		// thiscall�Ȃ̂ɗ�����Ǝv������edi���g���Ă����ł�����@�̊�
 		__asm push edi
@@ -23,7 +23,7 @@ namespace SokuLib
 		__asm retn
 	}
 
-	__declspec(naked) void CHandleManager_Deallocate(void *p, int id)
+	inline __declspec(naked) void CHandleManager_Deallocate(void *p, int id)
 	{
 		// thiscall(����)eax���g���Ă����ł�����@�̊�
 		__asm mov eax, [esp+4]
