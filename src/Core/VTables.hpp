@@ -10,13 +10,17 @@
 
 namespace SokuLib
 {
+	enum VTableScenesOffsets {
+		OFFSET_ON_PROCESS = 0x4,
+		OFFSET_ON_RENDER  = 0x8,
+	};
+
 	// ���z�֐��e�[�u��
 	enum VTable {
 		//TODO: Find this for version 1.10a
 		#ifdef SOKU_VER_110
 		vtbl_CLoadingSV           = ADDR_VTBL_LOADINGSV,
 		vtbl_CLoadingCL           = ADDR_VTBL_LOADINGCL,
-		vtbl_CLoading             = ADDR_VTBL_LOADING,
 		vtbl_Ending               = ADDR_VTBL_ENDING,
 		vtbl_Opening              = ADDR_VTBL_OPENING,
 		vtbl_CSelect              = ADDR_VTBL_SELECT,
@@ -34,8 +38,9 @@ namespace SokuLib
 		vtbl_CBattleWatch         = ADDR_VTBL_BATTLE_WATCH,
 		vtbl_CSelectSV            = ADDR_VTBL_SELECT_SV,
 		vtbl_CSelectCL            = ADDR_VTBL_SELECT_CL,
-		vtbl_CBattleManager       = ADDR_VTBL_BATTLE_MANAGER,
+		vtbl_CLoading             = ADDR_VTBL_LOADING,
 		vtbl_CLoadingWatch        = ADDR_VTBL_LOADING_WATCH,
+		vtbl_CBattleManager       = ADDR_VTBL_BATTLE_MANAGER,
 	};
 }
 

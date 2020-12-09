@@ -5,7 +5,8 @@
 #ifndef SOKULIB_STRING_HPP
 #define SOKULIB_STRING_HPP
 
-//From swrs.h (SWRSToys)
+
+#include <string>
 
 namespace SokuLib
 {
@@ -24,8 +25,10 @@ namespace SokuLib
 
 		operator char *();
 		operator const char *() const;
+		String &operator=(const std::string &str);
 	};
 	#pragma pack(pop)
 }
+
 
 #endif //SOKULIB_STRING_HPP

@@ -13,6 +13,6 @@ namespace SokuLib
 	}
 
 	void (__cdecl * const setBattleMode)(int comm, int sub) = reinterpret_cast<void (__cdecl *)(int, int)>(ADDR_SET_BATTLE_MODE);
-	const String &player1Profile = *reinterpret_cast<String *>(ADDR_PLAYER1_PROFILE_STR);
-	const String &player2Profile = *reinterpret_cast<String *>(ADDR_PLAYER2_PROFILE_STR);
+	String &player1Profile = *reinterpret_cast<String *>(ADDR_PLAYER1_PROFILE_STR);
+	String &player2Profile = *reinterpret_cast<String *>(ADDR_PLAYER2_PROFILE_STR);
 }
