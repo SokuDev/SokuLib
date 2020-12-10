@@ -18,15 +18,25 @@ namespace SokuLib
 	};
 
 	struct mDeckInfo2 {
+		// 0x57C (From character manager start)
 		char UNKNOWN[0x34];
+		// 0x5B0
 		mVC9Dequeue<short> deck;
+		// 0x5C4
 		char unknown[0x20];
+		// 0x5E4
 		unsigned short cardGauge;
+		// 0x5E6
 		unsigned char cardCount;
+		// 0x5E7
 		char unknown2[0x5];
+		// 0x5EC
 		Card **handCardBase;
+		// 0x5F0
 		int handCardMax;
+		// 0x5F4
 		int selectedCard; //The actual card is at handCardBase[selectedCard % handCardMax]
+		// 0x5F8
 		unsigned char cardCount2;
 	};
 
