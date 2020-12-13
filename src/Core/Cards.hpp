@@ -17,7 +17,7 @@ namespace SokuLib
 		unsigned short cost;
 	};
 
-	struct mDeckInfo2 {
+	struct deckInfo {
 		// 0x57C (From character manager start)
 		char UNKNOWN[0x34];
 		// 0x5B0
@@ -40,7 +40,7 @@ namespace SokuLib
 		unsigned char cardCount2;
 	};
 
-	extern short (__thiscall * const getCard)(mDeckInfo2 *);
+	extern short (__thiscall * const getCard)(deckInfo *);
 	extern short *(__thiscall * const peekCard)(mVC9Dequeue<short> *);
 
 	struct mDeckData { /* Size unknown, function not completely known. */

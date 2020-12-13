@@ -29,7 +29,7 @@ namespace SokuLib
 		// 0x574
 		char UNKNOWN[8];
 		// 0x57C
-		mDeckInfo2 mDeckInfo2Obj;
+		deckInfo deckInfos;
 		// 0x5FC
 		char unknown3[0xC8];
 		// 0x6C4
