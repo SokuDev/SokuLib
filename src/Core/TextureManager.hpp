@@ -50,6 +50,8 @@ namespace SokuLib
 
 	extern IDirect3DTexture9 &textureMgr;
 	extern IDirect3DDevice9 *(&pd3dDev);
+
+	extern HWND &window;
 }
 
 

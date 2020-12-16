@@ -36,4 +36,6 @@ namespace SokuLib
 	// Direct3D�f�o�C�X
 	// IDirect3DDevice9*
 	IDirect3DDevice9 *(&pd3dDev) = *reinterpret_cast<IDirect3DDevice9 **>(ADDR_D3D9_DEVICE);
+
+	HWND &window = *reinterpret_cast<HWND *>(ADDR_WINDOW_HWND);
 }
