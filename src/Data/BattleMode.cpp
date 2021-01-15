@@ -14,7 +14,7 @@ namespace SokuLib
 		//????                       VSCom                           ?????
 		{"2.0",                      "Playing against computer",      "2.2"},
 		//????                       VSPlayer                        Replay
-		{"3.0",                      "Playing multiplayer (Offline)", "Watchng a replay"},
+		{"3.0",                      "Playing multiplayer (Offline)", "Watching a replay"},
 		//????                       VSNetwork                       ?????
 		{"4.0",                      "Playing multiplayer (Online)",  "4.2"},
 		//????                       VSNetwork                       VSNetwork (Spectator)

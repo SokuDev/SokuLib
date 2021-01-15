@@ -55,6 +55,10 @@ namespace SokuLib
 
 	void clearMenu()
 	{
+#ifdef _SOKU_LIB_DEBUG
+		if (!isInNetworkMenu())
+			throw InvalidMenuException(getCurrentMenuName(), "Network menu");
+#endif
 		//TODO: Add the clearing of the message box.
 		//GetMsgBox()->active = false;
 		getMenuObj<MenuConnect>()->choice = 0;
@@ -82,5 +86,13 @@ namespace SokuLib
 	{
 		//TODO: Code this function
 		return "Unknown menu";
+	}
+
+	Menu getCurrentMenu()
+	{
+		//TODO: Code this function
+		if (isInNetworkMenu())
+			return MENU_CONNECT;
+		return MENU_NONE;
 	}
 }

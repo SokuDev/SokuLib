@@ -9,6 +9,17 @@ typedef unsigned uint;
 
 namespace SokuLib
 {
+	enum Menu {
+		MENU_NONE,
+		MENU_CONNECT,
+		MENU_REPLAY,
+		MENU_MUSICROOM,
+		MENU_RESULT,
+		MENU_PROFILE,
+		MENU_CONFIG,
+		MENU_COUNT
+	};
+
 	typedef void *(__thiscall *MenuInitFun)(void *buffer);
 
 	//! @brief Pointer to the original host soku function.
@@ -108,6 +119,8 @@ namespace SokuLib
 
 	//! @brief Returns the name of the currently active menu.
 	std::string getCurrentMenuName();
+
+	Menu getCurrentMenu();
 
 	//! @brief Returns whether the currently active menu is the network menu.
 	bool isInNetworkMenu();

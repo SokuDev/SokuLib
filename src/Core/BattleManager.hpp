@@ -53,8 +53,8 @@ namespace SokuLib
 
 	struct BattleManager {
 		char unknown[0xC];
-		CharacterManager *leftCharacterManager;
-		CharacterManager *rightCharacterManager;
+		CharacterManager &leftCharacterManager;
+		CharacterManager &rightCharacterManager;
 	};
 
 	//! @brief Changes the current battle mode
