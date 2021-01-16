@@ -79,6 +79,6 @@ namespace SokuLib
 
 	bool isInNetworkMenu()
 	{
-		return sceneId == SCENE_TITLE && menuManager.isInMenu && getMenuObj<MenuConnect>()->vftable;
+		return getCurrentMenu() == MENU_CONNECT;
 	}
 }
