@@ -1,6 +1,7 @@
 #pragma once
 #include "../SokuAddresses.hpp"
 #include "../Memory.hpp"
+#include "../Menus.hpp"
 #include <Windows.h>
 #include <cwchar>
 #include <string>
@@ -9,19 +10,6 @@ typedef unsigned uint;
 
 namespace SokuLib
 {
-	enum Menu {
-		MENU_NONE,
-		MENU_CONNECT,
-		MENU_REPLAY,
-		MENU_MUSICROOM,
-		MENU_RESULT,
-		MENU_PROFILE,
-		MENU_CONFIG,
-		MENU_COUNT
-	};
-
-	typedef void *(__thiscall *MenuInitFun)(void *buffer);
-
 	//! @brief Pointer to the original host soku function.
 	//! @param menu Pointer to the current menu object.
 	//! @warning: This function is unsafe if not in the network menu.
@@ -103,24 +91,9 @@ namespace SokuLib
 		};
 	} MenuConnect;
 
-	template<typename T>
-	//! @brief Gives the currently used menu object.
-	//! @tparam T The type of the expected object.
-	//! @warning Unsafe if not currently in a title screen submenu.
-	//! @return The current menu object.
-	T *getMenuObj()
-	{
-		return reinterpret_cast<T *>(menuManager.unknownPointer->unknownPointer->CMenuObj);
-	}
-
 	//! @brief Inits a new network menu to give to activateMenu.
 	//! @return The newly created menu.
 	void *initNetworkMenu();
-
-	//! @brief Returns the name of the currently active menu.
-	std::string getCurrentMenuName();
-
-	Menu getCurrentMenu();
 
 	//! @brief Returns whether the currently active menu is the network menu.
 	bool isInNetworkMenu();
