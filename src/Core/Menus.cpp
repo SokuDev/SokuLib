@@ -27,9 +27,14 @@ namespace SokuLib
 			return "Profile";
 		case MENU_CONFIG:
 			return "Config";
+		case MENU_DECK_CONSTRUCTION:
+			return "Deck construction";
+		case MENU_KEYS:
+			return "Keys";
 		case MENU_COUNT:
-			return "Invalid menu";
+			return "Unknown menu";
 		}
+		return "Invalid menu";
 	}
 
 	Menu getCurrentMenu()
@@ -53,6 +58,11 @@ namespace SokuLib
 			return MENU_RESULT;
 		case ADDR_VTBL_PROFILE_MENU:
 			return MENU_PROFILE;
+		case ADDR_VTBL_DECK_CONSTRUCTION_MENU:
+		case ADDR_VTBL_DECK_CONSTRUCTION_CHR_SELECT_MENU:
+			return MENU_DECK_CONSTRUCTION;
+		case ADDR_VTBL_CHANGE_KEYS_MENU:
+			return MENU_KEYS;
 		default:
 			return MENU_COUNT;
 		}
