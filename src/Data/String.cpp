@@ -2,6 +2,7 @@
 // Created by Gegel85 on 04/11/2020.
 //
 
+#include <algorithm>
 #include "String.hpp"
 #include "../Core/Memory.hpp"
 
