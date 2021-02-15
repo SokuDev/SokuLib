@@ -65,7 +65,7 @@ add_library(
 	src/Data/String.cpp
 	src/Data/String.hpp
 	src/SokuLib.hpp
-)
+	src/Core/CharacterManager.hpp)
 
 if (${CMAKE_BUILD_TYPE} STREQUAL Debug)
 	target_compile_definitions(
@@ -75,3 +75,10 @@ if (${CMAKE_BUILD_TYPE} STREQUAL Debug)
 endif()
 
 target_include_directories(SokuLib INTERFACE src/)
+
+add_executable(
+	SokuLibTests
+	test/main.cpp
+)
+
+target_link_libraries(SokuLibTests SokuLib)

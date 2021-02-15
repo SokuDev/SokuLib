@@ -42,19 +42,6 @@ namespace SokuLib
 
 	extern short (__thiscall * const getCard)(deckInfo *);
 	extern short *(__thiscall * const peekCard)(mVC9Dequeue<short> *);
-
-	struct mDeckData { /* Size unknown, function not completely known. */
-		undefined4 unknown1;
-		undefined4 *cardInHandSprites;
-		unsigned int mmMax;
-		int selectedCard;
-		int cardInHandCount;
-		undefined4 field_0x14;
-		undefined4 *field_0x18;
-		int mmMax2;
-		int mmSomeSortOfCount;
-		int totalCardsUsed;
-	};
 }
 
 
