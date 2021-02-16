@@ -7,6 +7,7 @@
 
 
 #include "Cards.hpp"
+#include "LinkedList.hpp"
 
 #pragma pack(push,1)
 namespace SokuLib
@@ -241,8 +242,7 @@ namespace SokuLib
 		unsigned short limit;
 	};
 
-	//CHARACTERMGR
-	struct CharacterManager {
+	struct ObjectManager {
 		// 0x000
 		char offset_0x000[0xEC];
 
@@ -319,6 +319,18 @@ namespace SokuLib
 
 		//  ADDR_HITAREAFLAGOFS     Box *[5]         (20) 0x334
 		Box *hurtBoxesRotation[5];
+	};
+
+	struct ObjListManager {
+		char offset_0x00[0x58];
+		//  ADDR_OBJPROJOFS = 0x58
+		LinkedList<ObjectManager> &list;
+	};
+
+	//CHARACTERMGR
+	struct CharacterManager {
+		// 0x000
+		ObjectManager objectBase;
 
 		// 0x348
 		char offset_0x348[0x153];
@@ -407,7 +419,13 @@ namespace SokuLib
 		Skill skillMap[16];
 
 		// 0x6D4
-		char offset_0x6D4[0x7C];
+		char offset_0x6D4[0x24];
+
+		//  ADDR_OBJLISTMGR = 0x6F8
+		ObjListManager &objects;
+
+		// 0x6FC
+		char offset_0x6FC[0x54];
 
 		//  ADDR_KEYMGROFS          KeyManager &      (4) 0x750
 		KeymapManager &keymapManager;

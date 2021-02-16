@@ -10,60 +10,60 @@ int main()
 {
 	SokuLib::CharacterManager *manager;
 
-	my_assert((unsigned)&manager->offset_0x000 - (unsigned)manager, 0x000);
-	my_assert((unsigned)&manager->position.x   - (unsigned)manager, 0x0EC);
-	my_assert((unsigned)&manager->position.y   - (unsigned)manager, 0x0F0);
-	my_assert((unsigned)&manager->speed.x      - (unsigned)manager, 0x0F4);
-	my_assert((unsigned)&manager->speed.y      - (unsigned)manager, 0x0F8);
+	my_assert((unsigned)&manager->objectBase.offset_0x000 - (unsigned)manager, 0x000);
+	my_assert((unsigned)&manager->objectBase.position.x   - (unsigned)manager, 0x0EC);
+	my_assert((unsigned)&manager->objectBase.position.y   - (unsigned)manager, 0x0F0);
+	my_assert((unsigned)&manager->objectBase.speed.x      - (unsigned)manager, 0x0F4);
+	my_assert((unsigned)&manager->objectBase.speed.y      - (unsigned)manager, 0x0F8);
 
-	my_assert((unsigned)&manager->offset_0x0FC - (unsigned)manager, 0x0FC);
-	my_assert((unsigned)&manager->direction    - (unsigned)manager, 0x104);
+	my_assert((unsigned)&manager->objectBase.offset_0x0FC - (unsigned)manager, 0x0FC);
+	my_assert((unsigned)&manager->objectBase.direction    - (unsigned)manager, 0x104);
 
-	my_assert((unsigned)&manager->offset_0x105 - (unsigned)manager, 0x105);
-	my_assert((unsigned)&manager->action       - (unsigned)manager, 0x13C);
-	my_assert((unsigned)&manager->actionBlockId- (unsigned)manager, 0x13E);
+	my_assert((unsigned)&manager->objectBase.offset_0x105 - (unsigned)manager, 0x105);
+	my_assert((unsigned)&manager->objectBase.action       - (unsigned)manager, 0x13C);
+	my_assert((unsigned)&manager->objectBase.actionBlockId- (unsigned)manager, 0x13E);
 
-	my_assert((unsigned)&manager->offset_0x140 - (unsigned)manager, 0x140);
-	my_assert((unsigned)&manager->frameCount   - (unsigned)manager, 0x144);
+	my_assert((unsigned)&manager->objectBase.offset_0x140 - (unsigned)manager, 0x140);
+	my_assert((unsigned)&manager->objectBase.frameCount   - (unsigned)manager, 0x144);
 
-	my_assert((unsigned)&manager->offset_0x148 - (unsigned)manager, 0x148);
-	my_assert((unsigned)&manager->offset_0x154 - (unsigned)manager, 0x154);
-	my_assert((unsigned)&manager->hp           - (unsigned)manager, 0x184);
+	my_assert((unsigned)&manager->objectBase.offset_0x148 - (unsigned)manager, 0x148);
+	my_assert((unsigned)&manager->objectBase.offset_0x154 - (unsigned)manager, 0x154);
+	my_assert((unsigned)&manager->objectBase.hp           - (unsigned)manager, 0x184);
 
-	my_assert((unsigned)&manager->offset_0x186 - (unsigned)manager, 0x186);
-	my_assert((unsigned)&manager->hitstop      - (unsigned)manager, 0x196);
+	my_assert((unsigned)&manager->objectBase.offset_0x186 - (unsigned)manager, 0x186);
+	my_assert((unsigned)&manager->objectBase.hitstop      - (unsigned)manager, 0x196);
 
-	my_assert((unsigned)&manager->offset_0x198 - (unsigned)manager, 0x198);
-	my_assert((unsigned)&manager->hitBoxCount  - (unsigned)manager, 0x1CB);
-	my_assert((unsigned)&manager->hurtBoxCount - (unsigned)manager, 0x1CC);
+	my_assert((unsigned)&manager->objectBase.offset_0x198 - (unsigned)manager, 0x198);
+	my_assert((unsigned)&manager->objectBase.hitBoxCount  - (unsigned)manager, 0x1CB);
+	my_assert((unsigned)&manager->objectBase.hurtBoxCount - (unsigned)manager, 0x1CC);
 
-	my_assert((unsigned)&manager->offset_0x1CD - (unsigned)manager, 0x1CD);
-	my_assert((unsigned)&manager->hurtBoxes    - (unsigned)manager, 0x1D0);
-	my_assert((unsigned)&manager->hurtBoxes[0] - (unsigned)manager, 0x1D0);
-	my_assert((unsigned)&manager->hurtBoxes[1] - (unsigned)manager, 0x1E0);
-	my_assert((unsigned)&manager->hurtBoxes[2] - (unsigned)manager, 0x1F0);
-	my_assert((unsigned)&manager->hurtBoxes[3] - (unsigned)manager, 0x200);
-	my_assert((unsigned)&manager->hurtBoxes[4] - (unsigned)manager, 0x210);
-	my_assert((unsigned)&manager->hitBoxes     - (unsigned)manager, 0x220);
-	my_assert((unsigned)&manager->hitBoxes[0]  - (unsigned)manager, 0x220);
-	my_assert((unsigned)&manager->hitBoxes[1]  - (unsigned)manager, 0x230);
-	my_assert((unsigned)&manager->hitBoxes[2]  - (unsigned)manager, 0x240);
-	my_assert((unsigned)&manager->hitBoxes[3]  - (unsigned)manager, 0x250);
-	my_assert((unsigned)&manager->hitBoxes[4]  - (unsigned)manager, 0x260);
+	my_assert((unsigned)&manager->objectBase.offset_0x1CD - (unsigned)manager, 0x1CD);
+	my_assert((unsigned)&manager->objectBase.hurtBoxes    - (unsigned)manager, 0x1D0);
+	my_assert((unsigned)&manager->objectBase.hurtBoxes[0] - (unsigned)manager, 0x1D0);
+	my_assert((unsigned)&manager->objectBase.hurtBoxes[1] - (unsigned)manager, 0x1E0);
+	my_assert((unsigned)&manager->objectBase.hurtBoxes[2] - (unsigned)manager, 0x1F0);
+	my_assert((unsigned)&manager->objectBase.hurtBoxes[3] - (unsigned)manager, 0x200);
+	my_assert((unsigned)&manager->objectBase.hurtBoxes[4] - (unsigned)manager, 0x210);
+	my_assert((unsigned)&manager->objectBase.hitBoxes     - (unsigned)manager, 0x220);
+	my_assert((unsigned)&manager->objectBase.hitBoxes[0]  - (unsigned)manager, 0x220);
+	my_assert((unsigned)&manager->objectBase.hitBoxes[1]  - (unsigned)manager, 0x230);
+	my_assert((unsigned)&manager->objectBase.hitBoxes[2]  - (unsigned)manager, 0x240);
+	my_assert((unsigned)&manager->objectBase.hitBoxes[3]  - (unsigned)manager, 0x250);
+	my_assert((unsigned)&manager->objectBase.hitBoxes[4]  - (unsigned)manager, 0x260);
 
-	my_assert((unsigned)&manager->offset_0x270        - (unsigned)manager, 0x270);
-	my_assert((unsigned)&manager->hitBoxesRotation    - (unsigned)manager, 0x320);
-	my_assert((unsigned)&manager->hitBoxesRotation[0] - (unsigned)manager, 0x320);
-	my_assert((unsigned)&manager->hitBoxesRotation[1] - (unsigned)manager, 0x324);
-	my_assert((unsigned)&manager->hitBoxesRotation[2] - (unsigned)manager, 0x328);
-	my_assert((unsigned)&manager->hitBoxesRotation[3] - (unsigned)manager, 0x32C);
-	my_assert((unsigned)&manager->hitBoxesRotation[4] - (unsigned)manager, 0x330);
-	my_assert((unsigned)&manager->hurtBoxesRotation   - (unsigned)manager, 0x334);
-	my_assert((unsigned)&manager->hurtBoxesRotation[0]- (unsigned)manager, 0x334);
-	my_assert((unsigned)&manager->hurtBoxesRotation[1]- (unsigned)manager, 0x338);
-	my_assert((unsigned)&manager->hurtBoxesRotation[2]- (unsigned)manager, 0x33C);
-	my_assert((unsigned)&manager->hurtBoxesRotation[3]- (unsigned)manager, 0x340);
-	my_assert((unsigned)&manager->hurtBoxesRotation[4]- (unsigned)manager, 0x344);
+	my_assert((unsigned)&manager->objectBase.offset_0x270        - (unsigned)manager, 0x270);
+	my_assert((unsigned)&manager->objectBase.hitBoxesRotation    - (unsigned)manager, 0x320);
+	my_assert((unsigned)&manager->objectBase.hitBoxesRotation[0] - (unsigned)manager, 0x320);
+	my_assert((unsigned)&manager->objectBase.hitBoxesRotation[1] - (unsigned)manager, 0x324);
+	my_assert((unsigned)&manager->objectBase.hitBoxesRotation[2] - (unsigned)manager, 0x328);
+	my_assert((unsigned)&manager->objectBase.hitBoxesRotation[3] - (unsigned)manager, 0x32C);
+	my_assert((unsigned)&manager->objectBase.hitBoxesRotation[4] - (unsigned)manager, 0x330);
+	my_assert((unsigned)&manager->objectBase.hurtBoxesRotation   - (unsigned)manager, 0x334);
+	my_assert((unsigned)&manager->objectBase.hurtBoxesRotation[0]- (unsigned)manager, 0x334);
+	my_assert((unsigned)&manager->objectBase.hurtBoxesRotation[1]- (unsigned)manager, 0x338);
+	my_assert((unsigned)&manager->objectBase.hurtBoxesRotation[2]- (unsigned)manager, 0x33C);
+	my_assert((unsigned)&manager->objectBase.hurtBoxesRotation[3]- (unsigned)manager, 0x340);
+	my_assert((unsigned)&manager->objectBase.hurtBoxesRotation[4]- (unsigned)manager, 0x344);
 
 	my_assert((unsigned)&manager->offset_0x348 - (unsigned)manager, 0x348);
 	my_assert((unsigned)&manager->airdashCount - (unsigned)manager, 0x49B);
@@ -132,6 +132,7 @@ int main()
 	my_assert((unsigned)&manager->skillMap[15] - (unsigned)manager, 0x6D3);
 
 	my_assert((unsigned)&manager->offset_0x6D4 - (unsigned)manager, 0x6D4);
+	my_assert((unsigned)&manager->offset_0x6FC - (unsigned)manager, 0x6FC);
 	my_assert((unsigned)&manager->offset_0x754 - (unsigned)manager, 0x754);
 	my_assert((unsigned)&manager->tenguFans    - (unsigned)manager, 0x834);
 

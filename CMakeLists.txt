@@ -65,7 +65,7 @@ add_library(
 	src/Data/String.cpp
 	src/Data/String.hpp
 	src/SokuLib.hpp
-	src/Core/CharacterManager.hpp)
+	src/Core/CharacterManager.hpp src/Core/LinkedList.hpp)
 
 if (${CMAKE_BUILD_TYPE} STREQUAL Debug)
 	target_compile_definitions(
