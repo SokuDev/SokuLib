@@ -33,9 +33,9 @@ namespace SokuLib
 
 	// ���[�h
 	// int
-	extern const int &menuMode;
-	extern const BattleMode &mainMode;
-	extern const BattleSubMode &subMode;
+	extern int &menuMode;
+	extern BattleMode &mainMode;
+	extern BattleSubMode &subMode;
 	extern std::vector<std::array<std::string, 3>> modeNames;
 }
 

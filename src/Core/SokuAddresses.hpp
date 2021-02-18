@@ -72,6 +72,7 @@ namespace SokuLib
 		ADDR_VTBL_BATTLE_WATCH                      = 0x0085758C,
 		ADDR_VTBL_LOADING                           = 0x0085766c,
 		ADDR_VTBL_LOGO                              = 0x00857740,
+		ADDR_VTBL_SELECT                            = 0x00857D2C,
 		ADDR_VTBL_TITLE                             = 0x00857FAC,
 		ADDR_VTBL_LOADING_WATCH                     = 0x00858180,
 		ADDR_DEFAULT_FONT_NAME                      = 0x00858764,

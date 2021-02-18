@@ -269,8 +269,11 @@ namespace SokuLib
 		//  ADDR_ACTIONBLOCKIDOFS   unsigned short    (2) 0x13E
 		unsigned short actionBlockId;
 
-		// 0x140
-		char offset_0x140[0x4];
+		//  unsigned short    (2) 0x140
+		unsigned short animationCounter;
+
+		//  unsigned short    (2) 0x142
+		unsigned short animationSubFrame;
 
 		//  ADDR_FRAMECOUNTOFS      unsigned int      (4) 0x144
 		unsigned int frameCount;
@@ -350,7 +353,10 @@ namespace SokuLib
 		unsigned short spiritRegenDelay;
 
 		// 0x4A4
-		char offset_0x4A4[0x4];
+		unsigned short timeWithBrokenOrb;
+
+		// 0x4A6
+		char offset_0x4A6[0x2];
 
 		//  ADDR_TIMESTOPOFS        short             (2) 0x4A8
 		unsigned short timeStop;

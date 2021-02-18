@@ -8,7 +8,7 @@
 
 int main()
 {
-	SokuLib::CharacterManager *manager;
+	SokuLib::CharacterManager *manager = (SokuLib::CharacterManager *)&manager;
 
 	my_assert((unsigned)&manager->objectBase.offset_0x000 - (unsigned)manager, 0x000);
 	my_assert((unsigned)&manager->objectBase.position.x   - (unsigned)manager, 0x0EC);
@@ -19,12 +19,12 @@ int main()
 	my_assert((unsigned)&manager->objectBase.offset_0x0FC - (unsigned)manager, 0x0FC);
 	my_assert((unsigned)&manager->objectBase.direction    - (unsigned)manager, 0x104);
 
-	my_assert((unsigned)&manager->objectBase.offset_0x105 - (unsigned)manager, 0x105);
-	my_assert((unsigned)&manager->objectBase.action       - (unsigned)manager, 0x13C);
-	my_assert((unsigned)&manager->objectBase.actionBlockId- (unsigned)manager, 0x13E);
-
-	my_assert((unsigned)&manager->objectBase.offset_0x140 - (unsigned)manager, 0x140);
-	my_assert((unsigned)&manager->objectBase.frameCount   - (unsigned)manager, 0x144);
+	my_assert((unsigned)&manager->objectBase.offset_0x105     - (unsigned)manager, 0x105);
+	my_assert((unsigned)&manager->objectBase.action           - (unsigned)manager, 0x13C);
+	my_assert((unsigned)&manager->objectBase.actionBlockId    - (unsigned)manager, 0x13E);
+	my_assert((unsigned)&manager->objectBase.animationCounter - (unsigned)manager, 0x140);
+	my_assert((unsigned)&manager->objectBase.animationSubFrame- (unsigned)manager, 0x142);
+	my_assert((unsigned)&manager->objectBase.frameCount       - (unsigned)manager, 0x144);
 
 	my_assert((unsigned)&manager->objectBase.offset_0x148 - (unsigned)manager, 0x148);
 	my_assert((unsigned)&manager->objectBase.offset_0x154 - (unsigned)manager, 0x154);
@@ -68,12 +68,13 @@ int main()
 	my_assert((unsigned)&manager->offset_0x348 - (unsigned)manager, 0x348);
 	my_assert((unsigned)&manager->airdashCount - (unsigned)manager, 0x49B);
 
-	my_assert((unsigned)&manager->offset_0x49C    - (unsigned)manager, 0x49C);
-	my_assert((unsigned)&manager->currentSpirit   - (unsigned)manager, 0x49E);
-	my_assert((unsigned)&manager->maxSpirit       - (unsigned)manager, 0x4A0);
-	my_assert((unsigned)&manager->spiritRegenDelay- (unsigned)manager, 0x4A2);
+	my_assert((unsigned)&manager->offset_0x49C     - (unsigned)manager, 0x49C);
+	my_assert((unsigned)&manager->currentSpirit    - (unsigned)manager, 0x49E);
+	my_assert((unsigned)&manager->maxSpirit        - (unsigned)manager, 0x4A0);
+	my_assert((unsigned)&manager->spiritRegenDelay - (unsigned)manager, 0x4A2);
+	my_assert((unsigned)&manager->timeWithBrokenOrb- (unsigned)manager, 0x4A4);
 
-	my_assert((unsigned)&manager->offset_0x4A4 - (unsigned)manager, 0x4A4);
+	my_assert((unsigned)&manager->offset_0x4A6 - (unsigned)manager, 0x4A6);
 	my_assert((unsigned)&manager->timeStop     - (unsigned)manager, 0x4A8);
 
 	my_assert((unsigned)&manager->offset_0x4AA - (unsigned)manager, 0x4AA);
