@@ -4,7 +4,7 @@ project(SokuLib)
 set(CMAKE_CXX_STANDARD 14)
 
 add_library(
-	SokuLib
+	SokuLib STATIC
 	src/Core/BattleManager.cpp
 	src/Core/BattleManager.hpp
 	src/Core/Cards.cpp
@@ -67,7 +67,7 @@ add_library(
 	src/SokuLib.hpp
 )
 
-if (${CMAKE_BUILD_TYPE} STREQUAL Debug)
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	target_compile_definitions(
 		SokuLib PRIVATE
 		_SOKU_LIB_DEBUG=1
