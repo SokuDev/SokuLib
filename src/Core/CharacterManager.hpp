@@ -536,6 +536,9 @@ namespace SokuLib
 
 		// 0x926
 		char offset_0x926[0];
+
+		bool generateCard(unsigned short id, Card &buffer);
+		Card *addCard(unsigned short id);
 	};
 }
 #pragma pack(pop)
