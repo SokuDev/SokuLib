@@ -217,7 +217,9 @@ namespace SokuLib
 
 	//KEYMAPMGR
 	struct KeymapManager {
-		char unknown[0x38];
+		char unknown[0x4];
+		char isPlayer;
+		char unknown2[0x33];
 		//  ADDR_KEYMAPOFS          int[8] (32) 0x38
 		int horizontalAxis;
 		int verticalAxis;
@@ -232,7 +234,7 @@ namespace SokuLib
 	//KEYMGR
 	struct KeyManager {
 		//  ADDR_KEYMAPMGR          KeymapManager & (4) 0x00
-		KeymapManager &keymapManager;
+		KeymapManager *keymapManager;
 	};
 
 	struct Combo {
@@ -434,7 +436,7 @@ namespace SokuLib
 		char offset_0x6FC[0x54];
 
 		//  ADDR_KEYMGROFS          KeyManager &      (4) 0x750
-		KeyManager &keyManager;
+		KeyManager *keyManager;
 
 		// 0x754
 		char offset_0x754[0xE0];
