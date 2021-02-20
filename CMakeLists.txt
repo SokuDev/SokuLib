@@ -67,7 +67,7 @@ add_library(
 	src/SokuLib.hpp
 	src/Core/CharacterManager.hpp src/Core/LinkedList.hpp src/Data/DatFiles.cpp src/Data/DatFiles.hpp src/Core/CharacterManager.cpp)
 
-if (${CMAKE_BUILD_TYPE} STREQUAL Debug)
+if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	target_compile_definitions(
 		SokuLib PRIVATE
 		_SOKU_LIB_DEBUG=1
