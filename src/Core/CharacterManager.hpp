@@ -230,7 +230,7 @@ namespace SokuLib
 	};
 
 	//KEYMGR
-	struct KeyMgr {
+	struct KeyManager {
 		//  ADDR_KEYMAPMGR          KeymapManager & (4) 0x00
 		KeymapManager &keymapManager;
 	};
@@ -434,7 +434,7 @@ namespace SokuLib
 		char offset_0x6FC[0x54];
 
 		//  ADDR_KEYMGROFS          KeyManager &      (4) 0x750
-		KeymapManager &keymapManager;
+		KeyManager &keyManager;
 
 		// 0x754
 		char offset_0x754[0xE0];
