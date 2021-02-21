@@ -104,14 +104,14 @@ int main()
 	my_assert((unsigned)&manager->offset_0x562 - (unsigned)manager, 0x562);
 	my_assert((unsigned)&manager->score        - (unsigned)manager, 0x573);
 
-	my_assert((unsigned)&manager->offset_0x574          - (unsigned)manager, 0x574);
-	my_assert((unsigned)&manager->deckInfos             - (unsigned)manager, 0x57C);
-	my_assert((unsigned)&manager->deckInfos.cardGauge   - (unsigned)manager, 0x5E4);
-	my_assert((unsigned)&manager->deckInfos.cardCount   - (unsigned)manager, 0x5E6);
-	my_assert((unsigned)&manager->deckInfos.handCardBase- (unsigned)manager, 0x5EC);
-	my_assert((unsigned)&manager->deckInfos.handCardMax - (unsigned)manager, 0x5F0);
-	my_assert((unsigned)&manager->deckInfos.selectedCard- (unsigned)manager, 0x5F4);
-	my_assert((unsigned)&manager->deckInfos.cardCount2  - (unsigned)manager, 0x5F8);
+	my_assert((unsigned)&manager->offset_0x574               - (unsigned)manager, 0x574);
+	my_assert((unsigned)&manager->deckInfos                  - (unsigned)manager, 0x57C);
+	my_assert((unsigned)&manager->deckInfos.cardGauge        - (unsigned)manager, 0x5E4);
+	my_assert((unsigned)&manager->deckInfos.cardCount        - (unsigned)manager, 0x5E6);
+	my_assert((unsigned)&manager->deckInfos.hand.handCardBase- (unsigned)manager, 0x5EC);
+	my_assert((unsigned)&manager->deckInfos.hand.handCardMax - (unsigned)manager, 0x5F0);
+	my_assert((unsigned)&manager->deckInfos.hand.selectedCard- (unsigned)manager, 0x5F4);
+	my_assert((unsigned)&manager->deckInfos.hand.size        - (unsigned)manager, 0x5F8);
 
 	my_assert((unsigned)&manager->offset_0x5FC - (unsigned)manager, 0x5FC);
 	my_assert((unsigned)&manager->skillMap     - (unsigned)manager, 0x6C4);
@@ -132,10 +132,19 @@ int main()
 	my_assert((unsigned)&manager->skillMap[14] - (unsigned)manager, 0x6D2);
 	my_assert((unsigned)&manager->skillMap[15] - (unsigned)manager, 0x6D3);
 
-	my_assert((unsigned)&manager->offset_0x6D4 - (unsigned)manager, 0x6D4);
-	my_assert((unsigned)&manager->offset_0x6FC - (unsigned)manager, 0x6FC);
-	my_assert((unsigned)&manager->offset_0x754 - (unsigned)manager, 0x754);
-	my_assert((unsigned)&manager->tenguFans    - (unsigned)manager, 0x834);
+	my_assert((unsigned)&manager->offset_0x6D4         - (unsigned)manager, 0x6D4);
+	my_assert((unsigned)&manager->offset_0x6FC         - (unsigned)manager, 0x6FC);
+	my_assert((unsigned)&manager->keyMap               - (unsigned)manager, 0x754);
+	my_assert((unsigned)&manager->keyMap.horizontalAxis- (unsigned)manager, 0x754);
+	my_assert((unsigned)&manager->keyMap.verticalAxis  - (unsigned)manager, 0x758);
+	my_assert((unsigned)&manager->keyMap.a             - (unsigned)manager, 0x75C);
+	my_assert((unsigned)&manager->keyMap.b             - (unsigned)manager, 0x760);
+	my_assert((unsigned)&manager->keyMap.c             - (unsigned)manager, 0x764);
+	my_assert((unsigned)&manager->keyMap.d             - (unsigned)manager, 0x768);
+	my_assert((unsigned)&manager->keyMap.changeCard    - (unsigned)manager, 0x76C);
+	my_assert((unsigned)&manager->keyMap.spellcard     - (unsigned)manager, 0x770);
+	my_assert((unsigned)&manager->offset_0x774         - (unsigned)manager, 0x774);
+	my_assert((unsigned)&manager->tenguFans            - (unsigned)manager, 0x834);
 
 	my_assert((unsigned)&manager->offset_0x836    - (unsigned)manager, 0x836);
 	my_assert((unsigned)&manager->sacrificialDolls- (unsigned)manager, 0x840);

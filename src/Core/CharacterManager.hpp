@@ -215,12 +215,7 @@ namespace SokuLib
 		unsigned int attackFlag;
 	};
 
-	//KEYMAPMGR
-	struct KeymapManager {
-		char unknown[0x4];
-		char isPlayer;
-		char unknown2[0x33];
-		//  ADDR_KEYMAPOFS          int[8] (32) 0x38
+	struct KeyInput {
 		int horizontalAxis;
 		int verticalAxis;
 		int a;
@@ -229,6 +224,15 @@ namespace SokuLib
 		int d;
 		int changeCard;
 		int spellcard;
+	};
+
+	//KEYMAPMGR
+	struct KeymapManager {
+		char unknown[0x4];
+		char isPlayer;
+		char unknown2[0x33];
+		//  ADDR_KEYMAPOFS          int[8] (32) 0x38
+		KeyInput input;
 	};
 
 	//KEYMGR
@@ -439,7 +443,10 @@ namespace SokuLib
 		KeyManager *keyManager;
 
 		// 0x754
-		char offset_0x754[0xE0];
+		KeyInput keyMap;
+
+		// 0x774
+		char offset_0x774[0xC0];
 
 		// 0x834
 		unsigned short tenguFans;
