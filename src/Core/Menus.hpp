@@ -25,8 +25,6 @@ namespace SokuLib
 
 	extern void (* const activateMenu)(void *addr);
 
-	typedef void *(__thiscall *MenuInitFun)(void *buffer);
-
 	template<typename T>
 	//! @brief Gives the currently used menu object.
 	//! @tparam T The type of the expected object.

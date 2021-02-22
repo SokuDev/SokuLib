@@ -6,16 +6,14 @@
 #include "../../Data/Scenes.hpp"
 #include "ConnectMenu.hpp"
 #include "../Exceptions.hpp"
+#include "../SokuFct.hpp"
 
 
 namespace SokuLib
 {
-	void (__thiscall * const host)(void *) = (void (__thiscall *const)(void *))ADDR_HOST_FCT;
-	void (__thiscall * const join)(void *) = (void (__thiscall *const)(void *))ADDR_JOIN_FCT;
 	UnknownStruct1 &menuManager = *reinterpret_cast<UnknownStruct1 *>(ADDR_UNKNOWN_VAR_MENU);
-	const MenuInitFun networkMenuInit = (MenuInitFun)ADDR_NETWORK_MENU_INIT;
 
-	void setupHost(uint port, bool spectate)
+	void MenuConnect::setupHost(uint port, bool spectate)
 	{
 #ifdef _SOKU_LIB_DEBUG
 		if (!isInNetworkMenu())
@@ -29,10 +27,10 @@ namespace SokuLib
 		menu->choice = MenuConnect::CHOICE_HOST;
 		menu->subchoice = 2;
 
-		host(menu);
+		menu->host();
 	}
 
-	void joinHost(const char *ip, uint port, bool spectate)
+	void MenuConnect::joinHost(const char *ip, uint port, bool spectate)
 	{
 #ifdef _SOKU_LIB_DEBUG
 		if (!isInNetworkMenu())
@@ -50,10 +48,10 @@ namespace SokuLib
 		menu->unknownJoinFlag = 1;
 		menu->notSpectateFlag = (byte)!spectate;
 
-		join(menu);
+		menu->join();
 	}
 
-	void clearMenu()
+	void MenuConnect::clear()
 	{
 #ifdef _SOKU_LIB_DEBUG
 		if (!isInNetworkMenu())
@@ -61,24 +59,42 @@ namespace SokuLib
 #endif
 		//TODO: Add the clearing of the message box.
 		//GetMsgBox()->active = false;
-		getMenuObj<MenuConnect>()->choice = 0;
-		getMenuObj<MenuConnect>()->subchoice = 0;
+		this->choice = 0;
+		this->subchoice = 0;
 	}
 
-	void *initNetworkMenu()
+	MenuConnect *MenuConnect::create()
 	{
-		return networkMenuInit(New(networkMenuBufferSize));
+		auto result = New<MenuConnect>(networkMenuBufferSize);
+
+		result->init();
+		return result;
 	}
 
-	void moveToConnectMenu()
+	void MenuConnect::moveToConnectMenu()
 	{
 		changeScene(SCENE_TITLE);
 		waitForSceneChange();
-		activateMenu(initNetworkMenu());
+		activateMenu(create());
 	}
 
-	bool isInNetworkMenu()
+	bool MenuConnect::isInNetworkMenu()
 	{
 		return getCurrentMenu() == MENU_CONNECT;
+	}
+
+	void MenuConnect::host()
+	{
+		(this->*union_cast<void (__thiscall MenuConnect::*)()>(ADDR_HOST_FCT))();
+	}
+
+	void MenuConnect::join()
+	{
+		(this->*union_cast<void (__thiscall MenuConnect::*)()>(ADDR_JOIN_FCT))();
+	}
+
+	void MenuConnect::init()
+	{
+		(this->*union_cast<void (__thiscall MenuConnect::*)()>(ADDR_NETWORK_MENU_INIT))();
 	}
 }
