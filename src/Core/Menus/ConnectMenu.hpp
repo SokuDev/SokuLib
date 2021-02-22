@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../SokuAddresses.hpp"
 #include "../Memory.hpp"
 #include "../Menus.hpp"
@@ -102,17 +103,17 @@ namespace SokuLib
 
 		//! @brief Moves to the connect menu.
 		//! @note Might cause some instability if the title screen hasn't been fully loaded (TLDR, unsafe if the title screen buttons has still never been displayed)
-		static void moveToConnectMenu();
+		static MenuConnect &moveToConnectMenu();
 
 		//! @brief Starts hosting.
 		//! @param port The port you which to host on.
 		//! @param spectate Whether spectators are allowed or not.
-		static void setupHost(uint port, bool spectate);
+		void setupHost(uint port, bool spectate);
 
 		//! @brief Starts connecting to an host.
 		//! @param ip The ip of the host.
 		//! @param port The port of the host.
 		//! @param spectate Connect as spectator or not.
-		static void joinHost(const char *ip, uint port, bool spectate = false);
+		void joinHost(const char *ip, uint port, bool spectate = false);
 	};
 }

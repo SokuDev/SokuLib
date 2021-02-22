@@ -2,11 +2,10 @@
 // Created by Gegel85 on 05/11/2020.
 //
 
-#include "../Menus.hpp"
-#include "../../Data/Scenes.hpp"
 #include "ConnectMenu.hpp"
 #include "../Exceptions.hpp"
 #include "../SokuFct.hpp"
+#include "../../Data/Scenes.hpp"
 
 
 namespace SokuLib
@@ -15,48 +14,29 @@ namespace SokuLib
 
 	void MenuConnect::setupHost(uint port, bool spectate)
 	{
-#ifdef _SOKU_LIB_DEBUG
-		if (!isInNetworkMenu())
-			throw InvalidMenuException(getCurrentMenuName(), "Network menu");
-#endif
-
-		auto menu = getMenuObj<MenuConnect>();
-
-		menu->port = port;
-		menu->spectate = spectate;
-		menu->choice = MenuConnect::CHOICE_HOST;
-		menu->subchoice = 2;
-
-		menu->host();
+		this->port = port;
+		this->spectate = spectate;
+		this->choice = MenuConnect::CHOICE_HOST;
+		this->subchoice = 2;
+		this->host();
 	}
 
 	void MenuConnect::joinHost(const char *ip, uint port, bool spectate)
 	{
-#ifdef _SOKU_LIB_DEBUG
-		if (!isInNetworkMenu())
-			throw InvalidMenuException(getCurrentMenuName(), "Network menu");
-#endif
-		auto menu = getMenuObj<MenuConnect>();
-
 		if (ip != nullptr) {
 			//Unsafe
-			strcpy(menu->IPString, ip);
-			menu->port = port;
+			strcpy(this->IPString, ip);
+			this->port = port;
 		}
-		menu->choice = MenuConnect::CHOICE_ASSIGN_IP_CONNECT;
-		menu->subchoice = (spectate ? 6 : 3);
-		menu->unknownJoinFlag = 1;
-		menu->notSpectateFlag = (byte)!spectate;
-
-		menu->join();
+		this->choice = MenuConnect::CHOICE_ASSIGN_IP_CONNECT;
+		this->subchoice = (spectate ? 6 : 3);
+		this->unknownJoinFlag = 1;
+		this->notSpectateFlag = (byte)!spectate;
+		this->join();
 	}
 
 	void MenuConnect::clear()
 	{
-#ifdef _SOKU_LIB_DEBUG
-		if (!isInNetworkMenu())
-			throw InvalidMenuException(getCurrentMenuName(), "Network menu");
-#endif
 		//TODO: Add the clearing of the message box.
 		//GetMsgBox()->active = false;
 		this->choice = 0;
@@ -71,11 +51,15 @@ namespace SokuLib
 		return result;
 	}
 
-	void MenuConnect::moveToConnectMenu()
+	MenuConnect &MenuConnect::moveToConnectMenu()
 	{
 		changeScene(SCENE_TITLE);
 		waitForSceneChange();
-		activateMenu(create());
+
+		auto result = create();
+
+		activateMenu(result);
+		return *result;
 	}
 
 	bool MenuConnect::isInNetworkMenu()
