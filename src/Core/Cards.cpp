@@ -7,6 +7,28 @@
 
 namespace SokuLib
 {
-	short (__thiscall * const getCard)(deckInfo *) = reinterpret_cast<short (__thiscall *)(deckInfo *)>(ADDR_GET_CARD);
-	short *(__thiscall * const peekCard)(mVC9Dequeue<short> *) = reinterpret_cast<short *(__thiscall *)(mVC9Dequeue<short> *)>(ADDR_PEEK_CARD);
+	Card &HandContainer::operator[](unsigned int id) const
+	{
+		return *this->handCardBase[(this->selectedCard + id) % this->handCardMax];
+	}
+
+	CSprite &HandContainer::pushCard(const Card &card)
+	{
+		return (this->*union_cast<CSprite &(__thiscall HandContainer::*)(const Card &)>(ADDR_PUSH_CARD))(card);
+	}
+
+	UnknownCardStruct *deckInfo::lookupCard(int id)
+	{
+		return (this->*union_cast<UnknownCardStruct *(__thiscall deckInfo::*)(int)>(ADDR_LOOKUP_CARD))(id);
+	}
+
+	short deckInfo::getNextCard()
+	{
+		return (this->*union_cast<short (__thiscall deckInfo::*)()>(ADDR_GET_CARD))();
+	}
+
+	void CSprite::init(int unknown1, int unknown2, int unknown3, void *dat1, void *dat2)
+	{
+		(this->*union_cast<void (__thiscall CSprite::*)(int, int, int, void *, void *)>(ADDR_CSPRITE_INIT))(unknown1, unknown2, unknown3, dat1, dat2);
+	}
 }

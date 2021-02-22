@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../SokuAddresses.hpp"
 #include "../Memory.hpp"
 #include "../Menus.hpp"
@@ -10,24 +11,6 @@ typedef unsigned uint;
 
 namespace SokuLib
 {
-	//! @brief Pointer to the original host soku function.
-	//! @param menu Pointer to the current menu object.
-	//! @warning: This function is unsafe if not in the network menu.
-	//! @note It is recommended to use setupHost instead.
-	extern void (__thiscall * const host)(void *menu);
-
-	//! @brief Pointer to the original join host soku function.
-	//! @param menu Pointer to the current menu object.
-	//! @warning: This function is unsafe if not in the network menu.
-	//! @note It is recommended to use joinHost instead.
-	extern void (__thiscall * const join)(void *menu);
-
-	//! @brief Pointer to the original network menu object init soku function.
-	//! @param buffer Pointer to the buffer to use for the menu object.
-	//! @warning: This function is unsafe if the allocated buffer is not big enough.
-	//! @note It is recommended to use initNetworkMenu instead.
-	extern const MenuInitFun networkMenuInit;
-
 	//! @brief The buffer size needed to hold the network menu.
 	constexpr unsigned networkMenuBufferSize  = 0x118C;
 
@@ -48,7 +31,7 @@ namespace SokuLib
 
 	extern UnknownStruct1 &menuManager;
 
-	typedef struct {
+	struct MenuConnect {
 		void *vftable;
 		void *CNetworkBasePtr;
 		byte choice;
@@ -89,30 +72,48 @@ namespace SokuLib
 			CHOICE_CLIPBOARD_CONNECT,
 			CHOICE_SELECT_PROFILE,
 		};
-	} MenuConnect;
 
-	//! @brief Inits a new network menu to give to activateMenu.
-	//! @return The newly created menu.
-	void *initNetworkMenu();
+		//! @brief Pointer to the original host soku function.
+		//! @param menu Pointer to the current menu object.
+		//! @warning: This function is unsafe if not in the network menu.
+		//! @note It is recommended to use setupHost instead.
+		void host();
 
-	//! @brief Returns whether the currently active menu is the network menu.
-	bool isInNetworkMenu();
+		//! @brief Pointer to the original join host soku function.
+		//! @param menu Pointer to the current menu object.
+		//! @warning: This function is unsafe if not in the network menu.
+		//! @note It is recommended to use joinHost instead.
+		void join();
 
-	//! @brief Moves to the connect menu.
-	//! @note Might cause some instability if the title screen hasn't been fully loaded (TLDR, unsafe if the title screen buttons has still never been displayed)
-	void moveToConnectMenu();
+		//! @brief Pointer to the original network menu object init soku function.
+		//! @param buffer Pointer to the buffer to use for the menu object.
+		//! @warning: This function is unsafe if the allocated buffer is not big enough.
+		//! @note It is recommended to use initNetworkMenu instead.
+		void init();
 
-	//! @brief Starts hosting.
-	//! @param port The port you which to host on.
-	//! @param spectate Whether spectators are allowed or not.
-	void setupHost(uint port, bool spectate);
+		//! @brief Resets choice/subchoice and clears any messagebox
+		void clear();
 
-	//! @brief Starts connecting to an host.
-	//! @param ip The ip of the host.
-	//! @param port The port of the host.
-	//! @param spectate Connect as spectator or not.
-	void joinHost(const char *ip, uint port, bool spectate = false);
+		//! @brief Inits a new network menu to give to activateMenu.
+		//! @return The newly created menu.
+		static MenuConnect *create();
 
-	//! @brief Resets choice/subchoice and clears any messagebox
-	void clearMenu();
+		//! @brief Returns whether the currently active menu is the network menu.
+		static bool isInNetworkMenu();
+
+		//! @brief Moves to the connect menu.
+		//! @note Might cause some instability if the title screen hasn't been fully loaded (TLDR, unsafe if the title screen buttons has still never been displayed)
+		static MenuConnect &moveToConnectMenu();
+
+		//! @brief Starts hosting.
+		//! @param port The port you which to host on.
+		//! @param spectate Whether spectators are allowed or not.
+		void setupHost(uint port, bool spectate);
+
+		//! @brief Starts connecting to an host.
+		//! @param ip The ip of the host.
+		//! @param port The port of the host.
+		//! @param spectate Connect as spectator or not.
+		void joinHost(const char *ip, uint port, bool spectate = false);
+	};
 }

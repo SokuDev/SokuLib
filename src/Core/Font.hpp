@@ -33,12 +33,13 @@ namespace SokuLib
 	};
 	#pragma pack(pop)
 
-	struct SWRFont {};
+	struct SWRFont {
+		// �t�H���g�I�u�W�F�N�g���\�b�h
+		void create();
+		void destruct();
+		void setIndirect(void *pdesc);
+	};
 
-	// �t�H���g�I�u�W�F�N�g���\�b�h
-	extern void (__thiscall SWRFont::* const SWRFont_Create)();
-	extern void (__thiscall SWRFont::* const SWRFont_Destruct)();
-	extern void (__thiscall SWRFont::* const SWRFont_SetIndirect)(void *pdesc);
 
 	// �f�t�H���g�t�H���g��
 	extern const char * const defaultFontName;

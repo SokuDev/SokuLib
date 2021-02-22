@@ -8,10 +8,11 @@
 
 namespace SokuLib
 {
-	struct Renderer {};
+	struct Renderer {
+		bool begin();
+		void end();
+	};
 
-	extern bool (__thiscall Renderer::* const CRenderer_Begin)();
-	extern void (__thiscall Renderer::* const CRenderer_End)();
 	extern Renderer &renderer;
 }
 

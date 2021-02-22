@@ -7,6 +7,7 @@
 
 #include "BattleMode.hpp"
 #include "Character.hpp"
+#include "DatFiles.hpp"
 #include "Hash.hpp"
 #include "Scenes.hpp"
 #include "Stage.hpp"

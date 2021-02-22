@@ -5,6 +5,9 @@
 #ifndef SWRSTOYS_STACK_HPP
 #define SWRSTOYS_STACK_HPP
 
+
+#include "SokuFct.hpp"
+
 namespace SokuLib
 {
 	template<class T>
@@ -36,6 +39,13 @@ namespace SokuLib
 			this->size--;
 			return value;
 		}
+
+		T &peekValue()
+		{
+			return (this->*union_cast<T *(__thiscall mVC9Dequeue<T>::*)()>(ADDR_STACK_PEEK_VALUE))();
+		}
 	};
 }
+
+
 #endif //SWRSTOYS_STACK_HPP
