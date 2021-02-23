@@ -92,7 +92,7 @@ namespace SokuLib
 		/* 209 */ ACTION_FORWARD_HIGH_JUMP,
 		/* 210 */ ACTION_BACKWARD_HIGH_JUMP,
 
-		/* 300 */ ACTION_5A,
+		/* 300 */ ACTION_5A = 300,
 		/* 301 */ ACTION_f5A,
 		/* 302 */ ACTION_6A,
 		/* 303 */ ACTION_2A,
