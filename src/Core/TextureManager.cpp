@@ -9,18 +9,8 @@
 namespace SokuLib
 {
 	// �e�N�X�`���}�l�[�W�����\�b�h
-	int *(TextureManager::* const CTextureManager_LoadTexture)(int *ret, LPCSTR path, void *unk1, void *unk2)
-		= union_cast<int *(TextureManager::*)(int *, LPCSTR, void *, void *)>(ADDR_TEXTURE_MANAGER_LOAD_TEXTURE);
-	int *(TextureManager::* const CTextureManager_CreateTextTexture)(int *ret, LPCSTR str, void *pdesc, int width, int height, int *p1, int *p2)
-		= union_cast<int *(TextureManager::*)(int *, LPCSTR, void *, int, int, int *, int *)>(ADDR_TEXTURE_MANAGER_CREATE_TEXT);
-	void *(TextureManager::* const CTextureManager_Remove)(int id)
-		= union_cast<void *(TextureManager::*)(int)>(ADDR_TEXTURE_MANAGER_REMOVE);
-	void (TextureManager::* const CTextureManager_SetTexture)(int id, int stage)
-		= union_cast<void (TextureManager::*)(int, int)>(ADDR_TEXTURE_MANAGER_SET_TEXTURE);
-	void (TextureManager::* const CTextureManager_GetSize)(int *w, int *h)
-		= union_cast<void (TextureManager::*)(int *, int *)>(ADDR_TEXTURE_MANAGER_GET_SIZE);
-	IDirect3DTexture9 **(* const CTextureManager_Allocate)(void *p, int *id) = reinterpret_cast<IDirect3DTexture9 **(*)(void *, int *)>(CHandleManager_Allocate);
-	void (* const CTextureManager_Deallocate)(void *p, int id) = CHandleManager_Deallocate;
+	TextureManager *(* const CTextureManager_Allocate)(void *, int *) = reinterpret_cast<TextureManager *(*)(void *, int *)>(CHandleManager_Allocate);
+	void (* const CTextureManager_Deallocate)(TextureManager &, int id) = reinterpret_cast<void (*)(TextureManager &, int id)>(CHandleManager_Deallocate);
 
 	// �l�b�g�ΐ펞�v���t�@�C�����\���֐����Ăяo���Ă���A�h���X
 	char (&getProfile1NamePrintCode)[ADDR_PROFILENAME_PRINT_CODE1_END - ADDR_PROFILENAME_PRINT_CODE1]
@@ -31,11 +21,41 @@ namespace SokuLib
 
 	// �e�N�X�`���}�l�[�W��
 	// CHandleManager<IDirect3DTexture *>
-	IDirect3DTexture9 &textureMgr = *reinterpret_cast<IDirect3DTexture9 *>(ADDR_TEXTURE_MANAGER);
+	TextureManager &textureMgr = *reinterpret_cast<TextureManager *>(ADDR_TEXTURE_MANAGER);
 
 	// Direct3D�f�o�C�X
 	// IDirect3DDevice9*
 	IDirect3DDevice9 *(&pd3dDev) = *reinterpret_cast<IDirect3DDevice9 **>(ADDR_D3D9_DEVICE);
 
 	HWND &window = *reinterpret_cast<HWND *>(ADDR_WINDOW_HWND);
+
+	int *TextureManager::loadTexture(int *ret, LPCSTR path, void *unk1, void *unk2)
+	{
+		return (this->*union_cast<int *(__thiscall TextureManager::*)(int *, LPCSTR, void *, void *)>(ADDR_TEXTURE_MANAGER_LOAD_TEXTURE))(ret, path, unk1, unk2);
+	}
+
+	int *TextureManager::createTextTexture(int *ret, LPCSTR str, void *pdesc, int width, int height, int *p1, int *p2)
+	{
+		return (this->*union_cast<int *(__thiscall TextureManager::*)(int *, LPCSTR, void *, int, int, int *, int *)>(ADDR_TEXTURE_MANAGER_CREATE_TEXT))(ret, str, pdesc, width, height, p1, p2);
+	}
+
+	void *TextureManager::remove(int id)
+	{
+		return (this->*union_cast<void *(__thiscall TextureManager::*)(int)>(ADDR_TEXTURE_MANAGER_REMOVE))(id);
+	}
+
+	void TextureManager::setTexture(int id, int stage)
+	{
+		(this->*union_cast<void (__thiscall TextureManager::*)(int, int)>(ADDR_TEXTURE_MANAGER_SET_TEXTURE))(id, stage);
+	}
+
+	void TextureManager::getSize(int *w, int *h)
+	{
+		(this->*union_cast<void (__thiscall TextureManager::*)(int *, int *)>(ADDR_TEXTURE_MANAGER_GET_SIZE))(w, h);
+	}
+
+	IDirect3DTexture9 *&TextureManager::toIDirect3DTexture9Array()
+	{
+		return *reinterpret_cast<IDirect3DTexture9 **>(this);
+	}
 }

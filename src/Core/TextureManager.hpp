@@ -16,23 +16,26 @@ struct IDirect3DTexture9;
 
 namespace SokuLib
 {
-	struct TextureManager {};
+	struct TextureManager {
+		int *loadTexture(int *ret, LPCSTR path, void *unk1, void *unk2);
+		int *createTextTexture(int *ret, LPCSTR str, void *pdesc, int width, int height, int *p1, int *p2);
+		void *remove(int id);
+		void setTexture(int id, int stage);
+		void getSize(int *w, int *h);
+		IDirect3DTexture9 *&toIDirect3DTexture9Array();
+	};
 
-	extern int *(TextureManager::* const CTextureManager_LoadTexture)(int *ret, LPCSTR path, void *unk1, void *unk2);
-	extern int *(TextureManager::* const CTextureManager_CreateTextTexture)(int *ret, LPCSTR str, void *pdesc, int width, int height, int *p1, int *p2);
-	extern void *(TextureManager::* const CTextureManager_Remove)(int id);
-	extern void (TextureManager::* const CTextureManager_SetTexture)(int id, int stage);
-	extern void (TextureManager::* const CTextureManager_GetSize)(int *w, int *h);
-	extern void (* const CTextureManager_Deallocate)(void *p, int id);
+	extern TextureManager *(* const CTextureManager_Allocate)(void *, int *);
+	extern void (* const CTextureManager_Deallocate)(TextureManager &manager, int id);
 
 	// �e�N�X�`���}�l�[�W�����\�b�h(�n���h���}�l�[�W������̌p��)
 	//TODO: Remove template when the address is found
 	#ifndef SOKU_VER_110
 	template<typename T = void>
 	#endif
-	__forceinline IDirect3DTexture9 **CTextureManager_Get(void *p, int id)
+	__forceinline TextureManager *CTextureManager_Get(void *p, int id)
 	{
-		return CHandleManager_Get<IDirect3DTexture9 *>(p, id);
+		return CHandleManager_Get<TextureManager>(p, id);
 	}
 
 	// �v���t�@�C���f�[�^���\�b�h
@@ -48,7 +51,7 @@ namespace SokuLib
 	extern char (&getProfile1NamePrintCode)[ADDR_PROFILENAME_PRINT_CODE1_END - ADDR_PROFILENAME_PRINT_CODE1];
 	extern char (&getProfile2NamePrintCode)[ADDR_PROFILENAME_PRINT_CODE2_END - ADDR_PROFILENAME_PRINT_CODE2];
 
-	extern IDirect3DTexture9 &textureMgr;
+	extern TextureManager &textureMgr;
 	extern IDirect3DDevice9 *(&pd3dDev);
 
 	extern HWND &window;
