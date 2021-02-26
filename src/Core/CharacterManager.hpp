@@ -291,7 +291,13 @@ namespace SokuLib
 		Image &image;
 
 		// 0x154
-		char offset_0x154[0x30];
+		char offset_0x154[0x10];
+
+		//  ADDR_IMAGESTRUCTOFS     int*[256]         (4) 0x164
+		int* soundTable;
+
+		// 0x168
+		char offset_0x168[0x1C]
 
 		//  ADDR_HPOFS              unsigned short    (2) 0x184
 		unsigned short hp;

@@ -28,7 +28,8 @@ namespace SokuLib
 	#ifndef SOKU_VER_110
 		ADDR_RENDERER_BEGIN                         = 0x00401000,
 		ADDR_RENDERER_END                           = 0x00401040,
-		ADDR_LOAD_SE                                = 0x00401af0,
+		ADDR_LOAD_SOUND                             = 0x00401af0,
+		ADDR_PLAY_SOUND                             = 0x00401d50,
 		ADDR_ALLOCATE_FUNCTION                      = 0x004026A0,
 		ADDR_DEALLOCATE_FUNCTION                    = 0x00402810,
 		ADDR_TEXTURE_MANAGER_LOAD_TEXTURE           = 0x00405030,
