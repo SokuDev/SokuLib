@@ -297,7 +297,7 @@ namespace SokuLib
 		int* soundTable;
 
 		// 0x168
-		char offset_0x168[0x1C]
+		char offset_0x168[0x1C];
 
 		//  ADDR_HPOFS              unsigned short    (2) 0x184
 		unsigned short hp;
