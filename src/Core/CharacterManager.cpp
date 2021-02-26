@@ -5,6 +5,7 @@
 #include "SokuAddresses.hpp"
 #include "CharacterManager.hpp"
 #include "../Data/DatFiles.hpp"
+#include "SokuFct.hpp"
 
 namespace SokuLib
 {
@@ -36,5 +37,10 @@ namespace SokuLib
 				card.sprite.init(iVar2->unknown, 0, 0, Dat0x897004, Dat0x897000);
 		}
 		return iVar2 != nullptr;
+	}
+
+	void CharacterManager::playSE(int id)
+	{
+		(this->*union_cast<void (CharacterManager::*)(int)>(ADDR_PLAY_SE_CHARACTER))(id);
 	}
 }

@@ -548,6 +548,7 @@ namespace SokuLib
 
 		bool generateCard(unsigned short id, Card &buffer);
 		Card *addCard(unsigned short id);
+		void playSE(int id);
 	};
 }
 #pragma pack(pop)

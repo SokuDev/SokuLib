@@ -28,6 +28,7 @@ namespace SokuLib
 	#ifndef SOKU_VER_110
 		ADDR_RENDERER_BEGIN                         = 0x00401000,
 		ADDR_RENDERER_END                           = 0x00401040,
+		ADDR_LOAD_SE                                = 0x00401af0,
 		ADDR_ALLOCATE_FUNCTION                      = 0x004026A0,
 		ADDR_DEALLOCATE_FUNCTION                    = 0x00402810,
 		ADDR_TEXTURE_MANAGER_LOAD_TEXTURE           = 0x00405030,
@@ -60,6 +61,7 @@ namespace SokuLib
 		ADDR_JOIN_FCT                               = 0x00446B20,
 		ADDR_PLAY_NET_BELL                          = 0x00446D9A,
 		ADDR_NETWORK_MENU_INIT                      = 0x00448760,
+		ADDR_PLAY_SE_CHARACTER                      = 0x00464980,
 		ADDR_PUSH_CARD                              = 0x004698A0,
 		ADDR_PROFILENAME_PRINT_CODE1                = 0x0047D857,
 		ADDR_PROFILENAME_PRINT_CODE1_END            = 0x0047D9EE,
