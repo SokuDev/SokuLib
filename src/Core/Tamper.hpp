@@ -86,7 +86,7 @@ namespace SokuLib
 			memcpy(lpAddr, lpTramp, this->_offset);
 			::VirtualProtect(lpAddr, this->_offset, dwOldProtect, &dwOldProtect);
 
-			::VirtualProtect(lpTramp, this->offset + 5, PAGE_READWRITE, &dwOldProtect);
+			::VirtualProtect(lpTramp, this->_offset + 5, PAGE_READWRITE, &dwOldProtect);
 			::FlushInstructionCache(GetCurrentProcess(), nullptr, 0);
 			delete[] lpTramp;
 		}
