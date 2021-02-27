@@ -7,6 +7,7 @@
 
 
 #include <windows.h>
+#include <cassert>
 
 namespace SokuLib
 {
@@ -43,49 +44,58 @@ namespace SokuLib
 		TamperNearJmpOpr(addr, target);
 	}
 
-	// Trampoline - can hook function entries so all calls run the custom code
-	//   addr - address where to insert code
-	//   target - address of the custom code
-	//   offset - how many bytes to replace, used to align assembly OPs,
-	//          minimal required offset is 5(five)
-	//   return - allocated data that runs the original code.
-	DWORD TrampolineCreate(DWORD addr, DWORD target, int offset) {
-		char* lpAddr = (char*)addr;
-		char* lpTramp = new char[offset + 5];
-		DWORD tramp = (DWORD) lpTramp;
-		DWORD dwOldProtect;
+	template<typename R, typename ...Args>
+	class Trampoline {
+	private:
+		R (*_base)(Args...);
+		R (*_trampoline)(Args...);
+		int _offset;
 
-		for (int i = 0; i < offset; ++i) *lpTramp++ = *lpAddr++;
-		*lpTramp++ = 0xE9;
-		*(int*)lpTramp = (int)addr - (int)tramp - 5;
-		::VirtualProtect(reinterpret_cast<LPVOID>(tramp), offset+5, PAGE_EXECUTE_READWRITE, &dwOldProtect);
+	public:
+		Trampoline(R (*addr)(Args...), const unsigned char *target, int offset) :
+			_base(addr),
+			_offset(offset)
+		{
+			assert(target);
+			assert(offset >= 5);
 
-		::VirtualProtect(reinterpret_cast<LPVOID>(addr), offset, PAGE_EXECUTE_READWRITE, &dwOldProtect);
-		*(char*)addr = 0xE9;
-		*(int*)(addr + 1) = (int)target - (int)addr - 5;
-		::VirtualProtect(reinterpret_cast<LPVOID>(addr), offset, dwOldProtect, &dwOldProtect);
+			auto lpAddr = (unsigned char *)addr;
+			auto lpTramp = new unsigned char[offset + 5];
+			DWORD dwOldProtect;
 
-		::FlushInstructionCache(GetCurrentProcess(), 0, 0);
-		return tramp;
-	}
+			memcpy(lpTramp, lpAddr, offset);
+			lpTramp[offset] = 0xE9;
+			*(int *)&lpTramp[offset + 1] = (int)addr - (int)lpTramp - 5;
+			::VirtualProtect(lpTramp, offset + 5, PAGE_EXECUTE_READWRITE, &dwOldProtect);
 
-	// Remove a trampoline
-	//   addr - address where to insert code
-	//   tramp - value returned by the Create function
-	//   offset - same offset as the Create function
-	void TrampolineRemove(DWORD addr, DWORD tramp, int offset) {
-		char* lpAddr = (char*)addr;
-		char* lpTramp = (char*)tramp;
-		DWORD dwOldProtect;
+			::VirtualProtect(lpAddr, offset, PAGE_EXECUTE_READWRITE, &dwOldProtect);
+			*lpAddr = 0xE9;
+			*(int *)(lpAddr + 1) = (int)target - (int)lpAddr - 5;
+			::VirtualProtect(lpAddr, offset, dwOldProtect, &dwOldProtect);
 
-		::VirtualProtect(reinterpret_cast<LPVOID>(addr), offset, PAGE_EXECUTE_READWRITE, &dwOldProtect);
-		for (int i = 0; i < offset; ++i) *lpAddr++ = *lpTramp++;
-		::VirtualProtect(reinterpret_cast<LPVOID>(addr), offset, dwOldProtect, &dwOldProtect);
+			::FlushInstructionCache(GetCurrentProcess(), nullptr, 0);
+			this->_trampoline = reinterpret_cast<R (*)(Args...)>(lpTramp);
+		}
 
-		::VirtualProtect(reinterpret_cast<LPVOID>(tramp), offset+5, PAGE_READWRITE, &dwOldProtect);
-		::FlushInstructionCache(GetCurrentProcess(), 0, 0);
-		delete[] (char*)tramp;
-	}
+		~Trampoline() {
+			auto lpAddr = (unsigned char *)this->_base;
+			auto lpTramp = (unsigned char *)this->_trampoline;
+			DWORD dwOldProtect;
+
+			::VirtualProtect(lpAddr, this->_offset, PAGE_EXECUTE_READWRITE, &dwOldProtect);
+			memcpy(lpAddr, lpTramp, this->_offset);
+			::VirtualProtect(lpAddr, this->_offset, dwOldProtect, &dwOldProtect);
+
+			::VirtualProtect(lpTramp, this->offset + 5, PAGE_READWRITE, &dwOldProtect);
+			::FlushInstructionCache(GetCurrentProcess(), nullptr, 0);
+			delete[] lpTramp;
+		}
+
+		R operator()(Args... args)
+		{
+			this->_trampoline(args...);
+		}
+	};
 }
 
 
