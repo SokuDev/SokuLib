@@ -94,6 +94,7 @@ namespace SokuLib
 		ADDR_RENDERER                               = 0x00896B4C,
 		ADDR_ACTIVE_WEATHER                         = 0x008971C0,
 		ADDR_DISPLAYED_WEATHER                      = 0x008971C4,
+		ADDR_PRACTICE_SETTINGS_STRUCT               = 0x008971C8,
 		ADDR_WEATHER_COUNTER                        = 0x008971CC,
 		ADDR_LOADED_STAGE_ID                        = 0x008971CE,
 		ADDR_TIME_ELAPSED                           = 0x008985D8,
