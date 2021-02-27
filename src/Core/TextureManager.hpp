@@ -23,6 +23,9 @@ namespace SokuLib
 		void setTexture(int id, int stage);
 		void getSize(int *w, int *h);
 		IDirect3DTexture9 *&toIDirect3DTexture9Array();
+
+		void loadSound(int *ret, LPCSTR path);
+		void playSound(int id);
 	};
 
 	extern TextureManager *(* const CTextureManager_Allocate)(void *, int *);
