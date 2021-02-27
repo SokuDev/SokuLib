@@ -59,9 +59,9 @@ namespace SokuLib
 		return *reinterpret_cast<IDirect3DTexture9 **>(this);
 	}
 
-	void TextureManager::loadSound(int *ret, LPCSTR path)
+	int *TextureManager::loadSound(int *ret, LPCSTR path)
 	{
-		(this->*union_cast<int *(__thiscall TextureManager::*)(int *, LPCSTR)>(ADDR_LOAD_SOUND))(ret, path);
+		return (this->*union_cast<int *(__thiscall TextureManager::*)(int *, LPCSTR)>(ADDR_LOAD_SOUND))(ret, path);
 	}
 
 	void TextureManager::playSound(int id)

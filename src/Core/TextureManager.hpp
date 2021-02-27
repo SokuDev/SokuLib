@@ -24,7 +24,7 @@ namespace SokuLib
 		void getSize(int *w, int *h);
 		IDirect3DTexture9 *&toIDirect3DTexture9Array();
 
-		void loadSound(int *ret, LPCSTR path);
+		int *loadSound(int *ret, LPCSTR path);
 		void playSound(int id);
 	};
 

@@ -296,8 +296,8 @@ namespace SokuLib
 		// 0x154
 		char offset_0x154[0x10];
 
-		//  ADDR_IMAGESTRUCTOFS     int*[256]         (4) 0x164
-		int* soundTable;
+		//  int *[256]         (4) 0x164
+		void **soundTable;
 
 		// 0x168
 		char offset_0x168[0x1C];
