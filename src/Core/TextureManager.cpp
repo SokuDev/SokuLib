@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include "TextureManager.hpp"
 #include "SokuAddresses.hpp"
+#include "Core.hpp"
 
 namespace SokuLib
 {
@@ -34,9 +35,9 @@ namespace SokuLib
 		return (this->*union_cast<int *(__thiscall TextureManager::*)(int *, LPCSTR, void *, void *)>(ADDR_TEXTURE_MANAGER_LOAD_TEXTURE))(ret, path, unk1, unk2);
 	}
 
-	int *TextureManager::createTextTexture(int *ret, LPCSTR str, void *pdesc, int width, int height, int *p1, int *p2)
+	int *TextureManager::createTextTexture(int *ret, LPCSTR str, SWRFont &font, int width, int height, int *p1, int *p2)
 	{
-		return (this->*union_cast<int *(__thiscall TextureManager::*)(int *, LPCSTR, void *, int, int, int *, int *)>(ADDR_TEXTURE_MANAGER_CREATE_TEXT))(ret, str, pdesc, width, height, p1, p2);
+		return (this->*union_cast<int *(__thiscall TextureManager::*)(int *, LPCSTR, SokuLib::SWRFont &, int, int, int *, int *)>(ADDR_TEXTURE_MANAGER_CREATE_TEXT))(ret, str, font, width, height, p1, p2);
 	}
 
 	void *TextureManager::remove(int id)

@@ -18,7 +18,7 @@ namespace SokuLib
 {
 	struct TextureManager {
 		int *loadTexture(int *ret, LPCSTR path, void *unk1, void *unk2);
-		int *createTextTexture(int *ret, LPCSTR str, void *pdesc, int width, int height, int *p1, int *p2);
+		int *createTextTexture(int *ret, LPCSTR str, struct SWRFont &font, int width, int height, int *p1, int *p2);
 		void *remove(int id);
 		void setTexture(int id, int stage);
 		void getSize(int *w, int *h);
