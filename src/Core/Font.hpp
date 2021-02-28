@@ -34,10 +34,12 @@ namespace SokuLib
 	#pragma pack(pop)
 
 	struct SWRFont {
+		char data[0x1A4];
+
 		// �t�H���g�I�u�W�F�N�g���\�b�h
 		void create();
 		void destruct();
-		void setIndirect(void *pdesc);
+		void setIndirect(const FontDescription &pdesc);
 	};
 
 

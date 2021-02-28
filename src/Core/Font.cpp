@@ -21,8 +21,8 @@ namespace SokuLib
 		(this->*union_cast<void (SWRFont::*)()>(static_cast<unsigned int>(ADDR_SWR_FONT_DESTRUCT)))();
 	}
 
-	void SWRFont::setIndirect(void *pdesc)
+	void SWRFont::setIndirect(const FontDescription &pdesc)
 	{
-		(this->*union_cast<void (SWRFont::*)(void *)>(static_cast<unsigned int>(ADDR_SWR_FONT_SET_INDIRECT)))(pdesc);
+		(this->*union_cast<void (SWRFont::*)(const FontDescription &)>(static_cast<unsigned int>(ADDR_SWR_FONT_SET_INDIRECT)))(pdesc);
 	}
 }
