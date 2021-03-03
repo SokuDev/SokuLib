@@ -28,7 +28,9 @@ namespace SokuLib
 		WEATHER_DUST_STORM,
 		WEATHER_SCORCHING_SUN,
 		WEATHER_MONSOON,
-		WEATHER_CLEAR = 0x15,
+		WEATHER_AURORA,
+		WEATHER_TWILIGHT,
+		WEATHER_CLEAR,
 	};
 
 	extern Weather &activeWeather;
