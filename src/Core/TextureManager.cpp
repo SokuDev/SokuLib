@@ -9,10 +9,6 @@
 
 namespace SokuLib
 {
-	// �e�N�X�`���}�l�[�W�����\�b�h
-	TextureManager *(* const CTextureManager_Allocate)(void *, int *) = reinterpret_cast<TextureManager *(*)(void *, int *)>(CHandleManager_Allocate);
-	void (* const CTextureManager_Deallocate)(TextureManager &, int id) = reinterpret_cast<void (*)(TextureManager &, int id)>(CHandleManager_Deallocate);
-
 	// �l�b�g�ΐ펞�v���t�@�C�����\���֐����Ăяo���Ă���A�h���X
 	char (&getProfile1NamePrintCode)[ADDR_PROFILENAME_PRINT_CODE1_END - ADDR_PROFILENAME_PRINT_CODE1]
 		= *reinterpret_cast<char (*)[ADDR_PROFILENAME_PRINT_CODE1_END - ADDR_PROFILENAME_PRINT_CODE1]>(ADDR_PROFILENAME_PRINT_CODE1);
@@ -55,9 +51,9 @@ namespace SokuLib
 		(this->*union_cast<void (__thiscall TextureManager::*)(int *, int *)>(ADDR_TEXTURE_MANAGER_GET_SIZE))(w, h);
 	}
 
-	IDirect3DTexture9 *&TextureManager::toIDirect3DTexture9Array()
+	IDirect3DTexture9 **TextureManager::toIDirect3DTexture9Array()
 	{
-		return *reinterpret_cast<IDirect3DTexture9 **>(this);
+		return reinterpret_cast<IDirect3DTexture9 **>(this);
 	}
 
 	int *TextureManager::loadSound(int *ret, LPCSTR path)
@@ -68,5 +64,15 @@ namespace SokuLib
 	void TextureManager::playSound(int id)
 	{
 		(this->*union_cast<void (__thiscall TextureManager::*)(int)>(ADDR_PLAY_SOUND))(id);
+	}
+
+	IDirect3DTexture9 **TextureManager::allocate(int *handle)
+	{
+		return reinterpret_cast<IDirect3DTexture9 **(*)(TextureManager *, int *)>(CHandleManager_Allocate)(this, handle);
+	}
+
+	void TextureManager::deallocate(int handle)
+	{
+		reinterpret_cast<void (*)(TextureManager *, int id)>(CHandleManager_Deallocate)(this, handle);
 	}
 }

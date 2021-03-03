@@ -22,14 +22,13 @@ namespace SokuLib
 		void *remove(int id);
 		void setTexture(int id, int stage);
 		void getSize(int *w, int *h);
-		IDirect3DTexture9 *&toIDirect3DTexture9Array();
+		IDirect3DTexture9 **toIDirect3DTexture9Array();
+		IDirect3DTexture9 **allocate(int *handle);
+		void deallocate(int handle);
 
 		int *loadSound(int *ret, LPCSTR path);
 		void playSound(int id);
 	};
-
-	extern TextureManager *(* const CTextureManager_Allocate)(void *, int *);
-	extern void (* const CTextureManager_Deallocate)(TextureManager &manager, int id);
 
 	// �e�N�X�`���}�l�[�W�����\�b�h(�n���h���}�l�[�W������̌p��)
 	//TODO: Remove template when the address is found
