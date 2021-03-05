@@ -91,6 +91,13 @@ namespace SokuLib
 		/* 208 */ ACTION_NEUTRAL_HIGH_JUMP = 208,
 		/* 209 */ ACTION_FORWARD_HIGH_JUMP,
 		/* 210 */ ACTION_BACKWARD_HIGH_JUMP,
+		/* 214 */ ACTION_FLY = 214,
+		/* 220 */ ACTION_BE2 = 220,
+		/* 222 */ ACTION_BE1 = 222,
+		/* 223 */ ACTION_BE6,
+		/* 224 */ ACTION_BE4,
+		/* 225 */ ACTION_jBE4,
+		/* 226 */ ACTION_jBE6,
 
 		/* 300 */ ACTION_5A = 300,
 		/* 301 */ ACTION_f5A,
