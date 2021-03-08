@@ -95,7 +95,7 @@ namespace SokuLib
 		/* 210 */ ACTION_BACKWARD_HIGH_JUMP,
 		/* 214 */ ACTION_FLY = 214,
 		/* 218 */ ACTION_SUWAKO_j2D = 218,
-		/* 219 */ ACTION_SUWAKO_j7D_j9D,
+		/* 219 */ ACTION_SUWAKO_j1D_j3D,
 		/* 220 */ ACTION_BE2,
 		/* 222 */ ACTION_BE1 = 222,
 		/* 223 */ ACTION_BE6,
