@@ -31,6 +31,8 @@ int main()
 	my_assert((unsigned)&manager->objectBase.hp           - (unsigned)manager, 0x184);
 
 	my_assert((unsigned)&manager->objectBase.offset_0x186 - (unsigned)manager, 0x186);
+	my_assert((unsigned)&manager->objectBase.hitCount     - (unsigned)manager, 0x194);
+	my_assert((unsigned)&manager->objectBase.offset_0x195 - (unsigned)manager, 0x195);
 	my_assert((unsigned)&manager->objectBase.hitstop      - (unsigned)manager, 0x196);
 
 	my_assert((unsigned)&manager->objectBase.offset_0x198 - (unsigned)manager, 0x198);
@@ -65,8 +67,11 @@ int main()
 	my_assert((unsigned)&manager->objectBase.hurtBoxesRotation[3]- (unsigned)manager, 0x340);
 	my_assert((unsigned)&manager->objectBase.hurtBoxesRotation[4]- (unsigned)manager, 0x344);
 
-	my_assert((unsigned)&manager->offset_0x348 - (unsigned)manager, 0x348);
-	my_assert((unsigned)&manager->airdashCount - (unsigned)manager, 0x49B);
+	my_assert((unsigned)&manager->objectBase.offset_0x348 - (unsigned)manager, 0x348);
+	my_assert((unsigned)&manager->objectBase.isActive     - (unsigned)manager, 0x34C);
+
+	my_assert((unsigned)&manager->offset_0x350   - (unsigned)manager, 0x350);
+	my_assert((unsigned)&manager->airdashCount  - (unsigned)manager, 0x49B);
 
 	my_assert((unsigned)&manager->offset_0x49C     - (unsigned)manager, 0x49C);
 	my_assert((unsigned)&manager->currentSpirit    - (unsigned)manager, 0x49E);
@@ -86,8 +91,9 @@ int main()
 	my_assert((unsigned)&manager->combo.nbHits - (unsigned)manager, 0x4B4);
 	my_assert((unsigned)&manager->combo.damages- (unsigned)manager, 0x4B6);
 	my_assert((unsigned)&manager->combo.limit  - (unsigned)manager, 0x4B8);
+	my_assert((unsigned)&manager->untech       - (unsigned)manager, 0x4BA);
 
-	my_assert((unsigned)&manager->offset_0x4BA - (unsigned)manager, 0x4BA);
+	my_assert((unsigned)&manager->offset_0x4BC - (unsigned)manager, 0x4BC);
 	my_assert((unsigned)&manager->speedPower   - (unsigned)manager, 0x4D0);
 
 	my_assert((unsigned)&manager->offset_0x4D4                - (unsigned)manager, 0x4D4);

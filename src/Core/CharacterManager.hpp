@@ -269,11 +269,21 @@ namespace SokuLib
 		float y;
 	};
 
+	struct VectorI {
+		int x;
+		int y;
+	};
+
 	struct Box {
 		int left;
 		int top;
 		int right;
 		int bottom;
+	};
+
+	struct RotationBox {
+		VectorI pt1;
+		VectorI pt2;
 	};
 
 	//IMAGESTRUCT
@@ -323,6 +333,98 @@ namespace SokuLib
 		unsigned short limit;
 	};
 
+	union AttackFlags {
+		struct {
+			bool unk1: 1;
+			bool midHit: 1;
+			bool lowHit: 1;
+			bool airBlockable: 1;
+			bool uHit: 1;
+			bool unk20: 1;
+			bool unk40: 1;
+			bool unk80: 1;
+			bool unk100: 1;
+			bool unk200: 1;
+			bool crashHit: 1;
+			bool unk800: 1;
+			bool unk1000: 1;
+			bool unk2000: 1;
+			bool unk4000: 1;
+			bool knockBack: 1;
+			bool unk10000: 1;
+			bool unk20000: 1;
+			bool unk40000: 1;
+			bool guardCrush: 1;
+			bool hitsAll: 1;
+			bool stagger: 1;
+			bool grazable: 1;
+			bool unk800000: 1;
+			bool unk1000000: 1;
+		};
+		unsigned int value;
+	};
+
+	union FrameFlags {
+		struct {
+			bool stand: 1;
+			bool crouch: 1;
+			bool airborne: 1;
+			bool down: 1;
+			bool guardAvailable: 1;
+			bool cancellable: 1;
+			bool chOnHit: 1;
+			bool superArmor: 1;
+			bool extendedArmor: 1;
+			bool guardPoint: 1;
+			bool graze: 1;
+			bool guarding: 1;
+			bool grabInvincible: 1;
+			bool meleeInvincible: 1;
+			bool projectileInvincible: 1;
+			bool invAirborne: 1;
+			bool invMidBlow: 1;
+			bool invLowBlow: 1;
+			bool invShoot: 1;
+			bool reflectionProjectile: 1;
+			bool flipVelocity: 1;
+			bool highJumpCancellable: 1;
+			bool unk400000: 1;
+			bool unk800000: 1;
+			bool atkAsHit: 1;
+		};
+		unsigned int value;
+	};
+
+	struct FrameData {
+		char offset_0x00[0x1C];
+		// FF_DAMAGE 0x1C // short
+		unsigned short damage;
+
+		// 0x1E
+		unsigned char offset_0x1E[4];
+
+		// FF_SPIRIT_DAMAGE 0x22 // short
+		unsigned short spiritDamage;
+
+		// 0x24
+		char offset_0x24[0x28];
+
+		// FF_FFLAGS 0x4C // int, bitfield of frame flags
+		FrameFlags frameFlags;
+
+		// FF_AFLAGS 0x50 // int, bitfield of attack flags
+		AttackFlags attackFlags;
+
+		// FF_COLLISION_BOX 0x54 // *rect<int>
+		Box *collisionBox;
+
+		// why do hurt box and attack box have the same offsets? these could be wrong
+		// FF_HURT_BOX_COUNT 0x5C // int
+		// FF_HURT_BOXES 0x60 // rect<short>
+		// FF_ATTACK_BOX_COUNT 0x5C // int
+		// FF_ATTACK_BOXES 0x60 // rect<short>
+	};
+
 	struct ObjectManager {
 		// 0x000
 		char offset_0x000[0xEC];
@@ -366,7 +468,13 @@ namespace SokuLib
 		Image &image;
 
 		// 0x154
-		char offset_0x154[0x10];
+		char offset_0x154[0x4];
+
+		// 0x158
+		FrameData &frameData;
+
+		// 0x15C
+		char offset_0x15C[0x8];
 
 		//  int *[256]         (4) 0x164
 		void **soundTable;
@@ -378,7 +486,13 @@ namespace SokuLib
 		unsigned short hp;
 
 		// 0x186
-		char offset_0x186[0x10];
+		char offset_0x186[0xE];
+
+		//CF_HIT_COUNT 0x194 // char
+		char hitCount;
+
+		// 0x195
+		char offset_0x195;
 
 		//  ADDR_HITSTOPOFS         unsigned short    (2) 0x196
 		unsigned short hitstop;
@@ -405,16 +519,22 @@ namespace SokuLib
 		char offset_0x270[0xB0];
 
 		// CF_ATTACK_BOXES_ROT 0x320 // altbox[5]
-		Box *hitBoxesRotation[5];
+		RotationBox *hitBoxesRotation[5];
 
 		//  ADDR_HITAREAFLAGOFS     Box *[5]         (20) 0x334
-		Box *hurtBoxesRotation[5];
+		RotationBox *hurtBoxesRotation[5];
+
+		// 0x348
+		char offset_0x348[0x4];
+
+		// PF_IS_ACTIVE 0x34C // int
+		int isActive;
 	};
 
 	struct ObjListManager {
 		char offset_0x00[0x58];
 		//  ADDR_OBJPROJOFS = 0x58
-		LinkedList<ObjectManager> &list;
+		LinkedList<ObjectManager> list;
 	};
 
 	//CHARACTERMGR
@@ -422,8 +542,8 @@ namespace SokuLib
 		// 0x000
 		ObjectManager objectBase;
 
-		// 0x348
-		char offset_0x348[0x153];
+		// 0x350
+		char offset_0x350[0x14B];
 
 		//  ADDR_AIRDASHCOUNTOFS    unsigned char     (1) 0x49B
 		unsigned char airdashCount;
@@ -464,7 +584,10 @@ namespace SokuLib
 		Combo combo;
 
 		// 0x4BA
-		char offset_0x4BA[0x16];
+		unsigned short untech;
+
+		// 0x4BC
+		char offset_0x4BC[0x14];
 
 		//  ADDR_SPEEDPOWEROFS      float             (4) 0x4D0
 		float speedPower;

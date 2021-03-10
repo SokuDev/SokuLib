@@ -70,7 +70,7 @@ add_library(
 	src/Data/DatFiles.cpp
 	src/Data/DatFiles.hpp
 	src/Core/CharacterManager.cpp
-	src/Core/PracticeSettings.cpp src/Core/PracticeSettings.hpp)
+	src/Core/PracticeSettings.cpp src/Core/PracticeSettings.hpp src/Core/Camera.cpp src/Core/Camera.hpp)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	target_compile_definitions(

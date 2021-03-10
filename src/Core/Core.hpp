@@ -6,6 +6,7 @@
 #define SOKULIB_CORE_HPP
 
 #include "BattleManager.hpp"
+#include "Camera.hpp"
 #include "Cards.hpp"
 #include "CharacterManager.hpp"
 #include "Exceptions.hpp"

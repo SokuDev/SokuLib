@@ -23,13 +23,21 @@ namespace SokuLib
 		Node<T> *head;
 		unsigned int size;
 
+		std::vector<T *> vector() const
+		{
+			puts("Call 2");
+			return static_cast<std::vector<T *>>(*this);
+		}
+
 		operator std::vector<T *>() const
 		{
-			std::vector<T> result;
+			std::vector<T *> result;
 			Node<T> *node = this->head;
 
-			for (unsigned int k = 0; k < this->size; k++)
+			for (unsigned int k = 0; node && this->head != node->next && k < this->size; k++) {
 				result.push_back(node->val);
+				node = node->next;
+			}
 			return result;
 		}
 
@@ -38,8 +46,10 @@ namespace SokuLib
 			std::vector<T> result;
 			Node<T> *node = this->head;
 
-			for (unsigned int k = 0; k < this->size; k++)
+			for (unsigned int k = 0; node && this->head != node->next && k < this->size; k++) {
 				result.push_back(*node->val);
+				node = node->next;
+			}
 			return result;
 		}
 	};
