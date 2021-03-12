@@ -366,31 +366,31 @@ namespace SokuLib
 
 	union FrameFlags {
 		struct {
-			bool stand: 1;
-			bool crouch: 1;
-			bool airborne: 1;
-			bool down: 1;
-			bool guardAvailable: 1;
-			bool cancellable: 1;
-			bool chOnHit: 1;
-			bool superArmor: 1;
-			bool extendedArmor: 1;
-			bool guardPoint: 1;
-			bool graze: 1;
-			bool guarding: 1;
-			bool grabInvincible: 1;
-			bool meleeInvincible: 1;
-			bool projectileInvincible: 1;
-			bool invAirborne: 1;
-			bool invMidBlow: 1;
-			bool invLowBlow: 1;
-			bool invShoot: 1;
-			bool reflectionProjectile: 1;
-			bool flipVelocity: 1;
-			bool highJumpCancellable: 1;
-			bool unk400000: 1;
-			bool unk800000: 1;
-			bool atkAsHit: 1;
+			/* 00 00 00 01 */ bool stand: 1;
+			/* 00 00 00 02 */ bool crouch: 1;
+			/* 00 00 00 04 */ bool airborne: 1;
+			/* 00 00 00 08 */ bool down: 1;
+			/* 00 00 00 10 */ bool guardAvailable: 1;
+			/* 00 00 00 20 */ bool cancellable: 1;
+			/* 00 00 00 40 */ bool chOnHit: 1;
+			/* 00 00 00 80 */ bool superArmor: 1;
+			/* 00 00 01 00 */ bool extendedArmor: 1;
+			/* 00 00 02 00 */ bool guardPoint: 1;
+			/* 00 00 04 00 */ bool graze: 1;
+			/* 00 00 08 00 */ bool guarding: 1;
+			/* 00 00 10 00 */ bool grabInvincible: 1;
+			/* 00 00 20 00 */ bool meleeInvincible: 1;
+			/* 00 00 40 00 */ bool projectileInvincible: 1;
+			/* 00 00 80 00 */ bool invAirborne: 1;
+			/* 00 01 00 00 */ bool invMidBlow: 1;
+			/* 00 02 00 00 */ bool invLowBlow: 1;
+			/* 00 04 00 00 */ bool invShoot: 1;
+			/* 00 08 00 00 */ bool reflectionProjectile: 1;
+			/* 00 10 00 00 */ bool flipVelocity: 1;
+			/* 00 20 00 00 */ bool highJumpCancellable: 1;
+			/* 00 40 00 00 */ bool unk400000: 1;
+			/* 00 80 00 00 */ bool unk800000: 1;
+			/* 01 00 00 00 */ bool atkAsHit: 1;
 		};
 		unsigned int value;
 	};
@@ -593,7 +593,19 @@ namespace SokuLib
 		float speedPower;
 
 		// 0x4D4
-		char offset_0x4D4[0x52];
+		char offset_0x4D4[0x48];
+
+		// 0x51C
+		unsigned short meleeInvulTimer;
+
+		// 0x51E
+		unsigned short grabInvulTimer;
+
+		// 0x520
+		unsigned short projectileInvulTimer;
+
+		// 0x522
+		char offset_0x522[0x4];
 
 		//  ADDR_HIHISOUOFS         unsigned short    (2) 0x526
 		unsigned short swordOfRaptureDebuffTimeLeft;
