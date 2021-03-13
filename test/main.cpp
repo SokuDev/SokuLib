@@ -67,10 +67,8 @@ int main()
 	my_assert((unsigned)&manager->objectBase.hurtBoxesRotation[3]- (unsigned)manager, 0x340);
 	my_assert((unsigned)&manager->objectBase.hurtBoxesRotation[4]- (unsigned)manager, 0x344);
 
-	my_assert((unsigned)&manager->objectBase.offset_0x348 - (unsigned)manager, 0x348);
-	my_assert((unsigned)&manager->objectBase.isActive     - (unsigned)manager, 0x34C);
+	my_assert((unsigned)&manager->offset_0x348 - (unsigned)manager, 0x348);
 
-	my_assert((unsigned)&manager->offset_0x350   - (unsigned)manager, 0x350);
 	my_assert((unsigned)&manager->airdashCount  - (unsigned)manager, 0x49B);
 
 	my_assert((unsigned)&manager->offset_0x49C     - (unsigned)manager, 0x49C);
@@ -103,8 +101,9 @@ int main()
 	my_assert((unsigned)&manager->offset_0x52A - (unsigned)manager, 0x52A);
 	my_assert((unsigned)&manager->attackPower  - (unsigned)manager, 0x530);
 	my_assert((unsigned)&manager->defensePower - (unsigned)manager, 0x534);
+	my_assert((unsigned)&manager->noSuperArmor - (unsigned)manager, 0x538);
 
-	my_assert((unsigned)&manager->offset_0x538 - (unsigned)manager, 0x538);
+	my_assert((unsigned)&manager->offset_0x53C - (unsigned)manager, 0x53C);
 	my_assert((unsigned)&manager->grimoires    - (unsigned)manager, 0x560);
 
 	my_assert((unsigned)&manager->offset_0x562 - (unsigned)manager, 0x562);

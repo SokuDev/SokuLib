@@ -292,12 +292,6 @@ namespace SokuLib
 		char offset_0x000[0x0A];
 		//  ADDR_IMAGENUMBEROFS     unsigned int (4) 0x0A
 		unsigned int number;
-		// 0x0E
-		char offset_0x00E[0x36];
-		//  ADDR_FRAMEFLAGSOFS      unsigned int (4) 0x4C
-		unsigned int frameFlag;
-		//  ADDR_ATTACKFLAGSOFS     unsigned int (4) 0x50
-		unsigned int attackFlag;
 	};
 
 	struct KeyInput {
@@ -335,31 +329,31 @@ namespace SokuLib
 
 	union AttackFlags {
 		struct {
-			bool unk1: 1;
-			bool midHit: 1;
-			bool lowHit: 1;
-			bool airBlockable: 1;
-			bool uHit: 1;
-			bool unk20: 1;
-			bool unk40: 1;
-			bool unk80: 1;
-			bool unk100: 1;
-			bool unk200: 1;
-			bool crashHit: 1;
-			bool unk800: 1;
-			bool unk1000: 1;
-			bool unk2000: 1;
-			bool unk4000: 1;
-			bool knockBack: 1;
-			bool unk10000: 1;
-			bool unk20000: 1;
-			bool unk40000: 1;
-			bool guardCrush: 1;
-			bool hitsAll: 1;
-			bool stagger: 1;
-			bool grazable: 1;
-			bool unk800000: 1;
-			bool unk1000000: 1;
+			/* 00 00 00 01 */ bool unk1: 1;
+			/* 00 00 00 02 */ bool midHit: 1;
+			/* 00 00 00 04 */ bool lowHit: 1;
+			/* 00 00 00 08 */ bool airBlockable: 1;
+			/* 00 00 00 10 */ bool uHit: 1;
+			/* 00 00 00 20 */ bool unk20: 1;
+			/* 00 00 00 40 */ bool unk40: 1;
+			/* 00 00 00 80 */ bool unk80: 1;
+			/* 00 00 01 00 */ bool unk100: 1;
+			/* 00 00 02 00 */ bool unk200: 1;
+			/* 00 00 04 00 */ bool crashHit: 1;
+			/* 00 00 08 00 */ bool unk800: 1;
+			/* 00 00 10 00 */ bool unk1000: 1;
+			/* 00 00 20 00 */ bool unk2000: 1;
+			/* 00 00 40 00 */ bool unk4000: 1;
+			/* 00 00 80 00 */ bool knockBack: 1;
+			/* 00 01 00 00 */ bool unk10000: 1;
+			/* 00 02 00 00 */ bool unk20000: 1;
+			/* 00 04 00 00 */ bool unk40000: 1;
+			/* 00 08 00 00 */ bool guardCrush: 1;
+			/* 00 10 00 00 */ bool hitsAll: 1;
+			/* 00 20 00 00 */ bool stagger: 1;
+			/* 00 40 00 00 */ bool grazable: 1;
+			/* 00 80 00 00 */ bool unk800000: 1;
+			/* 01 00 00 00 */ bool unk1000000: 1;
 		};
 		unsigned int value;
 	};
@@ -425,6 +419,24 @@ namespace SokuLib
 		// FF_ATTACK_BOXES 0x60 // rect<short>
 	};
 
+	union Color {
+		struct {
+			unsigned char b;
+			unsigned char g;
+			unsigned char r;
+			unsigned char a;
+		};
+		unsigned color;
+	};
+
+	struct RenderInfo {
+		Color color;
+		int shaderType;
+		Color shaderColor;
+		Vector scale;
+		float zRotation;
+	};
+
 	struct ObjectManager {
 		// 0x000
 		char offset_0x000[0xEC];
@@ -438,13 +450,22 @@ namespace SokuLib
 		Vector speed;
 
 		// 0x0FC
-		char offset_0x0FC[0x8];
+		char offset_0x0FC[0x4];
+
+		// 0x100
+		float gravity;
 
 		//  ADDR_DIRECTIONOFS       enum Direction    (1) 0x104
 		Direction direction;
 
 		// 0x105
-		char offset_0x105[0x37];
+		char offset_0x105[0xB];
+
+		// 0x110
+		RenderInfo renderInfos;
+
+		// 0x128
+		char offset_0x128[0x14];
 
 		//  ADDR_ACTIONIDOFS        enum Action       (2) 0x13C
 		Action action;
@@ -486,7 +507,13 @@ namespace SokuLib
 		unsigned short hp;
 
 		// 0x186
-		char offset_0x186[0xE];
+		char offset_0x186[0x2];
+
+		// 0x188
+		unsigned int superarmorDamageTaken;
+
+		// 0x18C
+		char offset_0x18C[0x8];
 
 		//CF_HIT_COUNT 0x194 // char
 		char hitCount;
@@ -523,12 +550,6 @@ namespace SokuLib
 
 		//  ADDR_HITAREAFLAGOFS     Box *[5]         (20) 0x334
 		RotationBox *hurtBoxesRotation[5];
-
-		// 0x348
-		char offset_0x348[0x4];
-
-		// PF_IS_ACTIVE 0x34C // int
-		int isActive;
 	};
 
 	struct ObjListManager {
@@ -537,13 +558,42 @@ namespace SokuLib
 		LinkedList<ObjectManager> list;
 	};
 
+	struct ProjectileManager {
+		// 0x000
+		ObjectManager objectBase;
+
+		// 0x348
+		char offset_0x348[0x2];
+
+		// 0x34A
+		unsigned char characterIndex;
+
+		// 0x34B
+		unsigned char offset_0x34B;
+
+		// PF_IS_ACTIVE 0x34C // int
+		int isActive;
+	};
+
 	//CHARACTERMGR
 	struct CharacterManager {
 		// 0x000
 		ObjectManager objectBase;
 
-		// 0x350
-		char offset_0x350[0x14B];
+		// 0x348
+		char offset_0x348[0x2];
+
+		// 0x34A
+		unsigned char characterIndex;
+
+		// 0x34B
+		unsigned char offset_0x34B[3];
+
+		// 0x34E
+		unsigned char playerIndex;
+
+		// 0x34F
+		char offset_0x34F[0x14C];
 
 		//  ADDR_AIRDASHCOUNTOFS    unsigned char     (1) 0x49B
 		unsigned char airdashCount;
@@ -623,7 +673,10 @@ namespace SokuLib
 		float defensePower;
 
 		// 0x538
-		char offset_0x538[0x28];
+		float noSuperArmor;
+
+		// 0x53C
+		char offset_0x53C[0x24];
 
 		// 0x560
 		unsigned short grimoires;
@@ -641,7 +694,13 @@ namespace SokuLib
 		deckInfo deckInfos;
 
 		// 0x5FC
-		char offset_0x5FC[0xC8];
+		char offset_0x5FC[0xA8];
+
+		// 0x6A4
+		unsigned char skillLevels[16];
+
+		// 0x6B4
+		char offset_0x6B4[0x10];
 
 		// 0x6C4
 		Skill skillMap[16];
