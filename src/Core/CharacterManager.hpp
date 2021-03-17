@@ -333,10 +333,10 @@ namespace SokuLib
 			/* 00 00 00 02 */ bool midHit: 1;
 			/* 00 00 00 04 */ bool lowHit: 1;
 			/* 00 00 00 08 */ bool airBlockable: 1;
-			/* 00 00 00 10 */ bool uHit: 1;
+			/* 00 00 00 10 */ bool unblockable: 1;
 			/* 00 00 00 20 */ bool unk20: 1;
 			/* 00 00 00 40 */ bool unk40: 1;
-			/* 00 00 00 80 */ bool unk80: 1;
+			/* 00 00 00 80 */ bool grab: 1;
 			/* 00 00 01 00 */ bool unk100: 1;
 			/* 00 00 02 00 */ bool unk200: 1;
 			/* 00 00 04 00 */ bool crashHit: 1;
@@ -503,8 +503,8 @@ namespace SokuLib
 		// 0x168
 		char offset_0x168[0x1C];
 
-		//  ADDR_HPOFS              unsigned short    (2) 0x184
-		unsigned short hp;
+		//  ADDR_HPOFS              short    (2) 0x184
+		short hp;
 
 		// 0x186
 		char offset_0x186[0x2];
@@ -787,7 +787,7 @@ namespace SokuLib
 			//  ADDR_KOKUSHIOFS         unsigned int      (4) 0x8A0 (REISEN Number of Elixir used 0 - 3)
 			unsigned short elixirUsed;
 
-			//  ADDR_DIAHARDOFS         unsigned short    (2) 0x8A0 (PATCHOULI Time left (in frame) in the effect of Diamond Hard 540 - 0)
+			//  ADDR_DIAHARDOFS         unsigned short    (2) 0x8A0 (PATCHOULI Time left (in frame) in the effect of Diamond Hard 720 - 0)
 			unsigned short diamondHardEffectLeft;
 
 			//  ADDR_RESBUTTEROFS       unsigned short    (2) 0x8A0 (YUYUKO Number of Resurrection Butterflies used 0 - 4)
