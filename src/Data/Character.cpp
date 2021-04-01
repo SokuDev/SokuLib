@@ -32,6 +32,8 @@ namespace SokuLib
 
 	// �L�����N�^ID
 	// int
-	Character &leftChar = *reinterpret_cast<Character *>(ADDR_LCHARID);
-	Character &rightChar =  *reinterpret_cast<Character *>(ADDR_RCHARID);
+	Character &leftChar  = *reinterpret_cast<Character *>(ADDR_LCHARID);
+	Character &rightChar = *reinterpret_cast<Character *>(ADDR_RCHARID);
+	PlayerInfo &leftPlayerInfo  = *reinterpret_cast<PlayerInfo *>(ADDR_LCHARID);
+	PlayerInfo &rightPlayerInfo = *reinterpret_cast<PlayerInfo *>(ADDR_RCHARID);
 }
