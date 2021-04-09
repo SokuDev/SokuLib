@@ -30,6 +30,8 @@ add_library(
 	src/Core/Misc.hpp
 	src/Core/NetObject.cpp
 	src/Core/NetObject.hpp
+	src/Core/Packet.cpp
+	src/Core/Packet.hpp
 	src/Core/PackageLoader.hpp
 	src/Core/Renderer.cpp
 	src/Core/Renderer.hpp

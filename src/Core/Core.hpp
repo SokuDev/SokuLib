@@ -24,6 +24,7 @@
 #include "Misc.hpp"
 #include "NetObject.hpp"
 #include "PackageLoader.hpp"
+#include "Packet.hpp"
 #include "PracticeSettings.hpp"
 #include "Renderer.hpp"
 #include "SceneCreaters.hpp"

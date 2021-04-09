@@ -46,8 +46,6 @@ namespace SokuLib
 	enum VTable {
 		//TODO: Find this for version 1.10a
 		#ifdef SOKU_VER_110
-		vtbl_CLoadingSV           = ADDR_VTBL_LOADINGSV,
-		vtbl_CLoadingCL           = ADDR_VTBL_LOADINGCL,
 		vtbl_Ending               = ADDR_VTBL_ENDING,
 		vtbl_Opening              = ADDR_VTBL_OPENING,
 		vtbl_CSelectScenario      = ADDR_VTBL_SELECT_SCENARIO,
@@ -66,6 +64,8 @@ namespace SokuLib
 		vtbl_CSelectSV            = ADDR_VTBL_SELECT_SV,
 		vtbl_CSelectCL            = ADDR_VTBL_SELECT_CL,
 		vtbl_CLoading             = ADDR_VTBL_LOADING,
+		vtbl_CLoadingSV           = ADDR_VTBL_LOADINGSV,
+		vtbl_CLoadingCL           = ADDR_VTBL_LOADINGCL,
 		vtbl_CLoadingWatch        = ADDR_VTBL_LOADING_WATCH,
 		vtbl_CBattleManager       = ADDR_VTBL_BATTLE_MANAGER,
 	};
