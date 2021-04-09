@@ -37,6 +37,14 @@ namespace SokuLib
 		CHARACTER_RANDOM
 	};
 
+	struct PlayerInfo {
+		Character character;
+		unsigned char padding1;
+		unsigned char palette;
+		unsigned char padding2;
+		unsigned char deck;
+	};
+
 	extern std::vector<std::string> charactersName;
 
 	// �L�����N�^���̎擾
@@ -51,6 +59,8 @@ namespace SokuLib
 
 	extern Character &leftChar;
 	extern Character &rightChar;
+	extern PlayerInfo &leftPlayerInfo;
+	extern PlayerInfo &rightPlayerInfo;
 }
 
 
