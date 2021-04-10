@@ -361,8 +361,17 @@ namespace SokuLib
 		bool accepted;
 	};
 
+	union ElemProperty {
+		float value;
+		int selected;
+		bool checked;
+		char text[4];
+	};
+
 	struct PacketApmElemUpdated {
 		PacketType type;
+		char name[64];
+		ElemProperty property;
 	};
 
 	union Packet {
