@@ -3,6 +3,7 @@
 //
 
 #include "SokuAddresses.hpp"
+#include "SoundManager.hpp"
 
 namespace SokuLib
 {
