@@ -120,6 +120,7 @@ namespace SokuLib
 		ADDR_WINDOW_HWND                            = 0x0089FF90,
 		ADDR_LOAD_GRAPHICS_THREAD                   = 0x0089FFF4,
 		ADDR_LOAD_GRAPHICS_THREAD_ID                = 0x0089FFF8,
+		ADDR_CURRENT_SCENE                          = 0x008A000C,
 		ADDR_SCENE_ID_NEW                           = 0x008A0040,
 		ADDR_SCENE_ID                               = 0x008A0044,
 		ADDR_D3D9_DEVICE                            = 0x008A0E30,

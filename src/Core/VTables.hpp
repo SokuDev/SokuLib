@@ -6,16 +6,18 @@
 #define SOKULIB_VTABLES_HPP
 
 
+#include "BattleManager.hpp"
+#include "../Data/Scenes.hpp"
 #include "SokuAddresses.hpp"
 
 namespace SokuLib
 {
-	enum VTableScenesOffsets {
+	enum [[deprecated("Replaced with struct Scene_VTABLE")]] VTableScenesOffsets {
 		OFFSET_ON_PROCESS = 0x4,
 		OFFSET_ON_RENDER  = 0x8,
 	};
 
-	enum VTableBattleManagerOffsets {
+	enum [[deprecated("Replaced with struct BattleManager_VTABLE")]] VTableBattleManagerOffsets {
 		BATTLE_MGR_OFFSET_ON_DESTRUCT              = 0x00, // Destructor
 		BATTLE_MGR_OFFSET_ON_ARENA_START           = 0x04, // After select arena start, best place for initializing girls
 		                                                   // void *(void *, int, int)
@@ -43,7 +45,8 @@ namespace SokuLib
 	};
 
 	// ���z�֐��e�[�u��
-	enum VTable {
+
+	enum [[deprecated("Replaced with globals")]] VTable {
 		//TODO: Find this for version 1.10a
 		#ifdef SOKU_VER_110
 		vtbl_Ending               = ADDR_VTBL_ENDING,
@@ -69,6 +72,52 @@ namespace SokuLib
 		vtbl_CLoadingWatch        = ADDR_VTBL_LOADING_WATCH,
 		vtbl_CBattleManager       = ADDR_VTBL_BATTLE_MANAGER,
 	};
+
+	template<typename T>
+	struct Scene_VTABLE {
+		T *(T::*destructor)(char unknown);
+		int (T::*onProcess)();
+		int (T::*onRender)();
+		void (T::*unknown)();
+		void (T::*unknown2)();
+		void (T::*unknown3)();
+		void (T::*unknown4)();
+	};
+
+	struct BattleManager_VTABLE {
+		BattleManager *(BattleManager::*destructor)(char unknown);
+		void (BattleManager::*onArenaStart)(void *param);
+		void (BattleManager::*onExit)();
+		int (BattleManager::*onProcess)();
+		int (BattleManager::*onSayStart)();
+		int (BattleManager::*afterBlackScreen)();
+		int (BattleManager::*maybeOnProgress)();
+		int (BattleManager::*onRoundEnd)();
+		int (BattleManager::*onKO)();
+		int (BattleManager::*onGirlsTalk)();
+		int (BattleManager::*unknownFunction)();
+		void (BattleManager::*battleResultScreen)(); //When showing the cards earned in the battle
+		void (BattleManager::*onRoundStart)();
+		void (BattleManager::*onShowLogo)(int param);
+		void (BattleManager::*onRender)();       // After select arena render or draw()
+		void (BattleManager::*maybeOnRender)();  // After select arena render????
+		void (BattleManager::*maybeOnRender2)(); // After select arena render???? Last function???
+	};
+
+	extern Scene_VTABLE<Select>        &VTable_Select;
+	extern Scene_VTABLE<Logo>          &VTable_Logo;
+	extern Scene_VTABLE<Title>         &VTable_Title;
+	extern Scene_VTABLE<Battle>        &VTable_Battle;
+	extern Scene_VTABLE<BattleClient>  &VTable_BattleClient;
+	extern Scene_VTABLE<BattleServer>  &VTable_BattleServer;
+	extern Scene_VTABLE<BattleWatch>   &VTable_BattleWatch;
+	extern Scene_VTABLE<SelectServer>  &VTable_SelectServer;
+	extern Scene_VTABLE<SelectClient>  &VTable_SelectClient;
+	extern Scene_VTABLE<Loading>       &VTable_Loading;
+	extern Scene_VTABLE<LoadingServer> &VTable_LoadingServer;
+	extern Scene_VTABLE<LoadingClient> &VTable_LoadingClient;
+	extern Scene_VTABLE<LoadingWatch>  &VTable_LoadingWatch;
+	extern BattleManager_VTABLE        &VTable_BattleManager;
 }
 
 

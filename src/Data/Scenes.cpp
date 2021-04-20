@@ -25,7 +25,7 @@ namespace SokuLib
 		"Online battle as host",             //SCENE_BATTLESV     = 13,
 		"Online battle as client",           //SCENE_BATTLECL     = 14,
 		"Online battle as spectator",        //SCENE_BATTLEWATCH  = 15,
-		"Selecting scenario",                //SCENE_SELECTSENARIO= 16,
+		"Selecting scenario",                //SCENE_SELECTSCENARIO= 16,
 		"Scene 17",                          //???                = 17,
 		"Scene 18",                          //???                = 18,
 		"Scene 19",                          //???                = 19,
@@ -35,6 +35,7 @@ namespace SokuLib
 	Scene &newSceneId = *reinterpret_cast<Scene *>(ADDR_SCENE_ID_NEW);
 	Scene &sceneId = *reinterpret_cast<Scene *>(ADDR_SCENE_ID);
 	HANDLE &LGThread = *reinterpret_cast<HANDLE *>(ADDR_LOAD_GRAPHICS_THREAD);
+	SceneBase *&currentScene = *reinterpret_cast<SceneBase **>(ADDR_CURRENT_SCENE);
 
 	void changeScene(Scene newScene)
 	{
