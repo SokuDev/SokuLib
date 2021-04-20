@@ -63,8 +63,8 @@ namespace SokuLib
 		int alwaysFive;
 		// 0x04 Always 0
 		int alwaysZero;
-		// 0x08 KeyManager
-		KeyManager *keys;
+		// 0x08 KeyInput
+		KeyInput *keys;
 		// 0x0C Deck index
 		int deck;
 		// 0x10 Deck index duplicate (unused by the game)
@@ -73,18 +73,19 @@ namespace SokuLib
 		int alwaysEight;
 		// 0x18 Always 0
 		int alwaysZero2;
+		int dunno;
 		// 0x20 Selected palette
 		// Warning: This is only used when changing palette.
 		// The effective palette is the CharacterInfo.
-		int selectedPalette;
+		int palette;
 		// 0x24 Selected palette (Unused by the game)
-		int selectedPaletteUnused;
+		int paletteUnused;
 	};
 
 	struct SelectCursor {
 		int alwaysZero;
 		int alwaysTwenty;
-		KeyManager *keys;
+		KeyInput *keys;
 		int cursorPos;
 		int cursorPosUnused;
 	};
@@ -92,7 +93,7 @@ namespace SokuLib
 	struct Select {
 		SceneBase base;
 
-		char offset_0x000[0x10];
+		char offset_0x001[0xF];
 
 		//0x10 Left Keys
 		KeyManager *leftKeys;
@@ -114,12 +115,12 @@ namespace SokuLib
 		// 0x14C Right cursor pos duplicate (the game sets it but doesn't use it)
 		SelectCursor rightCursor;
 
-		// 0x150 Right ObjectSelect
+		// 0x150 Left ObjectSelect
 		ObjectSelect leftSelect;
 		// 0x178 Right ObjectSelect
 		ObjectSelect rightSelect;
 
-		char offset_0x17C[0x2145];
+		char offset_0x1A0[0x2120];
 
 		// 0x22C0 Left selection stage
 		char leftSelectionStage;
@@ -129,6 +130,8 @@ namespace SokuLib
 		bool leftRandomDeck;
 		// 0x22C3 Right selected deck from random screen
 		bool rightRandomDeck;
+
+		char offset_0x23C4[0x174];
 
 		// 0x2438 Selected stage index
 		unsigned int selectedStage;
