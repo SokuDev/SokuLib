@@ -39,8 +39,26 @@ namespace SokuLib
 	std::string getCurrentMenuName();
 
 	Menu getCurrentMenu();
+
+	struct UnknownStruct3 {
+		char unknownField[8];
+		void *CMenuObj;
+	};
+
+	struct UnknownStruct2 {
+		char unknownField[4];
+		UnknownStruct3 *unknownPointer;
+	};
+
+	struct UnknownStruct1 {
+		UnknownStruct2 *unknownPointer;
+		bool isInMenu;
+	};
+
+	extern UnknownStruct1 &menuManager;
 }
 
 #include "Menus/ConnectMenu.hpp"
+#include "Menus/ProfileDeckEdit.hpp"
 
 #endif //SOKULIB_MENUS_HPP

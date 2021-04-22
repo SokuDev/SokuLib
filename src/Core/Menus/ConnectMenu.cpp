@@ -6,13 +6,11 @@
 #include "../Exceptions.hpp"
 #include "../SokuFct.hpp"
 #include "../../Data/Scenes.hpp"
-
+#include "../Menus.hpp"
 
 namespace SokuLib
 {
-	UnknownStruct1 &menuManager = *reinterpret_cast<UnknownStruct1 *>(ADDR_UNKNOWN_VAR_MENU);
-
-	void MenuConnect::setupHost(uint port, bool spectate)
+	void MenuConnect::setupHost(unsigned port, bool spectate)
 	{
 		this->port = port;
 		this->spectate = spectate;
@@ -21,7 +19,7 @@ namespace SokuLib
 		this->host();
 	}
 
-	void MenuConnect::joinHost(const char *ip, uint port, bool spectate)
+	void MenuConnect::joinHost(const char *ip, unsigned port, bool spectate)
 	{
 		if (ip != nullptr) {
 			//Unsafe

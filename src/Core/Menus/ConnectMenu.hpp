@@ -2,66 +2,47 @@
 
 #include "../SokuAddresses.hpp"
 #include "../Memory.hpp"
-#include "../Menus.hpp"
 #include <Windows.h>
 #include <cwchar>
 #include <string>
 
-typedef unsigned uint;
 
 namespace SokuLib
 {
 	//! @brief The buffer size needed to hold the network menu.
 	constexpr unsigned networkMenuBufferSize  = 0x118C;
 
-	struct UnknownStruct3 {
-		byte unknownField[8];
-		void *CMenuObj;
-	};
-
-	struct UnknownStruct2 {
-		byte unknownField[4];
-		UnknownStruct3 *unknownPointer;
-	};
-
-	struct UnknownStruct1 {
-		UnknownStruct2 *unknownPointer;
-		bool isInMenu;
-	};
-
-	extern UnknownStruct1 &menuManager;
-
 	struct MenuConnect {
 		void *vftable;
 		void *CNetworkBasePtr;
-		byte choice;
-		byte subchoice;
-		byte unknownField0[2];
+		unsigned char choice;
+		unsigned char subchoice;
+		unsigned char unknownField0[2];
 		void *CDesignBasePtr;
-		byte UNKNOWN_1[48];
+		unsigned char UNKNOWN_1[48];
 		void *menuItemSprites[7];
-		byte unknownField2[860];
-		byte notSpectateFlag;
-		byte spectate;
-		byte unknownField3[2];
-		uint menuItemCount;
-		byte unknownField4[8];
-		uint cursorPos;
-		uint cursorPos2;
-		byte unknownField5[48];
-		uint numberInputArrowPos;
-		byte unknownField6[36];
-		uint port;
-		byte unknownField7[4];
+		unsigned char unknownField2[860];
+		unsigned char notSpectateFlag;
+		unsigned char spectate;
+		unsigned char unknownField3[2];
+		unsigned menuItemCount;
+		unsigned char unknownField4[8];
+		unsigned cursorPos;
+		unsigned cursorPos2;
+		unsigned char unknownField5[48];
+		unsigned numberInputArrowPos;
+		unsigned char unknownField6[36];
+		unsigned port;
+		unsigned char unknownField7[4];
 		char IPString[20]; //Final/Used val
 		char IPWString; //Unknown size
-		byte unknownField8[2051];
-		uint notInSubMenuFlag;
-		byte unknownField9[332];
-		byte inSubMenuFlag;
-		byte unknownField10[171];
-		byte unknownJoinFlag;
-		byte unknownField12[835];
+		unsigned char unknownField8[2051];
+		unsigned notInSubMenuFlag;
+		unsigned char unknownField9[332];
+		unsigned char inSubMenuFlag;
+		unsigned char unknownField10[171];
+		unsigned char unknownJoinFlag;
+		unsigned char unknownField12[835];
 
 		enum Choice {
 			CHOICE_NOTHING,
@@ -108,12 +89,12 @@ namespace SokuLib
 		//! @brief Starts hosting.
 		//! @param port The port you which to host on.
 		//! @param spectate Whether spectators are allowed or not.
-		void setupHost(uint port, bool spectate);
+		void setupHost(unsigned port, bool spectate);
 
 		//! @brief Starts connecting to an host.
 		//! @param ip The ip of the host.
 		//! @param port The port of the host.
 		//! @param spectate Connect as spectator or not.
-		void joinHost(const char *ip, uint port, bool spectate = false);
+		void joinHost(const char *ip, unsigned port, bool spectate = false);
 	};
 }

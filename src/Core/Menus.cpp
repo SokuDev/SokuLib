@@ -9,6 +9,7 @@
 namespace SokuLib
 {
 	void (* const activateMenu)(void *addr) = reinterpret_cast<void (*)(void *)>(ADDR_ACTIVATE_MENU);
+	UnknownStruct1 &menuManager = *reinterpret_cast<UnknownStruct1 *>(ADDR_UNKNOWN_VAR_MENU);
 
 	std::string getCurrentMenuName()
 	{

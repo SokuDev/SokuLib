@@ -9,6 +9,7 @@
 #include "BattleManager.hpp"
 #include "../Data/Scenes.hpp"
 #include "SokuAddresses.hpp"
+#include "Menus.hpp"
 
 namespace SokuLib
 {
@@ -84,6 +85,14 @@ namespace SokuLib
 		void (T::*unknown4)();
 	};
 
+	template<typename T>
+	struct Menu_VTABLE {
+		void *unknown;
+		void *unknown2;
+		int (T::*onProcess)();
+		int (T::*onRender)();
+	};
+
 	struct BattleManager_VTABLE {
 		BattleManager *(BattleManager::*destructor)(char unknown);
 		void (BattleManager::*onArenaStart)(void *param);
@@ -117,6 +126,8 @@ namespace SokuLib
 	extern Scene_VTABLE<LoadingServer> &VTable_LoadingServer;
 	extern Scene_VTABLE<LoadingClient> &VTable_LoadingClient;
 	extern Scene_VTABLE<LoadingWatch>  &VTable_LoadingWatch;
+	extern Menu_VTABLE<MenuConnect>    &VTable_ConnectMenu;
+	extern Menu_VTABLE<ProfileDeckEdit>&VTable_ProfileDeckEdit;
 	extern BattleManager_VTABLE        &VTable_BattleManager;
 }
 
