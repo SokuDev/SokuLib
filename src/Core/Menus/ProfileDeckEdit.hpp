@@ -40,6 +40,10 @@ namespace SokuLib
 		char offset_0x4C4[0x10];
 		// 0x4D4
 		unsigned int panel;
+		// 0x4D8
+		char offset_0x4D8[0x10];
+		// 0x4E8
+		unsigned int selectedDeck;
 
 		unsigned short getSelectedCardId() const;
 		unsigned short getSelectedCardIdFromIndex(unsigned int index) const;
