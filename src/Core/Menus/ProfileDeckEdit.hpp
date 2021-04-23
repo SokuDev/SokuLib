@@ -7,15 +7,18 @@
 
 
 #include "../Map.hpp"
+#include "../../Data/Character.hpp"
 
 namespace SokuLib
 {
-	struct T {
-		char balec[0x468];
-	};
-
 	struct ProfileDeckEdit {
-		char offset_0x00[0x468];
+		void *vtable;
+		// 0x4
+		char offset_0x04[0x4];
+		// 0x8
+		Character editedCharacter;
+		// 0xC
+		char offset_0x0C[0x45C];
 		// 0x468
 		Map<unsigned short, unsigned char> *editedDeck;
 		// 0x46C

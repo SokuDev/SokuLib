@@ -19,7 +19,7 @@ namespace SokuLib
 		(this->*FUN_0044e050)(&buffer, key);
 		if (buffer.next == this->data)
 			(this->*FUN_0044f3e0)(&buffer, key)->next->data.second = 0;
-		assert(buffer.next == this->data);
+		assert(buffer.next != this->data);
 		return buffer.next->data.second;
 	}
 }
