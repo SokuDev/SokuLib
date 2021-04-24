@@ -47,6 +47,10 @@ namespace SokuLib
 		char offset_0x4D8[0x10];
 		// 0x4E8
 		unsigned int selectedDeck;
+		// 0x4EC
+		char offset_0x4EC[0x8];
+		// 0x4F4
+		bool cursorOnDeckChangeBox;
 
 		unsigned short getSelectedCardId() const;
 		unsigned short getSelectedCardIdFromIndex(unsigned int index) const;
