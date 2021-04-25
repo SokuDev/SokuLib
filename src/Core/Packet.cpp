@@ -48,11 +48,11 @@ namespace SokuLib
 			break;
 		case GAME_MATCH:
 			stream << ", host: " << event.match.host;
-			stream << ", client: " << event.match.client();
-			stream << ", stageId: " << event.match.stageId();
-			stream << ", musicId: " << event.match.musicId();
-			stream << ", randomSeed: " << event.match.randomSeed();
-			stream << ", matchId: " << event.match.matchId();
+			stream << ", client: " << event.match.client;
+			stream << ", stageId: " << event.match.stageId;
+			stream << ", musicId: " << event.match.musicId;
+			stream << ", randomSeed: " << event.match.randomSeed;
+			stream << ", matchId: " << event.match.matchId;
 			break;
 		case GAME_REPLAY:
 			break;
@@ -76,7 +76,7 @@ namespace SokuLib
 		for (int i = 0; i < data.deckSize; i++)
 			stream << (i == 0 ? "" : ", ") << data.cards[i];
 		stream << "]";
-		stream << ", disabledSimultaneousButton: " << std::boolalpha << data.disabledSimultaneousButton() << std::noboolalpha << "}";
+		stream << ", disabledSimultaneousButton: " << std::boolalpha << data.disabledSimultaneousButton << std::noboolalpha << "}";
 		return stream;
 	}
 

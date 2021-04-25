@@ -227,83 +227,18 @@ namespace SokuLib
 		uint8_t skinId;
 		uint8_t deckId;
 		uint8_t deckSize;
-		uint16_t cards[1];
-
-		uint8_t &disabledSimultaneousButton()
-		{
-			return *reinterpret_cast<uint8_t *>(&this->cards[this->deckSize]);
-		}
-
-		const uint8_t &disabledSimultaneousButton() const
-		{
-			return *reinterpret_cast<const uint8_t *>(&this->cards[this->deckSize]);
-		}
-
-		uint8_t *getEndPtr()
-		{
-			return reinterpret_cast<uint8_t *>(&this->cards[this->deckSize]) + 1;
-		}
-
-		const uint8_t *getEndPtr() const
-		{
-			return reinterpret_cast<const uint8_t *>(&this->cards[this->deckSize]) + 1;
-		}
+		uint16_t cards[20];
+		uint8_t disabledSimultaneousButton;
 	};
 
 	struct GameMatchEvent {
 		GameType type;
 		PlayerMatchData host;
-		uint8_t data[sizeof(PlayerMatchData) + 256 * 2 + 7];
-
-		PlayerMatchData &client()
-		{
-			return *reinterpret_cast<PlayerMatchData *>(this->host.getEndPtr());
-		}
-
-		uint8_t &stageId()
-		{
-			return *this->client().getEndPtr();
-		}
-
-		uint8_t &musicId()
-		{
-			return this->client().getEndPtr()[1];
-		}
-
-		uint32_t &randomSeed()
-		{
-			return *reinterpret_cast<uint32_t *>(this->client().getEndPtr()[2]);
-		}
-
-		uint8_t &matchId()
-		{
-			return this->client().getEndPtr()[6];
-		}
-
-		const PlayerMatchData &client() const
-		{
-			return *reinterpret_cast<const PlayerMatchData *>(this->host.getEndPtr());
-		}
-
-		const uint8_t &stageId() const
-		{
-			return *this->client().getEndPtr();
-		}
-
-		const uint8_t &musicId() const
-		{
-			return this->client().getEndPtr()[1];
-		}
-
-		const uint32_t &randomSeed() const
-		{
-			return *reinterpret_cast<const uint32_t *>(this->client().getEndPtr()[2]);
-		}
-
-		const uint8_t &matchId() const
-		{
-			return this->client().getEndPtr()[6];
-		}
+		PlayerMatchData client;
+		uint8_t stageId;
+		uint8_t musicId;
+		uint32_t randomSeed;
+		uint8_t matchId;
 	};
 
 	std::ostream &operator<<(std::ostream &stream, const PlayerMatchData &data);

@@ -15,7 +15,7 @@ namespace SokuLib
 	template<typename T = void>
 	T *New(size_t size)
 	{
-		return reinterpret_cast<T *>(NewFct(size));
+		return reinterpret_cast<T *>(NewFct(size * sizeof(T)));
 	}
 }
 
