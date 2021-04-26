@@ -131,9 +131,9 @@ namespace SokuLib
 		bool Z: 1;
 		bool X: 1;
 		bool C: 1;
-		bool Q: 1;
-		bool dash: 1;
 		bool A: 1;
+		bool dash: 1;
+		bool Q: 1;
 		unsigned char padding: 6;
 	};
 
