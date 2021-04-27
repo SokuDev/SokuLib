@@ -27,8 +27,8 @@ namespace SokuLib
 		return (this->*union_cast<short (__thiscall deckInfo::*)()>(ADDR_GET_CARD))();
 	}
 
-	void CSprite::init(int unknown1, int unknown2, int unknown3, void *dat1, void *dat2)
+	void CSprite::init(int unknown1, int unknown2, int unknown3, int dat1, int dat2)
 	{
-		(this->*union_cast<void (__thiscall CSprite::*)(int, int, int, void *, void *)>(ADDR_CSPRITE_INIT))(unknown1, unknown2, unknown3, dat1, dat2);
+		(this->*union_cast<void (__thiscall CSprite::*)(int, int, int, int , int )>(ADDR_CSPRITE_INIT))(unknown1, unknown2, unknown3, dat1, dat2);
 	}
 }

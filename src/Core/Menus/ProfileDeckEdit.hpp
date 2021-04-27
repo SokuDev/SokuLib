@@ -7,10 +7,22 @@
 
 
 #include "../Map.hpp"
+#include "../Cards.hpp"
 #include "../../Data/Character.hpp"
 
 namespace SokuLib
 {
+	struct MGuide {
+		bool active;
+		char offset_0x1[0x3];
+		void *imagePtr;
+		CSprite sprite;
+		char offset_0x9C[0x4];
+		float size;
+		unsigned char fadeTimer;
+		char offset_0xA5[0x3];
+	};
+
 	struct ProfileDeckEdit {
 		void *vtable;
 		// 0x4
@@ -51,6 +63,10 @@ namespace SokuLib
 		char offset_0x4EC[0x8];
 		// 0x4F4
 		bool cursorOnDeckChangeBox;
+		// 0x4F5
+		char offset_0x4F5[0x3];
+		// 0x4F8
+		MGuide guideVector[5];
 
 		unsigned short getSelectedCardId() const;
 		unsigned short getSelectedCardIdFromIndex(unsigned int index) const;

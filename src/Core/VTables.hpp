@@ -87,8 +87,8 @@ namespace SokuLib
 
 	template<typename T>
 	struct Menu_VTABLE {
+		T *(T::*onDestruct)(unsigned char param);
 		void *unknown;
-		void *unknown2;
 		int (T::*onProcess)();
 		int (T::*onRender)();
 	};

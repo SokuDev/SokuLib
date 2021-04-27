@@ -28,13 +28,13 @@ namespace SokuLib
 
 		card.id = id;
 		memset(&card.sprite, 0, sizeof(card.sprite));
-		card.sprite.VTable = SokuLib::ADDR_VTBL_CSPRITE;
+		card.sprite.VTable = reinterpret_cast<void *>(SokuLib::ADDR_VTBL_CSPRITE);
 		if (iVar2) {
 			card.cost = iVar2->cost;
 			if (iVar2->overrideCost == 1)
 				card.cost = 1;
 			if (iVar2->unknown)
-				card.sprite.init(iVar2->unknown, 0, 0, Dat0x897004, Dat0x897000);
+				card.sprite.init(iVar2->unknown, 0, 0, reinterpret_cast<int>(Dat0x897004), reinterpret_cast<int>(Dat0x897000));
 		}
 		return iVar2 != nullptr;
 	}

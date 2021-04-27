@@ -11,13 +11,35 @@
 
 namespace SokuLib
 {
-	typedef unsigned int undefined4;
+	struct Vector {
+		float x;
+		float y;
+	};
+
+	struct VectorI {
+		int x;
+		int y;
+	};
+
+	struct DxVertex {
+		float x;
+		float y;
+		float z;
+		float rhw;
+		unsigned color;
+		float u;
+		float v;
+	};
 
 	struct CSprite {
-		undefined4 VTable; //Not 100% sure that this is correct, might be a ptr to CSprite
-		char offset_0x4[0x90];
+		void *VTable;
+		int dxHandle;
+		DxVertex vertices[4];
+		char offset_0x78[0x8];
+		Vector pos;
+		char offset_0x88[0xC];
 
-		void init(int unknown1, int unknown2, int unknown3, void *dat1, void *dat2);
+		void init(int unknown1, int unknown2, int unknown3, int dat1, int dat2);
 	};
 
 	struct Card {

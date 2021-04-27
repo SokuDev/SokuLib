@@ -17,7 +17,7 @@ struct IDirect3DTexture9;
 namespace SokuLib
 {
 	struct TextureManager {
-		int *loadTexture(int *ret, LPCSTR path, void *unk1, void *unk2);
+		int *loadTexture(int *ret, LPCSTR path, void *width, void *height);
 		int *createTextTexture(int *ret, LPCSTR str, struct SWRFont &font, int width, int height, int *realWidth, int *realHeight);
 		void *remove(int id);
 		void setTexture(int id, int stage);

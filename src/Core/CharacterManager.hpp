@@ -265,16 +265,6 @@ namespace SokuLib
 		/* 698 */ ACTION_SPELL_BREAKING_DRUG,
 	};
 
-	struct Vector {
-		float x;
-		float y;
-	};
-
-	struct VectorI {
-		int x;
-		int y;
-	};
-
 	struct Box {
 		int left;
 		int top;
