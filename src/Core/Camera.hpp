@@ -2,8 +2,8 @@
 // Created by PinkySmile on 10/03/2021.
 //
 
-#ifndef SWRSTOYS_CAMERA_HPP
-#define SWRSTOYS_CAMERA_HPP
+#ifndef SOKULIB_CAMERA_HPP
+#define SOKULIB_CAMERA_HPP
 
 
 #include "CharacterManager.hpp"
@@ -20,4 +20,4 @@ namespace SokuLib
 }
 
 
-#endif //SWRSTOYS_CAMERA_HPP
+#endif //SOKULIB_CAMERA_HPP

@@ -20,14 +20,14 @@ namespace SokuLib
 		return SokuLib::union_cast<T2>(old);
 	}
 
-	//// DWORD��������
-	//template<typename T>
-	//inline T TamperDword(DWORD addr, T target) {
-	//	auto old = *reinterpret_cast<PDWORD>(addr);
+	// DWORD��������
+	template<typename T>
+	inline T TamperDword(DWORD addr, T target) {
+		auto old = *reinterpret_cast<PDWORD>(addr);
 
-	//	*reinterpret_cast<PDWORD>(addr) = *reinterpret_cast<PDWORD>(&target);
-	//	return SokuLib::union_cast<T>(old);
-	//}
+		*reinterpret_cast<PDWORD>(addr) = *reinterpret_cast<PDWORD>(&target);
+		return SokuLib::union_cast<T>(old);
+	}
 
 	// DWORD���Z
 	inline DWORD TamperDwordAdd(DWORD addr, DWORD delta) {

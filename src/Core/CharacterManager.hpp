@@ -2,8 +2,8 @@
 // Created by PinkySmile on 14/02/2021.
 //
 
-#ifndef SWRSTOYS_CHARACTERMANAGER_HPP
-#define SWRSTOYS_CHARACTERMANAGER_HPP
+#ifndef SOKULIB_CHARACTERMANAGER_HPP
+#define SOKULIB_CHARACTERMANAGER_HPP
 
 
 #include "Cards.hpp"
@@ -297,6 +297,7 @@ namespace SokuLib
 	};
 
 	//KEYMAPMGR
+	//CInputManagerCluster
 	struct KeymapManager {
 		char unknown[0x4];
 		char isPlayer;
@@ -834,4 +835,4 @@ namespace SokuLib
 }
 #pragma pack(pop)
 
-#endif //SWRSTOYS_CHARACTERMANAGER_HPP
+#endif //SOKULIB_CHARACTERMANAGER_HPP

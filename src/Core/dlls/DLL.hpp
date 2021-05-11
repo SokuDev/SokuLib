@@ -2,8 +2,8 @@
 // Created by PinkySmile on 11/05/2021.
 //
 
-#ifndef SWRSTOYS_DLL_HPP
-#define SWRSTOYS_DLL_HPP
+#ifndef SOKULIB_DLL_HPP
+#define SOKULIB_DLL_HPP
 
 #include "D3D9.DLL.hpp"
 #include "D3DX9_33.DLL.hpp"
@@ -16,4 +16,4 @@
 #include "WINMM.DLL.hpp"
 #include "WS2_32.DLL.hpp"
 
-#endif //SWRSTOYS_DLL_HPP
+#endif //SOKULIB_DLL_HPP

@@ -2,8 +2,8 @@
 // Created by PinkySmile on 26/02/2021.
 //
 
-#ifndef SWRSTOYS_PRACTICESETTINGS_HPP
-#define SWRSTOYS_PRACTICESETTINGS_HPP
+#ifndef SOKULIB_PRACTICESETTINGS_HPP
+#define SOKULIB_PRACTICESETTINGS_HPP
 
 
 #include "Weather.hpp"
@@ -54,4 +54,4 @@ namespace SokuLib
 }
 
 
-#endif //SWRSTOYS_PRACTICESETTINGS_HPP
+#endif //SOKULIB_PRACTICESETTINGS_HPP

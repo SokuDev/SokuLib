@@ -30,26 +30,6 @@ namespace SokuLib
 		void playSound(int id);
 	};
 
-	// �e�N�X�`���}�l�[�W�����\�b�h(�n���h���}�l�[�W������̌p��)
-	//TODO: Remove template when the address is found
-	#ifndef SOKU_VER_110
-	template<typename T = void>
-	#endif
-	__forceinline TextureManager *CTextureManager_Get(void *p, int id)
-	{
-		return CHandleManager_Get<TextureManager>(p, id);
-	}
-
-	// �v���t�@�C���f�[�^���\�b�h
-	#ifndef SOKU_VER_110
-	template<typename T = void>
-	#endif
-	__forceinline void Profile_RefreshStringTexture(void *p, int r, int g, int b)
-	{
-		//TODO: Add this for version 1.10a
-		SokuLib_Ccall(p, ADDR_PROFILE_REFRESH_STR_TEXTURE, void, (int, int, int))(r, g, b);
-	}
-
 	extern char (&getProfile1NamePrintCode)[ADDR_PROFILENAME_PRINT_CODE1_END - ADDR_PROFILENAME_PRINT_CODE1];
 	extern char (&getProfile2NamePrintCode)[ADDR_PROFILENAME_PRINT_CODE2_END - ADDR_PROFILENAME_PRINT_CODE2];
 

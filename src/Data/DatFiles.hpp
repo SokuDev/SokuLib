@@ -2,8 +2,8 @@
 // Created by PinkySmile on 19/02/2021.
 //
 
-#ifndef SWRSTOYS_DATFILES_HPP
-#define SWRSTOYS_DATFILES_HPP
+#ifndef SOKULIB_DATFILES_HPP
+#define SOKULIB_DATFILES_HPP
 
 
 namespace SokuLib
@@ -15,4 +15,4 @@ namespace SokuLib
 }
 
 
-#endif //SWRSTOYS_DATFILES_HPP
+#endif //SOKULIB_DATFILES_HPP

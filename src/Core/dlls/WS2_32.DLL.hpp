@@ -2,8 +2,8 @@
 // Created by PinkySmile on 11/05/2021.
 //
 
-#ifndef SWRSTOYS_WS2_32_DLL_HPP
-#define SWRSTOYS_WS2_32_DLL_HPP
+#ifndef SOKULIB_WS2_32_DLL_HPP
+#define SOKULIB_WS2_32_DLL_HPP
 
 
 #include <windows.h>
@@ -31,4 +31,4 @@ namespace SokuLib::DLL
 }
 
 
-#endif //SWRSTOYS_WS2_32_DLL_HPP
+#endif //SOKULIB_WS2_32_DLL_HPP

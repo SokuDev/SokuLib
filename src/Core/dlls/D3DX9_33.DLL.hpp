@@ -2,8 +2,8 @@
 // Created by PinkySmile on 11/05/2021.
 //
 
-#ifndef SWRSTOYS_D3DX9_33_DLL_HPP
-#define SWRSTOYS_D3DX9_33_DLL_HPP
+#ifndef SOKULIB_D3DX9_33_DLL_HPP
+#define SOKULIB_D3DX9_33_DLL_HPP
 
 #include "directx/d3dx9.h"
 
@@ -18,4 +18,4 @@ namespace SokuLib::DLL
 	extern DLLD3DX9_33 &d3dx9_33;
 }
 
-#endif //SWRSTOYS_D3DX9_33_DLL_HPP
+#endif //SOKULIB_D3DX9_33_DLL_HPP

@@ -44,20 +44,10 @@ namespace SokuLib
 		unsigned char palette;
 		unsigned char padding2;
 		unsigned char deck;
-		mVC9Dequeue<unsigned short> effectiveDeck;
+		Dequeue<unsigned short> effectiveDeck;
 	};
 
 	extern std::vector<std::string> charactersName;
-
-	// �L�����N�^���̎擾
-	#ifndef SOKU_VER_110
-	template<typename T = void>
-	#endif
-	__forceinline LPCSTR GetCharacterAbbr(int id)
-	{
-		//TODO: Find this for version 1.10a
-		return ((LPCSTR (__cdecl *)(int id))ADDR_GET_CHARACTER_ABBR)(id);
-	}
 
 	extern Character &leftChar;
 	extern Character &rightChar;

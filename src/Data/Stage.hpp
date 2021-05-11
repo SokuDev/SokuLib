@@ -42,10 +42,6 @@ namespace SokuLib
 	//! @return The stage index between 0 and 19 (bounds included)
 	unsigned char flattenStageId(Stage id);
 
-	//! @return The currently loaded stage id
-	#ifdef SOKU_VER_110
-	template<typename T = void>
-	#endif
 	extern Stage &stageId;
 }
 

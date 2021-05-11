@@ -2,8 +2,8 @@
 // Created by PinkySmile on 06/12/2020.
 //
 
-#ifndef SWRSTOYS_CARDS_HPP
-#define SWRSTOYS_CARDS_HPP
+#ifndef SOKULIB_CARDS_HPP
+#define SOKULIB_CARDS_HPP
 
 
 #include "Stack.hpp"
@@ -31,7 +31,7 @@ namespace SokuLib
 		float v;
 	};
 
-	struct CSprite {
+	struct Sprite {
 		void *VTable;
 		int dxHandle;
 		DxVertex vertices[4];
@@ -42,10 +42,13 @@ namespace SokuLib
 		void init(int unknown1, int unknown2, int unknown3, int dat1, int dat2);
 	};
 
+	[[deprecated("Replaced by Sprite")]]
+	typedef Sprite CSprite;
+
 	struct Card {
 		unsigned short id;
 		unsigned short cost;
-		CSprite sprite;
+		Sprite sprite;
 	};
 
 	// Probably a generic container
@@ -62,7 +65,7 @@ namespace SokuLib
 		unsigned char size;
 
 		Card &operator[](unsigned id) const;
-		CSprite &pushCard(const Card &card);
+		Sprite &pushCard(const Card &card);
 	};
 
 	struct UnknownCardStruct {
@@ -84,7 +87,7 @@ namespace SokuLib
 		// 0x57C (From character manager start)
 		char UNKNOWN[0x34];
 		// 0x5B0
-		mVC9Dequeue<unsigned short> deck;
+		Dequeue<unsigned short> deck;
 		// 0x5C4
 		char unknown[0x20];
 		// 0x5E4
@@ -102,4 +105,4 @@ namespace SokuLib
 }
 
 
-#endif //SWRSTOYS_CARDS_HPP
+#endif //SOKULIB_CARDS_HPP

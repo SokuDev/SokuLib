@@ -2,8 +2,8 @@
 // Created by PinkySmile on 11/05/2021.
 //
 
-#ifndef SWRSTOYS_USER32_DLL_HPP
-#define SWRSTOYS_USER32_DLL_HPP
+#ifndef SOKULIB_USER32_DLL_HPP
+#define SOKULIB_USER32_DLL_HPP
 
 #include <windows.h>
 
@@ -45,4 +45,4 @@ namespace SokuLib::DLL
 	extern DLLUSER32 &user32;
 }
 
-#endif //SWRSTOYS_USER32_DLL_HPP
+#endif //SOKULIB_USER32_DLL_HPP

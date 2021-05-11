@@ -2,8 +2,8 @@
 // Created by PinkySmile on 22/04/2021.
 //
 
-#ifndef SWRSTOYS_MAP_HPP
-#define SWRSTOYS_MAP_HPP
+#ifndef SOKULIB_MAP_HPP
+#define SOKULIB_MAP_HPP
 
 
 #include <vector>
@@ -60,4 +60,4 @@ namespace SokuLib
 	unsigned char &Map<unsigned short, unsigned char>::operator[](const unsigned short &key);
 }
 
-#endif //SWRSTOYS_MAP_HPP
+#endif //SOKULIB_MAP_HPP

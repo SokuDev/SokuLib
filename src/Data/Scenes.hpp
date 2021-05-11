@@ -37,7 +37,6 @@ namespace SokuLib
 	};
 	#pragma pack(pop)
 
-
 	struct SceneBase {
 		template<typename T>
 		T &to()

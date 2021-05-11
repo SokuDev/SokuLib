@@ -46,18 +46,7 @@ namespace SokuLib
 	};
 
 	// ���z�֐��e�[�u��
-
 	enum [[deprecated("Replaced with globals")]] VTable {
-		//TODO: Find this for version 1.10a
-		#ifdef SOKU_VER_110
-		vtbl_Ending               = ADDR_VTBL_ENDING,
-		vtbl_Opening              = ADDR_VTBL_OPENING,
-		vtbl_CSelectScenario      = ADDR_VTBL_SELECT_SCENARIO,
-		vtbl_CBattleManagerStory  = ADDR_VTBL_BATTLE_MANAGER_STORY,
-		vtbl_CBattleManagerArcade = ADDR_VTBL_BATTLE_MANAGER_ARCADE,
-		vtbl_CInfoManager         = ADDR_VTBL_INFO_MANAGER,
-		vtbl_CInfoManagerStory    = ADDR_VTBL_INFO_MANAGER_STORY,
-		#endif
 		vtbl_CSelect              = ADDR_VTBL_SELECT,
 		vtbl_CLogo                = ADDR_VTBL_LOGO,
 		vtbl_CTitle               = ADDR_VTBL_TITLE,

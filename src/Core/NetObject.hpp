@@ -13,7 +13,7 @@
 
 namespace SokuLib
 {
-	struct CNetworkBase {
+	struct NetworkBase {
 		char unknown[0x3C];
 		// �T�[�o�A�h���X
 		// in_addr
@@ -31,18 +31,8 @@ namespace SokuLib
 		char unknown2[0x378];
 		// UDP�l�b�g���[�N�I�u�W�F�N�g
 		// CNetworkBase
-		CNetworkBase netUdp;
+		NetworkBase netUdp;
 	};
-
-	// �l�b�g�I�u�W�F�N�g���\�b�h
-	#ifndef SOKU_VER_110
-	template<typename T = void>
-	#endif
-	__forceinline void NetObject_CreateProfileStringTexture(void *p)
-	{
-		//TODO: Find this for version 1.10a
-		SokuLib_Ccall(p, ADDR_NOBJ_CREATE_PROF_STR_TEXTURE, void, ())();
-	}
 
 	NetObject &getNetObject();
 }

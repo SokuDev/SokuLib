@@ -2,8 +2,8 @@
 // Created by PinkySmile on 17/02/2021.
 //
 
-#ifndef SWRSTOYS_LINKEDLIST_HPP
-#define SWRSTOYS_LINKEDLIST_HPP
+#ifndef SOKULIB_LINKEDLIST_HPP
+#define SOKULIB_LINKEDLIST_HPP
 
 
 #include <vector>
@@ -55,4 +55,4 @@ namespace SokuLib
 }
 
 
-#endif //SWRSTOYS_LINKEDLIST_HPP
+#endif //SOKULIB_LINKEDLIST_HPP

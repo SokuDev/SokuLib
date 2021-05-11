@@ -2,16 +2,16 @@
 // Created by PinkySmile on 06/12/2020.
 //
 
-#ifndef SWRSTOYS_STACK_HPP
-#define SWRSTOYS_STACK_HPP
+#ifndef SOKULIB_STACK_HPP
+#define SOKULIB_STACK_HPP
 
 
 #include "SokuFct.hpp"
 
 namespace SokuLib
 {
-	template<class T>
-	struct mVC9Dequeue {
+	template<typename T>
+	struct Dequeue {
 		int unknown1;
 		T** data;
 		int chunkSize;
@@ -42,10 +42,14 @@ namespace SokuLib
 
 		T &peekValue()
 		{
-			return (this->*union_cast<T *(__thiscall mVC9Dequeue<T>::*)()>(ADDR_STACK_PEEK_VALUE))();
+			return (this->*union_cast<T *(__thiscall Dequeue<T>::*)()>(ADDR_STACK_PEEK_VALUE))();
 		}
 	};
+
+	template<typename T>
+	//Is deprecated
+	using mVC9Dequeue = Dequeue<T>;
 }
 
 
-#endif //SWRSTOYS_STACK_HPP
+#endif //SOKULIB_STACK_HPP

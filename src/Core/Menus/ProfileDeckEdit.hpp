@@ -2,8 +2,8 @@
 // Created by PinkySmile on 22/04/2021.
 //
 
-#ifndef SWRSTOYS_PROFILEDECKEDIT_HPP
-#define SWRSTOYS_PROFILEDECKEDIT_HPP
+#ifndef SOKULIB_PROFILEDECKEDIT_HPP
+#define SOKULIB_PROFILEDECKEDIT_HPP
 
 
 #include "../Map.hpp"
@@ -16,7 +16,7 @@ namespace SokuLib
 		bool active;
 		char offset_0x1[0x3];
 		void *imagePtr;
-		CSprite sprite;
+		Sprite sprite;
 		char offset_0x9C[0x4];
 		float size;
 		unsigned char fadeTimer;
@@ -73,4 +73,4 @@ namespace SokuLib
 	};
 }
 
-#endif //SWRSTOYS_PROFILEDECKEDIT_HPP
+#endif //SOKULIB_PROFILEDECKEDIT_HPP

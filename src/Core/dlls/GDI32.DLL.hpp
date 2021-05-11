@@ -2,8 +2,8 @@
 // Created by PinkySmile on 11/05/2021.
 //
 
-#ifndef SWRSTOYS_GDI32_DLL_HPP
-#define SWRSTOYS_GDI32_DLL_HPP
+#ifndef SOKULIB_GDI32_DLL_HPP
+#define SOKULIB_GDI32_DLL_HPP
 
 
 #include <Windows.h>
@@ -26,4 +26,4 @@ namespace SokuLib
 }
 
 
-#endif //SWRSTOYS_GDI32_DLL_HPP
+#endif //SOKULIB_GDI32_DLL_HPP

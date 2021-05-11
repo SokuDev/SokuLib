@@ -2,8 +2,8 @@
 // Created by PinkySmile on 11/05/2021.
 //
 
-#ifndef SWRSTOYS_WINMM_DLL_HPP
-#define SWRSTOYS_WINMM_DLL_HPP
+#ifndef SOKULIB_WINMM_DLL_HPP
+#define SOKULIB_WINMM_DLL_HPP
 
 #include <windows.h>
 
@@ -16,4 +16,4 @@ namespace SokuLib::DLL
 	extern DLLWINMM32 &winmm32;
 }
 
-#endif //SWRSTOYS_WINMM_DLL_HPP
+#endif //SOKULIB_WINMM_DLL_HPP

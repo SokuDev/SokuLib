@@ -2,8 +2,8 @@
 // Created by PinkySmile on 11/05/2021.
 //
 
-#ifndef SWRSTOYS_KERNEL32_DLL_HPP
-#define SWRSTOYS_KERNEL32_DLL_HPP
+#ifndef SOKULIB_KERNEL32_DLL_HPP
+#define SOKULIB_KERNEL32_DLL_HPP
 
 #include <windows.h>
 
@@ -119,4 +119,4 @@ namespace SokuLib::DLL
 	extern DLLKERNEL32 &kernel32;
 }
 
-#endif //SWRSTOYS_KERNEL32_DLL_HPP
+#endif //SOKULIB_KERNEL32_DLL_HPP

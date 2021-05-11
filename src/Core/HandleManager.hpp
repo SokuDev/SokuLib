@@ -32,14 +32,6 @@ namespace SokuLib
 		__asm call ecx
 		__asm retn
 	}
-
-	// �n���h���}�l�[�W�����\�b�h
-	template <typename T>
-	inline T *CHandleManager_Get(void *p, int id)
-	{
-		//TODO: Find thi in version 1.10a
-		return SokuLib_Ccall(p, ADDR_HANDLE_MANAGER_GET, T *, (int))(id);
-	}
 }
 
 

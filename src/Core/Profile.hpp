@@ -2,8 +2,8 @@
 // Created by PinkySmile on 11/05/2021.
 //
 
-#ifndef SWRSTOYS_PROFILE_HPP
-#define SWRSTOYS_PROFILE_HPP
+#ifndef SOKULIB_PROFILE_HPP
+#define SOKULIB_PROFILE_HPP
 
 
 #include "Cards.hpp"
@@ -16,7 +16,7 @@ namespace SokuLib
 		void *vtable;
 
 		// 0x004
-		CSprite sprite;
+		Sprite sprite;
 
 		// 0x098
 		String name;
@@ -31,7 +31,7 @@ namespace SokuLib
 		void *offset_0x0D4[0xC8];
 
 		// 0x1AC
-		mVC9Dequeue<unsigned short> cards[20][4];
+		Dequeue<unsigned short> cards[20][4];
 	};
 
 	extern Profile &profile1;
@@ -44,4 +44,4 @@ namespace SokuLib
 }
 
 
-#endif //SWRSTOYS_PROFILE_HPP
+#endif //SOKULIB_PROFILE_HPP
