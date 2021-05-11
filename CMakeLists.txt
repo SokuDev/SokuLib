@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 project(SokuLib)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 add_library(
 	SokuLib STATIC
@@ -72,7 +72,39 @@ add_library(
 	src/Data/DatFiles.cpp
 	src/Data/DatFiles.hpp
 	src/Core/CharacterManager.cpp
-	src/Core/PracticeSettings.cpp src/Core/PracticeSettings.hpp src/Core/Camera.cpp src/Core/Camera.hpp src/Core/VTables.cpp src/Core/Menus/ProfileDeckEdit.cpp src/Core/Menus/ProfileDeckEdit.hpp src/Core/Map.hpp src/Core/Map.cpp src/Core/Map.cpp)
+	src/Core/PracticeSettings.cpp
+	src/Core/PracticeSettings.hpp
+	src/Core/Camera.cpp
+	src/Core/Camera.hpp
+	src/Core/VTables.cpp
+	src/Core/Menus/ProfileDeckEdit.cpp
+	src/Core/Menus/ProfileDeckEdit.hpp
+	src/Core/Map.hpp
+	src/Core/Map.cpp
+	src/Core/Profile.cpp
+	src/Core/Profile.hpp
+	src/Core/dlls/GDI32.DLL.cpp
+	src/Core/dlls/GDI32.DLL.hpp
+	src/Core/dlls/IMM32.DLL.cpp
+	src/Core/dlls/IMM32.DLL.hpp
+	src/Core/dlls/KERNEL32.DLL.cpp
+	src/Core/dlls/KERNEL32.DLL.hpp
+	src/Core/dlls/USER32.DLL.cpp
+	src/Core/dlls/USER32.DLL.hpp
+	src/Core/dlls/WINMM.DLL.cpp
+	src/Core/dlls/WINMM.DLL.hpp
+	src/Core/dlls/WS2_32.DLL.cpp
+	src/Core/dlls/WS2_32.DLL.hpp
+	src/Core/dlls/DLL.hpp
+	src/Core/dlls/IMAGEHLP.DLL.cpp
+	src/Core/dlls/IMAGEHLP.DLL.hpp
+	src/Core/dlls/D3D9.DLL.cpp
+	src/Core/dlls/D3D9.DLL.hpp
+	src/Core/dlls/D3DX9_33.DLL.cpp
+	src/Core/dlls/D3DX9_33.DLL.hpp
+	src/Core/dlls/OLE32.DLL.cpp
+	src/Core/dlls/OLE32.DLL.hpp
+)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	target_compile_definitions(

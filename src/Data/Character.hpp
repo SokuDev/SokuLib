@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <windows.h>
+#include "../Core/Stack.hpp"
 #include "../Core/SokuAddresses.hpp"
 
 namespace SokuLib
@@ -43,6 +44,7 @@ namespace SokuLib
 		unsigned char palette;
 		unsigned char padding2;
 		unsigned char deck;
+		mVC9Dequeue<unsigned short> effectiveDeck;
 	};
 
 	extern std::vector<std::string> charactersName;

@@ -5,7 +5,6 @@
 #include <Windows.h>
 #include "TextureManager.hpp"
 #include "SokuAddresses.hpp"
-#include "Core.hpp"
 
 namespace SokuLib
 {

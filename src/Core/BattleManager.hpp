@@ -29,8 +29,6 @@ namespace SokuLib
 	//! @brief Changes the current battle mode
 	extern void (__cdecl * const setBattleMode)(BattleMode comm, BattleSubMode sub);
 	BattleManager &getBattleMgr();
-	extern String &player1Profile;
-	extern String &player2Profile;
 }
 
 

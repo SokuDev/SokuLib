@@ -84,7 +84,7 @@ namespace SokuLib
 		// 0x57C (From character manager start)
 		char UNKNOWN[0x34];
 		// 0x5B0
-		mVC9Dequeue<short> deck;
+		mVC9Dequeue<unsigned short> deck;
 		// 0x5C4
 		char unknown[0x20];
 		// 0x5E4
