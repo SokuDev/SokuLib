@@ -35,9 +35,10 @@ namespace SokuLib
 		void *VTable;
 		int dxHandle;
 		DxVertex vertices[4];
-		char offset_0x78[0x8];
+        Vector size;
 		Vector pos;
-		char offset_0x88[0xC];
+        Vector scale;
+        float rotation;
 
 		void init(int unknown1, int unknown2, int unknown3, int dat1, int dat2);
 	};
@@ -62,46 +63,55 @@ namespace SokuLib
 		// 0x5F4
 		int selectedCard; //The actual card is at handCardBase[selectedCard % handCardMax]
 		// 0x5F8
-		unsigned char size;
+		unsigned int size;
+        // 0x5FC
+        char field_0x14[0x8];
+        // 0x5FC
+        int handCardMax2;
+        // 0x600
+        int handCardCount;
+        // 0x604
+        int handCardUsed;
 
 		Card &operator[](unsigned id) const;
 		Sprite &pushCard(const Card &card);
 	};
 
 	struct UnknownCardStruct {
-		//0x00
+		// 0x00
 		char offset_0x00[0x1C];
-		//0x1C
+		// 0x1C
 		char overrideCost;
-		//0x1D
+		// 0x1D
 		char offset_0x1D;
-		//0x1E
+		// 0x1E
 		unsigned short cost;
-		//0x20
+		// 0x20
 		char offset_0x20[0x38];
-		//0x58
+		// 0x58
 		int unknown;
 	};
 
-	struct deckInfo {
+    struct CardData {
+        // 0x00
+        Dequeue<Card> queue;
+        // 0x14
+        char offset_0x14[0xC];
+    };
+
+	struct DeckInfo {
 		// 0x57C (From character manager start)
-		char UNKNOWN[0x34];
+        CardData cardData;
 		// 0x5B0
+		Dequeue<unsigned short> deckCopy;
 		Dequeue<unsigned short> deck;
-		// 0x5C4
-		char unknown[0x20];
-		// 0x5E4
-		unsigned short cardGauge;
-		// 0x5E6
-		unsigned char cardCount;
-		// 0x5E7
-		char padding_0x5E7;
-		// 0x5E8
-		HandContainer hand;
 
 		UnknownCardStruct *lookupCard(int id);
 		short getNextCard();
 	};
+
+    [[deprecated("Replaced with DeckInfo")]]
+    typedef DeckInfo deckInfo;
 }
 
 
