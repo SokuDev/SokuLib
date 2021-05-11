@@ -9,6 +9,6 @@ namespace SokuLib
 {
 	Profile &profile1 = *reinterpret_cast<Profile *>(ADDR_PLAYER1_PROFILE);
 	Profile &profile2 = *reinterpret_cast<Profile *>(ADDR_PLAYER2_PROFILE);
-	String &player1Profile = profile1.name;
-	String &player2Profile = profile2.name;
+	String &player1Profile = profile1.name2;
+	String &player2Profile = profile2.name2;
 }
