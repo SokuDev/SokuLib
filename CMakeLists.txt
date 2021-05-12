@@ -93,7 +93,7 @@ add_library(
 	src/VTables.hpp
 	src/Weather.cpp
 	src/Weather.hpp
-	src/DeprecatedElements.hpp src/Sprite.cpp src/Sprite.hpp src/Vector2.hpp src/Action.hpp src/FrameData.hpp src/Boxes.hpp)
+	src/DeprecatedElements.hpp src/Sprite.cpp src/Sprite.hpp src/Vector2.hpp src/Action.hpp src/FrameData.hpp src/Boxes.hpp src/DeprecatedElements.cpp)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	target_compile_definitions(

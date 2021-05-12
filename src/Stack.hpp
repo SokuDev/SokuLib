@@ -45,10 +45,6 @@ namespace SokuLib
 			return (this->*union_cast<T *(__thiscall Dequeue<T>::*)()>(ADDR_STACK_PEEK_VALUE))();
 		}
 	};
-
-	template<typename T>
-	//Is deprecated
-	using mVC9Dequeue = Dequeue<T>;
 }
 
 

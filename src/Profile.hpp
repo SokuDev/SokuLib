@@ -36,11 +36,6 @@ namespace SokuLib
 
 	extern Profile &profile1;
 	extern Profile &profile2;
-
-	[[deprecated("Replaced by profile1.name")]]
-	extern String &player1Profile;
-	[[deprecated("Replaced by profile2.name")]]
-	extern String &player2Profile;
 }
 
 
