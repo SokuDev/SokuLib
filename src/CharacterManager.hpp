@@ -685,23 +685,23 @@ namespace SokuLib
 		// 0x57C
 		DeckInfo deckInfo;
 
-        // 0x5C4
-        char offset_0x5C4[0x20];
+		// 0x5C4
+		char offset_0x5C4[0x20];
 
-        // 0x5E4
-        unsigned short cardGauge;
+		// 0x5E4
+		unsigned short cardGauge;
 
-        // 0x5E6
-        unsigned char cardCount;
+		// 0x5E6
+		unsigned char cardCount;
 
-        // 0x5E7
-        unsigned char cardSlotCount;
+		// 0x5E7
+		unsigned char cardSlotCount;
 
-        // 0x5E8
-        HandContainer hand;
+		// 0x5E8 (40, 0x28)
+		HandContainer hand;
 
-		// 0x5FC
-		char offset_0x5FC[0x94];
+		// 0x618
+		char offset_0x618[0x8C];
 
 		// 0x6A4
 		unsigned char skillLevels[16];

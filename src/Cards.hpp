@@ -35,10 +35,10 @@ namespace SokuLib
 		void *VTable;
 		int dxHandle;
 		DxVertex vertices[4];
-        Vector size;
+		Vector size;
 		Vector pos;
-        Vector scale;
-        float rotation;
+		Vector scale;
+		float rotation;
 
 		void init(int unknown1, int unknown2, int unknown3, int dat1, int dat2);
 	};
@@ -54,24 +54,24 @@ namespace SokuLib
 
 	// Probably a generic container
 	struct HandContainer {
-		// 0x5E8
-		int unknown;
-		// 0x5EC
+		// 0x00
+		int offset_0x00;
+		// 0x04
 		Card **handCardBase;
-		// 0x5F0
+		// 0x08
 		int handCardMax;
-		// 0x5F4
+		// 0x0C
 		int selectedCard; //The actual card is at handCardBase[selectedCard % handCardMax]
-		// 0x5F8
+		// 0x10
 		unsigned int size;
-        // 0x5FC
-        char field_0x14[0x8];
-        // 0x5FC
-        int handCardMax2;
-        // 0x600
-        int handCardCount;
-        // 0x604
-        int handCardUsed;
+		// 0x14
+		char offset_0x14[0x8];
+		// 0x1C
+		int handCardMax2;
+		// 0x20
+		int handCardCount;
+		// 0x24
+		int handCardUsed;
 
 		Card &operator[](unsigned id) const;
 		Sprite &pushCard(const Card &card);
@@ -92,16 +92,16 @@ namespace SokuLib
 		int unknown;
 	};
 
-    struct CardData {
-        // 0x00
-        Dequeue<Card> queue;
-        // 0x14
-        char offset_0x14[0xC];
-    };
+	struct CardData {
+		// 0x00
+		Dequeue<Card> queue;
+		// 0x14
+		char offset_0x14[0xC];
+	};
 
 	struct DeckInfo {
 		// 0x57C (From character manager start)
-        CardData cardData;
+		CardData cardData;
 		// 0x5B0
 		Dequeue<unsigned short> deckCopy;
 		Dequeue<unsigned short> deck;
@@ -110,8 +110,8 @@ namespace SokuLib
 		short getNextCard();
 	};
 
-    [[deprecated("Replaced with DeckInfo")]]
-    typedef DeckInfo deckInfo;
+	[[deprecated("Replaced with DeckInfo")]]
+	typedef DeckInfo deckInfo;
 }
 
 

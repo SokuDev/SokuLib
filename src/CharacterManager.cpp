@@ -5,7 +5,6 @@
 #include "SokuAddresses.hpp"
 #include "CharacterManager.hpp"
 #include "../Data/DatFiles.hpp"
-#include "SokuFct.hpp"
 
 namespace SokuLib
 {
@@ -16,15 +15,15 @@ namespace SokuLib
 		if (!this->generateCard(id, card))
 			return nullptr;
 
-		int result = reinterpret_cast<int>(&this->deckInfos.hand.pushCard(card));
+		int result = reinterpret_cast<int>(&this->hand.pushCard(card));
 
-		this->deckInfos.cardCount = this->deckInfos.hand.size;
+		this->cardCount = this->hand.size;
 		return reinterpret_cast<Card *>(result - 4);
 	}
 
 	bool CharacterManager::generateCard(unsigned short id, Card &card)
 	{
-		auto iVar2 = this->deckInfos.lookupCard(id);
+		auto iVar2 = this->deckInfo.lookupCard(id);
 
 		card.id = id;
 		memset(&card.sprite, 0, sizeof(card.sprite));
