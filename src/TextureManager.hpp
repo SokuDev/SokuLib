@@ -7,7 +7,7 @@
 
 
 #include <Windows.h>
-#include "SokuFct.hpp"
+#include "UnionCast.hpp"
 #include "SokuAddresses.hpp"
 #include "HandleManager.hpp"
 

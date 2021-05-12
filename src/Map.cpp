@@ -4,7 +4,7 @@
 
 #include <cassert>
 #include "Map.hpp"
-#include "SokuFct.hpp"
+#include "UnionCast.hpp"
 
 namespace SokuLib
 {

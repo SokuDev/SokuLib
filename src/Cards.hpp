@@ -7,45 +7,11 @@
 
 
 #include "Stack.hpp"
-#include "SokuFct.hpp"
+#include "UnionCast.hpp"
+#include "Sprite.hpp"
 
 namespace SokuLib
 {
-	struct Vector {
-		float x;
-		float y;
-	};
-
-	struct VectorI {
-		int x;
-		int y;
-	};
-
-	struct DxVertex {
-		float x;
-		float y;
-		float z;
-		float rhw;
-		unsigned color;
-		float u;
-		float v;
-	};
-
-	struct Sprite {
-		void *VTable;
-		int dxHandle;
-		DxVertex vertices[4];
-		Vector size;
-		Vector pos;
-		Vector scale;
-		float rotation;
-
-		void init(int unknown1, int unknown2, int unknown3, int dat1, int dat2);
-	};
-
-	[[deprecated("Replaced by Sprite")]]
-	typedef Sprite CSprite;
-
 	struct Card {
 		unsigned short id;
 		unsigned short cost;
@@ -100,18 +66,16 @@ namespace SokuLib
 	};
 
 	struct DeckInfo {
-		// 0x57C (From character manager start)
+		// 0x00
 		CardData cardData;
-		// 0x5B0
+		// 0x20
 		Dequeue<unsigned short> deckCopy;
+		// 0x34
 		Dequeue<unsigned short> deck;
 
 		UnknownCardStruct *lookupCard(int id);
 		short getNextCard();
 	};
-
-	[[deprecated("Replaced with DeckInfo")]]
-	typedef DeckInfo deckInfo;
 }
 
 

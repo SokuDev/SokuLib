@@ -6,7 +6,7 @@
 #define SOKULIB_STACK_HPP
 
 
-#include "SokuFct.hpp"
+#include "UnionCast.hpp"
 
 namespace SokuLib
 {

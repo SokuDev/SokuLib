@@ -4,7 +4,7 @@
 
 #include "ConnectMenu.hpp"
 #include "../Exceptions.hpp"
-#include "../SokuFct.hpp"
+#include "../UnionCast.hpp"
 #include "../Scenes.hpp"
 #include "../Menus.hpp"
 

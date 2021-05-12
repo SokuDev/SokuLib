@@ -6,7 +6,7 @@
 #define SOKULIB_HANDLEMANAGER_HPP
 
 
-#include "SokuFct.hpp"
+#include "UnionCast.hpp"
 #include "SokuAddresses.hpp"
 
 namespace SokuLib

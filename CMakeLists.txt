@@ -17,8 +17,6 @@ add_library(
 	src/Character.hpp
 	src/CharacterManager.cpp
 	src/CharacterManager.hpp
-	src/DatFiles.cpp
-	src/DatFiles.hpp
 	src/dlls/D3D9.DLL.cpp
 	src/dlls/D3D9.DLL.hpp
 	src/dlls/D3DX9_33.DLL.cpp
@@ -78,7 +76,7 @@ add_library(
 	src/SceneSize.cpp
 	src/SceneSize.hpp
 	src/SokuAddresses.hpp
-	src/SokuFct.hpp
+	src/UnionCast.hpp
 	src/SokuLib.hpp
 	src/SoundManager.cpp
 	src/SoundManager.hpp
@@ -95,7 +93,7 @@ add_library(
 	src/VTables.hpp
 	src/Weather.cpp
 	src/Weather.hpp
-)
+	src/DeprecatedElements.hpp src/Sprite.cpp src/Sprite.hpp src/Vector2.hpp src/Action.hpp src/FrameData.hpp src/Boxes.hpp)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	target_compile_definitions(

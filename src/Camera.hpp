@@ -12,7 +12,7 @@ namespace SokuLib
 {
 	struct Camera {
 		char offset_0x00[0xC];
-		Vector translate;
+		Vector2f translate;
 		float scale;
 	};
 

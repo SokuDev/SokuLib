@@ -12,7 +12,7 @@
 
 namespace SokuLib
 {
-	struct MGuide {
+	struct Guide {
 		bool active;
 		char offset_0x1[0x3];
 		void *imagePtr;
@@ -66,7 +66,7 @@ namespace SokuLib
 		// 0x4F5
 		char offset_0x4F5[0x3];
 		// 0x4F8
-		MGuide guideVector[5];
+		Guide guideVector[5];
 
 		unsigned short getSelectedCardId() const;
 		unsigned short getSelectedCardIdFromIndex(unsigned int index) const;

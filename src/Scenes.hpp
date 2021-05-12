@@ -31,7 +31,6 @@ namespace SokuLib
 		SCENE_BATTLECL,
 		SCENE_BATTLEWATCH,
 		SCENE_SELECTSCENARIO,
-		SCENE_SELECTSENARIO = SCENE_SELECTSCENARIO, //Never realised there was a typo there.....
 		SCENE_ENDING = 20,
 		SCENE_MAX,
 	};

@@ -17,18 +17,13 @@ namespace SokuLib
 		return (this->*union_cast<Sprite &(__thiscall HandContainer::*)(const Card &)>(ADDR_PUSH_CARD))(card);
 	}
 
-	UnknownCardStruct *deckInfo::lookupCard(int id)
+	UnknownCardStruct *DeckInfo::lookupCard(int id)
 	{
-		return (this->*union_cast<UnknownCardStruct *(__thiscall deckInfo::*)(int)>(ADDR_LOOKUP_CARD))(id);
+		return (this->*union_cast<UnknownCardStruct *(__thiscall DeckInfo::*)(int)>(ADDR_LOOKUP_CARD))(id);
 	}
 
-	short deckInfo::getNextCard()
+	short DeckInfo::getNextCard()
 	{
-		return (this->*union_cast<short (__thiscall deckInfo::*)()>(ADDR_GET_CARD))();
-	}
-
-	void Sprite::init(int unknown1, int unknown2, int unknown3, int dat1, int dat2)
-	{
-		(this->*union_cast<void (__thiscall Sprite::*)(int, int, int, int , int )>(ADDR_CSPRITE_INIT))(unknown1, unknown2, unknown3, dat1, dat2);
+		return (this->*union_cast<short (__thiscall DeckInfo::*)()>(ADDR_GET_CARD))();
 	}
 }

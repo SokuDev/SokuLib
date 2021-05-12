@@ -8,7 +8,7 @@
 
 #include <vector>
 #include <winsock.h>
-#include "SokuFct.hpp"
+#include "UnionCast.hpp"
 #include "SokuAddresses.hpp"
 
 namespace SokuLib

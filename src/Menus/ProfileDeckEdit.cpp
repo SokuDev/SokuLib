@@ -3,7 +3,7 @@
 //
 
 #include "ProfileDeckEdit.hpp"
-#include "../SokuFct.hpp"
+#include "../UnionCast.hpp"
 
 namespace SokuLib
 {

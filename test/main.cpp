@@ -110,16 +110,36 @@ void testCharacterManager()
 	check_offset(manager, offset_0x562, 0x562);
 	check_offset(manager, score       , 0x573);
 
-	check_offset(manager, offset_0x574               , 0x574);
-	check_offset(manager, deckInfos                  , 0x57C);
-	check_offset(manager, deckInfos.cardGauge        , 0x5E4);
-	check_offset(manager, deckInfos.cardCount        , 0x5E6);
-	check_offset(manager, deckInfos.hand.handCardBase, 0x5EC);
-	check_offset(manager, deckInfos.hand.handCardMax , 0x5F0);
-	check_offset(manager, deckInfos.hand.selectedCard, 0x5F4);
-	check_offset(manager, deckInfos.hand.size        , 0x5F8);
+	check_offset(manager, offset_0x574          , 0x574);
+	check_offset(manager, deckInfo              , 0x57C);
+	check_offset(manager, cardGauge             , 0x5E4);
+	check_offset(manager, cardCount             , 0x5E6);
+	check_offset(manager, hand                  , 0x5E8);
+	check_offset(manager, hand.handCardBase, 0x5EC);
+	check_offset(manager, hand.handCardMax , 0x5F0);
+	check_offset(manager, hand.selectedCard, 0x5F4);
+	check_offset(manager, hand.size        , 0x5F8);
 
-	check_offset(manager, offset_0x5FC, 0x5FC);
+	check_offset(manager, offset_0x610        , 0x610);
+	check_offset(manager, skillLevels         , 0x6A4);
+	check_offset(manager, skillLevels[0] , 0x6A4);
+	check_offset(manager, skillLevels[1] , 0x6A5);
+	check_offset(manager, skillLevels[2] , 0x6A6);
+	check_offset(manager, skillLevels[3] , 0x6A7);
+	check_offset(manager, skillLevels[4] , 0x6A8);
+	check_offset(manager, skillLevels[5] , 0x6A9);
+	check_offset(manager, skillLevels[6] , 0x6AA);
+	check_offset(manager, skillLevels[7] , 0x6AB);
+	check_offset(manager, skillLevels[8] , 0x6AC);
+	check_offset(manager, skillLevels[9] , 0x6AD);
+	check_offset(manager, skillLevels[10], 0x6AE);
+	check_offset(manager, skillLevels[11], 0x6AF);
+	check_offset(manager, skillLevels[12], 0x6B0);
+	check_offset(manager, skillLevels[13], 0x6B1);
+	check_offset(manager, skillLevels[14], 0x6B2);
+	check_offset(manager, skillLevels[15], 0x6B3);
+
+	check_offset(manager, offset_0x6B4, 0x6B4);
 	check_offset(manager, skillMap    , 0x6C4);
 	check_offset(manager, skillMap[0] , 0x6C4);
 	check_offset(manager, skillMap[1] , 0x6C5);
