@@ -8,7 +8,7 @@
 
 #include "../Map.hpp"
 #include "../Cards.hpp"
-#include "../../Data/Character.hpp"
+#include "../Character.hpp"
 
 namespace SokuLib
 {

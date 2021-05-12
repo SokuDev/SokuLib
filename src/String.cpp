@@ -4,7 +4,7 @@
 
 #include <algorithm>
 #include "String.hpp"
-#include "../Core/Memory.hpp"
+#include "Memory.hpp"
 
 namespace SokuLib
 {

@@ -8,8 +8,8 @@
 
 #include "SokuAddresses.hpp"
 #include "CharacterManager.hpp"
-#include "../Data/BattleMode.hpp"
-#include "../Data/String.hpp"
+#include "BattleMode.hpp"
+#include "String.hpp"
 
 namespace SokuLib
 {

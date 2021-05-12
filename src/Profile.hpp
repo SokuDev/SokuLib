@@ -7,7 +7,7 @@
 
 
 #include "Cards.hpp"
-#include "../Data/String.hpp"
+#include "String.hpp"
 
 namespace SokuLib
 {

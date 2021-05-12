@@ -5,7 +5,7 @@
 #include "ConnectMenu.hpp"
 #include "../Exceptions.hpp"
 #include "../SokuFct.hpp"
-#include "../../Data/Scenes.hpp"
+#include "../Scenes.hpp"
 #include "../Menus.hpp"
 
 namespace SokuLib

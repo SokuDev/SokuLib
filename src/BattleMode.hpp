@@ -9,7 +9,7 @@
 #include <vector>
 #include <string>
 #include <array>
-#include "../Core/SokuAddresses.hpp"
+#include "SokuAddresses.hpp"
 
 namespace SokuLib
 {

@@ -9,8 +9,8 @@
 #include <vector>
 #include <string>
 #include <windows.h>
-#include "../Core/Stack.hpp"
-#include "../Core/SokuAddresses.hpp"
+#include "Stack.hpp"
+#include "SokuAddresses.hpp"
 
 namespace SokuLib
 {

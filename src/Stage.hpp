@@ -8,7 +8,7 @@
 
 #include <vector>
 #include <string>
-#include "../Core/SokuAddresses.hpp"
+#include "SokuAddresses.hpp"
 
 namespace SokuLib
 {

@@ -9,8 +9,8 @@
 #include <Windows.h>
 #include <vector>
 #include <string>
-#include "../Core/CharacterManager.hpp"
-#include "../Core/SokuAddresses.hpp"
+#include "CharacterManager.hpp"
+#include "SokuAddresses.hpp"
 
 namespace SokuLib
 {

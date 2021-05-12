@@ -4,7 +4,7 @@
 
 #include "SokuAddresses.hpp"
 #include "CharacterManager.hpp"
-#include "../Data/DatFiles.hpp"
+#include "DatFiles.hpp"
 
 namespace SokuLib
 {

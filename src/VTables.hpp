@@ -7,7 +7,7 @@
 
 
 #include "BattleManager.hpp"
-#include "../Data/Scenes.hpp"
+#include "Scenes.hpp"
 #include "SokuAddresses.hpp"
 #include "Menus.hpp"
 

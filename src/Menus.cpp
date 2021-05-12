@@ -4,7 +4,7 @@
 
 #include "SokuAddresses.hpp"
 #include "Menus.hpp"
-#include "../Data/Scenes.hpp"
+#include "Scenes.hpp"
 
 namespace SokuLib
 {

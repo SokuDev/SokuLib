@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <vector>
 #include <winsock.h>
-#include "../Data/Character.hpp"
+#include "Character.hpp"
 #pragma pack(push, 1)
 
 namespace SokuLib
