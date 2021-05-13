@@ -7,6 +7,6 @@
 
 namespace SokuLib
 {
-	String &player1Profile = profile1.name2;
-	String &player2Profile = profile2.name2;
+	String &player1Profile = profile1.name;
+	String &player2Profile = profile2.name;
 }

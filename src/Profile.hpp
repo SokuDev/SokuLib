@@ -19,10 +19,10 @@ namespace SokuLib
 		Sprite sprite;
 
 		// 0x098
-		String name;
+		String file;
 
 		// 0x0B4
-		String name2;
+		String name;
 
 		// 0x0D0
 		void *InputManagerExObj;
