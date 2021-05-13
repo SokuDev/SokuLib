@@ -28,15 +28,17 @@ namespace SokuLib
 
 		if (newSize <= this->BUF_SIZE)
 			strcpy(this->body.buf, str.c_str());
-		else if (newSize <= this->res) {
+		else if (newSize <= this->res)
+			strcpy(this->body.ptr, str.c_str());
+		else {
 			auto buffer = SokuLib::New<char>(newSize);
 			auto oldBuffer = this->body.ptr;
 
 			strcpy(buffer, str.c_str());
 			this->body.ptr = buffer;
-			SokuLib::Delete(oldBuffer);
-		} else
-			strcpy(this->body.ptr, str.c_str());
+			if (this->res > this->BUF_SIZE)
+				SokuLib::Delete(oldBuffer);
+		}
 
 		this->res = newSize;
 		this->size = str.size();
