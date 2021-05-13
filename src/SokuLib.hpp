@@ -13,6 +13,7 @@
 #include "Cards.hpp"
 #include "Character.hpp"
 #include "CharacterManager.hpp"
+#include "dlls/DLL.hpp"
 #include "Exceptions.hpp"
 #include "Font.hpp"
 #include "FrameData.hpp"
