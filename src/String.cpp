@@ -42,4 +42,16 @@ namespace SokuLib
 		this->size = str.size();
 		return *this;
 	}
+
+	String::operator std::string() const
+	{
+		const char *str = *this;
+
+		return {str, str + this->size};
+	}
+
+	String::String()
+	{
+		memset(this, 0, sizeof(*this));
+	}
 }

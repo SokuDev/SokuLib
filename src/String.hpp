@@ -23,8 +23,10 @@ namespace SokuLib
 		size_t size;
 		size_t res;
 
+		String();
 		operator char *();
 		operator const char *() const;
+		operator std::string() const;
 		String &operator=(const std::string &str);
 	};
 	#pragma pack(pop)
