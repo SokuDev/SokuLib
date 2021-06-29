@@ -10,6 +10,8 @@
 #include <vector>
 #include <winsock.h>
 #include "Character.hpp"
+#include "Weather.hpp"
+
 #pragma pack(push, 1)
 
 namespace SokuLib
@@ -43,6 +45,10 @@ namespace SokuLib
 		APM_START_SESSION_REQUEST,
 		APM_START_SESSION_RESPONSE,
 		APM_ELEM_UPDATED,
+
+		//DesyncDetector
+		DESDET_MOD_ENABLE_REQUEST = 0x20,
+		DESDET_STATE,
 	};
 
 	enum RequestType : unsigned char {
@@ -374,6 +380,19 @@ namespace SokuLib
 		ElemProperty property;
 	};
 
+	struct PacketDesDetState {
+		PacketType type;
+		unsigned short lX : 11;
+		unsigned short lY : 11;
+		unsigned short rX : 11;
+		unsigned short rY : 11;
+		unsigned short lHP : 10;
+		unsigned short rHP : 10;
+		unsigned short weatherCounter : 10;
+		Weather displayedWeather : 5;
+		bool _ : 1;
+	};
+
 	union Packet {
 		PacketType type;
 		PacketHello hello;
@@ -389,6 +408,7 @@ namespace SokuLib
 		PacketRollSettings rollSettings;
 		PacketApmStartSessionResponse apmResponse;
 		PacketApmElemUpdated apmElemUpdated;
+		PacketDesDetState desDetState;
 	};
 
 	std::string PacketTypeToString(PacketType);
