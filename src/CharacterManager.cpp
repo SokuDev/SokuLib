@@ -32,7 +32,7 @@ namespace SokuLib
 			if (iVar2->overrideCost == 1)
 				card.cost = 1;
 			if (iVar2->unknown)
-				card.sprite.init(iVar2->unknown, 0, 0, 0x897004, 0x897000);
+				card.sprite.init(iVar2->unknown, 0, 0, *(int *)0x897004, *(int *)0x897000);
 		}
 		return iVar2 != nullptr;
 	}
