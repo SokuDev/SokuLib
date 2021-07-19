@@ -2,8 +2,8 @@
 // Created by PinkySmile on 03/03/2021.
 //
 
-#ifndef SWRSTOYS_DRAWUTILS_HPP
-#define SWRSTOYS_DRAWUTILS_HPP
+#ifndef SOKULIB_DRAWUTILS_HPP
+#define SOKULIB_DRAWUTILS_HPP
 
 
 #include <windows.h>
@@ -158,7 +158,9 @@ namespace DrawUtils
 		void destroy();
 		int releaseHandle();
 
-		static bool loadFromFile(Texture &buffer, const char *path);
+		bool loadFromFile(const char *path);
+		bool loadFromGame(const char *path);
+		bool loadFromResource(HMODULE srcModule, LPCTSTR srcResource);
 	};
 
 	class RenderingElement {
@@ -290,4 +292,4 @@ namespace DrawUtils
 }
 
 
-#endif //SWRSTOYS_DRAWUTILS_HPP
+#endif //SOKULIB_DRAWUTILS_HPP

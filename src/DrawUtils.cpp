@@ -147,7 +147,7 @@ namespace DrawUtils
 		return this->_size;
 	}
 
-	bool Texture::loadFromFile(Texture &buffer, const char *path)
+	bool Texture::loadFromFile(const char *path)
 	{
 		HRESULT result;
 		int handle;
@@ -183,8 +183,61 @@ namespace DrawUtils
 			return false;
 		}
 		printf("Texture handle: %x, Size: %ux%u\n", handle, info.Width, info.Height);
-		buffer.setHandle(handle, {info.Width, info.Height});
+		this->setHandle(handle, {info.Width, info.Height});
 		return true;
+	}
+
+	bool Texture::loadFromGame(const char *path)
+	{
+		int text = 0;
+		DrawUtils::Vector2<unsigned> size;
+
+		printf("Loading texture %s\n", path);
+		if (!SokuLib::textureMgr.loadTexture(&text, path, &size.x, &size.y) || !text) {
+			puts("Couldn't load texture...");
+			return false;
+		}
+		this->setHandle(text, size);
+		return true;
+	}
+
+	bool Texture::loadFromResource(HMODULE srcModule, LPCTSTR srcResource)
+	{
+		int id = 0;
+		long int result;
+		D3DXIMAGE_INFO info;
+
+		printf("Loading resource %p from module %p\n", pSrcResource, hSrcModule);
+		if (FAILED(result = D3DXGetImageInfoFromResource(srcModule, srcResource, &info))) {
+			fprintf(stderr, "D3DXGetImageInfoFromResource(%p, %p, %p) failed with code %li.\n", hSrcModule, pSrcResource, &info, result);
+			return false;
+		}
+
+		LPDIRECT3DTEXTURE9 *pphandle = SokuLib::textureMgr.allocate(&id);
+
+		*pphandle = nullptr;
+		if (SUCCEEDED(D3DXCreateTextureFromResourceEx(
+			SokuLib::pd3dDev,
+			srcModule,
+			srcResource,
+			info.Width,
+			info.Height,
+			info.MipLevels,
+			D3DUSAGE_RENDERTARGET,
+			info.Format,
+			D3DPOOL_DEFAULT,
+			D3DX_DEFAULT,
+			D3DX_DEFAULT,
+			0,
+			&info,
+			nullptr,
+			pphandle
+		))) {
+			this->setHandle(id, {info.Width, info.Height});
+			return true;
+		}
+		SokuLib::textureMgr.deallocate(id);
+		return false;
 	}
 
 	Vector2<unsigned> RectangularRenderingElement::getSize() const

@@ -2,8 +2,8 @@
 // Created by PinkySmile on 14/06/2021.
 //
 
-#ifndef SWRSTOYS_CSVPARSER_HPP
-#define SWRSTOYS_CSVPARSER_HPP
+#ifndef SOKULIB_CSVPARSER_HPP
+#define SOKULIB_CSVPARSER_HPP
 
 
 #include <string>
@@ -22,4 +22,4 @@ namespace SokuLib
 }
 
 
-#endif //SWRSTOYS_CSVPARSER_HPP
+#endif //SOKULIB_CSVPARSER_HPP

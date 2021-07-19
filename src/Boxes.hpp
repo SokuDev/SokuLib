@@ -2,8 +2,8 @@
 // Created by PinkySmile on 12/05/2021.
 //
 
-#ifndef SWRSTOYS_BOXES_HPP
-#define SWRSTOYS_BOXES_HPP
+#ifndef SOKULIB_BOXES_HPP
+#define SOKULIB_BOXES_HPP
 
 namespace SokuLib
 {
@@ -20,4 +20,4 @@ namespace SokuLib
 	};
 }
 
-#endif //SWRSTOYS_BOXES_HPP
+#endif //SOKULIB_BOXES_HPP

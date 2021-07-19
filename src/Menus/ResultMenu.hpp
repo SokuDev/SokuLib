@@ -2,8 +2,8 @@
 // Created by PinkySmile on 19/07/2021.
 //
 
-#ifndef SWRSTOYS_RESULTMENU_HPP
-#define SWRSTOYS_RESULTMENU_HPP
+#ifndef SOKULIB_RESULTMENU_HPP
+#define SOKULIB_RESULTMENU_HPP
 
 
 namespace SokuLib
@@ -14,4 +14,4 @@ namespace SokuLib
 }
 
 
-#endif //SWRSTOYS_RESULTMENU_HPP
+#endif //SOKULIB_RESULTMENU_HPP
