@@ -15,6 +15,7 @@
 #include "CharacterManager.hpp"
 #include "CsvParser.hpp"
 #include "dlls/DLL.hpp"
+#include "DrawUtils.hpp"
 #include "Exceptions.hpp"
 #include "Font.hpp"
 #include "FrameData.hpp"

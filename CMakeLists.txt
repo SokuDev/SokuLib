@@ -38,6 +38,8 @@ add_library(
 	src/dlls/WINMM.DLL.hpp
 	src/dlls/WS2_32.DLL.cpp
 	src/dlls/WS2_32.DLL.hpp
+	src/DrawUtils.cpp
+	src/DrawUtils.hpp
 	src/Exceptions.hpp
 	src/Font.cpp
 	src/Font.hpp
@@ -93,7 +95,17 @@ add_library(
 	src/VTables.hpp
 	src/Weather.cpp
 	src/Weather.hpp
-	src/DeprecatedElements.hpp src/Sprite.cpp src/Sprite.hpp src/Vector2.hpp src/Action.hpp src/FrameData.hpp src/Boxes.hpp src/DeprecatedElements.cpp src/CsvParser.cpp src/CsvParser.hpp)
+	src/DeprecatedElements.hpp
+	src/Sprite.cpp
+	src/Sprite.hpp
+	src/Vector2.hpp
+	src/Action.hpp
+	src/FrameData.hpp
+	src/Boxes.hpp
+	src/DeprecatedElements.cpp
+	src/CsvParser.cpp
+	src/CsvParser.hpp
+)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	target_compile_definitions(
@@ -102,7 +114,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	)
 endif()
 
-target_include_directories(SokuLib INTERFACE src/)
+target_include_directories(SokuLib INTERFACE src/ PRIVATE directx)
 
 add_executable(
 	SokuLibTests
