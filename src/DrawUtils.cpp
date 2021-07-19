@@ -155,7 +155,7 @@ namespace DrawUtils
 
 		printf("Loading texture %s\n", path);
 		if (FAILED(result = D3DXGetImageInfoFromFile(path, &info))) {
-			fprintf(stderr, "D3DXGetImageInfoFromFile(\"%s\", %p) failed with code %li.\n", path, &info, result);
+			fprintf(stderr, "D3DXGetImageInfoFromFile(\"%s\", %p) failed with code %lx.\n", path, &info, result);
 			return false;
 		}
 
@@ -178,7 +178,7 @@ namespace DrawUtils
 			nullptr,
 			pphandle
 		))) {
-			fprintf(stderr, "D3DXCreateTextureFromFile(%p, \"%s\", %p) failed with code %li.\n", SokuLib::pd3dDev, path, pphandle, result);
+			fprintf(stderr, "D3DXCreateTextureFromFile(%p, \"%s\", %p) failed with code %lx.\n", SokuLib::pd3dDev, path, pphandle, result);
 			SokuLib::textureMgr.deallocate(handle);
 			return false;
 		}
@@ -209,7 +209,7 @@ namespace DrawUtils
 
 		printf("Loading resource %p from module %p\n", srcResource, srcModule);
 		if (FAILED(result = D3DXGetImageInfoFromResource(srcModule, srcResource, &info))) {
-			fprintf(stderr, "D3DXGetImageInfoFromResource(%p, %p, %p) failed with code %li.\n", srcModule, srcResource, &info, result);
+			fprintf(stderr, "D3DXGetImageInfoFromResource(%p, %p, %p) failed with code %lx.\n", srcModule, srcResource, &info, result);
 			return false;
 		}
 
