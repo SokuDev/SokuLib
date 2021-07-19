@@ -207,9 +207,9 @@ namespace DrawUtils
 		long int result;
 		D3DXIMAGE_INFO info;
 
-		printf("Loading resource %p from module %p\n", pSrcResource, hSrcModule);
+		printf("Loading resource %p from module %p\n", srcResource, srcModule);
 		if (FAILED(result = D3DXGetImageInfoFromResource(srcModule, srcResource, &info))) {
-			fprintf(stderr, "D3DXGetImageInfoFromResource(%p, %p, %p) failed with code %li.\n", hSrcModule, pSrcResource, &info, result);
+			fprintf(stderr, "D3DXGetImageInfoFromResource(%p, %p, %p) failed with code %li.\n", srcModule, srcResource, &info, result);
 			return false;
 		}
 
