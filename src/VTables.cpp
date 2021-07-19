@@ -23,5 +23,6 @@ namespace SokuLib
 	Scene_VTABLE<LoadingWatch>  &VTable_LoadingWatch   = *reinterpret_cast<Scene_VTABLE<LoadingWatch>  *>(ADDR_VTBL_LOADING_WATCH);
 	Menu_VTABLE<MenuConnect>    &VTable_ConnectMenu    = *reinterpret_cast<Menu_VTABLE<MenuConnect>    *>(ADDR_VTBL_VS_NETWORK_MENU);
 	Menu_VTABLE<ProfileDeckEdit>&VTable_ProfileDeckEdit= *reinterpret_cast<Menu_VTABLE<ProfileDeckEdit>*>(ADDR_VTBL_DECK_CONSTRUCTION_CHR_SELECT_MENU);
-	BattleManager_VTABLE        &VTable_BattleManager = *reinterpret_cast<BattleManager_VTABLE         *>(ADDR_VTBL_BATTLE_MANAGER);
+	Menu_VTABLE<MenuResult>     &VTable_Result         = *reinterpret_cast<Menu_VTABLE<MenuResult>     *>(ADDR_VTBL_RESULT_MENU);
+	BattleManager_VTABLE        &VTable_BattleManager  = *reinterpret_cast<BattleManager_VTABLE        *>(ADDR_VTBL_BATTLE_MANAGER);
 }

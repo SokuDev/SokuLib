@@ -60,5 +60,6 @@ namespace SokuLib
 
 #include "Menus/ConnectMenu.hpp"
 #include "Menus/ProfileDeckEdit.hpp"
+#include "Menus/ResultMenu.hpp"
 
 #endif //SOKULIB_MENUS_HPP

@@ -67,6 +67,7 @@ namespace SokuLib
 	extern Scene_VTABLE<LoadingWatch>  &VTable_LoadingWatch;
 	extern Menu_VTABLE<MenuConnect>    &VTable_ConnectMenu;
 	extern Menu_VTABLE<ProfileDeckEdit>&VTable_ProfileDeckEdit;
+	extern Menu_VTABLE<MenuResult>     &VTable_Result;
 	extern BattleManager_VTABLE        &VTable_BattleManager;
 }
 
