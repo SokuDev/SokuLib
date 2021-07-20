@@ -105,7 +105,7 @@ add_library(
 	src/DeprecatedElements.cpp
 	src/CsvParser.cpp
 	src/CsvParser.hpp
-	src/Menus/ResultMenu.cpp src/Menus/ResultMenu.hpp)
+	src/Menus/ResultMenu.cpp src/Menus/ResultMenu.hpp src/Misc.cpp src/Misc.hpp)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	target_compile_definitions(

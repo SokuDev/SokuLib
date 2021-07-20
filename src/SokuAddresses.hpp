@@ -96,6 +96,7 @@ namespace SokuLib
 		ADDR_VTBL_DECK_CONSTRUCTION_CHR_SELECT_MENU = 0x00859980,
 		ADDR_VTBL_CHANGE_KEYS_MENU                  = 0x00859A3C,
 		ADDR_VTBL_PROFILE_MENU                      = 0x00859BD0,
+		ADDR_SWR_UNLINKED                           = 0x0088291C,
 		ADDR_MENU_MODE                              = 0x00882A94,
 		ADDR_RENDERER                               = 0x00896B4C,
 		ADDR_ACTIVE_WEATHER                         = 0x008971C0,

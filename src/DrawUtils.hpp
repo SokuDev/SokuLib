@@ -8,6 +8,7 @@
 
 #include <windows.h>
 #include <d3dx9.h>
+#include "Font.hpp"
 #include "Camera.hpp"
 
 namespace SokuLib {
@@ -180,6 +181,7 @@ namespace DrawUtils
 		bool loadFromFile(const char *path);
 		bool loadFromGame(const char *path);
 		bool loadFromResource(HMODULE srcModule, LPCTSTR srcResource);
+		bool createFromText(const char *str, SokuLib::SWRFont &font, Vector2<unsigned> size);
 	};
 
 	class RenderingElement {

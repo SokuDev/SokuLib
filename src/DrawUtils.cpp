@@ -240,6 +240,22 @@ namespace DrawUtils
 		return false;
 	}
 
+	bool Texture::createFromText(const char *str, SokuLib::SWRFont &font, Vector2<unsigned> size)
+	{
+		int text = 0;
+
+		if (!SokuLib::textureMgr.createTextTexture(
+			&text, str, font, size.x, size.y,
+			reinterpret_cast<int *>(&this->_size.x),
+			reinterpret_cast<int *>(&this->_size.y)
+		) || !text)
+			return false;
+		this->destroy();
+		this->_handle = text;
+		this->_loaded = true;
+		return true;
+	}
+
 	Vector2<unsigned> RectangularRenderingElement::getSize() const
 	{
 		return this->_size;
