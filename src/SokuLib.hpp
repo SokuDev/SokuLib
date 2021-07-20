@@ -29,6 +29,7 @@
 #include "Map.hpp"
 #include "Memory.hpp"
 #include "Menus.hpp"
+#include "Misc.hpp"
 #include "NetObject.hpp"
 #include "Packet.hpp"
 #include "PracticeSettings.hpp"
