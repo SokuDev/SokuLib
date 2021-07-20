@@ -67,12 +67,31 @@ namespace DrawUtils
 		}
 
 		template<typename T2>
-		Vector2<T> operator*(T2 scalar) const
+		auto operator*(T2 scalar) const
 		{
-			return {
-				static_cast<T>(this->x * scalar),
-				static_cast<T>(this->y * scalar)
+			return Vector2<decltype(this->x * scalar)>{
+				this->x * scalar,
+				this->y * scalar
 			};
+		}
+
+		Vector2<float> rotate(float angle, const Vector2<T> &center) const noexcept
+		{
+			if (angle == 0.f)
+				return {
+					static_cast<float>(this->x),
+					static_cast<float>(this->y)
+				};
+
+			float c = cos(angle);
+			float s = sin(angle);
+
+			Vector2<float> result{
+				c * (static_cast<float>(this->x) - center.x) - s * (static_cast<float>(this->y) - center.y) + center.x,
+				s * (static_cast<float>(this->x) - center.x) + c * (static_cast<float>(this->y) - center.y) + center.y
+			};
+
+			return result;
 		}
 
 		operator D3DXVECTOR2() const
@@ -214,6 +233,7 @@ namespace DrawUtils
 
 	class RectangularRenderingElement : public RenderingElement {
 	private:
+		float _rotation = 0;
 		Vector2<unsigned> _size = {0, 0};
 		const SokuLib::Camera *_camera = nullptr;
 
@@ -234,6 +254,7 @@ namespace DrawUtils
 		void setPosition(const Vector2<int> &) override;
 		void setRect(const FloatRect &rect);
 		void rawSetRect(const Rect<Vector2<float>> &rect);
+		void setRotation(float angle);
 	};
 
 	struct TextureRect {

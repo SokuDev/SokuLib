@@ -155,7 +155,7 @@ namespace DrawUtils
 
 		printf("Loading texture %s\n", path);
 		if (FAILED(result = D3DXGetImageInfoFromFile(path, &info))) {
-			fprintf(stderr, "D3DXGetImageInfoFromFile(\"%s\", %p) failed with code %lx.\n", path, &info, result);
+			fprintf(stderr, "D3DXGetImageInfoFromFile(\"%s\", %p) failed with code %li.\n", path, &info, result);
 			return false;
 		}
 
@@ -178,7 +178,7 @@ namespace DrawUtils
 			nullptr,
 			pphandle
 		))) {
-			fprintf(stderr, "D3DXCreateTextureFromFile(%p, \"%s\", %p) failed with code %lx.\n", SokuLib::pd3dDev, path, pphandle, result);
+			fprintf(stderr, "D3DXCreateTextureFromFile(%p, \"%s\", %p) failed with code %li.\n", SokuLib::pd3dDev, path, pphandle, result);
 			SokuLib::textureMgr.deallocate(handle);
 			return false;
 		}
@@ -258,29 +258,33 @@ namespace DrawUtils
 	void RectangularRenderingElement::setSize(const Vector2<unsigned int> &newSize)
 	{
 		this->_size = newSize;
-		if (this->_camera) {
-			this->_vertex[2].x = this->_vertex[1].x = this->_camera->scale * (1.f * this->_position.x + this->_size.x + this->_camera->translate.x);
-			this->_vertex[2].y = this->_vertex[3].y = this->_camera->scale * (1.f * this->_position.y + this->_size.y + this->_camera->translate.y);
-		} else {
-			this->_vertex[2].x = this->_vertex[1].x = 1.f * this->_position.x + this->_size.x;
-			this->_vertex[2].y = this->_vertex[3].y = 1.f * this->_position.y + this->_size.y;
-		}
+		this->setPosition(this->_position);
 	}
 
 	void RectangularRenderingElement::setPosition(const Vector2<int> &newPos)
 	{
+		auto center = this->_position + this->_size * 0.5;
+		auto topLeft = this->_position.rotate(this->_rotation, center);
+		auto topRight = (this->_position + Vector2<unsigned>{this->_size.x, 0}).rotate(this->_rotation, center);
+		auto bottomLeft = (this->_position + Vector2<unsigned>{0, this->_size.y}).rotate(this->_rotation, center);
+		auto bottomRight = (this->_position + this->_size).rotate(this->_rotation, center);
+
 		RenderingElement::setPosition(newPos);
-		if (this->_camera) {
-			this->_vertex[0].x = this->_vertex[3].x = this->_camera->scale * (this->_camera->translate.x + this->_position.x);
-			this->_vertex[2].x = this->_vertex[1].x = this->_camera->scale * (1.f * this->_camera->translate.x + this->_position.x + this->_size.x);
-			this->_vertex[0].y = this->_vertex[1].y = this->_camera->scale * (this->_camera->translate.y + this->_position.y);
-			this->_vertex[2].y = this->_vertex[3].y = this->_camera->scale * (1.f * this->_camera->translate.y + this->_position.y + this->_size.y);
-		} else {
-			this->_vertex[0].x = this->_vertex[3].x = this->_position.x;
-			this->_vertex[2].x = this->_vertex[1].x = 1.f * this->_position.x + this->_size.x;
-			this->_vertex[0].y = this->_vertex[1].y = this->_position.y;
-			this->_vertex[2].y = this->_vertex[3].y = 1.f * this->_position.y + this->_size.y;
-		}
+		this->_vertex[0].x = topLeft.x;
+		this->_vertex[0].y = topLeft.y;
+		this->_vertex[1].x = topRight.x;
+		this->_vertex[1].y = topRight.y;
+		this->_vertex[2].x = bottomRight.x;
+		this->_vertex[2].y = bottomRight.y;
+		this->_vertex[3].x = bottomLeft.x;
+		this->_vertex[3].y = bottomLeft.y;
+		if (this->_camera)
+			for (auto &vertex : this->_vertex) {
+				vertex.x += this->_camera->translate.x;
+				vertex.y += this->_camera->translate.y;
+				vertex.x *= this->_camera->scale;
+				vertex.y *= this->_camera->scale;
+			}
 	}
 
 	RectangularRenderingElement::RectangularRenderingElement(const SokuLib::Camera &camera) noexcept :
@@ -311,6 +315,12 @@ namespace DrawUtils
 			this->_vertex[i].x = array[i].x;
 			this->_vertex[i].y = array[i].y;
 		}
+	}
+
+	void RectangularRenderingElement::setRotation(float angle)
+	{
+		this->_rotation = angle;
+		this->setPosition(this->_position);
 	}
 
 	void GradiantRect::draw() const
