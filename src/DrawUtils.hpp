@@ -271,6 +271,9 @@ namespace DrawUtils
 		DxSokuColor fillColors[4] = {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF};
 		Texture texture;
 
+		Sprite() = default;
+		Sprite(const SokuLib::Camera &camera) noexcept;
+
 		void draw() const override;
 	};
 

@@ -407,5 +407,10 @@ namespace DrawUtils
 		this->texture.activate();
 		SokuLib::pd3dDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertexs, sizeof(*vertexs));
 	}
+
+	Sprite::Sprite(const Camera &camera) noexcept :
+		RectangularRenderingElement(camera)
+	{
+	}
 }
 }
