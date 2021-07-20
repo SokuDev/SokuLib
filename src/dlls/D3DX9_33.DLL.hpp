@@ -5,7 +5,7 @@
 #ifndef SOKULIB_D3DX9_33_DLL_HPP
 #define SOKULIB_D3DX9_33_DLL_HPP
 
-#include "directx/d3dx9.h"
+#include <d3dx9.h>
 
 namespace SokuLib::DLL
 {
