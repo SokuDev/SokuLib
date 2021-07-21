@@ -190,7 +190,7 @@ namespace DrawUtils
 	bool Texture::loadFromGame(const char *path)
 	{
 		int text = 0;
-		DrawUtils::Vector2<unsigned> size;
+		Vector2<unsigned> size;
 
 		printf("Loading texture %s\n", path);
 		if (!SokuLib::textureMgr.loadTexture(&text, path, &size.x, &size.y) || !text) {
