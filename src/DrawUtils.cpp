@@ -240,19 +240,20 @@ namespace DrawUtils
 		return false;
 	}
 
-	bool Texture::createFromText(const char *str, SokuLib::SWRFont &font, Vector2<unsigned> size)
+	bool Texture::createFromText(const char *str, SokuLib::SWRFont &font, Vector2<unsigned> size, Vector2<int> *realSize)
 	{
 		int text = 0;
 
+		printf("Creating texture for text %s (size %u,%u)\n", str, size.x, size.y);
 		if (!SokuLib::textureMgr.createTextTexture(
 			&text, str, font, size.x, size.y,
-			reinterpret_cast<int *>(&this->_size.x),
-			reinterpret_cast<int *>(&this->_size.y)
-		) || !text)
+			realSize ? &realSize->x : nullptr,
+			realSize ? &realSize->y : nullptr
+		) || !text) {
+			puts("Failed");
 			return false;
-		this->destroy();
-		this->_handle = text;
-		this->_loaded = true;
+		}
+		this->setHandle(text, size);
 		return true;
 	}
 

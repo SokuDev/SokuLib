@@ -26,7 +26,7 @@ namespace DrawUtils
 		};
 
 		DxSokuColor() = default;
-		DxSokuColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a) noexcept;
+		DxSokuColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a = 0xFF) noexcept;
 		DxSokuColor(unsigned color) noexcept;
 
 		DxSokuColor &operator=(unsigned color);
@@ -68,11 +68,11 @@ namespace DrawUtils
 	private:
 		int _handle;
 		bool _loaded = false;
-		Vector2<unsigned> _size;
+		Vector2u _size;
 
 	public:
 		Texture() noexcept = default;
-		Texture(int handle, const Vector2<unsigned> &size) noexcept;
+		Texture(int handle, const Vector2u &size) noexcept;
 		Texture(Texture &) = delete;
 		Texture(Texture &&) = delete;
 		Texture &operator=(Texture &) = delete;
@@ -81,9 +81,9 @@ namespace DrawUtils
 
 		bool hasTexture() const noexcept;
 		void activate(int stage = 0) const noexcept;
-		Vector2<unsigned> getSize() const;
+		Vector2u getSize() const;
 
-		void setHandle(int handle, const Vector2<unsigned> &size);
+		void setHandle(int handle, const Vector2u &size);
 		void swap(Texture &other);
 		void destroy();
 		int releaseHandle();
@@ -91,17 +91,17 @@ namespace DrawUtils
 		bool loadFromFile(const char *path);
 		bool loadFromGame(const char *path);
 		bool loadFromResource(HMODULE srcModule, LPCTSTR srcResource);
-		bool createFromText(const char *str, SWRFont &font, Vector2<unsigned> size);
+		bool createFromText(const char *str, SWRFont &font, Vector2u size, Vector2i *realSize = nullptr);
 	};
 
 	class RenderingElement {
 	protected:
-		Vector2<int> _position = {0, 0};
+		Vector2i _position = {0, 0};
 
 	public:
-		Vector2<int> getPosition() const;
+		Vector2i getPosition() const;
 
-		virtual void setPosition(const Vector2<int> &);
+		virtual void setPosition(const Vector2i &);
 		virtual void draw() const = 0;
 	};
 
@@ -146,7 +146,7 @@ namespace DrawUtils
 	class RectangularRenderingElement : public RenderingElement {
 	private:
 		float _rotation = 0;
-		Vector2<unsigned> _size = {0, 0};
+		Vector2u _size = {0, 0};
 		const Camera *_camera = nullptr;
 		Vector2<bool> _mirroring = {false, false};
 
@@ -159,14 +159,14 @@ namespace DrawUtils
 		};
 
 	public:
-		Vector2<unsigned> getSize() const;
+		Vector2u getSize() const;
 
 		RectangularRenderingElement() noexcept = default;
 		RectangularRenderingElement(const Camera &camera) noexcept;
-		void setSize(const Vector2<unsigned> &);
-		void setPosition(const Vector2<int> &) override;
+		void setSize(const Vector2u &);
+		void setPosition(const Vector2i &) override;
 		void setRect(const FloatRect &rect);
-		void rawSetRect(const Rect<Vector2<float>> &rect);
+		void rawSetRect(const Rect<Vector2f> &rect);
 		void setRotation(float angle);
 		void setMirroring(bool x, bool y);
 		void setCamera(const Camera *camera);

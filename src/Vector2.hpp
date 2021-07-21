@@ -100,6 +100,15 @@ namespace SokuLib
 			return result;
 		}
 
+		template<typename T2>
+		Vector2<T2> to()
+		{
+			return {
+				static_cast<T2>(this->x),
+				static_cast<T2>(this->y)
+			};
+		}
+
 		operator D3DXVECTOR2() const
 		{
 			return {
