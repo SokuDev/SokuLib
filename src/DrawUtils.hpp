@@ -43,6 +43,15 @@ namespace DrawUtils
 		}
 
 		template<typename T2>
+		Vector2<T> operator-(T2 other) const
+		{
+			return {
+				static_cast<T>(this->x - other),
+				static_cast<T>(this->y - other)
+			};
+		}
+
+		template<typename T2>
 		Vector2<T> &operator+=(Vector2<T2> other)
 		{
 			this->x += other.x;
@@ -181,7 +190,7 @@ namespace DrawUtils
 		bool loadFromFile(const char *path);
 		bool loadFromGame(const char *path);
 		bool loadFromResource(HMODULE srcModule, LPCTSTR srcResource);
-		bool createFromText(const char *str, SokuLib::SWRFont &font, Vector2<unsigned> size);
+		bool createFromText(const char *str, SWRFont &font, Vector2<unsigned> size);
 	};
 
 	class RenderingElement {
@@ -237,7 +246,8 @@ namespace DrawUtils
 	private:
 		float _rotation = 0;
 		Vector2<unsigned> _size = {0, 0};
-		const SokuLib::Camera *_camera = nullptr;
+		const Camera *_camera = nullptr;
+		Vector2<bool> _mirroring = {false, false};
 
 	protected:
 		Vertex _vertex[4] = {
@@ -251,12 +261,14 @@ namespace DrawUtils
 		Vector2<unsigned> getSize() const;
 
 		RectangularRenderingElement() noexcept = default;
-		RectangularRenderingElement(const SokuLib::Camera &camera) noexcept;
+		RectangularRenderingElement(const Camera &camera) noexcept;
 		void setSize(const Vector2<unsigned> &);
 		void setPosition(const Vector2<int> &) override;
 		void setRect(const FloatRect &rect);
 		void rawSetRect(const Rect<Vector2<float>> &rect);
 		void setRotation(float angle);
+		void setMirroring(bool x, bool y);
+		void setCamera(const Camera *camera);
 	};
 
 	struct TextureRect {
@@ -274,7 +286,7 @@ namespace DrawUtils
 		Texture texture;
 
 		Sprite() = default;
-		Sprite(const SokuLib::Camera &camera) noexcept;
+		Sprite(const Camera &camera) noexcept;
 
 		void draw() const override;
 	};
@@ -292,7 +304,7 @@ namespace DrawUtils
 		DxSokuColor borderColors[4] = {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF};
 
 		GradiantRect() noexcept = default;
-		GradiantRect(const SokuLib::Camera &camera) noexcept;
+		GradiantRect(const Camera &camera) noexcept;
 		void draw() const override;
 	};
 
@@ -305,7 +317,7 @@ namespace DrawUtils
 		DxSokuColor getBorderColor() const;
 
 		RectangleShape() noexcept = default;
-		RectangleShape(const SokuLib::Camera &camera) noexcept;
+		RectangleShape(const Camera &camera) noexcept;
 		void draw() const override;
 		using RectangularRenderingElement::setSize;
 		using RectangularRenderingElement::getSize;

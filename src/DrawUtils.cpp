@@ -286,14 +286,15 @@ namespace DrawUtils
 		auto bottomRight = (this->_position + this->_size).rotate(this->_rotation, center);
 
 		RenderingElement::setPosition(newPos);
-		this->_vertex[0].x = topLeft.x;
-		this->_vertex[0].y = topLeft.y;
-		this->_vertex[1].x = topRight.x;
-		this->_vertex[1].y = topRight.y;
-		this->_vertex[2].x = bottomRight.x;
-		this->_vertex[2].y = bottomRight.y;
-		this->_vertex[3].x = bottomLeft.x;
-		this->_vertex[3].y = bottomLeft.y;
+		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].x = topLeft.x;
+		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].y = topLeft.y;
+		this->_vertex[!this->_mirroring.x + this->_mirroring.y *  2].x = topRight.x;
+		this->_vertex[!this->_mirroring.x + this->_mirroring.y *  2].y = topRight.y;
+		this->_vertex[ this->_mirroring.x + this->_mirroring.y * -2 + 2].x = bottomRight.x;
+		this->_vertex[ this->_mirroring.x + this->_mirroring.y * -2 + 2].y = bottomRight.y;
+		this->_vertex[!this->_mirroring.x + this->_mirroring.y * -2 + 2].x = bottomLeft.x;
+		this->_vertex[!this->_mirroring.x + this->_mirroring.y * -2 + 2].y = bottomLeft.y;
+
 		if (this->_camera)
 			for (auto &vertex : this->_vertex) {
 				vertex.x += this->_camera->translate.x;
@@ -337,6 +338,17 @@ namespace DrawUtils
 	{
 		this->_rotation = angle;
 		this->setPosition(this->_position);
+	}
+
+	void RectangularRenderingElement::setMirroring(bool x, bool y)
+	{
+		this->_mirroring = {x, y};
+		this->setPosition(this->_position);
+	}
+
+	void RectangularRenderingElement::setCamera(const Camera *camera)
+	{
+		this->_camera = camera;
 	}
 
 	void GradiantRect::draw() const
