@@ -170,6 +170,7 @@ namespace DrawUtils
 		void setRotation(float angle);
 		void setMirroring(bool x, bool y);
 		void setCamera(const Camera *camera);
+		const Vertex *getVertex() const;
 	};
 
 	struct TextureRect {

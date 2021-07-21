@@ -352,6 +352,11 @@ namespace DrawUtils
 		this->_camera = camera;
 	}
 
+	const Vertex *RectangularRenderingElement::getVertex() const
+	{
+		return this->_vertex;
+	}
+
 	void GradiantRect::draw() const
 	{
 		Vertex vertexs[4];
