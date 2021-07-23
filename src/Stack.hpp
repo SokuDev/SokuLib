@@ -7,6 +7,7 @@
 
 
 #include "UnionCast.hpp"
+#include "Memory.hpp"
 
 namespace SokuLib
 {
@@ -28,6 +29,51 @@ namespace SokuLib
 
 		T &operator[](int id) {
 			return at(id);
+		}
+
+		void push_back(const T &val)
+		{
+			unsigned uVar1 = (this->size + 8U) >> 3;
+			unsigned uVar3;
+
+			if (
+				((this->counter + this->size & 7U) == 0) &&
+				(this->chunkSize <= uVar1)
+			)
+				((void (__thiscall *)(Dequeue<T> *, unsigned))0x42c920)(this, 1);
+			uVar1 = this->counter + this->size;
+			uVar3 = uVar1 >> 3;
+			if (this->chunkSize <= uVar3)
+				uVar3 = uVar3 - this->chunkSize;
+			if (this->data[uVar3] == nullptr)
+				this->data[uVar3] = SokuLib::New<T>(0x8);
+			if (this->data[uVar3] + (uVar1 & 7) != nullptr)
+				this->data[uVar3][uVar1 & 7] = val;
+			this->size = this->size + 1;
+		}
+		
+		void clear()
+		{
+			int ctr = this->chunkSize;
+
+			if (this->size != 0)
+				this->counter = 0;
+			this->size = 0;
+
+			while (ctr != 0) {
+				ctr--;
+				if (this->data[ctr] != nullptr)
+					SokuLib::Delete(this->data[ctr]);
+			}
+
+			if (this->data == nullptr) {
+				this->data = nullptr;
+				this->chunkSize = 0;
+				return;
+			}
+			SokuLib::Delete(this->data);
+			this->data = nullptr;
+			this->chunkSize = 0;
 		}
 
 		//GetCard

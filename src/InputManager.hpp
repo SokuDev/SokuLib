@@ -37,7 +37,9 @@ namespace SokuLib
 
 
 	//TODO: Find which of the real struct thoses are
-	struct InputManager;
+	struct InputManager {
+		bool readReplay(const char *path);
+	};
 	struct InputManagerCluster;
 
 	extern InputManager &inputMgr;

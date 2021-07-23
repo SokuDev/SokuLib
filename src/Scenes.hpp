@@ -54,6 +54,10 @@ namespace SokuLib
 
 	struct Title {
 		SceneBase base;
+		char offset_0x001[0x61b];
+		// 0x61C Cursor
+		int cursorPos;
+		int cursorPos2;
 	};
 
 	struct ObjectSelect {

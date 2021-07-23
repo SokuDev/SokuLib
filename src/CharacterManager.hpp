@@ -215,7 +215,13 @@ namespace SokuLib
 		unsigned char playerIndex;
 
 		// 0x34F
-		char offset_0x34F[0x14C];
+		char offset_0x34F;
+
+		// 0x350
+		bool isRightPlayer;
+
+		// 0x351
+		char offset_0x351[0x14A];
 
 		//  ADDR_AIRDASHCOUNTOFS    unsigned char     (1) 0x49B
 		unsigned char airdashCount;

@@ -14,4 +14,9 @@ namespace SokuLib
 	// �C���v�b�g�}�l�[�W���N���X�^
 	// CInputManagerCluster
 	InputManagerCluster &inputMgrs = *reinterpret_cast<InputManagerCluster *>(ADDR_INPUT_MANAGER_CLUSTER);
+
+	bool InputManager::readReplay(const char *path)
+	{
+		return (reinterpret_cast<bool (__thiscall *)(InputManager *, const char *)>(ADDR_INPUT_MANAGER_READ_REPLAY))(this, path);
+	}
 }

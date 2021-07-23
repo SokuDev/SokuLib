@@ -10,6 +10,7 @@
 #include <string>
 #include <windows.h>
 #include "Stack.hpp"
+#include "InputManager.hpp"
 #include "SokuAddresses.hpp"
 
 namespace SokuLib
@@ -47,15 +48,28 @@ namespace SokuLib
 		CHARACTER_ORIN,
 		CHARACTER_YUUKA,
 		CHARACTER_KAGUYA,
+		CHARACTER_MOKOU,
+		CHARACTER_MIMA,
+		CHARACTER_SHOU,
+		CHARACTER_MURASA,
+		CHARACTER_SEKIBANKI,
+		CHARACTER_SATORI
 	};
 
 	struct PlayerInfo {
 		Character character;
-		unsigned char padding1;
+		unsigned char isRight;
 		unsigned char palette;
 		unsigned char padding2;
 		unsigned char deck;
 		Dequeue<unsigned short> effectiveDeck;
+		KeyManager **keyManager;
+	};
+
+	struct GameStartParams {
+
+		PlayerInfo &leftPlayerInfo;
+		PlayerInfo &rightPlayerInfo;
 	};
 
 	extern std::vector<std::string> charactersName;
