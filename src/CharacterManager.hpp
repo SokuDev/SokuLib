@@ -265,7 +265,13 @@ namespace SokuLib
 		unsigned short untech;
 
 		// 0x4BC
-		char offset_0x4BC[0x14];
+		char offset_0x4BC[0x2];
+
+		// 0x4BE
+		unsigned short realLimit;
+
+		// 0x4C0
+		char offset_0x4C0[0x10];
 
 		//  ADDR_SPEEDPOWEROFS      float             (4) 0x4D0
 		float speedPower;
