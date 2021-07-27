@@ -9,13 +9,25 @@
 namespace SokuLib
 {
 	extern void *(* const NewFct)(size_t size);
-	extern void (* const Delete)(void *p);
+	extern void (* const DeleteFct)(void *p);
 
 	// new/delete
-	template<typename T = void>
-	T *New(size_t size)
+	template<typename T = void, typename ...Args>
+	T *New(size_t size, Args &&...args)
 	{
-		return reinterpret_cast<T *>(NewFct(size * sizeof(T)));
+		auto allocated = reinterpret_cast<T *>(NewFct(size * sizeof(T)));
+
+		if constexpr(!std::is_trivially_constructible<T, Args...>::value)
+			new (allocated) T(args...);
+		return allocated;
+	}
+
+	template<typename T>
+	void Delete(T *ptr)
+	{
+		if constexpr(!std::is_trivially_destructible<T>::value)
+			ptr->~T();
+		DeleteFct(ptr);
 	}
 }
 

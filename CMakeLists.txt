@@ -109,7 +109,7 @@ add_library(
 	src/Menus/ResultMenu.hpp
 	src/Misc.cpp
 	src/Misc.hpp
-)
+	src/KeyCombination.hpp)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	target_compile_definitions(

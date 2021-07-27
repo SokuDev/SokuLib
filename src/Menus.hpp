@@ -56,6 +56,14 @@ namespace SokuLib
 	};
 
 	extern UnknownStruct1 &menuManager;
+
+	class IMenu {
+	public:
+		virtual ~IMenu() = default;
+		virtual void _() = 0;
+		virtual int onProcess() = 0;
+		virtual int onRender() = 0;
+	};
 }
 
 #include "Menus/ConnectMenu.hpp"

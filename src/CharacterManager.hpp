@@ -12,6 +12,7 @@
 #include "InputManager.hpp"
 #include "FrameData.hpp"
 #include "Boxes.hpp"
+#include "KeyCombination.hpp"
 
 #pragma pack(push,1)
 namespace SokuLib
@@ -370,7 +371,13 @@ namespace SokuLib
 		KeyInput keyMap;
 
 		// 0x774
-		char offset_0x774[0x80];
+		char offset_0x774[0x54];
+
+		// CF_PRESSED_COMBINATION 0x7C8 // KeyCombination
+		KeyCombination keyCombination;
+
+		// 0x7CC
+		char offset_0x7CC[0x28];
 
 		// CF_CHARGE_ATTACK 0x7F4 // char
 		char chargedAttack;

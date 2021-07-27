@@ -182,7 +182,7 @@ namespace DrawUtils
 
 	class Sprite : public RectangularRenderingElement {
 	public:
-		TextureRect rect;
+		TextureRect rect{0, 0, 0, 0};
 		DxSokuColor tint = 0xFFFFFFFF;
 		DxSokuColor fillColors[4] = {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF};
 		Texture texture;

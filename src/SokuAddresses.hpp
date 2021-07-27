@@ -58,9 +58,9 @@ namespace SokuLib
 		ADDR_PROFILENAME_PRINT_CODE1_END            = 0x0047D9EE,
 		ADDR_PROFILENAME_PRINT_CODE2                = 0x0047D9FE,
 		ADDR_PROFILENAME_PRINT_CODE2_END            = 0x0047DB95,
+
 		ADDR_DELETE_FUNCTION                        = 0x0081F6FA,
 		ADDR_NEW_FUNCTION                           = 0x0081FBDC,
-
 		ADDR_GDI32_DLL                              = 0x00850000,
 		ADDR_IMM32_DLL                              = 0x0085701C,
 		ADDR_KERNEL32_DLL                           = 0x00857030,
@@ -96,6 +96,7 @@ namespace SokuLib
 		ADDR_VTBL_DECK_CONSTRUCTION_CHR_SELECT_MENU = 0x00859980,
 		ADDR_VTBL_CHANGE_KEYS_MENU                  = 0x00859A3C,
 		ADDR_VTBL_PROFILE_MENU                      = 0x00859BD0,
+
 		ADDR_SWR_UNLINKED                           = 0x0088291C,
 		ADDR_MENU_MODE                              = 0x00882A94,
 		ADDR_RENDERER                               = 0x00896B4C,
