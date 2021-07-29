@@ -280,13 +280,14 @@ namespace DrawUtils
 
 	void RectangularRenderingElement::setPosition(const Vector2<int> &newPos)
 	{
+		RenderingElement::setPosition(newPos);
+
 		auto center = this->_position + this->_size * 0.5;
 		auto topLeft = this->_position.rotate(this->_rotation, center);
 		auto topRight = (this->_position + Vector2<unsigned>{this->_size.x, 0}).rotate(this->_rotation, center);
 		auto bottomLeft = (this->_position + Vector2<unsigned>{0, this->_size.y}).rotate(this->_rotation, center);
 		auto bottomRight = (this->_position + this->_size).rotate(this->_rotation, center);
 
-		RenderingElement::setPosition(newPos);
 		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].x = topLeft.x;
 		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].y = topLeft.y;
 		this->_vertex[!this->_mirroring.x + this->_mirroring.y *  2].x = topRight.x;
