@@ -72,7 +72,28 @@ namespace SokuLib
 	};
 
 	struct FrameData {
-		char offset_0x00[0x1C];
+		// 0x00
+		void *VTable;
+
+		// 0x04
+		Vector2<short> offset;
+
+		// 0x08
+		unsigned short offset_0x008;
+
+		// Image and FrameData are the same structs
+		//  ADDR_IMAGENUMBEROFS     unsigned int (4) 0x0A
+		unsigned int number;
+
+		// 0x0C
+		unsigned int offset_0x0C;
+
+		// 0x10
+		Vector2<short> okuuCapeOffset;
+
+		// 0x14
+		char offset_0x014[0x08];
+
 		// FF_DAMAGE 0x1C // short
 		unsigned short damage;
 
@@ -99,6 +120,30 @@ namespace SokuLib
 		// FF_HURT_BOXES 0x60 // rect<short>
 		// FF_ATTACK_BOX_COUNT 0x5C // int
 		// FF_ATTACK_BOXES 0x60 // rect<short>
+
+		char offset_0x5C[0x4C];
+
+		// 0xA8 Struct Size
+	};
+
+	struct FrameDataReader {
+		// 0x00
+		void *VTable;
+
+		// 0x04
+		FrameData *frameDataArrayStart;
+
+		// 0x08
+		FrameData *frameDataArrayEnd;
+
+		// 0x0C
+		char offset_0x0C[0xC];
+
+		// 0x18
+		int maxAnimationSomething;
+
+		// 0x1C
+		FrameDataReader *nextFrameDataArray;
 	};
 }
 

@@ -14,6 +14,7 @@ namespace SokuLib
 		char offset_0x00[0xC];
 		Vector2f translate;
 		float scale;
+		Vector2f backgroundTranslate;
 	};
 
 	extern Camera &camera;

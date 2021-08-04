@@ -126,6 +126,7 @@ namespace SokuLib
 	typedef Vector2<long long>          Vector2ll;
 	typedef Vector2<unsigned long long> Vector2ull;
 	typedef Vector2<double>             Vector2d;
+	typedef Vector2<bool>               Vector2b;
 }
 
 

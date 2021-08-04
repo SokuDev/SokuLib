@@ -27,14 +27,6 @@ namespace SokuLib
 		bool notUsed : 1;
 	};
 
-	//IMAGESTRUCT
-	struct Image {
-		// 0x00
-		char offset_0x000[0x0A];
-		//  ADDR_IMAGENUMBEROFS     unsigned int (4) 0x0A
-		unsigned int number;
-	};
-
 	struct Combo {
 		float rate;
 		unsigned short nbHits;
@@ -106,19 +98,31 @@ namespace SokuLib
 		unsigned int frameCount;
 
 		// 0x148
-		char offset_0x148[0x8];
+		unsigned short animationCounterMax;
+
+		// 0x14A
+		char offset_0x14A[0x2];
+
+		// 0x14C
+		unsigned short animationSubFrameMax;
+
+		// 0x14E
+		char offset_0x14E[0x2];
 
 		//  ADDR_IMAGESTRUCTOFS     ImageStruct &     (4) 0x150
-		Image &image;
+		FrameData *image;
 
 		// 0x154
 		char offset_0x154[0x4];
 
 		// 0x158
-		FrameData &frameData;
+		FrameData *frameData;
 
 		// 0x15C
-		char offset_0x15C[0x8];
+		FrameDataReader *frameDataReader;
+
+		// 0x160
+		void *offset_0x160;
 
 		//  int *[256]         (4) 0x164
 		void **soundTable;
@@ -173,6 +177,10 @@ namespace SokuLib
 
 		//  ADDR_HITAREAFLAGOFS     Box *[5]         (20) 0x334
 		RotationBox *hurtBoxesRotation[5];
+
+		void animate();
+		void animate2();
+		void doAnimation();
 	};
 
 	struct ObjListManager {
@@ -377,7 +385,10 @@ namespace SokuLib
 		KeyCombination keyCombination;
 
 		// 0x7CC
-		char offset_0x7CC[0x28];
+		bool nameHidden;
+
+		// 0x7CD
+		char offset_0x7CD[0x27];
 
 		// CF_CHARGE_ATTACK 0x7F4 // char
 		char chargedAttack;

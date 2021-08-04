@@ -358,6 +358,11 @@ namespace DrawUtils
 		return this->_vertex;
 	}
 
+	float RectangularRenderingElement::getRotation() const
+	{
+		return this->_rotation;
+	}
+
 	void GradiantRect::draw() const
 	{
 		Vertex vertexs[4];

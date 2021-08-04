@@ -160,6 +160,7 @@ namespace DrawUtils
 
 	public:
 		Vector2u getSize() const;
+		float getRotation() const;
 
 		RectangularRenderingElement() noexcept = default;
 		RectangularRenderingElement(const Camera &camera) noexcept;
