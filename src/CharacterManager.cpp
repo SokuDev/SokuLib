@@ -79,11 +79,14 @@ namespace SokuLib
 			this->animationCounterMax = 0;
 		else
 			this->animationCounterMax = ((unsigned)this->frameDataReader->frameDataArrayEnd - (unsigned)this->frameDataReader->frameDataArrayStart) / 0xA8;
-		this->animate2();
+		(*(void (__thiscall **)(SokuLib::ObjectManager *))(*(int *)&this->offset_0x000 + 0x18))(this);
 	}
 
 	void ObjectManager::doAnimation()
 	{
+		((unsigned (__thiscall *)(SokuLib::ObjectManager *))0x438c60)(this);
+		return;
+
 		if (!this->animationSubFrameMax)
 			return;
 		this->frameCount++;
