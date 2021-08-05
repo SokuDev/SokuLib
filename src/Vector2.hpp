@@ -101,7 +101,7 @@ namespace SokuLib
 		}
 
 		template<typename T2>
-		Vector2<T2> to()
+		Vector2<T2> to() const
 		{
 			return {
 				static_cast<T2>(this->x),
