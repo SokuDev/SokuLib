@@ -93,8 +93,8 @@ namespace SokuLib
 			float s = sin(angle);
 
 			Vector2<float> result{
-				c * (static_cast<float>(this->x) - center.x) - s * (static_cast<float>(this->y) - center.y) + center.x,
-				s * (static_cast<float>(this->x) - center.x) + c * (static_cast<float>(this->y) - center.y) + center.y
+				static_cast<float>(c * (static_cast<float>(this->x) - center.x) - s * (static_cast<float>(this->y) - center.y) + center.x),
+				static_cast<float>(s * (static_cast<float>(this->x) - center.x) + c * (static_cast<float>(this->y) - center.y) + center.y)
 			};
 
 			return result;

@@ -211,7 +211,7 @@ namespace DrawUtils
 		void draw() const override;
 	};
 
-	class RectangleShape : protected GradiantRect {
+	class RectangleShape : public GradiantRect {
 	public:
 		void setFillColor(const DxSokuColor &color);
 		void setBorderColor(const DxSokuColor &color);
@@ -222,12 +222,6 @@ namespace DrawUtils
 		RectangleShape() noexcept = default;
 		RectangleShape(const Camera &camera) noexcept;
 		void draw() const override;
-		using RectangularRenderingElement::setSize;
-		using RectangularRenderingElement::getSize;
-		using RenderingElement::getPosition;
-		using RectangularRenderingElement::setPosition;
-		using RectangularRenderingElement::setRect;
-		using RectangularRenderingElement::rawSetRect;
 	};
 }
 }
