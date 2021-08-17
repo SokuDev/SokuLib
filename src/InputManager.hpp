@@ -40,10 +40,9 @@ namespace SokuLib
 	struct InputManager {
 		bool readReplay(const char *path);
 	};
-	struct InputManagerCluster;
 
 	extern InputManager &inputMgr;
-	extern InputManagerCluster &inputMgrs;
+	extern KeymapManager &inputMgrs;
 }
 
 

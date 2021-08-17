@@ -13,7 +13,7 @@ namespace SokuLib
 
 	// �C���v�b�g�}�l�[�W���N���X�^
 	// CInputManagerCluster
-	InputManagerCluster &inputMgrs = *reinterpret_cast<InputManagerCluster *>(ADDR_INPUT_MANAGER_CLUSTER);
+	KeymapManager &inputMgrs = *reinterpret_cast<KeymapManager *>(ADDR_INPUT_MANAGER_CLUSTER);
 
 	bool InputManager::readReplay(const char *path)
 	{
