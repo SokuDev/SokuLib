@@ -27,6 +27,7 @@ namespace SokuLib
 		char unknown2[0x33];
 		//  ADDR_KEYMAPOFS          int[8] (32) 0x38
 		KeyInput input;
+		int pause;
 	};
 
 	//KEYMGR
