@@ -44,6 +44,9 @@ namespace SokuLib
 
 	void ObjectManager::animate2()
 	{
+		(*(void (__thiscall **)(SokuLib::ObjectManager *))(*(int *)&this->offset_0x000 + 0x14))(this);
+		return;
+
 		SokuLib::FrameDataReader *iVar1;
 		SokuLib::FrameData *pFVar2;
 		unsigned uVar3;
@@ -63,6 +66,8 @@ namespace SokuLib
 
 	void ObjectManager::animate()
 	{
+		(*(void (__thiscall **)(SokuLib::ObjectManager *))(*(int *)&this->offset_0x000 + 0x10))(this);
+		return;
 		int local_c;
 		int **local_8[2];
 		int ***pppiVar3;
