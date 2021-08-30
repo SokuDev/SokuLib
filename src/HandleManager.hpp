@@ -14,6 +14,7 @@ namespace SokuLib
 	inline __declspec(naked) void **CHandleManager_Allocate(void *p, int *ret)
 	{
 		// thiscall�Ȃ̂ɗ�����Ǝv������edi���g���Ă����ł�����@�̊�
+		// Is it actually a __stdcall ???
 		__asm push edi
 		__asm mov edi, [esp+8]
 		__asm push [esp+12]

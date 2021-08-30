@@ -44,7 +44,7 @@ namespace SokuLib
 
 	void ObjectManager::animate2()
 	{
-		(*(void (__thiscall **)(SokuLib::ObjectManager *))(*(int *)&this->offset_0x000 + 0x14))(this);
+		(*(void (__thiscall **)(SokuLib::ObjectManager *))(*(int *)&this->vtable + 0x14))(this);
 		return;
 
 		SokuLib::FrameDataReader *iVar1;
@@ -66,7 +66,7 @@ namespace SokuLib
 
 	void ObjectManager::animate()
 	{
-		(*(void (__thiscall **)(SokuLib::ObjectManager *))(*(int *)&this->offset_0x000 + 0x10))(this);
+		(*(void (__thiscall **)(SokuLib::ObjectManager *))(*(int *)&this->vtable + 0x10))(this);
 		return;
 		int local_c;
 		int **local_8[2];
@@ -84,7 +84,7 @@ namespace SokuLib
 			this->animationCounterMax = 0;
 		else
 			this->animationCounterMax = ((unsigned)this->frameDataReader->frameDataArrayEnd - (unsigned)this->frameDataReader->frameDataArrayStart) / 0xA8;
-		(*(void (__thiscall **)(SokuLib::ObjectManager *))(*(int *)&this->offset_0x000 + 0x18))(this);
+		(*(void (__thiscall **)(SokuLib::ObjectManager *))(*(int *)&this->vtable + 0x18))(this);
 	}
 
 	void ObjectManager::doAnimation()
@@ -115,7 +115,7 @@ namespace SokuLib
 				else
 					uVar2 = (((unsigned)this->frameDataReader->frameDataArrayEnd - iVar1) / 0xa8);
 				this->animationCounterMax = uVar2;
-				(*(void (__thiscall **)(SokuLib::ObjectManager *, int))(*(int *)&this->offset_0x000 + 0x1c))(this, 0);
+				(*(void (__thiscall **)(SokuLib::ObjectManager *, int))(*(int *)&this->vtable + 0x1c))(this, 0);
 				if (this->frameDataReader->maxAnimationSomething == 0) {
 					this->actionBlockId = 0;
 					this->frameCount = 0;

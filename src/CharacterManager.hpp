@@ -54,7 +54,10 @@ namespace SokuLib
 
 	struct ObjectManager {
 		// 0x000
-		char offset_0x000[0xEC];
+		void *vtable;
+
+		// 0x004
+		char offset_0x004[0xE8];
 
 		//  ADDR_POINTXOFS          float             (4) 0x0EC
 		//  ADDR_POINTYOFS          float             (4) 0x0F0
