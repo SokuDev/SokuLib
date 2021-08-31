@@ -124,5 +124,6 @@ add_executable(
 	SokuLibTests
 	test/main.cpp
 )
+target_include_directories(SokuLibTests PRIVATE directx)
 
 target_link_libraries(SokuLibTests SokuLib)

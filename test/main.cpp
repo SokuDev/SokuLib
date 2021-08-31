@@ -11,7 +11,8 @@ void testCharacterManager()
 {
 	SokuLib::CharacterManager *manager = (SokuLib::CharacterManager *)&manager;
 
-	check_offset(manager, objectBase.offset_0x000, 0x000);
+	check_offset(manager, objectBase.vtable      , 0x000);
+	check_offset(manager, objectBase.offset_0x004, 0x004);
 	check_offset(manager, objectBase.position.x  , 0x0EC);
 	check_offset(manager, objectBase.position.y  , 0x0F0);
 	check_offset(manager, objectBase.speed.x     , 0x0F4);
@@ -20,14 +21,15 @@ void testCharacterManager()
 	check_offset(manager, objectBase.offset_0x0FC, 0x0FC);
 	check_offset(manager, objectBase.direction   , 0x104);
 
-	check_offset(manager, objectBase.offset_0x105     , 0x105);
-	check_offset(manager, objectBase.action           , 0x13C);
-	check_offset(manager, objectBase.actionBlockId    , 0x13E);
-	check_offset(manager, objectBase.animationCounter , 0x140);
-	check_offset(manager, objectBase.animationSubFrame, 0x142);
-	check_offset(manager, objectBase.frameCount       , 0x144);
+	check_offset(manager, objectBase.offset_0x105       , 0x105);
+	check_offset(manager, objectBase.action             , 0x13C);
+	check_offset(manager, objectBase.actionBlockId      , 0x13E);
+	check_offset(manager, objectBase.animationCounter   , 0x140);
+	check_offset(manager, objectBase.animationSubFrame  , 0x142);
+	check_offset(manager, objectBase.frameCount         , 0x144);
+	check_offset(manager, objectBase.animationCounterMax, 0x148);
 
-	check_offset(manager, objectBase.offset_0x148, 0x148);
+	check_offset(manager, objectBase.offset_0x14A, 0x14A);
 	check_offset(manager, objectBase.offset_0x154, 0x154);
 	check_offset(manager, objectBase.hp          , 0x184);
 

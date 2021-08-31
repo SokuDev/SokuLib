@@ -85,7 +85,7 @@ namespace SokuLib
 		RenderInfo renderInfos;
 
 		// 0x130
-		char offset_0x130[0x10];
+		char offset_0x130[0xC];
 
 		//  ADDR_ACTIONIDOFS        enum Action       (2) 0x13C
 		Action action;
