@@ -86,8 +86,8 @@ void testCharacterManager()
 	check_offset(manager, offset_0x4AA, 0x4AA);
 	check_offset(manager, correction  , 0x4AD);
 
-	check_offset(manager, offset_0x4AE, 0x4AE);
-	check_offset(manager, combo       , 0x4B0);
+	check_offset(manager, offset_0x4AE , 0x4AE);
+	check_offset(manager, combo        , 0x4B0);
 	check_offset(manager, combo.rate   , 0x4B0);
 	check_offset(manager, combo.nbHits , 0x4B4);
 	check_offset(manager, combo.damages, 0x4B6);
@@ -274,8 +274,35 @@ void testSelectScene()
 	check_offset(select, selectedMusic, 0x244C);
 }
 
+void testFrameData()
+{
+	SokuLib::FrameData *frameData = reinterpret_cast<SokuLib::FrameData *>(&frameData);
+
+	check_offset(frameData, VTable, 0x0);
+	check_offset(frameData, offset, 0x4);
+	check_offset(frameData, offset.x, 0x4);
+	check_offset(frameData, offset.y, 0x6);
+	check_offset(frameData, offset_0x08, 0x8);
+	check_offset(frameData, number, 0xA);
+	check_offset(frameData, offset_0x0C, 0xC);
+	check_offset(frameData, okuuCapeOffset, 0x10);
+	check_offset(frameData, okuuCapeOffset.x, 0x10);
+	check_offset(frameData, okuuCapeOffset.y, 0x12);
+	check_offset(frameData, offset_0x014, 0x14);
+	check_offset(frameData, offset_0x014, 0x14);
+	check_offset(frameData, damage, 0x1C);
+	check_offset(frameData, spiritDamage, 0x22);
+	check_offset(frameData, offset_0x24, 0x24);
+	check_offset(frameData, frameFlags, 0x4C);
+	check_offset(frameData, attackFlags, 0x50);
+	check_offset(frameData, collisionBox, 0x54);
+	check_offset(frameData, offset_0x58, 0x58);
+	assert_equal(sizeof(*frameData), 0xA8);
+}
+
 int main()
 {
+	testFrameData();
 	testCharacterManager();
 	testSelectScene();
 	return 0;

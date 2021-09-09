@@ -71,6 +71,7 @@ namespace SokuLib
 		unsigned int value;
 	};
 
+#pragma pack(push, 1)
 	struct FrameData {
 		// 0x00
 		void *VTable;
@@ -79,11 +80,11 @@ namespace SokuLib
 		Vector2<short> offset;
 
 		// 0x08
-		unsigned short offset_0x008;
+		unsigned short offset_0x08;
 
 		// Image and FrameData are the same structs
-		//  ADDR_IMAGENUMBEROFS     unsigned int (4) 0x0A
-		unsigned int number;
+		//  ADDR_IMAGENUMBEROFS     unsigned short (2) 0x0A
+		unsigned short number;
 
 		// 0x0C
 		unsigned int offset_0x0C;
@@ -121,10 +122,11 @@ namespace SokuLib
 		// FF_ATTACK_BOX_COUNT 0x5C // int
 		// FF_ATTACK_BOXES 0x60 // rect<short>
 
-		char offset_0x5C[0x4C];
+		char offset_0x58[0x50];
 
 		// 0xA8 Struct Size
 	};
+#pragma pack(pop)
 
 	struct FrameDataReader {
 		// 0x00

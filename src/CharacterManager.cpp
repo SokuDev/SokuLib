@@ -47,7 +47,7 @@ namespace SokuLib
 		(*(void (__thiscall **)(SokuLib::ObjectManager *))(*(int *)&this->vtable + 0x14))(this);
 		return;
 
-		SokuLib::FrameDataReader *iVar1;
+	/*	SokuLib::FrameDataReader *iVar1;
 		SokuLib::FrameData *pFVar2;
 		unsigned uVar3;
 
@@ -56,12 +56,12 @@ namespace SokuLib
 		if (iVar1->frameDataArrayStart != nullptr && uVar3 < (((unsigned)iVar1->frameDataArrayEnd - (unsigned)iVar1->frameDataArrayStart) / 0xa8)) {
 			pFVar2 = &iVar1->frameDataArrayStart[uVar3];
 			this->image = pFVar2;
-			this->animationSubFrameMax = pFVar2->offset_0x008;
+			this->animationSubFrameMax = *(unsigned short *)&pFVar2->offset_0x08;
 			reinterpret_cast<void (__thiscall *)(SokuLib::ObjectManager *)>(0x43a250)(this);
 			return;
 		}
 		printf("0x%p == nullptr || %u >= (0x%p - 0x%p) / 0xa8 [%u]\n", iVar1->frameDataArrayStart, uVar3, iVar1->frameDataArrayEnd, iVar1->frameDataArrayStart, (((unsigned)iVar1->frameDataArrayEnd - (unsigned)iVar1->frameDataArrayStart) / 0xa8));
-		puts("Error 2");
+		puts("Error 2");*/
 	}
 
 	void ObjectManager::animate()
