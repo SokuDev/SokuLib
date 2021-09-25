@@ -61,6 +61,7 @@ namespace SokuLib
 					Node* next = this->ptr->parent;
 					while (!next->isNil && this->ptr == next->right) {
 						this->ptr = next;
+						next = next->parent;
 					} this->ptr = next;
 				}
 				return *this;
@@ -71,15 +72,41 @@ namespace SokuLib
 				++*this;
 				return tmp;
 			}
+
+			Iterator& operator--() {
+				if (this->ptr->isNil) this->ptr = this->ptr->right;
+				else if(!this->ptr->left->isNil) {
+					// rightmost of left tree
+					this->ptr = this->ptr->left;
+					while(!this->ptr->right->isNil)
+						this->ptr = this->ptr->right;
+				} else {
+					// climb tree
+					Node* next = this->ptr->parent;
+					while(!next->isNil && this->ptr == next->left) {
+						this->ptr = next;
+						next = next->parent;
+					}
+					if (!this->ptr->isNil) this->ptr = next;
+				}
+				return *this;
+			}
+
+			Iterator operator--(int) {
+				Iterator tmp = *this;
+				--*this;
+				return tmp;
+			}
 		};
 
 		// Data
+		char offset00[4];
 		Node* head;
 		int size;
 
 		Map() {
 			this->size = 0;
-			this->head = SokuLib::NewFct(sizeof(Node));
+			this->head = (Node*)SokuLib::NewFct(sizeof(Node));
 			this->head->left = this->head;
 			this->head->parent = this->head;
 			this->head->right = this->head;
@@ -88,14 +115,15 @@ namespace SokuLib
 		}
 
 	private:
-		void _newNode(const value_type& value) {
-			Node* node = SokuLib::NewFct(sizeof(Node));
+		Node* _newNode(const value_type& value) {
+			Node* node = (Node*)SokuLib::NewFct(sizeof(Node));
 			node->left = this->head;
 			node->parent = this->head;
 			node->right = this->head;
 			node->color = Color::_Red;
 			node->isNil = false;
-			new (&node->val) (value);
+			new (&node->val) value_type(value);
+			return node;
 		}
 
 		void _erase(Node* root) {
@@ -141,7 +169,7 @@ namespace SokuLib
 
 		Iterator _insert(bool addLeft, Node* where, Node* newNode) {
 			++this->size;
-			node->parent = where;
+			newNode->parent = where;
 			if (where == this->head) {
 				this->head->parent = newNode;
 				this->head->left = newNode;
@@ -167,12 +195,12 @@ namespace SokuLib
 					} else {
 						if (node == node->parent->right) {
 							node = node->parent;
-							_Lrotate(node);
+							this->_Lrotate(node);
 						}
 
 						node->parent->color = Color::_Black;
 						node->parent->parent->color = Color::_Red;
-						_Rrorate(node->parent->parent);
+						this->_Rrotate(node->parent->parent);
 					}
 				} else {
 					where = node->parent->parent->left;
@@ -184,12 +212,12 @@ namespace SokuLib
 					} else {
 						if (node == node->parent->left) {
 							node = node->parent;
-							_Rrotate(node);
+							this->_Rrotate(node);
 						}
 
 						node->parent->color = Color::_Black;
 						node->parent->parent->color = Color::_Red;
-						_Lrotate(node->parent->parent);
+						this->_Lrotate(node->parent->parent);
 					}
 				}
 			}
@@ -202,7 +230,6 @@ namespace SokuLib
 			Node* node = this->_newNode(value);
 			if (this->size == 0) return this->_insert(true, this->head, node);
 
-			Iterator _next;
 			if (where == this->head->left) {
 				if (value.first < where->first)
 					return this->_insert(true, where.ptr, node);
@@ -210,14 +237,14 @@ namespace SokuLib
 				if (this->head->right->val.first < where->first)
 					return this->_insert(false, this->head->right, node);
 			} else if (value.first < where->first) {
-				_next = where; --_next;
+				Iterator _next = where; --_next;
 				if (_next->first < value.first) {
 					if (_next.ptr->right->isNil)
 						return this->_insert(false, _next.ptr, node);
 					else return this->_insert(true, where.ptr, node);
 				}
 			} else if (where->first < value.first) {
-				_next = where; ++_next;
+				Iterator _next = where; ++_next;
 				if (_next.ptr == this->head || value.first < _next->first){
 					if (where.ptr->right->isNil)
 						return this->_insert(false, where.ptr, node);
@@ -235,7 +262,7 @@ namespace SokuLib
 				tnode = addLeft ? tnode->left : tnode->right;
 			}
 
-			next = Iterator(wnode);
+			Iterator next(wnode);
 			if (addLeft) {
 				if (wnode == this->head->left) {
 					return this->_insert(true, wnode, node);
@@ -268,25 +295,25 @@ namespace SokuLib
 
 	public:
 		Iterator begin() {
-			return iterator(this->head->left);
+			return Iterator(this->head->left);
 		}
 
 		Iterator end() {
-			return iterator(this->head);
+			return Iterator(this->head);
 		}
 
 		void clear() {
-			_erase(this->head->parent);
+			this->_erase(this->head->parent);
 			this->size = 0;
-			this->head->parent = this->head
-			this->head->left = this->head
-			this->head->right = this->head
+			this->head->parent = this->head;
+			this->head->left = this->head;
+			this->head->right = this->head;
 		}
 
 		T2& operator[](const T1& key) {
 			Iterator iter = this->_lower_bound(key);
 			if (iter == this->end() || key < iter->first) {
-				iter = this->_insert(std::pair(key, T2()));
+				iter = this->_insert(iter, std::pair(key, T2()));
 			}
 			return iter->second;
 		}
@@ -297,57 +324,12 @@ namespace SokuLib
 				iter = this->end();
 			return iter;
 		}
-	};
-/*
-	template<typename T, typename T2>
-	struct MapNode {
-		MapNode<T, T2> *prev;
-		MapNode<T, T2> *next;
-		MapNode<T, T2> *head;
-		std::pair<T, T2> data;
-	};
 
-	template<typename T, typename T2>
-	struct _Map {
-	private:
-		static void _exploreList(MapNode<T, T2> *chain, std::vector<MapNode<T, T2> *> &lookup)
-		{
-			if (std::find(lookup.begin(), lookup.end(), chain) != lookup.end())
-				return;
-			lookup.push_back(chain);
-			Map<T, T2>::_exploreList(chain->next, lookup);
-			Map<T, T2>::_exploreList(chain->prev, lookup);
-			Map<T, T2>::_exploreList(chain->head, lookup);
+		~Map() {
+			this->_erase(this->head->parent);
+			SokuLib::DeleteFct(this->head);
 		}
-
-	public:
-		char offset_0x00[4];
-		MapNode<T, T2> *data;
-		unsigned int someKindOfSize;
-
-		std::vector<std::pair<T, T2> *> vector()
-		{
-			std::vector<MapNode<T, T2> *> chains{
-				reinterpret_cast<MapNode<T, T2> *>(this),
-				this->data
-			};
-			std::vector<std::pair<T, T2> *> result;
-
-			Map<T, T2>::_exploreList(this->data->next, chains);
-			Map<T, T2>::_exploreList(this->data->prev, chains);
-			Map<T, T2>::_exploreList(this->data->head, chains);
-			chains.erase(chains.begin(), chains.begin() + 2);
-			for (auto chain : chains)
-				result.push_back(&chain->data);
-			return result;
-		}
-
-		T2 &operator[](const T &key);
 	};
-
-	template<>
-	unsigned char &_Map<unsigned short, unsigned char>::operator[](const unsigned short &key);
-*/
 }
 
 #endif //SOKULIB_MAP_HPP
