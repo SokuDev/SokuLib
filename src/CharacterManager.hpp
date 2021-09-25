@@ -453,6 +453,7 @@ namespace SokuLib
 			unsigned short orreriesTimeLeft;
 			//  ADDR_MPPOFS             unsigned short    (2) 0x892 (SUIKA Missing Purple Power time left (in frames) 480 - 0)
 			unsigned short missingPurplePowerTimeLeft;
+			unsigned short aliceDollCount;
 		};
 
 		// 0x894
