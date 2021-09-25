@@ -6,9 +6,7 @@
 #define SOKULIB_MAP_HPP
 
 
-#include <vector>
 #include "Memory.hpp"
-#include <stdexcept>
 #include <utility>
 
 namespace SokuLib
@@ -18,7 +16,6 @@ namespace SokuLib
 		enum Color:char {_Red, _Black};
 	public:
 		using value_type = std::pair<T1, T2>;
-		using allocVal = std::allocator<value_type>;
 
 		struct Node {
 			Node* left;
