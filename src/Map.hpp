@@ -7,9 +7,298 @@
 
 
 #include <vector>
+#include "Memory.hpp"
+#include <stdexcept>
+#include <utility>
 
 namespace SokuLib
 {
+	template<typename T1, typename T2>
+	class Map {
+		enum Color:char {_Red, _Black};
+	public:
+		using value_type = std::pair<T1, T2>;
+		using allocVal = std::allocator<value_type>;
+
+		struct Node {
+			Node* left;
+			Node* parent;
+			Node* right;
+			value_type val;
+			Color color;
+			bool isNil;
+		};
+
+		class Iterator {
+		public:
+			Node* ptr;
+
+			Iterator(Node* ptr) : ptr(ptr) {}
+
+			value_type& operator*() const { return this->ptr->val; }
+
+			value_type* operator->() const {
+				return &this->ptr->val;
+			}
+
+			bool operator==(const Iterator& other) const {
+				return (this->ptr == other.ptr);
+			}
+
+			bool operator!=(const Iterator& other) const {
+				return !(this->ptr == other.ptr);
+			}
+
+			Iterator& operator++() {
+				if (this->ptr->isNil) ;// do nothing
+				else if (!this->ptr->right->isNil) {
+					// leftmost of right tree
+					this->ptr = this->ptr->right;
+					while(!this->ptr->left->isNil)
+						this->ptr = this->ptr->left;
+				} else {
+					// climb tree
+					Node* next = this->ptr->parent;
+					while (!next->isNil && this->ptr == next->right) {
+						this->ptr = next;
+					} this->ptr = next;
+				}
+				return *this;
+			}
+
+			Iterator operator++(int) {
+				Iterator tmp = *this;
+				++*this;
+				return tmp;
+			}
+		};
+
+		// Data
+		Node* head;
+		int size;
+
+		Map() {
+			this->size = 0;
+			this->head = SokuLib::NewFct(sizeof(Node));
+			this->head->left = this->head;
+			this->head->parent = this->head;
+			this->head->right = this->head;
+			this->head->color = Color::_Black;
+			this->head->isNil = true;
+		}
+
+	private:
+		void _newNode(const value_type& value) {
+			Node* node = SokuLib::NewFct(sizeof(Node));
+			node->left = this->head;
+			node->parent = this->head;
+			node->right = this->head;
+			node->color = Color::_Red;
+			node->isNil = false;
+			new (&node->val) (value);
+		}
+
+		void _erase(Node* root) {
+			for (Node* node = root; !node->isNil; root = node) {
+				_erase(node->right);
+				node = node->left;
+				node->val.~value_type();
+				SokuLib::DeleteFct(root);
+			}
+		}
+
+		void _Lrotate(Node* where) {
+			Node* node = where->right;
+			where->right = node->left;
+
+			if (!node->left->isNil) node->left->parent = where;
+			node->parent = where->parent;
+
+			if (this->head == where) this->head = node;
+			else if (where == where->parent->left)
+				where->parent->left = node;
+			else where->parent->right = node;
+
+			node->left = where;
+			where->parent = node;
+		}
+
+		void _Rrotate(Node* where) {
+			Node* node = where->left;
+			where->left = node->right;
+
+			if (!node->right->isNil) node->right->parent = where;
+			node->parent = where->parent;
+
+			if (this->head == where) this->head = node;
+			else if (where == where->parent->right)
+				where->parent->right = node;
+			else where->parent->left = node;
+
+			node->right = where;
+			where->parent = node;
+		}
+
+		Iterator _insert(bool addLeft, Node* where, Node* newNode) {
+			++this->size;
+			node->parent = where;
+			if (where == this->head) {
+				this->head->parent = newNode;
+				this->head->left = newNode;
+				this->head->right = newNode;
+			} else if (addLeft) {
+				where->left = newNode;
+				if (this->head->left == where)
+					this->head->left = newNode;
+			} else {
+				where->right = newNode;
+				if (this->head->right == where)
+					this->head->right = newNode;
+			}
+
+			for (Node* node = newNode; node->parent->color == Color::_Red;) {
+				if (node->parent == node->parent->parent->left) {
+					where = node->parent->parent->right;
+					if (where->color == Color::_Red) {
+						node->parent->color = Color::_Black;
+						where->color = Color::_Black;
+						node->parent->parent->color = Color::_Red;
+						node = node->parent->parent;
+					} else {
+						if (node == node->parent->right) {
+							node = node->parent;
+							_Lrotate(node);
+						}
+
+						node->parent->color = Color::_Black;
+						node->parent->parent->color = Color::_Red;
+						_Rrorate(node->parent->parent);
+					}
+				} else {
+					where = node->parent->parent->left;
+					if (where->color == Color::_Red) {
+						node->parent->color = Color::_Black;
+						where->color = Color::_Black;
+						node->parent->parent->color = Color::_Red;
+						node = node->parent->parent;
+					} else {
+						if (node == node->parent->left) {
+							node = node->parent;
+							_Rrotate(node);
+						}
+
+						node->parent->color = Color::_Black;
+						node->parent->parent->color = Color::_Red;
+						_Lrotate(node->parent->parent);
+					}
+				}
+			}
+
+			this->head->parent->color = Color::_Black;
+			return Iterator(newNode);
+		}
+
+		Iterator _insert(const Iterator& where, const value_type& value) {
+			Node* node = this->_newNode(value);
+			if (this->size == 0) return this->_insert(true, this->head, node);
+
+			Iterator _next;
+			if (where == this->head->left) {
+				if (value.first < where->first)
+					return this->_insert(true, where.ptr, node);
+			} else if (where == this->head) {
+				if (this->head->right->val.first < where->first)
+					return this->_insert(false, this->head->right, node);
+			} else if (value.first < where->first) {
+				_next = where; --_next;
+				if (_next->first < value.first) {
+					if (_next.ptr->right->isNil)
+						return this->_insert(false, _next.ptr, node);
+					else return this->_insert(true, where.ptr, node);
+				}
+			} else if (where->first < value.first) {
+				_next = where; ++_next;
+				if (_next.ptr == this->head || value.first < _next->first){
+					if (where.ptr->right->isNil)
+						return this->_insert(false, where.ptr, node);
+					return this->_insert(true, _next.ptr, node);
+				}
+			}
+
+			// hint fail, do normal insert;
+			Node* tnode = this->head->parent;
+			Node* wnode = this->head;
+			bool addLeft = true;
+			while(!tnode->isNil) {
+				wnode = tnode;
+				addLeft = value.first < tnode->val.first;
+				tnode = addLeft ? tnode->left : tnode->right;
+			}
+
+			next = Iterator(wnode);
+			if (addLeft) {
+				if (wnode == this->head->left) {
+					return this->_insert(true, wnode, node);
+				} else --next;
+			}
+
+			if (next->first < value.first) return this->_insert(addLeft, wnode, node);
+
+			// duplicate
+			node->val.~value_type();
+			SokuLib::DeleteFct(node);
+			return next;
+		}
+
+		Iterator _lower_bound(const T1& key) {
+			Node* node = this->head->parent;
+			Node* lower = this->head;
+
+			while (!node->isNil) {
+				if (node->val.first < key) {
+					node = node->right;
+				} else {
+					lower = node;
+					node = node->left;
+				}
+			}
+
+			return Iterator(lower);
+		}
+
+	public:
+		Iterator begin() {
+			return iterator(this->head->left);
+		}
+
+		Iterator end() {
+			return iterator(this->head);
+		}
+
+		void clear() {
+			_erase(this->head->parent);
+			this->size = 0;
+			this->head->parent = this->head
+			this->head->left = this->head
+			this->head->right = this->head
+		}
+
+		T2& operator[](const T1& key) {
+			Iterator iter = this->_lower_bound(key);
+			if (iter == this->end() || key < iter->first) {
+				iter = this->_insert(std::pair(key, T2()));
+			}
+			return iter->second;
+		}
+
+		Iterator find(const T1& key) {
+			Iterator iter = this->_lower_bound(key);
+			if (iter != this->end() && key < iter->first)
+				iter = this->end();
+			return iter;
+		}
+	};
+/*
 	template<typename T, typename T2>
 	struct MapNode {
 		MapNode<T, T2> *prev;
@@ -19,7 +308,7 @@ namespace SokuLib
 	};
 
 	template<typename T, typename T2>
-	struct Map {
+	struct _Map {
 	private:
 		static void _exploreList(MapNode<T, T2> *chain, std::vector<MapNode<T, T2> *> &lookup)
 		{
@@ -57,7 +346,8 @@ namespace SokuLib
 	};
 
 	template<>
-	unsigned char &Map<unsigned short, unsigned char>::operator[](const unsigned short &key);
+	unsigned char &_Map<unsigned short, unsigned char>::operator[](const unsigned short &key);
+*/
 }
 
 #endif //SOKULIB_MAP_HPP
