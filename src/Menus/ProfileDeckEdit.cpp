@@ -7,7 +7,7 @@
 
 namespace SokuLib
 {
-	//auto FUN_00433c90 = SokuLib::union_cast<MapNode<unsigned short, unsigned char> *(Map<unsigned short, unsigned char>::*)(unsigned int)>(0x433c90);
+	auto FUN_00433c90 = SokuLib::union_cast<Map<unsigned short, unsigned char>::Node *(Map<unsigned short, unsigned char>::*)(unsigned int)>(0x433c90);
 
 	unsigned short ProfileDeckEdit::getSelectedCardId() const
 	{
@@ -16,7 +16,6 @@ namespace SokuLib
 
 	unsigned short ProfileDeckEdit::getSelectedCardIdFromIndex(unsigned int index) const
 	{
-		//return (this->unknownMap->*FUN_00433c90)(index)->next->data.first;
-		return 0; // TODO check with Pinky;
+		return (this->unknownMap->*FUN_00433c90)(index)->parent->val.first;
 	}
 }
