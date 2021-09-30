@@ -4,9 +4,9 @@ namespace {
 	// private
 	struct CGaugeValue : public SokuLib::CGauge::IValue {
 		void* value;
-		int offset, length;
+		float offset, length;
 
-		inline CGaugeValue(void** vtable, void* value, int offset, int length)
+		inline CGaugeValue(void** vtable, void* value, float offset, float length)
 			: value(value), offset(offset), length(length) { *(void***)this = vtable; }
 
 		float getValue() override {return 0;}
@@ -72,12 +72,12 @@ namespace SokuLib {
 		this->value = value;
 	}
 
-	void CGauge::set(const int* ptr, int offset, int length) {
+	void CGauge::set(const int* ptr, float offset, float length) {
 		if (this->value) SokuLib::DeleteFct(this->value);
 		this->value = SokuLib::New<CGaugeValue>(1, (void**)0x85b570, (void*)ptr, offset, length);
 	}
 
-	void CGauge::set(const short* ptr, int offset, int length) {
+	void CGauge::set(const short* ptr, float offset, float length) {
 		if (this->value) SokuLib::DeleteFct(this->value);
 		this->value = SokuLib::New<CGaugeValue>(1, (void**)0x85b574, (void*)ptr, offset, length);
 	}

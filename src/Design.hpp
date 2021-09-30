@@ -77,8 +77,8 @@ namespace SokuLib {
 		CGauge() = default;
 		CGauge(IValue* value); // takes control, use SokuLib::New
 		void set(IValue* value); // takes control, use SokuLib::New
-		void set(const int* ptr, int offset, int length);
-		void set(const short* ptr, int offset, int length);
+		void set(const int* ptr, float offset, float length);
+		void set(const short* ptr, float offset, float length);
 
 		virtual ~CGauge();
 		virtual void setColor(int a1) override;
