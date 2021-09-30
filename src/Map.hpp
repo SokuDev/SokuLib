@@ -9,8 +9,22 @@
 #include "Memory.hpp"
 #include <utility>
 
+#include <deque>
+#include <list>
+#include <vector>
+
 namespace SokuLib
 {
+	template<typename T> class Deque : public std::deque<T, Allocator<T> > {};
+#ifdef _DEBUG
+	template<typename T> class List : public std::list<T, Allocator<T> > {};
+	template<typename T> class Vector : public std::vector<T, Allocator<T> > {};
+#else
+	struct __STL_ALIGN { void *align; };
+	template<typename T> class List : private __STL_ALIGN, public std::list<T, Allocator<T> > {};
+	template<typename T> class Vector : private __STL_ALIGN, public std::vector<T, Allocator<T> > {};
+#endif
+
 	template<typename T1, typename T2>
 	class Map {
 		enum Color:char {_Red, _Black};

@@ -155,8 +155,8 @@ namespace SokuLib {
 	void CFileList::updateList()        { (this->*union_cast<void(CFileList::*)()>(_vtable[1]))(); }
 	void CFileList::updateResources()   { (this->*union_cast<void(CFileList::*)()>(_vtable[2]))(); }
 	void CFileList::clear()             { (this->*union_cast<void(CFileList::*)()>(_vtable[3]))(); }
-	int CFileList::appendLine(String& out, void* unknown, NameDeque& list, int index) {
-		return (this->*union_cast<int(CFileList::*)(String&, void*, NameDeque&, int)>(_vtable[4]))(out, unknown, list, index);
+	int CFileList::appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) {
+		return (this->*union_cast<int(CFileList::*)(String&, void*, SokuLib::Deque<String>&, int)>(_vtable[4]))(out, unknown, list, index);
 	}
 
 	bool CFileList::goToParent() {
@@ -172,8 +172,8 @@ namespace SokuLib {
 	void CReplayList::updateList()      { (this->*union_cast<void(CFileList::*)()>(_vtable[1]))(); }
 	void CReplayList::updateResources() { (this->*union_cast<void(CFileList::*)()>(_vtable[2]))(); }
 	void CReplayList::clear()           { (this->*union_cast<void(CFileList::*)()>(_vtable[3]))(); }
-	int CReplayList::appendLine(String& out, void* unknown, NameDeque& list, int index) {
-		return (this->*union_cast<int(CFileList::*)(String&, void*, NameDeque&, int)>(_vtable[4]))(out, unknown, list, index);
+	int CReplayList::appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) {
+		return (this->*union_cast<int(CFileList::*)(String&, void*, SokuLib::Deque<String>&, int)>(_vtable[4]))(out, unknown, list, index);
 	}
 
 	// --- CProfileList ---
@@ -181,8 +181,8 @@ namespace SokuLib {
 	void CProfileList::updateList()         { (this->*union_cast<void(CFileList::*)()>(_vtable[1]))(); }
 	void CProfileList::updateResources()    { (this->*union_cast<void(CFileList::*)()>(_vtable[2]))(); }
 	void CProfileList::clear()              { (this->*union_cast<void(CFileList::*)()>(_vtable[3]))(); }
-	int CProfileList::appendLine(String& out, void* unknown, NameDeque& list, int index) {
-		return (this->*union_cast<int(CFileList::*)(String&, void*, NameDeque&, int)>(_vtable[4]))(out, unknown, list, index);
+	int CProfileList::appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) {
+		return (this->*union_cast<int(CFileList::*)(String&, void*, SokuLib::Deque<String>&, int)>(_vtable[4]))(out, unknown, list, index);
 	}
 
 	// --- CMusicList ---
@@ -190,8 +190,8 @@ namespace SokuLib {
 	void CMusicList::updateList()       { (this->*union_cast<void(CFileList::*)()>(_vtable[1]))(); }
 	void CMusicList::updateResources()  { (this->*union_cast<void(CFileList::*)()>(_vtable[2]))(); }
 	void CMusicList::clear()            { (this->*union_cast<void(CFileList::*)()>(_vtable[3]))(); }
-	int CMusicList::appendLine(String& out, void* unknown, NameDeque& list, int index) {
-		return (this->*union_cast<int(CFileList::*)(String&, void*, NameDeque&, int)>(_vtable[4]))(out, unknown, list, index);
+	int CMusicList::appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) {
+		return (this->*union_cast<int(CFileList::*)(String&, void*, SokuLib::Deque<String>&, int)>(_vtable[4]))(out, unknown, list, index);
 	}
 
 	// --- CResultList ---
@@ -199,7 +199,7 @@ namespace SokuLib {
 	void CResultList::updateList()      { (this->*union_cast<void(CFileList::*)()>(_vtable[1]))(); }
 	void CResultList::updateResources() { (this->*union_cast<void(CFileList::*)()>(_vtable[2]))(); }
 	void CResultList::clear()           { (this->*union_cast<void(CFileList::*)()>(_vtable[3]))(); }
-	int CResultList::appendLine(String& out, void* unknown, NameDeque& list, int index) {
-		return (this->*union_cast<int(CFileList::*)(String&, void*, NameDeque&, int)>(_vtable[4]))(out, unknown, list, index);
+	int CResultList::appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) {
+		return (this->*union_cast<int(CFileList::*)(String&, void*, SokuLib::Deque<String>&, int)>(_vtable[4]))(out, unknown, list, index);
 	}
 }

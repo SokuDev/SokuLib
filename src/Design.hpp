@@ -140,8 +140,8 @@ namespace SokuLib {
 		class Number : public Object { public: CNumber sprite; };
 
 		// --- Data ---
-		std::vector<int, Allocator<int> > textures;
-		std::list<Object*, Allocator<Object*> > objects;
+		SokuLib::Vector<int> textures;
+		SokuLib::List<Object*> objects;
 		SokuLib::Map<int, Object*> objectMap;
 		// the data below may be a iterator
 		void* unknown0x2C;
@@ -168,12 +168,10 @@ namespace SokuLib {
 	class CFileList {
 		inline static void** const _vtable = (void**)0x858b44;
 	public:
-		using NameDeque = std::deque<String, Allocator<String> >;
-
-		NameDeque names;
-		std::deque<char, Allocator<char> > types;
-		std::deque<int, Allocator<int> > textures;
-		std::deque<CTile, Allocator<CTile> > tiles;
+		SokuLib::Deque<String> names;
+		SokuLib::Deque<char> types;
+		SokuLib::Deque<int> textures;
+		SokuLib::Deque<CTile> tiles;
 		String fileFormat;
 		String basePath; // unsure
 		String currentPath;
@@ -187,7 +185,7 @@ namespace SokuLib {
 		virtual void updateList();
 		virtual void updateResources();
 		virtual void clear();
-		virtual int appendLine(String& out, void* unknown, NameDeque& list, int index);
+		virtual int appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index);
 
 		inline int getLength() { return this->names.size(); }
 		bool goToParent(); // unsure
@@ -203,7 +201,7 @@ namespace SokuLib {
 		virtual void updateList() override;
 		virtual void updateResources() override;
 		virtual void clear() override;
-		virtual int appendLine(String& out, void* unknown, NameDeque& list, int index) override;
+		virtual int appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) override;
 	};
 
 	class CProfileList : public CFileList {
@@ -215,14 +213,14 @@ namespace SokuLib {
 		virtual void updateList() override;
 		virtual void updateResources() override;
 		virtual void clear() override;
-		virtual int appendLine(String& out, void* unknown, NameDeque& list, int index) override;
+		virtual int appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) override;
 	};
 
 	class CMusicList : public CFileList {
 		inline static void** const _vtable = (void**)0x85955c;
 	public:
-		std::deque<String, Allocator<String> > unknownB4;
-		std::deque<String, Allocator<String> > unknownC8;
+		SokuLib::Deque<String> unknownB4;
+		SokuLib::Deque<String> unknownC8;
 
 		CMusicList();
 		// Remember to call `clear` to release the resources
@@ -230,17 +228,17 @@ namespace SokuLib {
 		virtual void updateList() override;
 		virtual void updateResources() override;
 		virtual void clear() override;
-		virtual int appendLine(String& out, void* unknown, NameDeque& list, int index) override;
+		virtual int appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) override;
 	};
 
 	class CResultList : public CFileList {
 		inline static void** const _vtable = (void**)0x859778;
 	public:
 		void* unknownB4;
-		std::deque<String, Allocator<String> > unknownB8;
-		std::deque<char, Allocator<char> > unknownCC;
-		std::deque<char, Allocator<char> > unknownE0;
-		std::deque<char, Allocator<char> > unknownF4;
+		SokuLib::Deque<String> unknownB8;
+		SokuLib::Deque<char> unknownCC;
+		SokuLib::Deque<char> unknownE0;
+		SokuLib::Deque<char> unknownF4;
 
 		CResultList();
 		// Remember to call `clear` to release the resources
@@ -248,7 +246,7 @@ namespace SokuLib {
 		virtual void updateList() override;
 		virtual void updateResources() override;
 		virtual void clear() override;
-		virtual int appendLine(String& out, void* unknown, NameDeque& list, int index) override;
+		virtual int appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) override;
 	};
 }
 

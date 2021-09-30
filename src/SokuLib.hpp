@@ -16,6 +16,7 @@
 #include "CsvParser.hpp"
 #include "dlls/DLL.hpp"
 #include "DrawUtils.hpp"
+#include "Design.hpp"
 #include "Exceptions.hpp"
 #include "Font.hpp"
 #include "FrameData.hpp"
