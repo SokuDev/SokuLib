@@ -29,6 +29,15 @@ namespace SokuLib
 			ptr->~T();
 		DeleteFct(ptr);
 	}
+
+	template <class T>
+	struct Allocator {
+		typedef T value_type;
+		Allocator () = default;
+		template <class U> constexpr Allocator (const Allocator <U>&) noexcept {}
+		T* allocate(std::size_t size) { return (T*)SokuLib::NewFct(size*sizeof(T)); }
+		void deallocate(T* value, std::size_t size) { SokuLib::DeleteFct(value); }
+	};
 }
 
 

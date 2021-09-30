@@ -40,6 +40,8 @@ add_library(
 	src/dlls/WS2_32.DLL.hpp
 	src/DrawUtils.cpp
 	src/DrawUtils.hpp
+	src/Design.cpp
+	src/Design.hpp
 	src/Exceptions.hpp
 	src/Font.cpp
 	src/Font.hpp
@@ -53,7 +55,6 @@ add_library(
 	src/Key.cpp
 	src/Key.hpp
 	src/LinkedList.hpp
-	src/Map.cpp
 	src/Map.hpp
 	src/Memory.cpp
 	src/Memory.hpp
@@ -118,7 +119,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	)
 endif()
 
-target_include_directories(SokuLib INTERFACE src/ PRIVATE directx)
+target_include_directories(SokuLib INTERFACE src/ PUBLIC directx)
 
 add_executable(
 	SokuLibTests
