@@ -64,6 +64,23 @@ namespace SokuLib
 		virtual int onProcess() = 0;
 		virtual int onRender() = 0;
 	};
+
+	class MenuCursor {
+	public:
+		int max = 1, unknown04 = 0;
+		const int* valueAddr = 0; // valueAddr = &inputMgrs.input.<key>;
+		int pos = 0, unknown10 = 0;
+
+		inline void set(const int* valueAddr, int max = 1, int pos = 0) {
+			this->max = max;
+			//this->unknown04 = 0;
+			this->valueAddr = valueAddr;
+			this->pos = this->unknown10 = pos;
+		}
+
+		bool update();
+		static void render(float x, float y, float width);
+	};
 }
 
 #include "Menus/ConnectMenu.hpp"
