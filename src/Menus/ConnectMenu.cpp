@@ -54,6 +54,7 @@ namespace SokuLib
 		changeScene(SCENE_TITLE);
 		waitForSceneChange();
 
+		//TODO: Fix weird behaviour if already in the connect menu.
 		auto result = create();
 
 		activateMenu(result);

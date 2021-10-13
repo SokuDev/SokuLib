@@ -68,6 +68,16 @@ namespace SokuLib
 		int _offset;
 
 	public:
+		unsigned char *getTrampoline()
+		{
+			return this->_trampoline;
+		}
+
+		const unsigned char *getTrampoline() const
+		{
+			return this->_trampoline;
+		}
+
 		Trampoline(unsigned addr, void (*target)(), int offset) :
 			_base(addr),
 			_offset(offset)
@@ -124,6 +134,11 @@ namespace SokuLib
 			::VirtualProtect(lpTramp, this->_offset + 5, PAGE_READWRITE, &dwOldProtect);
 			::FlushInstructionCache(GetCurrentProcess(), nullptr, 0);
 			delete[] lpTramp;
+		}
+
+		template<typename fct, typename ...Args>
+		auto operator()(Args ...args) {
+			return reinterpret_cast<fct>(&this->_trampoline[17])(args...);
 		}
 	};
 }
