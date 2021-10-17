@@ -51,14 +51,18 @@ namespace SokuLib
 
 	MenuConnect &MenuConnect::moveToConnectMenu()
 	{
-		changeScene(SCENE_TITLE);
-		waitForSceneChange();
+		while (SokuLib::sceneId != SCENE_TITLE) {
+			changeScene(SCENE_TITLE);
+			waitForSceneChange();
+		}
 
-		//TODO: Fix weird behaviour if already in the connect menu.
-		auto result = create();
+		if (getCurrentMenu() != MENU_CONNECT) {
+			auto result = create();
 
-		activateMenu(result);
-		return *result;
+			activateMenu(result);
+			return *result;
+		}
+		return *getMenuObj<MenuConnect>();
 	}
 
 	bool MenuConnect::isInNetworkMenu()
