@@ -6,7 +6,7 @@
 #define SOKULIB_CAMERA_HPP
 
 
-#include "CharacterManager.hpp"
+#include "Vector2.hpp"
 
 namespace SokuLib
 {

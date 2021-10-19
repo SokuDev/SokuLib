@@ -5,6 +5,8 @@
 #include <d3d9.h>
 #include <d3dx9tex.h>
 #include <cmath>
+#include <cstdio>
+#include <cstring>
 #include "DrawUtils.hpp"
 #include "TextureManager.hpp"
 

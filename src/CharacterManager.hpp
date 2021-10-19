@@ -13,6 +13,7 @@
 #include "FrameData.hpp"
 #include "Boxes.hpp"
 #include "KeyCombination.hpp"
+#include "DrawUtils.hpp"
 
 #pragma pack(push,1)
 namespace SokuLib
@@ -34,15 +35,7 @@ namespace SokuLib
 		unsigned short limit;
 	};
 
-	union Color {
-		struct {
-			unsigned char b;
-			unsigned char g;
-			unsigned char r;
-			unsigned char a;
-		};
-		unsigned color;
-	};
+	typedef DrawUtils::DxSokuColor Color;
 
 	struct RenderInfo {
 		Color color;
