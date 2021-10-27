@@ -42,7 +42,6 @@ namespace SokuLib
 	};
 
 	class Sprite : public SpriteBase {
-		inline static void** const _vtable = (void**)0x8576ac;
 	public:
 		virtual ~Sprite() = default;
 		virtual void setColor(int c) override;

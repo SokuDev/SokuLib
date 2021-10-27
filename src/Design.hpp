@@ -12,7 +12,6 @@
 
 namespace SokuLib {
 	class CTile : public SpriteBase {
-		inline static void** const _vtable = (void**)0x85775c;
 	public:
 		float tileOffsetX, tileOffsetY;
 		float tileWidth, tileHeight;
@@ -30,7 +29,6 @@ namespace SokuLib {
 	};
 
 	class CGauge : public Sprite {
-		inline static void** const _vtable = (void**)0x87109c;
 	public:
 		struct IValue { virtual float getValue() = 0; };
 
@@ -55,7 +53,6 @@ namespace SokuLib {
 	};
 
 	class CNumber : public IColor {
-		inline static void** const _vtable = (void**)0x858c2c;
 	public:
 		struct IValue {
 			virtual int getInt() = 0;
@@ -83,7 +80,6 @@ namespace SokuLib {
 	};
 
 	class CDesign : public IColor {
-		inline static void** const _vtable = (void**)0x857a30;
 	public:
 		class Object {
 		public:
@@ -130,7 +126,6 @@ namespace SokuLib {
 	};
 
 	class CFileList {
-		inline static void** const _vtable = (void**)0x858b44;
 	public:
 		SokuLib::Deque<String> names;
 		SokuLib::Deque<char> types;
@@ -157,7 +152,6 @@ namespace SokuLib {
 	};
 
 	class CReplayList : public CFileList {
-		inline static void** const _vtable = (void**)0x858344;
 	public:
 		CReplayList();
 		// Remember to call `clear` to release the resources
@@ -169,7 +163,6 @@ namespace SokuLib {
 	};
 
 	class CProfileList : public CFileList {
-		inline static void** const _vtable = (void**)0x858794;
 	public:
 		CProfileList();
 		// Remember to call `clear` to release the resources
@@ -181,7 +174,6 @@ namespace SokuLib {
 	};
 
 	class CMusicList : public CFileList {
-		inline static void** const _vtable = (void**)0x85955c;
 	public:
 		SokuLib::Deque<String> unknownB4;
 		SokuLib::Deque<String> unknownC8;
@@ -196,7 +188,6 @@ namespace SokuLib {
 	};
 
 	class CResultList : public CFileList {
-		inline static void** const _vtable = (void**)0x859778;
 	public:
 		void* unknownB4;
 		SokuLib::Deque<String> unknownB8;
