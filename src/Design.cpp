@@ -119,7 +119,10 @@ namespace SokuLib {
 	}
 
 	// --- CDesign ---
-	CDesign::CDesign()                              { (this->*union_cast<void* (CDesign::*)()>(0x422b20))(); }
+	CDesign::CDesign() {
+		unknown0x2C = 0;
+		unknown0x30 = 0;
+	}
 	void CDesign::setColor(int c)                   { (this->*union_cast<void(IColor::*)(int)>(_vtable_design[1]))(c); }
 	void CDesign::setColor2(int c[4])               { (this->*union_cast<void(IColor::*)(int[])>(_vtable_design[2]))(c); }
 	void CDesign::setColor3(int c)                  { (this->*union_cast<void(IColor::*)(int)>(_vtable_design[3]))(c); }
@@ -134,7 +137,6 @@ namespace SokuLib {
 	void CDesign::getById(CDesign::Sprite** ret, int id) { (this->*union_cast<void (CDesign::*)(CDesign::Sprite**, int)>(0x44e2b0))(ret, id); }
 
 	// --- CFileList ---
-	CFileList::CFileList()              { (this->*union_cast<void* (CFileList::*)()>(0x43d110))(); }
 	void CFileList::updateList()        { (this->*union_cast<void(CFileList::*)()>(_vtable_filelist[1]))(); }
 	void CFileList::updateResources()   { (this->*union_cast<void(CFileList::*)()>(_vtable_filelist[2]))(); }
 	void CFileList::clear()             { (this->*union_cast<void(CFileList::*)()>(_vtable_filelist[3]))(); }
@@ -151,7 +153,12 @@ namespace SokuLib {
 	}
 
 	// --- CReplayList ---
-	CReplayList::CReplayList()          { (this->*union_cast<void* (CReplayList::*)()>(0x42c660))(); }
+	CReplayList::CReplayList() : CFileList() {
+		fileFormat = "*.rep";
+		basePath = currentPath = "replay";
+		maxLength = 36;
+		showDirs = true;
+	}
 	void CReplayList::updateList()      { (this->*union_cast<void(CFileList::*)()>(_vtable_replaylist[1]))(); }
 	void CReplayList::updateResources() { (this->*union_cast<void(CFileList::*)()>(_vtable_replaylist[2]))(); }
 	void CReplayList::clear()           { (this->*union_cast<void(CFileList::*)()>(_vtable_replaylist[3]))(); }
@@ -160,7 +167,11 @@ namespace SokuLib {
 	}
 
 	// --- CProfileList ---
-	CProfileList::CProfileList()            { (this->*union_cast<void* (CProfileList::*)()>(0x434f30))(); }
+	CProfileList::CProfileList() : CFileList() {
+		fileFormat = "profile/*.pf";
+		maxLength = 24;
+		extLength = 3;
+	}
 	void CProfileList::updateList()         { (this->*union_cast<void(CFileList::*)()>(_vtable_profilelist[1]))(); }
 	void CProfileList::updateResources()    { (this->*union_cast<void(CFileList::*)()>(_vtable_profilelist[2]))(); }
 	void CProfileList::clear()              { (this->*union_cast<void(CFileList::*)()>(_vtable_profilelist[3]))(); }
@@ -169,7 +180,10 @@ namespace SokuLib {
 	}
 
 	// --- CMusicList ---
-	CMusicList::CMusicList()            { (this->*union_cast<void* (CMusicList::*)()>(0x449c00))(); }
+	CMusicList::CMusicList() : CFileList() {
+		maxLength = 0;
+		extLength = 0;
+	}
 	void CMusicList::updateList()       { (this->*union_cast<void(CFileList::*)()>(_vtable_musiclist[1]))(); }
 	void CMusicList::updateResources()  { (this->*union_cast<void(CFileList::*)()>(_vtable_musiclist[2]))(); }
 	void CMusicList::clear()            { (this->*union_cast<void(CFileList::*)()>(_vtable_musiclist[3]))(); }
@@ -178,7 +192,10 @@ namespace SokuLib {
 	}
 
 	// --- CResultList ---
-	CResultList::CResultList()          { (this->*union_cast<void* (CResultList::*)()>(0x44c060))(); }
+	CResultList::CResultList() : CFileList() {
+		maxLength = 0;
+		extLength = 0;
+	}
 	void CResultList::updateList()      { (this->*union_cast<void(CFileList::*)()>(_vtable_resultlist[1]))(); }
 	void CResultList::updateResources() { (this->*union_cast<void(CFileList::*)()>(_vtable_resultlist[2]))(); }
 	void CResultList::clear()           { (this->*union_cast<void(CFileList::*)()>(_vtable_resultlist[3]))(); }

@@ -120,7 +120,7 @@ namespace SokuLib {
 		virtual void render3(int id);
 		virtual void render4();
 
-		// TODO actually verify the difference
+		// This seems to be the same, but got duplicated because some template type difference (probably const/non-const)
 		void getById(CDesign::Object** ret, int id);
 		void getById(CDesign::Sprite** ret, int id);
 	};
@@ -134,11 +134,11 @@ namespace SokuLib {
 		String fileFormat;
 		String basePath; // unsure
 		String currentPath;
-		int maxLength;
-		int extLength;
-		bool showDirs;
+		int maxLength = 0;
+		int extLength = 4;
+		bool showDirs = false;
 
-		CFileList();
+		CFileList() = default;
 		// Remember to call `clear` to release the resources
 		virtual ~CFileList() = default;
 		virtual void updateList();
