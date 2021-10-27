@@ -24,28 +24,6 @@ namespace {
 }
 
 namespace SokuLib {
-
-	// --- CSprite ---
-	void CSprite::setColor(int c) { (this->*union_cast<void(IColor::*)(int)>(_vtable[1]))(c); }
-	void CSprite::setColor2(int c[4]) { (this->*union_cast<void(IColor::*)(int[])>(_vtable[2]))(c); }
-	void CSprite::setColor3(int c) { (this->*union_cast<void(IColor::*)(int)>(_vtable[3]))(c); }
-	
-	void CSprite::setTexture(int texture, int texOffsetX, int texOffsetY, int width, int height, int anchorX, int anchorY) {
-		(this->*union_cast<void(CSprite::*)(int, int, int, int, int, int, int)>(_vtable[4]))(texture, texOffsetX, texOffsetY, width, height, anchorX, anchorY);
-	}
-
-	void CSprite::setTexture2(int texture, int texOffsetX, int texOffsetY, int width, int height) {
-		(this->*union_cast<void(CSprite::*)(int, int, int, int, int)>(_vtable[5]))(texture, texOffsetX, texOffsetY, width, height);
-	}
-
-	void CSprite::renderScreen(float left, float top, float right, float bottom) {
-		(this->*union_cast<void(CSprite::*)(float, float, float, float)>(_vtable[6]))(left, top, right, bottom);
-	}
-
-	void CSprite::render(float x, float y) {
-		(this->*union_cast<void(CSprite::*)(float, float)>(_vtable[7]))(x, y);
-	}
-
 	// --- CTile ---
 	CTile::CTile(CTile& other) { (this->*union_cast<void(CTile::*)(CTile&)>(0x43c830))(other); }
 	void CTile::setColor(int c) { (this->*union_cast<void(IColor::*)(int)>(_vtable[1]))(c); }
@@ -88,19 +66,19 @@ namespace SokuLib {
 	void CGauge::setColor3(int c) { (this->*union_cast<void(IColor::*)(int)>(_vtable[3]))(c); }
 
 	void CGauge::setTexture(int texture, int texOffsetX, int texOffsetY, int width, int height, int anchorX, int anchorY) {
-		(this->*union_cast<void(CSprite::*)(int, int, int, int, int, int, int)>(_vtable[4]))(texture, texOffsetX, texOffsetY, width, height, anchorX, anchorY);
+		(this->*union_cast<void(Sprite::*)(int, int, int, int, int, int, int)>(_vtable[4]))(texture, texOffsetX, texOffsetY, width, height, anchorX, anchorY);
 	}
 
 	void CGauge::setTexture2(int texture, int texOffsetX, int texOffsetY, int width, int height) {
-		(this->*union_cast<void(CSprite::*)(int, int, int, int, int)>(_vtable[5]))(texture, texOffsetX, texOffsetY, width, height);
+		(this->*union_cast<void(Sprite::*)(int, int, int, int, int)>(_vtable[5]))(texture, texOffsetX, texOffsetY, width, height);
 	}
 
 	void CGauge::renderScreen(float left, float top, float right, float bottom) {
-		(this->*union_cast<void(CSprite::*)(float, float, float, float)>(_vtable[6]))(left, top, right, bottom);
+		(this->*union_cast<void(Sprite::*)(float, float, float, float)>(_vtable[6]))(left, top, right, bottom);
 	}
 
 	void CGauge::render(float x, float y) {
-		(this->*union_cast<void(CSprite::*)(float, float)>(_vtable[7]))(x, y);
+		(this->*union_cast<void(Sprite::*)(float, float)>(_vtable[7]))(x, y);
 	}
 
 	// --- CNumber ---

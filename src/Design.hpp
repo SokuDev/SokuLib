@@ -3,6 +3,7 @@
 
 #include "Map.hpp"
 #include "Memory.hpp"
+#include "Sprite.hpp"
 #include "String.hpp"
 #include "UnionCast.hpp"
 #include <deque>
@@ -10,44 +11,7 @@
 #include <vector>
 
 namespace SokuLib {
-
-	class IColor {
-	public:
-		virtual ~IColor() = default;
-		virtual void setColor(int a1) = 0;
-		virtual void setColor2(int a1[4]) = 0;
-		virtual void setColor3(int a1) = 0;
-	};
-
-	class CSpriteBase : public IColor {
-	public:
-		int texture = 0;
-		float vertexData[28];
-		float sizeX, sizeY;
-		float anchorX, anchorY;
-		float scaleX, scaleY;
-		float angle;
-
-		// Textures are NOT deleted by the destructor
-		virtual ~CSpriteBase() = default;
-	};
-
-	class CSprite : public CSpriteBase {
-		inline static void** const _vtable = (void**)0x8576ac;
-	public:
-		virtual ~CSprite() = default;
-		virtual void setColor(int c) override;
-		virtual void setColor2(int c[4]) override;
-		virtual void setColor3(int c) override;
-		virtual void setTexture(int texture, int texOffsetX, int texOffsetY, int width, int height, int anchorX, int anchorY);
-		virtual void setTexture2(int texture, int texOffsetX, int texOffsetY, int width, int height);
-		virtual void renderScreen(float left, float top, float right, float bottom); // maybe its width/height instead of right/bottom
-		virtual void render(float x, float y);
-		// The next one seems to use untransformed vertex, but the function is not used in game, and the derivatives don't implement it. Probably is better just to remove it.
-		//virtual void render8(float x, float y) { return (this->*union_cast<void*(CSprite::*)(float, float)>(_vtable[8]))(x, y); }
-	};
-
-	class CTile : public CSpriteBase {
+	class CTile : public SpriteBase {
 		inline static void** const _vtable = (void**)0x85775c;
 	public:
 		float tileOffsetX, tileOffsetY;
@@ -65,7 +29,7 @@ namespace SokuLib {
 		void render(float x, float y, int i, int j);
 	};
 
-	class CGauge : public CSprite {
+	class CGauge : public Sprite {
 		inline static void** const _vtable = (void**)0x87109c;
 	public:
 		struct IValue { virtual float getValue() = 0; };
@@ -135,9 +99,9 @@ namespace SokuLib {
 			virtual void unknown6(int a1, int a2, int a3) = 0;
 		};
 
-		class Sprite : public Object { public: CSprite sprite; };
-		class Gauge : public Object { public: CGauge gauge; };
-		class Number : public Object { public: CNumber sprite; };
+		class Sprite : public Object { public: SokuLib::Sprite sprite; };
+		class Gauge : public Object { public: SokuLib::CGauge gauge; };
+		class Number : public Object { public: SokuLib::CNumber sprite; };
 
 		// --- Data ---
 		SokuLib::Vector<int> textures;

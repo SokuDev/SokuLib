@@ -22,6 +22,9 @@ PRAGMA_WARNING(These will be removed in later versions. Use at your own risks !)
 
 namespace SokuLib
 {
+	[[deprecated("Replaced by Sprite")]]
+	typedef Sprite CSprite;
+
 	[[deprecated("Replaced with DeckInfo")]]
 	typedef DeckInfo deckInfo;
 	enum [[deprecated("Replaced with struct Scene_VTABLE")]] VTableScenesOffsets {

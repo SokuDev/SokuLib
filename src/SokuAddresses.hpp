@@ -31,7 +31,6 @@ namespace SokuLib
 		ADDR_TEXTURE_MANAGER_REMOVE                 = 0x00405110,
 		ADDR_TEXTURE_MANAGER_SET_TEXTURE            = 0x00405190,
 		ADDR_TEXTURE_MANAGER_GET_SIZE               = 0x00405200,
-		ADDR_CSPRITE_INIT                           = 0x00406560,
 		ADDR_LOAD_GRAPHICS_FUN                      = 0x00408410,
 		ADDR_STRING_APPEND                          = 0x00408620,
 		ADDR_SWR_FONT_CREATE                        = 0x004116D0,
