@@ -1,16 +1,18 @@
 # SokuLib
-Library compiling reverse engineered elements of Touhou 12.3: Hisoutensoku from multiple source
+Library compiling reverse engineered elements of Touhou 12.3: Hisoutensoku from multiple source (and more)
 
-## Disclaimer
-All the code here is wasn't written by me.
-This is a compilation of code from swrs and from other source such as code Slen gave me.
-This is just an attempt to make it easier and more intuitive to interface with the game.
-The work I did is just reorganize files and move existing code inside them.
-All the sources are listed in each file.
+# Build
+TODO
 
-## Understanding the source
-If the source is written on top of a file, it means that all the code present in the file is from the said source.
-If the source is written above a declaration (function, enum, class, ...), the declaration is from said source.
-If the source is provided neither on top of the file nor above the declaration, it means I forgot to specify it.
-Sources are only shown in header files. It will only be mentioned in a code file if the function or class is not mentioned in the header file, in the source code.
-If no source is given in a code file (.cpp), it doesn't mean I'm the one that made it !
+# Documentation
+TODO too :c
+
+# Examples
+Some mods from [SokuMods](https://github.com/SokuDev/SokuMods) use it.
+- [DiscordIntegration](https://github.com/SokuDev/SokuMods/tree/master/modules/DiscordIntegration)
+- [InfiniteDecks](https://github.com/SokuDev/SokuMods/tree/master/modules/InfiniteDecks)
+- [ReDelay](https://github.com/SokuDev/SokuMods/tree/master/modules/ReDelay)
+- [SokuStreaming](https://github.com/SokuDev/SokuMods/tree/master/modules/SokuStreaming)
+- [TrialMode](https://github.com/SokuDev/SokuMods/tree/trialmode/modules/TrialMode)
+- [(WIP) HostInBackground](https://github.com/SokuDev/SokuMods/tree/bghost/modules/HostInBackground)
+- [(WIP) AdvancedPracticeMode](https://github.com/SokuDev/SokuMods/tree/advancedpractice/modules/AdvancedPracticeMode)
