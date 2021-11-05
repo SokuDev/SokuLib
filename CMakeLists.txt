@@ -49,6 +49,7 @@ add_library(
 	src/Hash.cpp
 	src/Hash.hpp
 	src/IEffectManager.hpp
+	src/IFileReader.cpp
 	src/IFileReader.hpp
 	src/InputManager.cpp
 	src/InputManager.hpp
