@@ -82,6 +82,7 @@ add_library(
 	src/SokuAddresses.hpp
 	src/UnionCast.hpp
 	src/SokuLib.hpp
+	src/SoundData.hpp
 	src/SoundManager.cpp
 	src/SoundManager.hpp
 	src/Stack.cpp
