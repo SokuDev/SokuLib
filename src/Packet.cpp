@@ -49,16 +49,16 @@ namespace SokuLib
 		case GAME_MATCH:
 			stream << ", host: " << event.match.host;
 			stream << ", client: " << event.match.client();
-			stream << ", stageId: " << event.match.stageId();
-			stream << ", musicId: " << event.match.musicId();
+			stream << ", stageId: " << +event.match.stageId();
+			stream << ", musicId: " << +event.match.musicId();
 			stream << ", randomSeed: " << event.match.randomSeed();
-			stream << ", matchId: " << event.match.matchId();
+			stream << ", matchId: " << +event.match.matchId();
 			break;
 		case GAME_REPLAY:
 			break;
 		case GAME_REPLAY_REQUEST:
-			stream << ", frameId" << event.replayRequest.frameId;
-			stream << ", matchId" << event.replayRequest.matchId;
+			stream << ", frameId" << +event.replayRequest.frameId;
+			stream << ", matchId" << +event.replayRequest.matchId;
 			break;
 		case GAME_MATCH_ACK:
 		case GAME_MATCH_REQUEST:
@@ -68,15 +68,15 @@ namespace SokuLib
 
 	std::ostream &operator<<(std::ostream &stream, const PlayerMatchData &data)
 	{
-		stream << "{character: " << SokuLib::charactersName.at(data.character);
-		stream << ", skinId: " << data.skinId;
-		stream << ", deckId: " << data.deckId;
-		stream << ", deckSize: " << data.deckSize;
+		stream << "{character: " << (data.character < SokuLib::charactersName.size() ? SokuLib::charactersName.at(data.character) : "Character " + std::to_string(data.character));
+		stream << ", skinId: " << +data.skinId;
+		stream << ", deckId: " << +data.deckId;
+		stream << ", deckSize: " << +data.deckSize;
 		stream << ", cards: [" << std::hex;
 		for (int i = 0; i < data.deckSize; i++)
 			stream << (i == 0 ? "" : ", ") << data.cards[i];
 		stream << "]";
-		stream << ", disabledSimultaneousButton: " << std::boolalpha << data.disabledSimultaneousButton() << std::noboolalpha << "}";
+		stream << ", disabledSimultaneousButton: " << std::boolalpha << +data.disabledSimultaneousButton() << std::noboolalpha << "}" << std::dec;
 		return stream;
 	}
 
@@ -162,6 +162,20 @@ namespace SokuLib
 		case QUIT:
 		case SOKUROLL_SETTINGS_ACK:
 		case APM_START_SESSION_REQUEST:
+		case DESDET_MOD_ENABLE_REQUEST:
+			break;
+		case SOKU2_PLAY_REQU:
+			stream << ", version: " << +packet.soku2PlayRequ.major << "." << +packet.soku2PlayRequ.minor << packet.soku2PlayRequ.letter;
+			break;
+		case DESDET_STATE:
+			stream << ", lX: " << std::dec << packet.desDetState.lX;
+			stream << ", lY: " << packet.desDetState.lY;
+			stream << ", rX: " << packet.desDetState.rX;
+			stream << ", rY: " << packet.desDetState.rY;
+			stream << ", lHP: " << packet.desDetState.lHP;
+			stream << ", rHP: " << packet.desDetState.rHP;
+			stream << ", weatherCounter: " << packet.desDetState.weatherCounter;
+			stream << ", displayedWeather: " << packet.desDetState.displayedWeather;
 			break;
 		case HOST_GAME:
 		case CLIENT_GAME:
@@ -236,6 +250,12 @@ namespace SokuLib
 			return "APM_START_SESSION_RESPONSE";
 		case APM_ELEM_UPDATED:
 			return "APM_ELEM_UPDATED";
+		case DESDET_MOD_ENABLE_REQUEST:
+			return "DESDET_MOD_ENABLE_REQUEST";
+		case DESDET_STATE:
+			return "DESDET_STATE";
+		case SOKU2_PLAY_REQU:
+			return "SOKU2_PLAY_REQU";
 		default:
 			return "Unknown PacketType " + std::to_string(e);
 		}

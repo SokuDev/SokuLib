@@ -49,6 +49,9 @@ namespace SokuLib
 		//DesyncDetector
 		DESDET_MOD_ENABLE_REQUEST = 0x20,
 		DESDET_STATE,
+
+		//Soku2
+		SOKU2_PLAY_REQU = 0xD3,
 	};
 
 	enum RequestType : unsigned char {
@@ -278,7 +281,7 @@ namespace SokuLib
 
 		uint32_t &randomSeed()
 		{
-			return *reinterpret_cast<uint32_t *>(this->client().getEndPtr()[2]);
+			return *reinterpret_cast<uint32_t *>(&this->client().getEndPtr()[2]);
 		}
 
 		uint8_t &matchId()
@@ -303,7 +306,7 @@ namespace SokuLib
 
 		const uint32_t &randomSeed() const
 		{
-			return *reinterpret_cast<const uint32_t *>(this->client().getEndPtr()[2]);
+			return *reinterpret_cast<const uint32_t *>(&this->client().getEndPtr()[2]);
 		}
 
 		const uint8_t &matchId() const
@@ -393,6 +396,13 @@ namespace SokuLib
 		bool _ : 1;
 	};
 
+	struct PacketSoku2PlayRequ {
+		PacketType type;
+		unsigned char major;
+		unsigned char minor;
+		char letter;
+	};
+
 	union Packet {
 		PacketType type;
 		PacketHello hello;
@@ -409,6 +419,7 @@ namespace SokuLib
 		PacketApmStartSessionResponse apmResponse;
 		PacketApmElemUpdated apmElemUpdated;
 		PacketDesDetState desDetState;
+		PacketSoku2PlayRequ soku2PlayRequ;
 	};
 
 	std::string PacketTypeToString(PacketType);

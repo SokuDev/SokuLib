@@ -28,6 +28,21 @@ namespace SokuLib
 		"Utsuho Reiuji",
 		"Suwako Moriya",
 		"Random Select",
+		"Namazu",
+		//Soku2 Characters
+		"Momiji Inubashiri",
+		"Clownpiece",
+		"Flandre Scarlet",
+		"Rin Kaenbyou",
+		"Yuuka Kazami",
+		"Kaguya Houraisan",
+		"Fujiwara no Mokou",
+		"Mima",
+		"Shou Tormaru",
+		"Minamitsu Murasa",
+		"Sekibanki",
+		"Satori Komeiji",
+		"Shinki"
 	};
 
 	// �L�����N�^ID
