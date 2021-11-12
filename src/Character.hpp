@@ -68,9 +68,13 @@ namespace SokuLib
 	};
 
 	struct GameStartParams {
-
-		PlayerInfo &leftPlayerInfo;
-		PlayerInfo &rightPlayerInfo;
+		char offset_0x00[4];
+		unsigned char stageId;
+		unsigned char musicId;
+		char offset_0x06[2];
+		PlayerInfo leftPlayerInfo;
+		PlayerInfo rightPlayerInfo;
+		unsigned int randomSeed;
 	};
 
 	extern std::vector<std::string> charactersName;
@@ -79,6 +83,7 @@ namespace SokuLib
 	extern Character &rightChar;
 	extern PlayerInfo &leftPlayerInfo;
 	extern PlayerInfo &rightPlayerInfo;
+	extern GameStartParams &gameParams;
 }
 
 

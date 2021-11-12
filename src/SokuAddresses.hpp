@@ -115,6 +115,7 @@ namespace SokuLib
 		ADDR_INPUT_MANAGER                          = 0x00898718,
 		ADDR_PLAYER1_PROFILE                        = 0x00898868,
 		ADDR_PLAYER2_PROFILE                        = 0x00899054,
+		ADDR_GAME_PARAMS                            = 0x00899D08,
 		ADDR_LCHARID                                = 0x00899D10,
 		ADDR_RCHARID                                = 0x00899D30,
 		ADDR_INPUT_MANAGER_CLUSTER                  = 0x0089A248,

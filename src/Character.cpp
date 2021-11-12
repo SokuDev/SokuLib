@@ -47,6 +47,7 @@ namespace SokuLib
 
 	// �L�����N�^ID
 	// int
+	GameStartParams &gameParams = *reinterpret_cast<GameStartParams *>(ADDR_GAME_PARAMS);
 	Character &leftChar  = *reinterpret_cast<Character *>(ADDR_LCHARID);
 	Character &rightChar = *reinterpret_cast<Character *>(ADDR_RCHARID);
 	PlayerInfo &leftPlayerInfo  = *reinterpret_cast<PlayerInfo *>(ADDR_LCHARID);

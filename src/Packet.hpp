@@ -228,7 +228,8 @@ namespace SokuLib
 		uint32_t frameId;
 		uint32_t endFrameId;
 		uint8_t matchId;
-		std::vector<Inputs> replayInputs;
+		uint8_t length;
+		Inputs replayInputs[0];
 	};
 
 	struct PlayerMatchData {

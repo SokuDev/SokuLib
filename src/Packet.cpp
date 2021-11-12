@@ -55,10 +55,11 @@ namespace SokuLib
 			stream << ", matchId: " << +event.match.matchId();
 			break;
 		case GAME_REPLAY:
+			stream << ", replaySize: " << +event.replay.replaySize;
 			break;
 		case GAME_REPLAY_REQUEST:
-			stream << ", frameId" << +event.replayRequest.frameId;
-			stream << ", matchId" << +event.replayRequest.matchId;
+			stream << ", frameId: " << +event.replayRequest.frameId;
+			stream << ", matchId: " << +event.replayRequest.matchId;
 			break;
 		case GAME_MATCH_ACK:
 		case GAME_MATCH_REQUEST:
