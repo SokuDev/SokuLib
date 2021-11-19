@@ -25,8 +25,8 @@ namespace SokuLib
 		auto iVar2 = this->deckInfo.lookupCard(id);
 
 		card.id = id;
-		memset(&card.sprite, 0, sizeof(card.sprite));
-		card.sprite.VTable = reinterpret_cast<void *>(SokuLib::ADDR_VTBL_CSPRITE);
+		// memset(&card.sprite, 0, sizeof(card.sprite));
+		// card.sprite.VTable = reinterpret_cast<void *>(SokuLib::ADDR_VTBL_CSPRITE);
 		if (iVar2) {
 			card.cost = iVar2->cost;
 			if (iVar2->overrideCost == 1)

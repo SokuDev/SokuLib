@@ -49,16 +49,16 @@ namespace SokuLib
 
 	// NEAR JMP��������
 	template<typename T>
-	inline void TamperNearJmp(DWORD addr, T target) {
+	inline T TamperNearJmp(DWORD addr, T target) {
 		*reinterpret_cast<PBYTE>(addr + 0) = 0xE9;
-		TamperNearJmpOpr(addr, target);
+		return TamperNearJmpOpr(addr, target);
 	}
 
 	// NEAR CALL��������
 	template<typename T>
-	inline void TamperNearCall(DWORD addr, T target) {
+	inline T TamperNearCall(DWORD addr, T target) {
 		*reinterpret_cast<PBYTE>(addr + 0) = 0xE8;
-		TamperNearJmpOpr(addr, target);
+		return TamperNearJmpOpr(addr, target);
 	}
 
 	class Trampoline {

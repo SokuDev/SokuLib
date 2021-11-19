@@ -68,4 +68,12 @@ namespace SokuLib
 			return MENU_COUNT;
 		}
 	}
+
+	bool MenuCursor::update() {
+		return (this->*union_cast<bool (MenuCursor::*)()>(ADDR_MENUCURSOR_UPDATE))();
+	}
+
+	void MenuCursor::render(float x, float y, float width) {
+		union_cast<void(*)(float, float, float)>(ADDR_MENUCURSOR_RENDER)(x, y, width);
+	}
 }
