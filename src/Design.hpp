@@ -10,7 +10,8 @@
 #include <list>
 #include <vector>
 
-namespace SokuLib {
+namespace SokuLib
+{
 	class CTile : public SpriteBase {
 	public:
 		float tileOffsetX, tileOffsetY;

@@ -9,6 +9,7 @@
 #include <Windows.h>
 #include <vector>
 #include <string>
+#include "Design.hpp"
 #include "CharacterManager.hpp"
 #include "SokuAddresses.hpp"
 
@@ -37,6 +38,8 @@ namespace SokuLib
 	#pragma pack(pop)
 
 	struct SceneBase {
+		void *VTable;
+
 		template<typename T>
 		T &to()
 		{
@@ -52,12 +55,67 @@ namespace SokuLib
 		SceneBase base;
 	};
 
+	struct InputHandler {
+		int maxValue;
+		int offset_0x04;
+		KeyInput *keys;
+		int pos;
+		int posCopy;
+	};
+
 	struct Title {
 		SceneBase base;
-		char offset_0x001[0x61b];
-		// 0x61C Cursor
-		int cursorPos;
-		int cursorPos2;
+
+		// 0x004
+		void *fadePtr;
+
+		// 0x008
+		char offset_0x008[0xA4];
+
+		// 0x0AC
+		Sprite backgroundSprites[5];
+
+		// 0x390
+		char offset_0x390[4];
+
+		// 0x394
+		Sprite spriteObj6;
+
+		// 0x428
+		char offset_0x428[0x9C];
+
+		// 0x4C4
+		CTile menuItemTiles;
+
+		// 0x568
+		CTile menuSelectedItemTiles;
+
+		// 0x60C
+		float menuItemSpacing;
+
+		// 0x610
+		InputHandler menuInputHandler;
+
+		// 0x624
+		char offset_0x624[0x34];
+
+		// 0x658
+		CDesign *logoSprite;
+
+		// 0x65C
+		CDesign *copyrightSprite;
+
+		// 0x660
+		CDesign *menuBGSprite;
+
+		// 0x664
+		char offset_0x664[0x24];
+
+		// 0x688
+		int menuState;
+
+		// 0x68C
+		char offset_0x68C[0x8];
 	};
 
 	struct ObjectSelect {
@@ -95,7 +153,7 @@ namespace SokuLib
 	struct Select {
 		SceneBase base;
 
-		char offset_0x001[0xF];
+		char offset_0x004[0xC];
 
 		//0x10 Left Keys
 		KeyManager *leftKeys;
