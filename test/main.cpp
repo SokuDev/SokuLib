@@ -226,7 +226,7 @@ void testSelectScene()
 	SokuLib::Select *select = reinterpret_cast<SokuLib::Select *>(&select);
 
 	check_offset(select, base, 0x00);
-	check_offset(select, offset_0x001, 0x01);
+//	check_offset(select, offset_0x001, 0x01);
 	check_offset(select, leftKeys, 0x10);
 	check_offset(select, rightKeys, 0x14);
 	check_offset(select, offset_0x018, 0x18);
@@ -300,10 +300,39 @@ void testFrameData()
 	assert_equal(sizeof(*frameData), 0xA8);
 }
 
+void testDeckConstructMenu()
+{
+	SokuLib::ProfileDeckEdit *menu = reinterpret_cast<SokuLib::ProfileDeckEdit *>(&menu);
+
+	check_offset(menu, vtable, 0x0);
+	check_offset(menu, offset_0x04, 0x4);
+	check_offset(menu, editedCharacter, 0x8);
+	check_offset(menu, offset_0x0C, 0xC);
+	check_offset(menu, editedDeck, 0x468);
+	check_offset(menu, deck1, 0x46C);
+	check_offset(menu, deck2, 0x478);
+	check_offset(menu, deck3, 0x484);
+	check_offset(menu, deck4, 0x490);
+	check_offset(menu, unknownMap, 0x49C);
+	check_offset(menu, offset_0x4A0, 0x4A0);
+	check_offset(menu, displayedNumberOfCards, 0x4B1);
+	check_offset(menu, offset_0x4B2, 0x4B2);
+	check_offset(menu, selectedCardIndex, 0x4C0);
+	check_offset(menu, offset_0x4C4, 0x4C4);
+	check_offset(menu, panel, 0x4D4);
+	check_offset(menu, offset_0x4D8, 0x4D8);
+	check_offset(menu, selectedDeck, 0x4E8);
+	check_offset(menu, offset_0x4EC, 0x4EC);
+	check_offset(menu, cursorOnDeckChangeBox, 0x4F4);
+	check_offset(menu, offset_0x4F5, 0x4F5);
+	check_offset(menu, guideVector, 0x4F8);
+}
+
 int main()
 {
 	testFrameData();
 	testCharacterManager();
 	testSelectScene();
+	testDeckConstructMenu();
 	return 0;
 }
