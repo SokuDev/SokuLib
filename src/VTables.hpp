@@ -6,6 +6,7 @@
 #define SOKULIB_VTABLES_HPP
 
 
+#include "Menus/PauseMenu.hpp"
 #include "BattleManager.hpp"
 #include "Scenes.hpp"
 #include "SokuAddresses.hpp"
@@ -68,6 +69,7 @@ namespace SokuLib
 	extern Menu_VTABLE<MenuConnect>    &VTable_ConnectMenu;
 	extern Menu_VTABLE<ProfileDeckEdit>&VTable_ProfileDeckEdit;
 	extern Menu_VTABLE<MenuResult>     &VTable_Result;
+	extern Menu_VTABLE<PauseMenu>      &VTable_PauseMenu;
 	extern BattleManager_VTABLE        &VTable_BattleManager;
 }
 

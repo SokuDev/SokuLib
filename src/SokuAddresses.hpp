@@ -110,6 +110,7 @@ namespace SokuLib
 		ADDR_VTBL_BATTLE_MANAGER                    = 0x008588EC,
 		ADDR_VTBL_CFILELIST                         = 0x00858B44,
 		ADDR_VTBL_CNUMBER                           = 0x00858C2C,
+		ADDR_VTBL_PAUSE_MENU                        = 0x00859154,
 		ADDR_VTBL_CONFIG_MENU                       = 0x0085918C,
 		ADDR_VTBL_VS_NETWORK_MENU                   = 0x00859300,
 		ADDR_VTBL_MUSICLIST                         = 0x0085955C,

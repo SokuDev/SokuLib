@@ -112,7 +112,7 @@ add_library(
 	src/Menus/ResultMenu.hpp
 	src/Misc.cpp
 	src/Misc.hpp
-	src/KeyCombination.hpp)
+	src/KeyCombination.hpp src/Menus/PauseMenu.cpp src/Menus/PauseMenu.hpp)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	target_compile_definitions(
