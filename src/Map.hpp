@@ -153,7 +153,7 @@ namespace SokuLib
 			if (!node->left->isNil) node->left->parent = where;
 			node->parent = where->parent;
 
-			if (this->head == where) this->head = node;
+			if (this->head->parent == where) this->head->parent = node;
 			else if (where == where->parent->left)
 				where->parent->left = node;
 			else where->parent->right = node;
@@ -169,7 +169,7 @@ namespace SokuLib
 			if (!node->right->isNil) node->right->parent = where;
 			node->parent = where->parent;
 
-			if (this->head == where) this->head = node;
+			if (this->head->parent == where) this->head->parent = node;
 			else if (where == where->parent->right)
 				where->parent->right = node;
 			else where->parent->left = node;
@@ -245,7 +245,7 @@ namespace SokuLib
 				if (value.first < where->first)
 					return this->_insert(true, where.ptr, node);
 			} else if (where == this->head) {
-				if (this->head->right->val.first < where->first)
+				if (this->head->right->val.first < value.first)
 					return this->_insert(false, this->head->right, node);
 			} else if (value.first < where->first) {
 				Iterator _next = where; --_next;
