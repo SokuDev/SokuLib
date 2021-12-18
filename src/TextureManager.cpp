@@ -3,6 +3,7 @@
 //
 
 #include <Windows.h>
+#include <string>
 #include "TextureManager.hpp"
 #include "SokuAddresses.hpp"
 
@@ -32,7 +33,18 @@ namespace SokuLib
 
 	int *TextureManager::createTextTexture(int *ret, LPCSTR str, SWRFont &font, int width, int height, int *p1, int *p2)
 	{
-		return (this->*union_cast<int *(__thiscall TextureManager::*)(int *, LPCSTR, SokuLib::SWRFont &, int, int, int *, int *)>(ADDR_TEXTURE_MANAGER_CREATE_TEXT))(ret, str, font, width, height, p1, p2);
+		if (!strstr(str, "<>"))
+			return (this->*union_cast<int *(__thiscall TextureManager::*)(int *, LPCSTR, SokuLib::SWRFont &, int, int, int *, int *)>(ADDR_TEXTURE_MANAGER_CREATE_TEXT))(ret, str, font, width, height, p1, p2);
+
+		std::string sanStr = str;
+		auto pos = sanStr.find("<>");
+
+		//We need to sanitize the string first
+		while (pos != std::string::npos) {
+			sanStr.replace(pos, 2, "<\\>");
+			pos = sanStr.find("<>");
+		}
+		return (this->*union_cast<int *(__thiscall TextureManager::*)(int *, LPCSTR, SokuLib::SWRFont &, int, int, int *, int *)>(ADDR_TEXTURE_MANAGER_CREATE_TEXT))(ret, sanStr.c_str(), font, width, height, p1, p2);
 	}
 
 	void *TextureManager::remove(int id)
