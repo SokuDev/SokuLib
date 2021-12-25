@@ -5,14 +5,26 @@
 #include "Sprite.hpp"
 #include "UnionCast.hpp"
 #include "SokuAddresses.hpp"
+#include "Memory.hpp"
 
 namespace {
 	// private
+	void** const _vtable_bitmap = (void** const)SokuLib::ADDR_VTBL_BITMAPDATA;
 	void** const _vtable_sprite = (void** const)SokuLib::ADDR_VTBL_CSPRITE;
 }
 
 namespace SokuLib
 {
+	BitmapData::~BitmapData() { if (data) SokuLib::DeleteFct(data); }
+	bool BitmapData::loadFromBmp(const char* c) { return (this->*union_cast<bool(BitmapData::*)(const char*)>(_vtable_sprite[1]))(c); }
+	bool BitmapData::loadFromPng(const char* c) { return (this->*union_cast<bool(BitmapData::*)(const char*)>(_vtable_sprite[2]))(c); }
+	bool BitmapData::loadFromCv2(const char* c) { return (this->*union_cast<bool(BitmapData::*)(const char*)>(_vtable_sprite[3]))(c); }
+	void BitmapData::unknownV04(void* c) { (this->*union_cast<void(BitmapData::*)(void*)>(_vtable_sprite[4]))(c); }
+
+	void BitmapData::copyToBuffer(int bytesPerRow, void* buffer) {
+		reinterpret_cast<void(__fastcall*)(int, unsigned char, void*, void*)>(ADDR_BITMAP_COPYTOBUFFER)(bytesPerRow, this->bitsPerPixel, this, buffer);
+	}
+
 	void Sprite::setColor(int c) { (this->*union_cast<void(IColor::*)(int)>(_vtable_sprite[1]))(c); }
 	void Sprite::setColor2(int c[4]) { (this->*union_cast<void(IColor::*)(int[])>(_vtable_sprite[2]))(c); }
 	void Sprite::setColor3(int c) { (this->*union_cast<void(IColor::*)(int)>(_vtable_sprite[3]))(c); }
@@ -36,4 +48,6 @@ namespace SokuLib
 	void Sprite::init(int texture, int texOffsetX, int texOffsetY, int width, int height) {
 		Sprite::setTexture2(texture, texOffsetX, texOffsetY, width, height);
 	}
+
+	Palette &Palette::currentPalette = *reinterpret_cast<Palette *>(ADDR_CURRENT_PALETTE);
 }

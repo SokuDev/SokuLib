@@ -11,7 +11,11 @@ namespace SokuLib
 	public:
 		IFileReader* reader;
 		int fileSize;
-		char unknown[0x12e0];
+		int unknown0x8; // probably fileOffset
+		int unknown0xc;
+		char oggVorbisFile[0x2d0]; // unsure of size
+		int pcmLength;
+		char unknown[0x1004];
 
 		// 0x12e8
 		double loopStart;

@@ -28,6 +28,27 @@ namespace SokuLib
 		float v;
 	};
 
+	class BitmapData {
+	public:
+		unsigned char bitsPerPixel = 0;
+		// align 0x3
+		int width;
+		int height;
+		int paddedWidth;
+		int unknown0x14 = 0; // seems to be an alternative size to data, if zero then it is calculated from metadata
+		void *palette = 0;
+		void *data = 0;
+
+		BitmapData() = default;
+		virtual ~BitmapData();
+		virtual bool loadFromBmp(const char* filename);
+		virtual bool loadFromPng(const char* filename);
+		virtual bool loadFromCv2(const char* filename);
+		virtual void unknownV04(void*); // maybe argument is a array and it loads from memory (unknown format)
+
+		void copyToBuffer(int bytesPerRow, void* buffer);
+	};
+
 	class SpriteBase : public IColor {
 	public:
 		int dxHandle = 0;
@@ -49,13 +70,22 @@ namespace SokuLib
 		virtual void setColor3(int c) override;
 		virtual void setTexture(int texture, int texOffsetX, int texOffsetY, int width, int height, int anchorX, int anchorY);
 		virtual void setTexture2(int texture, int texOffsetX, int texOffsetY, int width, int height);
-		virtual void renderScreen(float left, float top, float right, float bottom); // maybe its width/height instead of right/bottom
+		virtual void renderScreen(float left, float top, float right, float bottom);
 		virtual void render(float x, float y);
 		// The next one seems to use untransformed vertex, but the function is not used in game, and the derivatives don't implement it. Probably is better just to remove it.
 		//virtual void render8(float x, float y) { return (this->*union_cast<void*(CSprite::*)(float, float)>(_vtable[8]))(x, y); }
 
 		// it is a direct call to setTexture2 (kept for compatibility)
 		void init(int texture, int texOffsetX, int texOffsetY, int width, int height);
+	};
+
+	class Palette {
+	public:
+		unsigned char bitsPerPixel;
+		// align 0x3
+		void* data; // &char[bitsPerPixel == 0x10 ? 512 : 1024];
+
+		static Palette& currentPalette;
 	};
 }
 
