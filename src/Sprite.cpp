@@ -16,10 +16,10 @@ namespace {
 namespace SokuLib
 {
 	BitmapData::~BitmapData() { if (data) SokuLib::DeleteFct(data); }
-	bool BitmapData::loadFromBmp(const char* c) { return (this->*union_cast<bool(BitmapData::*)(const char*)>(_vtable_sprite[1]))(c); }
-	bool BitmapData::loadFromPng(const char* c) { return (this->*union_cast<bool(BitmapData::*)(const char*)>(_vtable_sprite[2]))(c); }
-	bool BitmapData::loadFromCv2(const char* c) { return (this->*union_cast<bool(BitmapData::*)(const char*)>(_vtable_sprite[3]))(c); }
-	void BitmapData::unknownV04(void* c) { (this->*union_cast<void(BitmapData::*)(void*)>(_vtable_sprite[4]))(c); }
+	bool BitmapData::loadFromBmp(const char* c) { return (this->*union_cast<bool(BitmapData::*)(const char*)>(_vtable_bitmap[1]))(c); }
+	bool BitmapData::loadFromPng(const char* c) { return (this->*union_cast<bool(BitmapData::*)(const char*)>(_vtable_bitmap[2]))(c); }
+	bool BitmapData::loadFromCv2(const char* c) { return (this->*union_cast<bool(BitmapData::*)(const char*)>(_vtable_bitmap[3]))(c); }
+	void BitmapData::unknownV04(void* c) { (this->*union_cast<void(BitmapData::*)(void*)>(_vtable_bitmap[4]))(c); }
 
 	void BitmapData::copyToBuffer(int bytesPerRow, void* buffer) {
 		reinterpret_cast<void(__fastcall*)(int, unsigned char, void*, void*)>(ADDR_BITMAP_COPYTOBUFFER)(bytesPerRow, this->bitsPerPixel, this, buffer);
