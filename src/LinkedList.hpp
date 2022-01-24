@@ -30,6 +30,9 @@ namespace SokuLib
 
 		operator std::vector<T *>() const
 		{
+			if (!this->size || !this->head)
+				return {};
+
 			std::vector<T *> result;
 			Node<T> *node = this->head->next;
 
@@ -42,6 +45,9 @@ namespace SokuLib
 
 		operator std::vector<T>() const
 		{
+			if (!this->size || !this->head)
+				return {};
+
 			std::vector<T> result;
 			Node<T> *node = this->head->next;
 
