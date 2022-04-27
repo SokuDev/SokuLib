@@ -7,6 +7,9 @@ namespace {
 	void** const _vtable_gauge          = (void** const)SokuLib::ADDR_VTBL_CGAGE;
 	void** const _vtable_number         = (void** const)SokuLib::ADDR_VTBL_CNUMBER;
 	void** const _vtable_design         = (void** const)SokuLib::ADDR_VTBL_CDESIGN;
+	void** const _vtable_design_sprite  = (void** const)SokuLib::ADDR_VTBL_CDESIGN_SPRITE;
+	void** const _vtable_design_gauge   = (void** const)SokuLib::ADDR_VTBL_CDESIGN_GAUGE;
+	void** const _vtable_design_number  = (void** const)SokuLib::ADDR_VTBL_CDESIGN_NUMBER;
 	void** const _vtable_filelist       = (void** const)SokuLib::ADDR_VTBL_CFILELIST;
 	void** const _vtable_replaylist     = (void** const)SokuLib::ADDR_VTBL_CREPLAYLIST;
 	void** const _vtable_profilelist    = (void** const)SokuLib::ADDR_VTBL_CPROFILELIST;
@@ -60,6 +63,18 @@ namespace SokuLib {
 		if (this->value) SokuLib::DeleteFct(this->value);
 		this->value = (IValue*)SokuLib::NewFct(sizeof(CGaugeValue));
 		new (this->value) CGaugeValue{(void*)0x85b574, (void*)ptr, offset, length};
+	}
+
+	void CGauge::fromTexture(int textureId, int width, int height, int typeId) {
+		constexpr int callAddr = ADDR_GAUGE_SETUP_FROM_TEXTURE;
+		__asm {
+			push height;
+			push width;
+			push textureId;
+			mov eax, typeId;
+			mov esi, this;
+			call callAddr;
+		}
 	}
 
 	CGauge::~CGauge() { if (value) SokuLib::DeleteFct(value); }
@@ -135,6 +150,9 @@ namespace SokuLib {
 
 	void CDesign::getById(CDesign::Object** ret, int id) { (this->*union_cast<void (CDesign::*)(CDesign::Object**, int)>(0x40cec0))(ret, id); }
 	void CDesign::getById(CDesign::Sprite** ret, int id) { (this->*union_cast<void (CDesign::*)(CDesign::Sprite**, int)>(0x44e2b0))(ret, id); }
+
+	void CDesign::Number::renderPos(float x, float y)   { if (active) (number.*union_cast<void(CNumber::*)(float, float)>(0x4148e0))(x + x1 + x2, y + y1 + y2); }
+	void CDesign::Number::render()                  { if (active) (number.*union_cast<void(CNumber::*)(float, float)>(0x4148e0))(x1 + x2, y1 + y2); }
 
 	// --- CFileList ---
 	void CFileList::updateList()        { (this->*union_cast<void(CFileList::*)()>(_vtable_filelist[1]))(); }

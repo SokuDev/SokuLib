@@ -45,6 +45,7 @@ namespace SokuLib
 		ADDR_CNUMBER_RENDER                         = 0x00414940,
 		ADDR_GET_PACKAGED_BGM_CALLER                = 0x00418BE1,
 		ADDR_GET_PACKAGED_SFL_CALLER                = 0x00418F41,
+		ADDR_GAUGE_SETUP_FROM_TEXTURE               = 0x0041B390,
 		ADDR_SELECT_SV_SIZE                         = 0x0041E622,
 		ADDR_SELECT_SV_CREATER                      = 0x0041E644,
 		ADDR_SELECT_CL_SIZE                         = 0x0041E6CD,
@@ -124,6 +125,9 @@ namespace SokuLib
 		ADDR_VTBL_CHANGE_KEYS_MENU                  = 0x00859A3C,
 		ADDR_VTBL_PROFILE_MENU                      = 0x00859BD0,
 		ADDR_VTBL_CGAGE                             = 0x0087109C,
+		ADDR_VTBL_CDESIGN_SPRITE                    = 0x008710E4,
+		ADDR_VTBL_CDESIGN_GAUGE                     = 0x00871104,
+		ADDR_VTBL_CDESIGN_NUMBER                    = 0x00871124,
 		ADDR_VTBL_BITMAPDATA                        = 0x00871474,
 		ADDR_VTBL_PACKAGEREADER                     = 0x0087148C,
 
