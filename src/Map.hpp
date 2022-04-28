@@ -18,7 +18,27 @@ namespace SokuLib
 	template<typename T> class Deque : public std::deque<T, Allocator<T> > {};
 #ifdef _DEBUG
 	template<typename T> class List : public std::list<T, Allocator<T> > {};
-	template<typename T> class Vector : public std::vector<T, Allocator<T> > {};
+	template<typename T> class Vector : public std::vector<T, Allocator<T> > {
+		// TODO probably push_back/emplace_back will also require fixes
+		public: inline void resize(const size_t s) {
+			if (s <= this->capacity()) return std::vector<T, Allocator<T> >::resize(s);
+			// There's differences in debug info on realloc
+			if (s > this->max_size()) throw std::exception("vector too long");
+
+			const auto oldSize          = this->size();
+			const T* newVec             = this->get_allocator().allocate(s);
+			const T*& first             = ((const T**)this)[1];
+			const T*& last              = ((const T**)this)[2];
+			const T*& end               = ((const T**)this)[3];
+
+			memcpy((void*)newVec, (void*)first, last - first);
+			if (first) this->get_allocator().deallocate((T*)first, last - first);
+
+			first   = newVec;
+			last    = newVec + s;
+			end     = newVec + s;
+		}
+	};
 #else
 	struct __STL_ALIGN { void *align; };
 	template<typename T> class List : private __STL_ALIGN, public std::list<T, Allocator<T> > {};

@@ -107,7 +107,7 @@ namespace SokuLib
 			SokuLib::Sprite sprite;
 
 			virtual ~Sprite() = default;
-			virtual void setColor(int a1) override ;//{ sprite.setColor(a1); }
+			virtual void setColor(int a1) override { sprite.setColor(a1); }
 			virtual void setColor2(int a1[4]) override { sprite.setColor2(a1); }
 			virtual void setColor3(int a1) override { sprite.setColor3(a1); }
 			virtual void renderPos(float x, float y) override { if (active) sprite.render(x + x1 + x2, y + y1 + y2); }

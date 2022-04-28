@@ -151,8 +151,8 @@ namespace SokuLib {
 	void CDesign::getById(CDesign::Object** ret, int id) { (this->*union_cast<void (CDesign::*)(CDesign::Object**, int)>(0x40cec0))(ret, id); }
 	void CDesign::getById(CDesign::Sprite** ret, int id) { (this->*union_cast<void (CDesign::*)(CDesign::Sprite**, int)>(0x44e2b0))(ret, id); }
 
-	void CDesign::Number::renderPos(float x, float y)   { if (active) (number.*union_cast<void(CNumber::*)(float, float)>(0x4148e0))(x + x1 + x2, y + y1 + y2); }
-	void CDesign::Number::render()                  { if (active) (number.*union_cast<void(CNumber::*)(float, float)>(0x4148e0))(x1 + x2, y1 + y2); }
+	void CDesign::Number::renderPos(float x, float y)   { (this->*union_cast<void(CDesign::Object::*)(float, float)>(_vtable_design_number[4]))(x, y); }
+	void CDesign::Number::render()                  { (this->*union_cast<void(CDesign::Object::*)()>(_vtable_design_number[5]))(); }
 
 	// --- CFileList ---
 	void CFileList::updateList()        { (this->*union_cast<void(CFileList::*)()>(_vtable_filelist[1]))(); }
