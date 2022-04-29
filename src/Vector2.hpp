@@ -81,6 +81,23 @@ namespace SokuLib
 			};
 		}
 
+		template<typename T2>
+		Vector2<T> &operator/=(T2 scalar)
+		{
+			this->x /= scalar;
+			this->y /= scalar;
+			return *this;
+		}
+
+		template<typename T2>
+		auto operator/(T2 scalar) const
+		{
+			return Vector2<decltype(this->x / scalar)>{
+				this->x / scalar,
+				this->y / scalar
+			};
+		}
+
 		Vector2<float> rotate(float angle, const Vector2<T> &center) const noexcept
 		{
 			if (angle == 0.f)

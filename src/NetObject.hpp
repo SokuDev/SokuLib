@@ -28,7 +28,9 @@ namespace SokuLib
 		char unknown[4];
 		char profile1name[32];
 		char profile2name[32];
-		char unknown2[0x378];
+		char unknown2[84];
+		int frameId;
+		char unknown3[0x320];
 		// UDP�l�b�g���[�N�I�u�W�F�N�g
 		// CNetworkBase
 		NetworkBase netUdp;
