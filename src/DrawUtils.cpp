@@ -282,12 +282,15 @@ namespace DrawUtils
 
 	void RectangularRenderingElement::setPosition(const Vector2<int> &newPos)
 	{
-		RenderingElement::setPosition(newPos);
-
 		auto size = this->_size;
 
-		if (size.x != 0 && size.y != 0)
-			size = size - 1;
+		if (size.x != 0 && size.y != 0) {
+			if (std::abs(static_cast<int>(size.x)) >= 2)
+				size.x -= std::copysign(1, size.x);
+			if (std::abs(static_cast<int>(size.y)) >= 2)
+				size.y -= std::copysign(1, size.y);
+		}
+		RenderingElement::setPosition(newPos);
 
 		auto center = this->_position + size * 0.5;
 		auto topLeft = this->_position.rotate(this->_rotation, center);
