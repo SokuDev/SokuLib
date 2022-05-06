@@ -284,11 +284,16 @@ namespace DrawUtils
 	{
 		RenderingElement::setPosition(newPos);
 
-		auto center = this->_position + this->_size * 0.5;
+		auto size = this->_size;
+
+		if (size.x != 0 && size.y != 0)
+			size = size - 1;
+
+		auto center = this->_position + size * 0.5;
 		auto topLeft = this->_position.rotate(this->_rotation, center);
-		auto topRight = (this->_position + Vector2<unsigned>{this->_size.x, 0}).rotate(this->_rotation, center);
-		auto bottomLeft = (this->_position + Vector2<unsigned>{0, this->_size.y}).rotate(this->_rotation, center);
-		auto bottomRight = (this->_position + this->_size).rotate(this->_rotation, center);
+		auto topRight = (this->_position + Vector2<unsigned>{size.x, 0}).rotate(this->_rotation, center);
+		auto bottomLeft = (this->_position + Vector2<unsigned>{0, size.y}).rotate(this->_rotation, center);
+		auto bottomRight = (this->_position + size).rotate(this->_rotation, center);
 
 		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].x = topLeft.x;
 		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].y = topLeft.y;
