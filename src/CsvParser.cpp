@@ -40,8 +40,10 @@ namespace SokuLib
 	void __declspec(naked) CSVParser::goToStart()
 	{
 		__asm {
+			push esi;
 			mov esi, ecx;
 			call csvGotoStart;
+			pop esi;
 			ret;
 		}
 	}

@@ -68,12 +68,14 @@ namespace SokuLib {
 	void CGauge::fromTexture(int textureId, int width, int height, int typeId) {
 		constexpr int callAddr = ADDR_GAUGE_SETUP_FROM_TEXTURE;
 		__asm {
+			push esi;
 			push height;
 			push width;
 			push textureId;
 			mov eax, typeId;
 			mov esi, this;
 			call callAddr;
+			pop esi;
 		}
 	}
 
