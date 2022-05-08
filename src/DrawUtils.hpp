@@ -158,6 +158,7 @@ namespace DrawUtils
 			{0, 0, 0, 1, 0x00000000, 0.0f, 1.0f},
 		};
 
+		virtual Vector2u _getRealSize();
 	public:
 		Vector2u getSize() const;
 		float getRotation() const;
@@ -182,6 +183,9 @@ namespace DrawUtils
 	};
 
 	class Sprite : public RectangularRenderingElement {
+	protected:
+		Vector2u _getRealSize() override;
+
 	public:
 		TextureRect rect{0, 0, 0, 0};
 		DxSokuColor tint = 0xFFFFFFFF;
