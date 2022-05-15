@@ -15,6 +15,10 @@ namespace SokuLib
 		Vector2f translate;
 		float scale;
 		Vector2f backgroundTranslate;
+
+		void _update1();
+		void _update2();
+		void update();
 	};
 
 	extern Camera &camera;
