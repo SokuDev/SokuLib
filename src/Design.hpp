@@ -93,13 +93,12 @@ namespace SokuLib
 			bool active = true;
 
 			virtual ~Object() = default;
-			virtual void setColor(int a1) {}
-			virtual void setColor2(int a1[4]) {}
-			virtual void setColor3(int a1) {}
-			virtual void renderPos(float x, float y) {}
-			virtual void render() {}
-			virtual void unknown6(int a1, int a2, float a3) {}
-			// TODO fix union_cast, and implement as delegate on children to allow hooking
+			virtual void setColor(int a1);
+			virtual void setColor2(int a1[4]);
+			virtual void setColor3(int a1);
+			virtual void renderPos(float x, float y);
+			virtual void render();
+			virtual void unknown6(int a1, int a2, float a3);
 		};
 
 		class Sprite : public Object {
@@ -107,12 +106,12 @@ namespace SokuLib
 			SokuLib::Sprite sprite;
 
 			virtual ~Sprite() = default;
-			virtual void setColor(int a1) override { sprite.setColor(a1); }
-			virtual void setColor2(int a1[4]) override { sprite.setColor2(a1); }
-			virtual void setColor3(int a1) override { sprite.setColor3(a1); }
-			virtual void renderPos(float x, float y) override { if (active) sprite.render(x + x1 + x2, y + y1 + y2); }
-			virtual void render() override { if (active) sprite.render(x1 + x2, y1 + y2); }
-			virtual void unknown6(int a1, int a2, float a3) override { sprite.scale.x = sprite.scale.y = a3; }
+			virtual void setColor(int a1) override;
+			virtual void setColor2(int a1[4]) override;
+			virtual void setColor3(int a1) override;
+			virtual void renderPos(float x, float y) override;
+			virtual void render() override;
+			virtual void unknown6(int a1, int a2, float a3) override;
 		};
 
 		class Gauge : public Object {
@@ -120,11 +119,12 @@ namespace SokuLib
 			SokuLib::CGauge gauge;
 
 			virtual ~Gauge() = default;
-			virtual void setColor(int a1) override { gauge.setColor(a1); }
-			virtual void setColor2(int a1[4]) override { gauge.setColor2(a1); }
-			virtual void setColor3(int a1) override { gauge.setColor3(a1); }
-			virtual void renderPos(float x, float y) override { if (active) gauge.render(x + x1 + x2, y + y1 + y2); }
-			virtual void render() override { if (active) gauge.render(x1 + x2, y1 + y2); }
+			virtual void setColor(int a1) override;
+			virtual void setColor2(int a1[4]) override;
+			virtual void setColor3(int a1) override;
+			virtual void renderPos(float x, float y) override;
+			virtual void render() override;
+			virtual void unknown6(int a1, int a2, float a3) override;
 		};
 
 		class Number : public Object {
@@ -132,11 +132,12 @@ namespace SokuLib
 			SokuLib::CNumber number;
 
 			virtual ~Number() = default;
-			virtual void setColor(int a1) override { number.setColor(a1); }
-			virtual void setColor2(int a1[4]) override { number.setColor2(a1); }
-			virtual void setColor3(int a1) override { number.setColor3(a1); }
+			virtual void setColor(int a1) override;
+			virtual void setColor2(int a1[4]) override;
+			virtual void setColor3(int a1) override;
 			virtual void renderPos(float x, float y) override;
 			virtual void render() override;
+			virtual void unknown6(int a1, int a2, float a3) override;
 		};
 
 		// --- Data ---

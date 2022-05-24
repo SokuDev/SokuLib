@@ -15,7 +15,24 @@
 
 namespace SokuLib
 {
-	template<typename T> class Deque : public std::deque<T, Allocator<T> > {};
+	template<typename T>
+	class Deque : public std::deque<T, Allocator<T> > {
+		using _Base = std::deque<T, Allocator<T> >;
+		static constexpr int _Bytes = sizeof(T);
+		static constexpr int _Block_size = _Bytes <= 1 ? 16
+										: _Bytes <= 2 ? 8
+										: _Bytes <= 4 ? 4
+										: _Bytes <= 8 ? 2
+														: 1; // elements per block (a power of 2)
+	public:
+		// TODO other functions
+		T& at(size_t index) {
+			const int MapSize = ((int*)this)[2];
+			const size_t _Block = (index / _Block_size) % MapSize;
+			const size_t _Off   = ((int*)this)[3] % _Block_size;
+			return ((T***)this)[1][_Block][_Off];
+		}
+	};
 #ifdef _DEBUG
 	template<typename T> class List : public std::list<T, Allocator<T> > {};
 	template<typename T> class Vector : public std::vector<T, Allocator<T> > {};
@@ -339,6 +356,7 @@ namespace SokuLib
 		~Map() {
 			this->_erase(this->head->parent);
 			SokuLib::DeleteFct(this->head);
+			this->head = 0;
 		}
 	};
 }
