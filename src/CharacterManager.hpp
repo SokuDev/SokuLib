@@ -126,7 +126,13 @@ namespace SokuLib
 		void **soundTable;
 
 		// 0x168
-		char offset_0x168[0x1C];
+		char offset_0x168[0x8];
+
+		// 0x170
+		struct ObjectManager *opponent;
+
+		// 0x174
+		char offset_0x174[0x10];
 
 		//  ADDR_HPOFS              short    (2) 0x184
 		short hp;
