@@ -20,13 +20,13 @@ namespace SokuLib
 			int offset;
 		};
 
+	public:
 		Deque<Deque<String>> data;
 		DequeIterator upperIterator;
 		DequeIterator lowerIterator;
 		bool isInComment;
 		bool isInQuotes;
 
-	public:
 		CSVParser(const char *path);
 		~CSVParser();
 		std::string getNextCell();
