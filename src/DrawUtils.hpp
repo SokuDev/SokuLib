@@ -172,6 +172,7 @@ namespace DrawUtils
 		void setRotation(float angle);
 		void setMirroring(bool x, bool y);
 		void setCamera(const Camera *camera);
+		Vector2<bool> getMirroring() const;
 		const Vertex *getVertex() const;
 	};
 

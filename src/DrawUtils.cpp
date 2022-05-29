@@ -371,6 +371,11 @@ namespace DrawUtils
 		return this->_size;
 	}
 
+	Vector2<bool> RectangularRenderingElement::getMirroring() const
+	{
+		return this->_mirroring;
+	}
+
 	void GradiantRect::draw() const
 	{
 		Vertex vertexs[4];
@@ -466,9 +471,9 @@ namespace DrawUtils
 		auto size = RectangularRenderingElement::_getRealSize();
 
 		if (std::abs(static_cast<int>(size.x)) >= 2)
-			size.x -= std::copysign(1, size.x);
+			size.x -= std::copysign(1, size.x) * (this->getMirroring().x ? -1 : 1);
 		if (std::abs(static_cast<int>(size.y)) >= 2)
-			size.y -= std::copysign(1, size.y);
+			size.y -= std::copysign(1, size.y) * (this->getMirroring().y ? -1 : 1);
 		return size;
 	}
 }
