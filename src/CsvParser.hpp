@@ -7,16 +7,31 @@
 
 
 #include <string>
+#include "Map.hpp"
+#include "String.hpp"
 
 namespace SokuLib
 {
 	class CSVParser {
 	private:
-		char data[0x1000];
+		struct DequeIterator {
+			int debugData;
+			void* containerPtr;
+			int offset;
+		};
 
 	public:
+		Deque<Deque<String>> data;
+		DequeIterator upperIterator;
+		DequeIterator lowerIterator;
+		bool isInComment;
+		bool isInQuotes;
+
 		CSVParser(const char *path);
+		~CSVParser();
 		std::string getNextCell();
+		long getNextValue();
+		void goToStart();
 		bool goToNextLine();
 	};
 }

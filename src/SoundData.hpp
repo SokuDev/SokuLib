@@ -7,11 +7,15 @@
 
 namespace SokuLib
 {
-	class SoundData {
+	class BgmData {
 	public:
 		IFileReader* reader;
 		int fileSize;
-		char unknown[0x12e0];
+		int unknown0x8; // probably fileOffset
+		int unknown0xc;
+		char oggVorbisFile[0x2d0]; // unsure of size
+		int pcmLength;
+		char unknown[0x1004];
 
 		// 0x12e8
 		double loopStart;
@@ -27,13 +31,27 @@ namespace SokuLib
 		WORD cbSize;
 	};
 
+	class WaveData {
+	public:
+		// WAVEFORMATEX
+		WORD wFormatTag = WAVE_FORMAT_PCM;
+		WORD nChannels;
+		DWORD nSamplesPerSec;
+		DWORD nAvgBytesPerSec;
+		WORD nBlockAlign;
+		WORD wBitsPerSample;
+		WORD cbSize;
+		// align 0x2
+
+		void* buffer;
+		unsigned int bufferSize;
+	};
+
 	class DSBuffer {
 	public:
 		void** vtable; // for some reason the destructor is the second here
-		// IDirectSoundBuffer8*
-		void* dsHandle;
+		void* dsHandle; // IDirectSoundBuffer*
 		int bufferSize;
-		SoundData data;
 	};
 
 	class BgmBuffer {
@@ -42,7 +60,9 @@ namespace SokuLib
 		int unknown; // maybe current time
 		bool isPlaying;
 		// align 0x3
+
 		DSBuffer dsBuffer;
+		BgmData data;
 	};
 }
 

@@ -1,5 +1,6 @@
 #include "Design.hpp"
 #include "SokuAddresses.hpp"
+#include "VTables.hpp"
 
 namespace {
 	// private
@@ -7,6 +8,10 @@ namespace {
 	void** const _vtable_gauge          = (void** const)SokuLib::ADDR_VTBL_CGAGE;
 	void** const _vtable_number         = (void** const)SokuLib::ADDR_VTBL_CNUMBER;
 	void** const _vtable_design         = (void** const)SokuLib::ADDR_VTBL_CDESIGN;
+	void** const _vtable_design_object  = (void** const)SokuLib::ADDR_VTBL_CDESIGN_OBJECT;
+	void** const _vtable_design_sprite  = (void** const)SokuLib::ADDR_VTBL_CDESIGN_SPRITE;
+	void** const _vtable_design_gauge   = (void** const)SokuLib::ADDR_VTBL_CDESIGN_GAUGE;
+	void** const _vtable_design_number  = (void** const)SokuLib::ADDR_VTBL_CDESIGN_NUMBER;
 	void** const _vtable_filelist       = (void** const)SokuLib::ADDR_VTBL_CFILELIST;
 	void** const _vtable_replaylist     = (void** const)SokuLib::ADDR_VTBL_CREPLAYLIST;
 	void** const _vtable_profilelist    = (void** const)SokuLib::ADDR_VTBL_CPROFILELIST;
@@ -24,6 +29,20 @@ namespace {
 }
 
 namespace SokuLib {
+	const int _vtable_info<CTile>::baseAddr             = ADDR_VTBL_CTILE;
+	const int _vtable_info<CGauge>::baseAddr            = ADDR_VTBL_CGAGE;
+	const int _vtable_info<CNumber>::baseAddr           = ADDR_VTBL_CNUMBER;
+	const int _vtable_info<CDesign>::baseAddr           = ADDR_VTBL_CDESIGN;
+	const int _vtable_info<CDesign::Object>::baseAddr   = ADDR_VTBL_CDESIGN_OBJECT;
+	const int _vtable_info<CDesign::Sprite>::baseAddr   = ADDR_VTBL_CDESIGN_SPRITE;
+	const int _vtable_info<CDesign::Gauge>::baseAddr    = ADDR_VTBL_CDESIGN_GAUGE;
+	const int _vtable_info<CDesign::Number>::baseAddr   = ADDR_VTBL_CDESIGN_NUMBER;
+	const int _vtable_info<CFileList>::baseAddr         = ADDR_VTBL_CFILELIST;
+	const int _vtable_info<CReplayList>::baseAddr       = ADDR_VTBL_CREPLAYLIST;
+	const int _vtable_info<CProfileList>::baseAddr      = ADDR_VTBL_CPROFILELIST;
+	const int _vtable_info<CMusicList>::baseAddr        = ADDR_VTBL_MUSICLIST;
+	const int _vtable_info<CResultList>::baseAddr       = ADDR_VTBL_RESULTLIST;
+
 	// --- CTile ---
 	CTile::CTile(CTile& other) { (this->*union_cast<void(CTile::*)(CTile&)>(ADDR_CTILE_COPY))(other); }
 	void CTile::setColor(int c) { (this->*union_cast<void(IColor::*)(int)>(_vtable_tile[1]))(c); }
@@ -62,7 +81,21 @@ namespace SokuLib {
 		new (this->value) CGaugeValue{(void*)0x85b574, (void*)ptr, offset, length};
 	}
 
-	CGauge::~CGauge() { if (value) SokuLib::DeleteFct(value); }
+	void CGauge::fromTexture(int textureId, int width, int height, int typeId) {
+		constexpr int callAddr = ADDR_GAUGE_SETUP_FROM_TEXTURE;
+		__asm {
+			push esi;
+			push height;
+			push width;
+			push textureId;
+			mov eax, typeId;
+			mov esi, this;
+			call callAddr;
+			pop esi;
+		}
+	}
+
+	CGauge::~CGauge() { if (value) SokuLib::DeleteFct(value); value = 0; }
 	void CGauge::setColor(int c) { (this->*union_cast<void(IColor::*)(int)>(_vtable_gauge[1]))(c); }
 	void CGauge::setColor2(int c[4]) { (this->*union_cast<void(IColor::*)(int[])>(_vtable_gauge[2]))(c); }
 	void CGauge::setColor3(int c) { (this->*union_cast<void(IColor::*)(int)>(_vtable_gauge[3]))(c); }
@@ -109,7 +142,7 @@ namespace SokuLib {
 		new (this->value) CNumberValue{(void*)0x859284, (void*)ptr};
 	}
 
-	CNumber::~CNumber() { if (value) SokuLib::DeleteFct(value); }
+	CNumber::~CNumber() { if (value) SokuLib::DeleteFct(value); value = 0; }
 	void CNumber::setColor(int c) { (this->*union_cast<void(IColor::*)(int)>(_vtable_number[1]))(c); }
 	void CNumber::setColor2(int c[4]) { (this->*union_cast<void(IColor::*)(int[])>(_vtable_number[2]))(c); }
 	void CNumber::setColor3(int c) { (this->*union_cast<void(IColor::*)(int)>(_vtable_number[3]))(c); }
@@ -135,6 +168,34 @@ namespace SokuLib {
 
 	void CDesign::getById(CDesign::Object** ret, int id) { (this->*union_cast<void (CDesign::*)(CDesign::Object**, int)>(0x40cec0))(ret, id); }
 	void CDesign::getById(CDesign::Sprite** ret, int id) { (this->*union_cast<void (CDesign::*)(CDesign::Sprite**, int)>(0x44e2b0))(ret, id); }
+
+	void CDesign::Object::setColor(int a1)                      { (this->*union_cast<void(CDesign::Object::*)(int)>(_vtable_design_object[1]))(a1); }
+	void CDesign::Object::setColor2(int a1[4])                  { (this->*union_cast<void(CDesign::Object::*)(int[])>(_vtable_design_object[2]))(a1); }
+	void CDesign::Object::setColor3(int a1)                     { (this->*union_cast<void(CDesign::Object::*)(int)>(_vtable_design_object[3]))(a1); }
+	void CDesign::Object::renderPos(float x, float y)           { (this->*union_cast<void(CDesign::Object::*)(float, float)>(_vtable_design_object[4]))(x, y); }
+	void CDesign::Object::render()                              { (this->*union_cast<void(CDesign::Object::*)()>(_vtable_design_object[5]))(); }
+	void CDesign::Object::unknown6(int a1, int a2, float a3)    { (this->*union_cast<void(CDesign::Object::*)(int, int, float )>(_vtable_design_object[6]))(a1, a2, a3); }
+
+	void CDesign::Sprite::setColor(int a1)                      { (this->*union_cast<void(CDesign::Object::*)(int)>(_vtable_design_sprite[1]))(a1); }
+	void CDesign::Sprite::setColor2(int a1[4])                  { (this->*union_cast<void(CDesign::Object::*)(int[])>(_vtable_design_sprite[2]))(a1); }
+	void CDesign::Sprite::setColor3(int a1)                     { (this->*union_cast<void(CDesign::Object::*)(int)>(_vtable_design_sprite[3]))(a1); }
+	void CDesign::Sprite::renderPos(float x, float y)           { (this->*union_cast<void(CDesign::Object::*)(float, float)>(_vtable_design_sprite[4]))(x, y); }
+	void CDesign::Sprite::render()                              { (this->*union_cast<void(CDesign::Object::*)()>(_vtable_design_sprite[5]))(); }
+	void CDesign::Sprite::unknown6(int a1, int a2, float a3)    { (this->*union_cast<void(CDesign::Object::*)(int, int, float )>(_vtable_design_sprite[6]))(a1, a2, a3); }
+
+	void CDesign::Gauge::setColor(int a1)                       { (this->*union_cast<void(CDesign::Object::*)(int)>(_vtable_design_gauge[1]))(a1); }
+	void CDesign::Gauge::setColor2(int a1[4])                   { (this->*union_cast<void(CDesign::Object::*)(int[])>(_vtable_design_gauge[2]))(a1); }
+	void CDesign::Gauge::setColor3(int a1)                      { (this->*union_cast<void(CDesign::Object::*)(int)>(_vtable_design_gauge[3]))(a1); }
+	void CDesign::Gauge::renderPos(float x, float y)            { (this->*union_cast<void(CDesign::Object::*)(float, float)>(_vtable_design_gauge[4]))(x, y); }
+	void CDesign::Gauge::render()                               { (this->*union_cast<void(CDesign::Object::*)()>(_vtable_design_gauge[5]))(); }
+	void CDesign::Gauge::unknown6(int a1, int a2, float a3)     { (this->*union_cast<void(CDesign::Object::*)(int, int, float )>(_vtable_design_gauge[6]))(a1, a2, a3); }
+
+	void CDesign::Number::setColor(int a1)                      { (this->*union_cast<void(CDesign::Object::*)(int)>(_vtable_design_number[1]))(a1); }
+	void CDesign::Number::setColor2(int a1[4])                  { (this->*union_cast<void(CDesign::Object::*)(int[])>(_vtable_design_number[2]))(a1); }
+	void CDesign::Number::setColor3(int a1)                     { (this->*union_cast<void(CDesign::Object::*)(int)>(_vtable_design_number[3]))(a1); }
+	void CDesign::Number::renderPos(float x, float y)           { (this->*union_cast<void(CDesign::Object::*)(float, float)>(_vtable_design_number[4]))(x, y); }
+	void CDesign::Number::render()                              { (this->*union_cast<void(CDesign::Object::*)()>(_vtable_design_number[5]))(); }
+	void CDesign::Number::unknown6(int a1, int a2, float a3)    { (this->*union_cast<void(CDesign::Object::*)(int, int, float )>(_vtable_design_number[6]))(a1, a2, a3); }
 
 	// --- CFileList ---
 	void CFileList::updateList()        { (this->*union_cast<void(CFileList::*)()>(_vtable_filelist[1]))(); }

@@ -34,7 +34,8 @@ namespace SokuLib
 	struct Allocator {
 		typedef T value_type;
 		Allocator () = default;
-		template <class U> constexpr Allocator (const Allocator <U>&) noexcept {}
+		template <typename U> constexpr Allocator (const Allocator <U>&) noexcept {}
+		template <typename U> struct rebind { typedef Allocator<U> other; };
 		T* allocate(std::size_t size) { return (T*)SokuLib::NewFct(size*sizeof(T)); }
 		void deallocate(T* value, std::size_t size) { SokuLib::DeleteFct(value); }
 	};

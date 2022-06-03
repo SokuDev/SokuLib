@@ -42,6 +42,7 @@ namespace SokuLib
 		void set(IValue* value); // takes control, use SokuLib::New
 		void set(const int* ptr, float offset, float length);
 		void set(const short* ptr, float offset, float length);
+		void fromTexture(int textureId, int width, int height, int type);
 
 		virtual ~CGauge();
 		virtual void setColor(int a1) override;
@@ -60,7 +61,11 @@ namespace SokuLib
 			virtual float getFloat() = 0;
 		};
 
-		char unknown[0x20];
+		float width, textSpacing;
+		float unknown0C, unknown10;
+		int fontSpacing, size, floatSize;
+		bool unknown1C;
+		// align 0x3
 		IValue* value = 0;
 		CTile tiles;
 
@@ -85,20 +90,55 @@ namespace SokuLib
 		class Object {
 		public:
 			float x1 = 0, y1 = 0, x2, y2;
-			bool active;
+			bool active = true;
 
-			virtual ~Object() = 0;
-			virtual void setColor(int a1) = 0;
-			virtual void setColor2(int a1[4]) = 0;
-			virtual void setColor3(int a1) = 0;
-			virtual void renderPos(float x, float y) = 0;
-			virtual void render() = 0;
-			virtual void unknown6(int a1, int a2, int a3) = 0;
+			virtual ~Object() = default;
+			virtual void setColor(int a1);
+			virtual void setColor2(int a1[4]);
+			virtual void setColor3(int a1);
+			virtual void renderPos(float x, float y);
+			virtual void render();
+			virtual void unknown6(int a1, int a2, float a3);
 		};
 
-		class Sprite : public Object { public: SokuLib::Sprite sprite; };
-		class Gauge : public Object { public: SokuLib::CGauge gauge; };
-		class Number : public Object { public: SokuLib::CNumber sprite; };
+		class Sprite : public Object {
+		public:
+			SokuLib::Sprite sprite;
+
+			virtual ~Sprite() = default;
+			virtual void setColor(int a1) override;
+			virtual void setColor2(int a1[4]) override;
+			virtual void setColor3(int a1) override;
+			virtual void renderPos(float x, float y) override;
+			virtual void render() override;
+			virtual void unknown6(int a1, int a2, float a3) override;
+		};
+
+		class Gauge : public Object {
+		public:
+			SokuLib::CGauge gauge;
+
+			virtual ~Gauge() = default;
+			virtual void setColor(int a1) override;
+			virtual void setColor2(int a1[4]) override;
+			virtual void setColor3(int a1) override;
+			virtual void renderPos(float x, float y) override;
+			virtual void render() override;
+			virtual void unknown6(int a1, int a2, float a3) override;
+		};
+
+		class Number : public Object {
+		public:
+			SokuLib::CNumber number;
+
+			virtual ~Number() = default;
+			virtual void setColor(int a1) override;
+			virtual void setColor2(int a1[4]) override;
+			virtual void setColor3(int a1) override;
+			virtual void renderPos(float x, float y) override;
+			virtual void render() override;
+			virtual void unknown6(int a1, int a2, float a3) override;
+		};
 
 		// --- Data ---
 		SokuLib::Vector<int> textures;

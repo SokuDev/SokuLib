@@ -26,4 +26,25 @@ namespace SokuLib
 	Menu_VTABLE<MenuResult>     &VTable_Result         = *reinterpret_cast<Menu_VTABLE<MenuResult>     *>(ADDR_VTBL_RESULT_MENU);
 	Menu_VTABLE<PauseMenu>      &VTable_PauseMenu      = *reinterpret_cast<Menu_VTABLE<PauseMenu>      *>(ADDR_VTBL_PAUSE_MENU);
 	BattleManager_VTABLE        &VTable_BattleManager  = *reinterpret_cast<BattleManager_VTABLE        *>(ADDR_VTBL_BATTLE_MANAGER);
+
+	int _vtable_offset_helper::r0()  { return 0; }
+	int _vtable_offset_helper::r1()  { return 1; }
+	int _vtable_offset_helper::r2()  { return 2; }
+	int _vtable_offset_helper::r3()  { return 3; }
+	int _vtable_offset_helper::r4()  { return 4; }
+	int _vtable_offset_helper::r5()  { return 5; }
+	int _vtable_offset_helper::r6()  { return 6; }
+	int _vtable_offset_helper::r7()  { return 7; }
+	int _vtable_offset_helper::r8()  { return 8; }
+	int _vtable_offset_helper::r9()  { return 9; }
+	int _vtable_offset_helper::r10() { return 10; }
+	int _vtable_offset_helper::r11() { return 11; }
+	int _vtable_offset_helper::r12() { return 12; }
+	int _vtable_offset_helper::r13() { return 13; }
+	int _vtable_offset_helper::r14() { return 14; }
+	int _vtable_offset_helper::r15() { return 15; }
+	int _vtable_offset_helper::r16() { return 16; }
+	int _vtable_offset_helper::r17() { return 17; }
+	int _vtable_offset_helper::r18() { return 18; }
+	int _vtable_offset_helper::r19() { return 19; }
 }
