@@ -30,6 +30,7 @@ namespace SokuLib
 		CSVParser(const char *path);
 		~CSVParser();
 		std::string getNextCell();
+		void getNextCell(SokuLib::String& output);
 		long getNextValue();
 		void goToStart();
 		bool goToNextLine();

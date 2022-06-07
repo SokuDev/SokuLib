@@ -32,6 +32,11 @@ namespace SokuLib
 		return buffer;
 	}
 
+	void CSVParser::getNextCell(SokuLib::String& output)
+	{
+		csvParseString(this, output);
+	}
+
 	long CSVParser::getNextValue()
 	{
 		return csvParseLong(this);
