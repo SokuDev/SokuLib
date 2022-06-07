@@ -33,6 +33,7 @@ namespace SokuLib
 		String &operator=(const std::string &str);
 		String &operator=(const String &str);
 		String &operator=(const char *str);
+		bool operator<(const String &str) const;
 
 		String &assign(const String &str, int offset = 0, int size = -1);
 		String &assign(const char *str, int size = -1);

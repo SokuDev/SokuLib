@@ -93,6 +93,12 @@ namespace SokuLib
 			return reinterpret_cast<F T::**>(_vtable_info<T>::baseAddr)
 				[(vt.*reinterpret_cast<int (_vtable_offset_helper::*)()>(f))()];
 		}
+
+		// Reference arguments must be declared (no deduction)
+		template <unsigned int index, typename R = void, typename ... A>
+		static inline R call(T* This, A& ... a) {
+			return (This->*reinterpret_cast<R(T::**)(A...)>(baseAddr)[index])(a...);
+		}
 	};
 
 	/// *Only use with virtual functions*
