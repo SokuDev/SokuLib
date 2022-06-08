@@ -14,14 +14,19 @@
 namespace SokuLib
 {
 	struct BattleManager {
-		// 0x000
-		char unknown[0xC];
+		struct BattleManager_VTABLE *vtable;
+		// 0x004
+		char unknown[0x8];
 		// 0x00C
 		CharacterManager &leftCharacterManager;
 		// 0x010
 		CharacterManager &rightCharacterManager;
 		// 0x014
-		char offset_0x014[0x8F0];
+		char offset_0x014[0x74];
+		// 0x088
+		char matchState;
+		// 0x089
+		char offset_0x089[0x87B];
 		// 0x904
 		char currentRound;
 	};

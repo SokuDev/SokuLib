@@ -17,7 +17,7 @@ namespace SokuLib
 		"Yuyuko Saigyouji",
 		"Yukari Yakumo",
 		"Suika Ibuki",
-		"Reisen Undongein Inaba",
+		"Reisen Udongein Inaba",
 		"Aya Shameimaru",
 		"Komachi Onozuka",
 		"Iku Nagae",

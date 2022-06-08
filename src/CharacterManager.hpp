@@ -47,6 +47,7 @@ namespace SokuLib
 		float zRotation;
 	};
 
+	struct CharacterManager;
 	struct ObjectManager {
 		// 0x000
 		void *vtable;
@@ -126,7 +127,16 @@ namespace SokuLib
 		void **soundTable;
 
 		// 0x168
-		char offset_0x168[0x1C];
+		struct CharacterManager *owner;
+
+		// 0x16C
+		struct CharacterManager *owner2;
+
+		// 0x170
+		struct CharacterManager *opponent;
+
+		// 0x174
+		char offset_0x174[0x10];
 
 		//  ADDR_HPOFS              short    (2) 0x184
 		short hp;

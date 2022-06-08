@@ -49,7 +49,7 @@ namespace SokuLib
 		void (BattleManager::*onRoundStart)();
 		void (BattleManager::*onShowLogo)(int param);
 		void (BattleManager::*onRender)();       // After select arena render or draw()
-		void (BattleManager::*maybeOnRender)();  // After select arena render????
+		void (BattleManager::*updateEffects)();
 		void (BattleManager::*maybeOnRender2)(); // After select arena render???? Last function???
 	};
 

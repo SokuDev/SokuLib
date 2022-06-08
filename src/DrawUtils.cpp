@@ -284,11 +284,12 @@ namespace DrawUtils
 	{
 		RenderingElement::setPosition(newPos);
 
-		auto center = this->_position + this->_size * 0.5;
+		auto size = this->_getRealSize();
+		auto center = this->_position + size * 0.5;
 		auto topLeft = this->_position.rotate(this->_rotation, center);
-		auto topRight = (this->_position + Vector2<unsigned>{this->_size.x, 0}).rotate(this->_rotation, center);
-		auto bottomLeft = (this->_position + Vector2<unsigned>{0, this->_size.y}).rotate(this->_rotation, center);
-		auto bottomRight = (this->_position + this->_size).rotate(this->_rotation, center);
+		auto topRight = (this->_position + Vector2<unsigned>{size.x, 0}).rotate(this->_rotation, center);
+		auto bottomLeft = (this->_position + Vector2<unsigned>{0, size.y}).rotate(this->_rotation, center);
+		auto bottomRight = (this->_position + size).rotate(this->_rotation, center);
 
 		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].x = topLeft.x;
 		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].y = topLeft.y;
@@ -363,6 +364,16 @@ namespace DrawUtils
 	float RectangularRenderingElement::getRotation() const
 	{
 		return this->_rotation;
+	}
+
+	Vector2u RectangularRenderingElement::_getRealSize()
+	{
+		return this->_size;
+	}
+
+	Vector2<bool> RectangularRenderingElement::getMirroring() const
+	{
+		return this->_mirroring;
 	}
 
 	void GradiantRect::draw() const
@@ -453,6 +464,17 @@ namespace DrawUtils
 	Sprite::Sprite(const Camera &camera) noexcept :
 		RectangularRenderingElement(camera)
 	{
+	}
+
+	Vector2u Sprite::_getRealSize()
+	{
+		auto size = RectangularRenderingElement::_getRealSize();
+
+		if (std::abs(static_cast<int>(size.x)) >= 2)
+			size.x -= std::copysign(1, size.x) * (this->getMirroring().x ? -1 : 1);
+		if (std::abs(static_cast<int>(size.y)) >= 2)
+			size.y -= std::copysign(1, size.y) * (this->getMirroring().y ? -1 : 1);
+		return size;
 	}
 }
 }
