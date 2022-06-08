@@ -14,6 +14,9 @@ namespace SokuLib
 {
 	class CTile : public SpriteBase {
 	public:
+		float spacingX, spacingY;
+		float scaleX, scaleY;
+		float angle;
 		float tileOffsetX, tileOffsetY;
 		float tileWidth, tileHeight;
 
