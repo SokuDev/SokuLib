@@ -22,16 +22,16 @@ namespace SokuLib {
 		_Base base;
 
 		// hacks to access private data
-		inline T**& _GetMap() { return ((T***)this)[1]; }
-		inline size_t& _GetBlockCount() { return ((size_t*)this)[2]; }
-		inline size_t& _GetOffset() { return ((size_t*)this)[3]; }
-		inline size_t& _GetSize() { return ((size_t*)this)[4]; }
-		inline size_t _GetBlock(size_t offset) {
+		inline T**& _GetMap() const { return ((T***)this)[1]; }
+		inline size_t& _GetBlockCount() const { return ((size_t*)this)[2]; }
+		inline size_t& _GetOffset() const { return ((size_t*)this)[3]; }
+		inline size_t& _GetSize() const { return ((size_t*)this)[4]; }
+		inline size_t _GetBlock(size_t offset) const {
 			// Main fix on this class
 			return (offset / _BlockMax) % _GetBlockCount();
 		}
 
-		inline T** _Copy_Indexes(T** dest, T** src, size_t amount) { memcpy(dest, src, amount*sizeof(T*)); return dest + amount; }
+		inline static T** _Copy_Indexes(T** dest, T** src, size_t amount) { memcpy(dest, src, amount*sizeof(T*)); return dest + amount; }
 
 		// _Growmap depend on power of 2 and must be reimplemented
 		void _Growmap(size_t amount) {
@@ -70,7 +70,7 @@ namespace SokuLib {
 
 			inline iterator(const iterator& o) : base(o.base) {}
 			inline iterator(const _BaseIterator& o) : base(o) {}
-			inline iterator(size_t offset, Deque* container) : base(offset, (std::_Container_base12*)container) {}
+			inline iterator(size_t offset, const Deque* container) : base(offset, (const std::_Container_base12*)container) {}
 
 			T& operator*() {
 				// depends on _GetBlock
@@ -146,6 +146,22 @@ namespace SokuLib {
 			if (_GetMap()[block] == 0)
 				_GetMap()[block] = Allocator<T>().allocate(_BlockMax);
 			new (_GetMap()[block] + offset%_BlockMax) T(value); // TODO check constructor
+			++_GetSize();
+		}
+
+		template<class... _Valty>
+		inline void emplace_back(_Valty&&... value) {
+			// depends on _Growmap, so must use the custom grow
+			if ((_GetOffset() + _GetSize()) % _BlockMax == 0 && _GetBlockCount() <= (_GetSize() + _BlockMax) / _BlockMax) {
+				_Growmap(1);
+			}
+
+			const size_t offset = _GetOffset() + _GetSize();
+			size_t block = offset / _BlockMax;
+			if (_GetBlockCount() <= block) block -= _GetBlockCount();
+			if (_GetMap()[block] == 0)
+				_GetMap()[block] = Allocator<T>().allocate(_BlockMax);
+			new (_GetMap()[block] + offset%_BlockMax) T(std::forward<_Valty>(value)...); // TODO check constructor
 			++_GetSize();
 		}
 	};
