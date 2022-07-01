@@ -64,10 +64,7 @@ namespace SokuLib
 		Vector2f speed;
 
 		// 0x0FC
-		char offset_0x0FC[0x4];
-
-		// 0x100
-		float gravity;
+		SokuLib::Vector2<float> gravity;
 
 		//  ADDR_DIRECTIONOFS       enum Direction    (1) 0x104
 		Direction direction;
@@ -258,7 +255,7 @@ namespace SokuLib
 		unsigned short timeWithBrokenOrb;
 
 		// 0x4A6
-		char offset_0x4A6[0x2];
+		unsigned short nextTimeStop;
 
 		//  ADDR_TIMESTOPOFS        short             (2) 0x4A8
 		unsigned short timeStop;

@@ -16,7 +16,9 @@ namespace SokuLib
 	struct BattleManager {
 		struct BattleManager_VTABLE *vtable;
 		// 0x004
-		char unknown[0x8];
+		unsigned frameCount;
+		// 0x008
+		char unknown[0x4];
 		// 0x00C
 		CharacterManager &leftCharacterManager;
 		// 0x010
