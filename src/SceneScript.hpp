@@ -7,6 +7,7 @@
 
 #include <type_traits>
 #include "String.hpp"
+#include "Deque.hpp"
 #include "Map.hpp"
 #include "UnionCast.hpp"
 
@@ -17,6 +18,8 @@ namespace SokuLib {
         public:
             const int id;
 
+            CommandBase() : id(-1) {}
+            CommandBase(int id) : id(id) {}
             virtual ~CommandBase() = default;
             virtual void parseArgs(char*) = 0;
         };

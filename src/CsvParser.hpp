@@ -7,7 +7,7 @@
 
 
 #include <string>
-#include "Map.hpp"
+#include "Deque.hpp"
 #include "String.hpp"
 
 namespace SokuLib

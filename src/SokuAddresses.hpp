@@ -99,6 +99,7 @@ namespace SokuLib
 		ADDR_VTBL_BATTLE_WATCH                      = 0x0085758C,
 		ADDR_VTBL_LOADING                           = 0x0085766C,
 		ADDR_VTBL_CSPRITE                           = 0x008576AC,
+		ADDR_VTBL_CSPRITE_EX                        = 0x0085772C,
 		ADDR_VTBL_LOGO                              = 0x00857740,
 		ADDR_VTBL_CTILE                             = 0x0085775C,
 		ADDR_VTBL_CDESIGN                           = 0x00857A30,
