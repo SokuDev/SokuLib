@@ -7,12 +7,12 @@
 namespace SokuLib {
 namespace v2 {
 	FrameData::~FrameData() {
-		if (blendOptionsPtr) delete blendOptionsPtr; blendOptionsPtr = 0;
+		if (blendOptionsPtr) SokuLib::DeleteFct(blendOptionsPtr); blendOptionsPtr = 0;
 	}
 
 	CharacterFrameData::~CharacterFrameData() {
 		for (auto box : extraBoxes) if(box) delete box;
-		if (collisionBox) delete collisionBox; collisionBox = 0;
+		if (collisionBox) SokuLib::DeleteFct(collisionBox); collisionBox = 0;
 	}
 }
 }
