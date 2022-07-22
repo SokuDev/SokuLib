@@ -5,6 +5,8 @@
 #ifndef SOKULIB_BOXES_HPP
 #define SOKULIB_BOXES_HPP
 
+#include "Vector2.hpp"
+
 namespace SokuLib
 {
 	struct Box {
