@@ -161,6 +161,7 @@ void testCharacterManager()
 	check_offset(manager, skillMap[15], 0x6D3);
 
 	check_offset(manager, offset_0x6D4         , 0x6D4);
+	//check_offset(manager, patternData          , 0x6FC);
 	check_offset(manager, offset_0x6FC         , 0x6FC);
 	check_offset(manager, keyMap               , 0x754);
 	check_offset(manager, keyMap.horizontalAxis, 0x754);
@@ -298,6 +299,17 @@ void testFrameData()
 	check_offset(frameData, collisionBox, 0x54);
 	check_offset(frameData, offset_0x58, 0x58);
 	assert_equal(sizeof(*frameData), 0xA8);
+
+	// v2
+	assert_equal(sizeof(SokuLib::v2::FrameData), 0x1C);
+	assert_equal(offsetof(SokuLib::v2::FrameData, offset.x), 0x4);
+	assert_equal(offsetof(SokuLib::v2::FrameData, offset.y), 0x6);
+	assert_equal(sizeof(SokuLib::v2::CharacterFrameData), 0xA8);
+	assert_equal(offsetof(SokuLib::v2::CharacterFrameData, damage), 0x1C);
+	assert_equal(offsetof(SokuLib::v2::CharacterFrameData, spiritdamage), 0x22);
+	assert_equal(offsetof(SokuLib::v2::CharacterFrameData, frameFlags), 0x4C);
+	assert_equal(offsetof(SokuLib::v2::CharacterFrameData, attackFlags), 0x50);
+	assert_equal(offsetof(SokuLib::v2::CharacterFrameData, collisionBox), 0x54);
 }
 
 void testDeckConstructMenu()
@@ -328,11 +340,49 @@ void testDeckConstructMenu()
 	check_offset(menu, guideVector, 0x4F8);
 }
 
+void testEffectManager()
+{
+	using namespace SokuLib;
+
+	assert_equal(sizeof(Deque<int>), 0x14);
+	assert_equal(sizeof(Deque<int>::iterator), 0xC);
+
+	assert_equal(sizeof(v2::AnimationObject), 0x158);
+	assert_equal(offsetof(v2::AnimationObject, position), 0xEC);
+	assert_equal(offsetof(v2::AnimationObject, center), 0x108);
+	assert_equal(offsetof(v2::AnimationObject, textures), 0x130);
+	assert_equal(offsetof(v2::AnimationObject, frameState), 0x13C);
+	assert_equal(offsetof(v2::AnimationObject, frameData), 0x150);
+
+	assert_equal(sizeof(Sprite), 0x94);
+	assert_equal(sizeof(SpriteEx), 0xE8);
+	assert_equal(sizeof(v2::EffectObject), 0x178);
+	assert_equal(sizeof(v2::InfoEffectObject), 0x178);
+	assert_equal(sizeof(v2::SelectEffectObject), 0x170);
+	assert_equal(sizeof(v2::WeatherEffectObject), 0x180);
+
+	assert_equal(sizeof(HandleManager<void*>), 0x64);
+	assert_equal(offsetof(HandleManager<void*>, deque), 0x4);
+	assert_equal(offsetof(HandleManager<void*>, vector), 0x18);
+	assert_equal(offsetof(HandleManager<void*>, usedIndexes), 0x28);
+	assert_equal(offsetof(HandleManager<void*>, unusedIndexes), 0x38);
+	assert_equal(offsetof(HandleManager<void*>, nextBase), 0x44);
+	assert_equal(offsetof(HandleManager<void*>, mutex), 0x48);
+
+	assert_equal(sizeof(HandleManagerEx<v2::EffectObject>), 0x50);
+	assert_equal(offsetof(HandleManagerEx<v2::EffectObject>, vector), 0x4);
+	assert_equal(offsetof(HandleManagerEx<v2::EffectObject>, usedIndexes), 0x14);
+	assert_equal(offsetof(HandleManagerEx<v2::EffectObject>, unusedIndexes), 0x24);
+	assert_equal(offsetof(HandleManagerEx<v2::EffectObject>, nextBase), 0x30);
+	assert_equal(offsetof(HandleManagerEx<v2::EffectObject>, mutex), 0x34);
+}
+
 int main()
 {
 	testFrameData();
 	testCharacterManager();
 	testSelectScene();
 	testDeckConstructMenu();
+	testEffectManager();
 	return 0;
 }

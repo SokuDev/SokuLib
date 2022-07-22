@@ -15,24 +15,6 @@
 
 namespace SokuLib
 {
-	template<typename T>
-	class Deque : public std::deque<T, Allocator<T> > {
-		using _Base = std::deque<T, Allocator<T> >;
-		static constexpr int _Bytes = sizeof(T);
-		static constexpr int _Block_size = _Bytes <= 1 ? 16
-										: _Bytes <= 2 ? 8
-										: _Bytes <= 4 ? 4
-										: _Bytes <= 8 ? 2
-														: 1; // elements per block (a power of 2)
-	public:
-		// TODO other functions
-		T& at(size_t index) {
-			const int MapSize = ((int*)this)[2];
-			const size_t _Block = (index / _Block_size) % MapSize;
-			const size_t _Off   = ((int*)this)[3] % _Block_size;
-			return ((T***)this)[1][_Block][_Off];
-		}
-	};
 #ifdef _DEBUG
 	template<typename T> class List : public std::list<T, Allocator<T> > {};
 	template<typename T> class Vector : public std::vector<T, Allocator<T> > {};
@@ -321,7 +303,43 @@ namespace SokuLib
 			return Iterator(lower);
 		}
 
+		Node* _min(Node* node) {
+			while(!node->left->isNil) node = node->left;
+			return node;
+		}
+
+		Node* _max(Node* node) {
+			while(!node->right->isNil) node = node->right;
+			return node;
+		}
+
+		Node* _copy(Node* node, Node* where) {
+			Node* ret = this->head;
+			if (!node->isNil) {
+				Node* tnode = this->_newNode(node->val);
+				tnode->parent = where;
+				tnode->color = node->color;
+				if (ret->isNil) ret = tnode;
+				tnode->left = _copy(node->left, tnode);
+				tnode->right = _copy(node->right, tnode);
+			}
+
+			return ret;
+		}
+
 	public:
+		Map(const Map& o) : Map() {
+			this->head->parent = this->_copy(o.head, this->head);
+			this->size = o.size;
+			if (this->head->parent->isNil) {
+				this->head->left = this->head;
+				this->head->right = this->head;
+			} else {
+				this->head->left = this->_min(this->head->parent);
+				this->head->right = this->_max(this->head->parent);
+			}
+		}
+
 		Iterator begin() {
 			return Iterator(this->head->left);
 		}

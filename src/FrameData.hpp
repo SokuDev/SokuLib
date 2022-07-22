@@ -6,6 +6,8 @@
 #define SOKULIB_FRAMEDATA_HPP
 
 #include "Boxes.hpp"
+#include "Map.hpp"
+#include "Vector2.hpp"
 
 namespace SokuLib
 {
@@ -147,6 +149,77 @@ namespace SokuLib
 		// 0x1C
 		FrameDataReader *nextFrameDataArray;
 	};
+
+	namespace v2 {
+		struct BlendOptions {
+			unsigned int mode = 0;
+			unsigned int color;
+			Vector2f scale = {1, 1};
+			float rotateX = 0, rotateY = 0, rotateZ = 0;
+		};
+
+		class FrameData {
+		public:
+			enum RenderGroup : unsigned char {
+				NONE = 0, SPRITE = 1, TEXTURE = 2, WITHBLEND = 3 };
+
+			Vector2<short> offset = {0, 0};
+			short duration = 0;
+			short texIndex = 0;
+			Vector2<short> texOffset = {0, 0};
+			Vector2<short> texSize = {0, 0};
+			RenderGroup renderGroup = NONE;
+			// align 0x3
+			BlendOptions* blendOptionsPtr = 0;
+
+			virtual ~FrameData();
+		};
+
+		class CharacterFrameData : public FrameData {
+		public:
+			short damage, ratio, chipdamage, spiritdamage, untech, power, limit;
+			short onHitPStun, onHitEStun, onBlockPStun, onBlockEStun;
+			short onHitCardGain, onBlockCardGain, onAirHitSet, onGroundHitSet;
+			// align 0x2
+			Vector2<float> onHitSpeed;
+			short onHitSFX, onHitFX;
+			unsigned char attackType, comboFlags;
+			// align 0x2
+			FrameFlags frameFlags;
+			AttackFlags attackFlags;
+
+			Box* collisionBox = 0;
+			Vector<Box> hitBoxes;
+			Vector<Box> attackBoxes;
+			Vector<Box*> extraBoxes;
+			Vector2<int> extra1, extra2, extra3;
+			short unknownA0, unknownA2, unknownA4;
+			// align 0x2
+
+			virtual ~CharacterFrameData();
+		};
+
+		class SequenceData {
+		public:
+			Vector<FrameData> frames;
+			bool isLoop;
+			// align 0x3
+			SequenceData* previous; // if null then it is the first
+			SequenceData* next; // loops into the first
+
+			virtual ~SequenceData() = default;
+		};
+
+		class CharacterSequenceData {
+		public:
+			Vector<CharacterFrameData> frames;
+			short unknown10, unknown12; // moveLock and actionLock, but unsure how it works
+			bool isLoop;
+			// align 0x3
+			CharacterSequenceData* previous; // if null then it is the first
+			CharacterSequenceData* next; // loops into the first
+		};
+	}
 }
 
 #endif //SOKULIB_FRAMEDATA_HPP

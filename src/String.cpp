@@ -64,6 +64,10 @@ namespace SokuLib
 		return this->assign(str, -1);
 	}
 
+	bool String::operator<(const String &str) const {
+		return strcmp(*this, str) < 0;
+	}
+
 	String::operator std::string() const
 	{
 		const char *str = *this;

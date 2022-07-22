@@ -6,7 +6,7 @@
 #include "Sprite.hpp"
 #include "String.hpp"
 #include "UnionCast.hpp"
-#include <deque>
+#include "Deque.hpp"
 #include <list>
 #include <vector>
 
@@ -14,6 +14,9 @@ namespace SokuLib
 {
 	class CTile : public SpriteBase {
 	public:
+		float spacingX, spacingY;
+		float scaleX, scaleY;
+		float angle;
 		float tileOffsetX, tileOffsetY;
 		float tileWidth, tileHeight;
 

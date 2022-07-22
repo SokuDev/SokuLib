@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(
 	SokuLib STATIC
+	src/AnimationObject.cpp
+	src/AnimationObject.hpp
 	src/BattleManager.cpp
 	src/BattleManager.hpp
 	src/BattleMode.cpp
@@ -40,6 +42,7 @@ add_library(
 	src/dlls/WS2_32.DLL.hpp
 	src/DrawUtils.cpp
 	src/DrawUtils.hpp
+	src/Deque.hpp
 	src/Design.cpp
 	src/Design.hpp
 	src/Exceptions.hpp
@@ -48,6 +51,7 @@ add_library(
 	src/HandleManager.hpp
 	src/Hash.cpp
 	src/Hash.hpp
+	src/IEffectManager.cpp
 	src/IEffectManager.hpp
 	src/IFileReader.cpp
 	src/IFileReader.hpp
@@ -77,6 +81,8 @@ add_library(
 	src/SceneCreaters.hpp
 	src/Scenes.cpp
 	src/Scenes.hpp
+	src/SceneScript.cpp
+	src/SceneScript.hpp
 	src/SceneSize.cpp
 	src/SceneSize.hpp
 	src/SokuAddresses.hpp
@@ -103,6 +109,7 @@ add_library(
 	src/Sprite.hpp
 	src/Vector2.hpp
 	src/Action.hpp
+	src/FrameData.cpp
 	src/FrameData.hpp
 	src/Boxes.hpp
 	src/DeprecatedElements.cpp
