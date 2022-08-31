@@ -1,5 +1,5 @@
 //
-// Created by Gegel85 on 05/11/2020.
+// Created by PinkySmile on 05/11/2020.
 //
 
 #ifndef SOKULIB_MENUS_HPP

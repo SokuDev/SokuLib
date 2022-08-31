@@ -164,6 +164,7 @@ namespace DrawUtils
 		LPDIRECT3DTEXTURE9 *pphandle = SokuLib::textureMgr.allocate(&handle);
 
 		*pphandle = nullptr;
+		EnterCriticalSection((LPCRITICAL_SECTION)0x8a0e14);
 		if (FAILED(result = D3DXCreateTextureFromFileExA(
 			SokuLib::pd3dDev,
 			path,
@@ -180,10 +181,12 @@ namespace DrawUtils
 			nullptr,
 			pphandle
 		))) {
+			LeaveCriticalSection((LPCRITICAL_SECTION)0x8a0e14);
 			fprintf(stderr, "D3DXCreateTextureFromFile(%p, \"%s\", %p) failed with code %li.\n", SokuLib::pd3dDev, path, pphandle, result);
 			SokuLib::textureMgr.deallocate(handle);
 			return false;
 		}
+		LeaveCriticalSection((LPCRITICAL_SECTION)0x8a0e14);
 		printf("Texture handle: %x, Size: %ux%u\n", handle, info.Width, info.Height);
 		this->setHandle(handle, {info.Width, info.Height});
 		return true;
@@ -218,6 +221,7 @@ namespace DrawUtils
 		LPDIRECT3DTEXTURE9 *pphandle = SokuLib::textureMgr.allocate(&id);
 
 		*pphandle = nullptr;
+		EnterCriticalSection((LPCRITICAL_SECTION)0x8a0e14);
 		if (SUCCEEDED(D3DXCreateTextureFromResourceEx(
 			SokuLib::pd3dDev,
 			srcModule,
@@ -235,9 +239,11 @@ namespace DrawUtils
 			nullptr,
 			pphandle
 		))) {
+			LeaveCriticalSection((LPCRITICAL_SECTION)0x8a0e14);
 			this->setHandle(id, {info.Width, info.Height});
 			return true;
 		}
+		LeaveCriticalSection((LPCRITICAL_SECTION)0x8a0e14);
 		SokuLib::textureMgr.deallocate(id);
 		return false;
 	}
