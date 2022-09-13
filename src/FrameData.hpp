@@ -152,23 +152,30 @@ namespace SokuLib
 
 	namespace v2 {
 		struct BlendOptions {
-			unsigned int mode = 0;
+			enum Mode : unsigned int {
+				// The game only uses 1, 2 and 3. But the other values are valid
+				NONE = 0, NORMAL = 1, ADDITIVE = 2, MULTIPLY = 3,
+				UNK09 = 0x09, UNK0A = 0x0a, UNK0B = 0x0b,
+				UNK10 = 0x10, UNK12 = 0x12, UNK13 = 0x13,
+				UNK18 = 0x18, UNK19 = 0x19, UNK1B = 0x1b,
+				UNK20 = 0x20, UNK21 = 0x21, UNK22 = 0x22 };
+
+			Mode mode;
 			unsigned int color;
-			Vector2f scale = {1, 1};
-			float rotateX = 0, rotateY = 0, rotateZ = 0;
+			Vector2f scale;
+			float rotateX, rotateY, rotateZ;
 		};
 
 		class FrameData {
 		public:
-			enum RenderGroup : unsigned char {
-				NONE = 0, SPRITE = 1, TEXTURE = 2, WITHBLEND = 3 };
+			enum RenderGroup : unsigned char { SPRITE = 0, TEXTURE = 1, WITHBLEND = 2 };
 
 			Vector2<short> offset = {0, 0};
 			short duration = 0;
 			short texIndex = 0;
 			Vector2<short> texOffset = {0, 0};
 			Vector2<short> texSize = {0, 0};
-			RenderGroup renderGroup = NONE;
+			RenderGroup renderGroup = SPRITE;
 			// align 0x3
 			BlendOptions* blendOptionsPtr = 0;
 

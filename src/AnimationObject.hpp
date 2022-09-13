@@ -18,15 +18,13 @@ namespace v2 {
 		// offset 0x0EC
 		Vector2f position;
 		Vector2f speed;
-		char unknown0FC[0x4];
-		float gravity;
+		Vector2f gravity;
 		Direction direction;
 		// align 0x3
 
 		// offset 0x108
 		Vector2f center = {0, 0};
-		Color color = 0xffffffff;
-		BlendOptions blendOptions;
+		RenderInfo renderInfos;
 
 		// offset 0x130
 		Vector<int>* textures;
