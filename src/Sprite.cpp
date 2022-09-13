@@ -7,6 +7,7 @@
 #include "SokuAddresses.hpp"
 #include "Memory.hpp"
 #include "TextureManager.hpp"
+#include "VTables.hpp"
 
 namespace {
 	// private
@@ -17,6 +18,10 @@ namespace {
 
 namespace SokuLib
 {
+	const int _vtable_info<BitmapData>::baseAddr         = ADDR_VTBL_BITMAPDATA;
+	const int _vtable_info<Sprite>::baseAddr             = ADDR_VTBL_CSPRITE;
+	const int _vtable_info<SpriteEx>::baseAddr           = ADDR_VTBL_CSPRITE_EX;
+
 	BitmapData::~BitmapData() { if (data) SokuLib::DeleteFct(data); }
 	bool BitmapData::loadFromBmp(const char* c) { return (this->*union_cast<bool(BitmapData::*)(const char*)>(_vtable_bitmap[1]))(c); }
 	bool BitmapData::loadFromPng(const char* c) { return (this->*union_cast<bool(BitmapData::*)(const char*)>(_vtable_bitmap[2]))(c); }
