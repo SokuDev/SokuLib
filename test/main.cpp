@@ -18,7 +18,7 @@ void testCharacterManager()
 	check_offset(manager, objectBase.speed.x     , 0x0F4);
 	check_offset(manager, objectBase.speed.y     , 0x0F8);
 
-	check_offset(manager, objectBase.offset_0x0FC, 0x0FC);
+	check_offset(manager, objectBase.gravity     , 0x0FC);
 	check_offset(manager, objectBase.direction   , 0x104);
 
 	check_offset(manager, objectBase.offset_0x105       , 0x105);
@@ -80,7 +80,7 @@ void testCharacterManager()
 	check_offset(manager, spiritRegenDelay , 0x4A2);
 	check_offset(manager, timeWithBrokenOrb, 0x4A4);
 
-	check_offset(manager, offset_0x4A6, 0x4A6);
+	check_offset(manager, nextTimeStop, 0x4A6);
 	check_offset(manager, timeStop    , 0x4A8);
 
 	check_offset(manager, offset_0x4AA, 0x4AA);

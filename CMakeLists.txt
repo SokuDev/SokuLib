@@ -119,6 +119,10 @@ add_library(
 	src/Menus/ResultMenu.hpp
 	src/Misc.cpp
 	src/Misc.hpp
+	src/GameObject.cpp
+	src/GameObject.hpp
+	src/Player.cpp
+	src/Player.hpp
 	src/KeyCombination.hpp src/Menus/PauseMenu.cpp src/Menus/PauseMenu.hpp)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
@@ -136,5 +140,11 @@ add_executable(
 	test/main.cpp
 )
 target_include_directories(SokuLibTests PRIVATE directx)
-
 target_link_libraries(SokuLibTests SokuLib)
+
+add_library(
+	SokuLibDllTests
+	test/main.dll.cpp
+)
+target_include_directories(SokuLibDllTests PRIVATE directx)
+target_link_libraries(SokuLibDllTests SokuLib)
