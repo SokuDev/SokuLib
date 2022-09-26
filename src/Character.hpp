@@ -64,7 +64,7 @@ namespace SokuLib
 		unsigned char padding2;
 		unsigned char deck;
 		Deque<unsigned short> effectiveDeck;
-		KeyManager **keyManager;
+		KeyManager *keyManager;
 	};
 
 	struct GameStartParams {
