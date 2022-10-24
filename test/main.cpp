@@ -220,6 +220,29 @@ void testCharacterManager()
 	check_offset(manager, stateOfEnlightenmentTimeLeft, 0x924);
 
 	check_offset(manager, offset_0x926, 0x926);
+
+	// v2
+	using namespace SokuLib;
+
+	assert_equal(sizeof(v2::GameObjectBase), 0x34C);
+	assert_equal(offsetof(v2::GameObjectBase, gameData), 0x158);
+	assert_equal(offsetof(v2::GameObjectBase, HP), 0x184);
+	assert_equal(offsetof(v2::GameObjectBase, boxData), 0x1B4);
+
+	assert_equal(sizeof(v2::GameObject), 0x3AC);
+	assert_equal(offsetof(v2::GameObject, lifetime), 0x34C);
+	assert_equal(offsetof(v2::GameObject, parentB), 0x39C);
+
+	assert_equal(sizeof(v2::Player), 0x890);
+	assert_equal(offsetof(v2::Player, characterIndex), 0x34C);
+	assert_equal(offsetof(v2::Player, unknown498), 0x498);
+	assert_equal(offsetof(v2::Player, deckData), 0x57C);
+	assert_equal(offsetof(v2::Player, handData), 0x5E4);
+	assert_equal(offsetof(v2::Player, unknown610), 0x610);
+	assert_equal(offsetof(v2::Player, objectList), 0x6f8);
+	assert_equal(offsetof(v2::Player, unknown714), 0x714);
+	assert_equal(offsetof(v2::Player, inputData), 0x754);
+	assert_equal(offsetof(v2::Player, unknown7D0), 0x7D0);
 }
 
 void testSelectScene()
