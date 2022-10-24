@@ -39,4 +39,7 @@ namespace v2 {
 		for (int i : deckData.textures) SokuLib::textureMgr.remove(i);
 		if (stand.texId) SokuLib::textureMgr.remove(stand.texId);
 	}
+
+	SokuLib::CardInfo* Player::DeckInfo::cardLookup(unsigned short id)
+		{ return (this->*union_cast<SokuLib::CardInfo* (Player::DeckInfo::*)(unsigned short)>(0x436620))(id); }
 }}

@@ -42,11 +42,26 @@ namespace v2 {
 			unknown35C = 0;
 		}
 
-		if (unknown354) {
+		if (tail) {
 			// unknown object destructor
-			reinterpret_cast<void (__fastcall*)(void*)>(0x433c60)(unknown354);
-			SokuLib::DeleteFct(unknown354);
-			unknown354 = 0;
+			reinterpret_cast<void (__fastcall*)(void*)>(0x433c60)(tail);
+			SokuLib::DeleteFct(tail);
+			tail = 0;
 		}
 	}
+
+	void GameObject::setTail(Action actionId, float paramA, int paramB, int paramC, int paramD) {
+		return (this->*union_cast<void (GameObject::*)(Action, float, int, int, int)>(0x4b0f50))
+			(actionId, paramA, paramB, paramC, paramD);
+	}
+
+	void TailObject::initialize(GameObjectBase* parent, FrameData* frameData, float paramA, int paramB, int paramC, int paramD) {
+		return (this->*union_cast<void (TailObject::*)(GameObjectBase*, FrameData*, float, int, int, int)>(0x433f90))
+			(parent, frameData, paramA, paramB, paramC, paramD);
+	}
+
+	void TailObject::update() { return (this->*union_cast<void (TailObject::*)()>(0x434230))(); }
+
+	void TailObject::render() { return (this->*union_cast<void (TailObject::*)()>(0x433dc0))(); }
+
 }}
