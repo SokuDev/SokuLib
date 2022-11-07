@@ -36,7 +36,7 @@ namespace v2 {
 		int collisionType = 0;
 		char collisionLimit = 0;
 		char unknown195; // align 0x1?
-		short unknown196 = 0;
+		short unknown196 = 0; // hitStop?
 		float unknown198;
 		float unknown19C; // 46b9a0: = .0
 		char unknown1A0 = 0;
@@ -109,7 +109,7 @@ namespace v2 {
 		char unknown358[4]; // byte358 may be the layer
 		// an object starts here?
 		void* unknown35C = 0;
-		short unknown360 = 0;
+		short unknown360 = 0; // compared togheter with enemy->TimeStop
 		short unknown362 = 0;
 		void* unknown364;
 		char unknown368[0x34]; // 0x364 and 0x398 = owner/parent
