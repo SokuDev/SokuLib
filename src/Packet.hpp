@@ -132,34 +132,6 @@ namespace SokuLib
 		char name[1];
 	};
 
-	struct CharacterSelectKeys {
-		bool up: 1;
-		bool down: 1;
-		bool left: 1;
-		bool right: 1;
-		bool Z: 1;
-		bool X: 1;
-		bool C: 1;
-		bool A: 1;
-		bool dash: 1;
-		bool Q: 1;
-		unsigned char padding: 6;
-	};
-
-	struct BattleKeys {
-		bool up: 1;
-		bool down: 1;
-		bool left: 1;
-		bool right: 1;
-		bool A: 1;
-		bool B: 1;
-		bool C: 1;
-		bool dash: 1;
-		bool AandB: 1;
-		bool BandC: 1;
-		unsigned char padding: 6;
-	};
-
 	union Inputs {
 		CharacterSelectKeys charSelect;
 		BattleKeys battle;
