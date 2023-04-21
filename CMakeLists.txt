@@ -128,7 +128,6 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	)
 endif()
 
-target_compile_definitions(SokuLib PUBLIC $<$<CONFIG:Debug>:_ITERATOR_DEBUG_LEVEL=1>)
 target_include_directories(SokuLib INTERFACE src/ PUBLIC directx)
 
 add_executable(

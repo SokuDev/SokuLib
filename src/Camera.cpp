@@ -16,7 +16,7 @@ namespace SokuLib
 
 	void Camera::_update2()
 	{
-		reinterpret_cast<void (__thiscall *)(Camera *)>(0x49040)(this);
+		reinterpret_cast<void (__thiscall *)(Camera *)>(0x429040)(this);
 	}
 
 	void Camera::update()

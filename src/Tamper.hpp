@@ -128,7 +128,7 @@ namespace SokuLib
 			DWORD dwOldProtect;
 
 			::VirtualProtect(lpAddr, this->_offset, PAGE_EXECUTE_READWRITE, &dwOldProtect);
-			memcpy(lpAddr, &lpTramp[5], this->_offset);
+			memcpy(lpAddr, &lpTramp[17], this->_offset);
 			::VirtualProtect(lpAddr, this->_offset, dwOldProtect, &dwOldProtect);
 
 			::VirtualProtect(lpTramp, this->_offset + 5, PAGE_READWRITE, &dwOldProtect);
