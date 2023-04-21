@@ -7,6 +7,7 @@
 
 
 #include <windows.h>
+#include <mutex>
 #include "Vector2.hpp"
 #include "Font.hpp"
 #include "Camera.hpp"
@@ -69,6 +70,7 @@ namespace DrawUtils
 		int _handle;
 		bool _loaded = false;
 		Vector2u _size;
+		std::mutex _mutex;
 
 	public:
 		Texture() noexcept = default;

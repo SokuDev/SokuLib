@@ -133,9 +133,11 @@ namespace DrawUtils
 
 	void Texture::destroy()
 	{
+		this->_mutex.lock();
 		if (this->_loaded && SokuLib::pd3dDev)
 			SokuLib::textureMgr.remove(this->_handle);
 		this->_loaded = false;
+		this->_mutex.unlock();
 	}
 
 	int Texture::releaseHandle()
@@ -261,6 +263,7 @@ namespace DrawUtils
 			puts("Failed");
 			return false;
 		}
+		printf("Texture handle: %x, Size: %ux%u\n", text, size.x, size.y);
 		this->setHandle(text, size);
 		return true;
 	}

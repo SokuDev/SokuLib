@@ -23,8 +23,24 @@ namespace SokuLib
 	//CInputManagerCluster
 	struct KeymapManager {
 		char unknown[0x4];
+		// isPlayer is -1 when using keyboard, 0 when using first gamepad, 1 when using second gamepad.
 		char isPlayer;
-		char unknown2[0x33];
+
+		// for keyboard, these are DirectX key codes (see dinput.h)
+		// for controller, these are DIJOYPOD::rgbButton indices; for the directions they're -1.
+		int bindingUp;
+		int bindingDown;
+		int bindingLeft;
+		int bindingRight;
+		int bindingA;
+		int bindingB;
+		int bindingC;
+		int bindingD;
+		int bindingChangeCard;
+		int bindingSpellCard;
+		int bindingPause;
+
+		char unknown2[0x4];
 		//  ADDR_KEYMAPOFS          int[8] (32) 0x38
 		KeyInput input;
 		int pause;
