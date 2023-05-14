@@ -38,13 +38,13 @@ namespace SokuLib
 	typedef DrawUtils::DxSokuColor Color;
 
 	struct RenderInfo {
-		Color color;
-		int shaderType;
+		Color color = 0xffffffff;
+		int shaderType = 0;
 		Color shaderColor;
-		Vector2f scale;
-		float xRotation;
-		float yRotation;
-		float zRotation;
+		Vector2f scale = {1, 1};
+		float xRotation = 0;
+		float yRotation = 0;
+		float zRotation = 0;
 	};
 
 	struct CharacterManager;

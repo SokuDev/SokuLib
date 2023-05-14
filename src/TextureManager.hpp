@@ -28,6 +28,7 @@ namespace SokuLib
 
 		int *loadSound(int *ret, LPCSTR path);
 		void playSound(int id);
+		void removeSound(int id);
 	};
 
 	extern char (&getProfile1NamePrintCode)[ADDR_PROFILENAME_PRINT_CODE1_END - ADDR_PROFILENAME_PRINT_CODE1];
@@ -37,6 +38,8 @@ namespace SokuLib
 	extern IDirect3DDevice9 *(&pd3dDev);
 
 	extern HWND &window;
+
+	extern bool (* const appendDatFile)(const char*);
 }
 
 

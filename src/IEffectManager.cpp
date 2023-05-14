@@ -17,7 +17,5 @@ static void __declspec(naked) __lower_dtor() {
 }
 
 namespace SokuLib {
-namespace v2 {
 	void* const __EffectManager_lower_vtable[] = {__lower_dtor};
-}
 }

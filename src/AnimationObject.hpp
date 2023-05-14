@@ -18,22 +18,21 @@ namespace v2 {
 		// offset 0x0EC
 		Vector2f position;
 		Vector2f speed;
-		char unknown0FC[0x4];
-		float gravity;
+		Vector2f gravity;
 		Direction direction;
 		// align 0x3
 
 		// offset 0x108
 		Vector2f center = {0, 0};
-		Color color = 0xffffffff;
-		BlendOptions blendOptions;
+		RenderInfo renderInfos;
+		// ^ maybe EffectSprite comes until here (0x438bb0)
 
 		// offset 0x130
 		Vector<int>* textures;
 		bool isGui = false;
 		bool isActive = false;
 		// align 0x2
-		float unknown138; // displacement in Y
+		float unknown138; // displacement in Y (Player objects sets this to -6)
 
 		// offset 0x13C
 		struct FrameState {
@@ -53,7 +52,7 @@ namespace v2 {
 		inline AnimationObject() = default;
 		virtual ~AnimationObject();
 		virtual void setActionSequence(short, short) = 0;
-		virtual void setAction(short) = 0;
+		virtual bool setAction(short) = 0;
 		virtual void setSequence(short) = 0;
 		virtual void resetSequence() = 0;
 		virtual bool nextSequence() = 0;
@@ -81,7 +80,7 @@ namespace v2 {
 		// align 0x3
 
 		// adds a virtual
-		virtual void initialize() = 0;
+		virtual bool initSequence() = 0;
 	};
 
 	class EffectObject : public EffectObjectBase {

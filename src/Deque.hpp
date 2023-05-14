@@ -92,6 +92,7 @@ namespace SokuLib {
 			inline iterator operator-(const int value) const { return base - value; }
 			inline int operator-(const iterator& o) const { return base - o.base; }
 			inline bool operator==(const iterator& o) const { return base == o.base; }
+			inline bool operator!=(const iterator& o) const { return base != o.base; }
 		};
 
 		inline Deque() : base() {}

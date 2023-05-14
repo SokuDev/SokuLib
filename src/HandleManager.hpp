@@ -89,7 +89,7 @@ namespace SokuLib
 		Vector<T*> vector;
 		Vector<unsigned int> usedIndexes;
 		List<unsigned int> unusedIndexes;
-		int nextBase = 0;
+		unsigned int nextBase = 0;
 		CriticalSection mutex;
 
 		virtual ~HandleManagerEx() { for(auto t : vector) delete t; }

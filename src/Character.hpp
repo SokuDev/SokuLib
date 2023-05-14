@@ -9,7 +9,7 @@
 #include <vector>
 #include <string>
 #include <windows.h>
-#include "Stack.hpp"
+#include "Deque.hpp"
 #include "InputManager.hpp"
 #include "SokuAddresses.hpp"
 
@@ -63,8 +63,8 @@ namespace SokuLib
 		unsigned char palette;
 		unsigned char padding2;
 		unsigned char deck;
-		Dequeue<unsigned short> effectiveDeck;
-		KeyManager **keyManager;
+		Deque<unsigned short> effectiveDeck;
+		KeyManager *keyManager;
 	};
 
 	struct GameStartParams {

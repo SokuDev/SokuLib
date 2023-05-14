@@ -51,7 +51,7 @@ namespace v2 {
 		virtual void ClearPattern() override
 			{ return (this->*union_cast<void(IEffectManager::*)()>(base_vtable[2]))(); }
 		virtual EffectObjectBase* CreateEffect(int action, float x, float y, Direction dir, char layer, int unknown164) override
-			{ return (this->*union_cast<void*(IEffectManager::*)(int, float, float, Direction, char, int)>(base_vtable[3]))(action, x, y, dir, layer, unknown164); }
+			{ return (this->*union_cast<EffectObjectBase*(IEffectManager::*)(int, float, float, Direction, char, int)>(base_vtable[3]))(action, x, y, dir, layer, unknown164); }
 		virtual void ClearEffects() override
 			{ return (this->*union_cast<void(IEffectManager::*)()>(base_vtable[4]))(); }
 		virtual void Update() override
