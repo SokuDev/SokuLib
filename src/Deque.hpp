@@ -98,7 +98,7 @@ namespace SokuLib {
 		inline Deque() : base() {}
 		explicit inline Deque(size_t s) : base(s) {}
 		explicit inline Deque(size_t s, const T& v) : base(s, v) {}
-		inline Deque(const Deque& o) : base(o) {} // TODO this should work, but need to be tested
+		inline Deque(const Deque& o) : base(o.base) {} // TODO this should work, but need to be tested
 		template<class _It> inline Deque(_It b, _It e) : base(b, e) {} // TODO this should work, but need to be tested
 		inline ~Deque() {
 			// depends on pop_front, as long the deque is empty it will work

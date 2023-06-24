@@ -83,22 +83,44 @@ namespace v2 {
 		virtual bool initSequence() = 0;
 	};
 
+#define DECL_EFFECTOBJECT_VIRTUALS() \
+	virtual void setActionSequence(short, short) override; \
+	virtual bool setAction(short) override; \
+	virtual void setSequence(short) override; \
+	virtual void resetSequence() override; \
+	virtual bool nextSequence() override; \
+	virtual void prevSequence() override; \
+	virtual void setPose(short) override; \
+	virtual bool nextPose() override; \
+	virtual void prevPose() override; \
+	virtual void update() override; \
+	virtual void render() override; \
+	virtual void render2() override; \
+	virtual void applyTransform() override; \
+	virtual void onRenderEnd() override; \
+	virtual bool initSequence() override;
+
 	class EffectObject : public EffectObjectBase {
 	public:
 		char unknown170[0x8];
+		DECL_EFFECTOBJECT_VIRTUALS()
 	};
 
 	class InfoEffectObject : public EffectObjectBase {
 	public:
 		char unknown170[0x8];
+		DECL_EFFECTOBJECT_VIRTUALS()
 	};
 
 	class SelectEffectObject : public EffectObjectBase {
+	public:
+		DECL_EFFECTOBJECT_VIRTUALS()
 	};
 
 	class WeatherEffectObject : public EffectObjectBase {
 	public:
 		char unknown170[0x10];
+		DECL_EFFECTOBJECT_VIRTUALS()
 	};
 }
 }

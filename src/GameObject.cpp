@@ -37,9 +37,9 @@ namespace v2 {
 		if (parentB) _erase(parentB->childrenB, this);
 		for (auto it : childrenB) it->parentB = 0;
 
-		if (unknown35C) {
-			SokuLib::DeleteFct(unknown35C);
-			unknown35C = 0;
+		if (customData) {
+			SokuLib::DeleteFct(customData);
+			customData = 0;
 		}
 
 		if (tail) {

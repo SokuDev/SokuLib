@@ -236,8 +236,8 @@ void testCharacterManager()
 	assert_equal(sizeof(v2::Player), 0x890);
 	assert_equal(offsetof(v2::Player, characterIndex), 0x34C);
 	assert_equal(offsetof(v2::Player, unknown498), 0x498);
-	assert_equal(offsetof(v2::Player, deckData), 0x57C);
-	assert_equal(offsetof(v2::Player, handData), 0x5E4);
+	assert_equal(offsetof(v2::Player, deckInfo), 0x57C);
+	assert_equal(offsetof(v2::Player, handInfo), 0x5E4);
 	assert_equal(offsetof(v2::Player, unknown610), 0x610);
 	assert_equal(offsetof(v2::Player, objectList), 0x6f8);
 	assert_equal(offsetof(v2::Player, unknown714), 0x714);
@@ -400,6 +400,23 @@ void testEffectManager()
 	assert_equal(offsetof(HandleManagerEx<v2::EffectObject>, mutex), 0x34);
 }
 
+void testGameData()
+{
+	using namespace SokuLib;
+
+	assert_equal(sizeof(v2::GameDataManager), 0x58);
+	assert_equal(offsetof(v2::GameDataManager, createQueue), 0x00);
+	assert_equal(offsetof(v2::GameDataManager, players), 0x28);
+	assert_equal(offsetof(v2::GameDataManager, enabledPlayers), 0x38);
+	assert_equal(offsetof(v2::GameDataManager, activePlayers), 0x3C);
+	assert_equal(offsetof(v2::GameDataManager, destroyQueue), 0x4C);
+
+	//assert_equal(sizeof(v2::SaveDataManager), unknown);
+	assert_equal(offsetof(v2::SaveDataManager, enabledCharacters), 0x30);
+	assert_equal(offsetof(v2::SaveDataManager, systemCards), 0x9C);
+	assert_equal(offsetof(v2::SaveDataManager, characterCards), 0xA8);
+}
+
 int main()
 {
 	testFrameData();
@@ -407,5 +424,6 @@ int main()
 	testSelectScene();
 	testDeckConstructMenu();
 	testEffectManager();
+	testGameData();
 	return 0;
 }
