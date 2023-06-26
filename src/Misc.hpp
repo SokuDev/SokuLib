@@ -9,6 +9,7 @@
 namespace SokuLib
 {
 	extern bool &SWRUnlinked;
+	unsigned int Rand(unsigned int v);
 }
 
 

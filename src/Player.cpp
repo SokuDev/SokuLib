@@ -74,6 +74,14 @@ namespace SokuLib {
 	const int _vtable_info<v2::PlayerSuwako>::baseAddr      = 0x0085f2bc;
 	const int _vtable_info<v2::PlayerNamazu>::baseAddr      = 0x0085f824;
 
+static void pathAppendA(char* buffer, const char* str) {
+	auto blen = strlen(buffer);
+	auto slen = strlen(str);
+	if (blen+slen+1 > MAX_PATH) return;
+	if (blen) buffer[blen] = '\\';
+	strcpy(buffer+blen+1, str);
+}
+
 namespace v2 {
 	auto& commonPatternData = *reinterpret_cast<Map<int, CharacterSequenceData*>*>(0x89aae8);
 	auto& commonTextures = *reinterpret_cast<Vector<int>*>(0x89aac4);
@@ -190,7 +198,7 @@ namespace v2 {
 		this->unknown890[0] = 0;
 		char* const buffer = *(char**)0x8a0d08;
 		GetCurrentDirectoryA(MAX_PATH, buffer);
-		PathAppendA(buffer, (char*)0x858408); // "configex123.ini"
+		pathAppendA(buffer, (char*)0x858408); // "configex123.ini" // TODO better handling of shlwapi
 		if (GetPrivateProfileIntA((char*)0x85a2e4, (char*)0x85a2e8, -1, buffer) == 1) { // "etc", "limit"
 			this->unknown890[0] = 1;
 		}

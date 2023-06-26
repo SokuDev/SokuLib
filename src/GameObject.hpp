@@ -123,12 +123,53 @@ namespace v2 {
 
 		inline GameObject() { HP = MaxHP = 0; }
 		virtual ~GameObject();
-		virtual void* createObject(Action actionId, float x, int y, Direction dir, char layer, void* customData, unsigned int customDataSize) = 0;
-		virtual void* createChild(Action actionId, float x, int y, Direction dir, char layer, void* customData, unsigned int customDataSize) = 0;
+		virtual GameObject* createObject(Action actionId, float x, int y, Direction dir, char layer, void* customData, unsigned int customDataSize) = 0;
+		virtual GameObject* createChild(Action actionId, float x, int y, Direction dir, char layer, void* customData, unsigned int customDataSize) = 0;
 
 		void setTail(Action actionId, float paramA, int paramB, int paramC, int paramD); // unsure
 	};
-	class GameObjectAlice : public GameObject { public: char unknown3AC[4]; };
+
+#define DECL_GAMEOBJECT_VIRTUALS() \
+	void setActionSequence(short, short) override; \
+	bool setAction(short) override; \
+	void setSequence(short) override; \
+	void resetSequence() override; \
+	bool nextSequence() override; \
+	void prevSequence() override; \
+	void setPose(short) override; \
+	bool nextPose() override; \
+	void prevPose() override; \
+	void update() override; \
+	void render() override; \
+	void render2() override; \
+	void applyTransform() override; \
+	void onRenderEnd() override; \
+	bool initSequence() override; \
+	void update2() override; \
+	GameObject* createObject(Action, float, int, Direction, char, void*, unsigned int) override; \
+	GameObject* createChild(Action, float, int, Direction, char, void*, unsigned int) override;
+
+	class GameObjectReimu     : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectMarisa    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectSakuya    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectAlice     : public GameObject { public: char unknown3AC[4]; DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectPatchouli : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectYoumu     : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectRemilia   : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectYuyuko    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectYukari    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectSuika     : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectUdonge    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectAya       : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectKomachi   : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectIku       : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectTenshi    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectSanae     : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectChirno    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectMeirin    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectUtsuho    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectSuwako    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectNamazu    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
 
 	class IGameObjectList {
 	public:
