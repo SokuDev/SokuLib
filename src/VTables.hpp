@@ -78,6 +78,8 @@ namespace SokuLib
 		virtual int r8();  virtual int r9();  virtual int r10(); virtual int r11();
 		virtual int r12(); virtual int r13(); virtual int r14(); virtual int r15();
 		virtual int r16(); virtual int r17(); virtual int r18(); virtual int r19();
+		virtual int r20(); virtual int r21(); virtual int r22(); virtual int r23();
+		virtual int r24(); virtual int r25(); virtual int r26(); virtual int r27();
 	};
 
 	template<class T> struct _vtable_info {

@@ -47,4 +47,12 @@ namespace SokuLib
 	int _vtable_offset_helper::r17() { return 17; }
 	int _vtable_offset_helper::r18() { return 18; }
 	int _vtable_offset_helper::r19() { return 19; }
+	int _vtable_offset_helper::r20() { return 20; }
+	int _vtable_offset_helper::r21() { return 21; }
+	int _vtable_offset_helper::r22() { return 22; }
+	int _vtable_offset_helper::r23() { return 23; }
+	int _vtable_offset_helper::r24() { return 24; }
+	int _vtable_offset_helper::r25() { return 25; }
+	int _vtable_offset_helper::r26() { return 26; }
+	int _vtable_offset_helper::r27() { return 27; }
 }
