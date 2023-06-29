@@ -235,7 +235,7 @@ void testCharacterManager()
 
 	assert_equal(sizeof(v2::Player), 0x890);
 	assert_equal(offsetof(v2::Player, characterIndex), 0x34C);
-	assert_equal(offsetof(v2::Player, unknown498), 0x498);
+	assert_equal(offsetof(v2::Player, redHP), 0x498);
 	assert_equal(offsetof(v2::Player, deckInfo), 0x57C);
 	assert_equal(offsetof(v2::Player, handInfo), 0x5E4);
 	assert_equal(offsetof(v2::Player, unknown610), 0x610);

@@ -35,32 +35,41 @@ namespace v2 {
 	}; // 0x58
 
 	struct SaveDataManager {
-		int unknown00;
 		// 0x00
-		char unknown04[0x18];
+		int unknown00;
+		int bestScore;
+		unsigned char scenarioScore[20];
 		// 0x1C
 		bool enabledScenarios[20];
 		// 0x30
 		bool enabledCharacters[20];
-		// 0x44: std::set<int>
-		void* unknown44[3];
+		// 0x44: std::set<int> // hashed filename
+		void* enabledBgms[3];
 		// 0x50: std::set<int>
-		void* unknown50[3];
+		void* enabledStages[3];
 		// 0x5C
-		char unknown5C[0x40];
+		Vector<void*> unknown5C; // Scenario related
+		Vector<void*> unknown6C; // Character related
+		char unknown7C[0x20];
 		// 0x9C
 		Map<int, int> systemCards;
 		// 0xa8
 		Map<int, int> characterCards[20];
 		// 0x198: std::set<int>
 		void* unknown198[3];
+		// 0x1a4:
+		struct UnknownData {char unknown[0x18];};
+		Vector<UnknownData> unknown1A4[20]; // some kind of counter
 
-		// TODO there's more data after this
+		// TODO (maybe) there's more data after this
 
 		static SaveDataManager& instance;
+		void enableStage(int stageId); // 0x430c60
 		void enableCharacter(int characterId); // 0x42ee80
+		void enableBgm(const char* filename); // 0x430ca0
 		bool loadData(); // 0x433330
 		void saveData(); // 0x42fa10
+		void saveScenarioResult(int characterId, unsigned char score); // 0x431c20
 	};
 }}
 
