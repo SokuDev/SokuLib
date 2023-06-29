@@ -46,6 +46,7 @@ namespace v2 {
 			unsigned short poseDuration;
 			char unknown14E[2]; // align 0x2?
 		} frameState;
+		// offset 0x150
 		v2::FrameData* frameData;
 		IColor* unknown154 = 0;
 
@@ -80,7 +81,7 @@ namespace v2 {
 		// align 0x3
 
 		// adds a virtual
-		virtual bool initSequence() = 0;
+		virtual bool initializeAction() = 0;
 	};
 
 #define DECL_EFFECTOBJECT_VIRTUALS() \
@@ -98,7 +99,7 @@ namespace v2 {
 	virtual void render2() override; \
 	virtual void applyTransform() override; \
 	virtual void onRenderEnd() override; \
-	virtual bool initSequence() override;
+	virtual bool initializeAction() override;
 
 	class EffectObject : public EffectObjectBase {
 	public:

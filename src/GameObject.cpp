@@ -116,9 +116,9 @@ namespace v2 {
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[13]))(); } \
 	void CLS::onRenderEnd() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[14]))(); } \
-	bool CLS::initSequence() \
+	bool CLS::initializeAction() \
 		{ return (this->*union_cast<bool(CLS::*)()>(VTB[15]))(); } \
-	void CLS::update2() \
+	void CLS::updatePhysics() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[16]))(); } \
 	SokuLib::v2::GameObject* CLS::createObject(SokuLib::Action a0, float a1, int a2, SokuLib::Direction a3, char a4, void* a5, unsigned int a6) \
 		{ return (this->*union_cast<SokuLib::v2::GameObject*(CLS::*)(SokuLib::Action, float, int, SokuLib::Direction, char, void*, unsigned int)>(VTB[17]))(a0, a1, a2, a3, a4, a5, a6); } \

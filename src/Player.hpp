@@ -19,10 +19,14 @@ namespace v2 {
 		char paletteId;
 		char unknown352[0x2]; // align 0x2?
 		int portraitTexId = 0;
-		Sprite portrait; // sizeof = 0x94
+		Sprite portrait;
+
+		// offset 0x3EC
 		struct StandInfo {
 			int texId = 0;
-			Sprite sprite; // sizeof = 0x94
+			Sprite sprite;
+
+			// offset 0x484
 			int playerId;
 			int unknown488; // 0x46eb80: = -1;
 			Vector2f unknown48C; // some coord
@@ -30,46 +34,47 @@ namespace v2 {
 			// align 3
 		} stand;
 
-		short unknown498; // 46b9a0: = 10000 (HP related)
-		char groundDashCount, airDashCount, unknown49C, unknown49D; // 46b9a0: = 0
-		short currentSpirit, maxSpirit; // 46b9a0: = 100
-		short spiritRegenDelay, timeWithBrokenOrb, unknown4A6, timeStop, unknown4AA; // 46b9a0: = 0
-		char unknown4AC, unknown4AD; // 46b9a0: = 0
+		// offset 0x498
+		short redHP;
+		char groundDashCount, airDashCount, unknown49C, unknown49D; // = 0
+		short currentSpirit, maxSpirit; // = 100
+		short spiritRegenDelay, timeWithBrokenOrb, unknown4A6, timeStop, unknown4AA; // = 0
+		char unknown4AC, unknown4AD; // = 0
 		char unknown4AE[2]; // align 2?
-		float comboRate; // 46b9a0: = 1.0
+		float comboRate; // = 1.0
 		short comboCount, comboDamage, comboLimit, untech;
-		short unknown4BC, realLimit; // 46b9a0: = 0 (+4bc = armor related)
-		short unknown4C0, unknown4C2; // 46b9a0: = 0
-		char unknown4C4, unknown4C5; // 48b000: +4c4 = 0
-		short unknown4C6; // 46b9a0: = 0
-		int unknown4C8; // 48b000: = 0
-		char unknown4CC, hasSpotlight; // 46b9a0: = 0 (+4cd = healingLightActive)
-		short spotlightStrength; // 46b9a0: = 0 (healingLightFXDelay)
-		float speedPower; // 48b000: = 1.0
-		short riverMistCounter, unknown4D6; // 46b9a0: = 0
-		char unknown4D8; // 46b9a0: = 0
+		short unknown4BC, realLimit; // = 0
+		short unknown4C0, unknown4C2; // = 0
+		char unknown4C4, unknown4C5; // 48b000: +0x4c4 = 0 align 1?
+		short unknown4C6; // = 0
+		int unknown4C8; // = 0
+		char unknown4CC, hasSpotlight; // = 0
+		short spotlightStrength; // = 0
+		float speedPower; // = 1.0
+		short riverMistCounter, unknown4D6; // = 0
+		char unknown4D8; // = 0
 		char unknown4D9[3]; // align 3?
-		int unknown4DC[16]; // 46b9a0: = 0
-		short meleeInvulTimer, grabInvulTimer, projectileInvulTimer, unknown522; // 46b9a0: = 0
-		short unknown524, SORDebuffTimer, healCharmTimer; // 46b9a0: = 0
-		char unknown52A, unknown52B; // 48b000: +52A = 0
-		int weatherId; // 46b9a0: = 0;
+		int unknown4DC[16]; // = 0
+		short meleeInvulTimer, grabInvulTimer, projectileInvulTimer, unknown522; // = 0
+		short unknown524, SORDebuffTimer, healCharmTimer; // = 0
+		char unknown52A, unknown52B; // 48b000: +0x52A = 0 align 1?
+		int weatherId; // = 0;
 
-		// 46b9a0: = {1,1,1,1, 0,1,1,1, 0,0,0,1};
+		// 0x530: = {1,1,1,1, 0,1,1,1, 0,0,0,1};
 		float attackPower, defensePower;
-		float unknown538, unknown53C, unknown540; // 0x538 = ArmorMultiplier/Mitigation
+		float unknown538, unknown53C, unknown540;
 		float spellDmgMultiplier, specialDmgMultiplier, meterGainMultiplier, lifeStealMultiplier, discardMultiplier;
 		float unknown558, unknown55C;
 
-		short grimoireCount; // 46b9a0: = 0
+		short grimoireCount; // = 0
 		char unknown562[2]; // align 2?
-		float speedXMultiplier, speedYMultiplier; // 46b9a0: = 1.0
+		float speedXMultiplier, speedYMultiplier;
 
-		// 0x56C: 46b9a0: = {0,0,0,0, 0,1,1,0, 0,0,0,0, 0,?,?,?};
+		// 0x56C: = {0,0,0,0, 0,1,1,0, 0,0,0,0, 0,?,?,?};
 		bool canGrazeMelee, crushOnWB, skillsMax, unknown56F;
 		bool unknown570, lockedInStageX, lockedInStageY; unsigned char score;
 		unsigned char roundsWins, unknown575, unknown576, unknown577, unknown578;
-		unsigned char unknown579[3]; // align?
+		unsigned char unknown579[3]; // align 3?
 
 		//offset 0x57c
 		struct DeckInfo {
@@ -93,7 +98,7 @@ namespace v2 {
 		} handInfo;
 
 		// offset 0x610
-		Sprite unknown610; // sizeof = 0x94
+		Sprite unknown610;
 		// offset 0x6A4
 		char skillLevelA[32]; // this one starts as 0
 		char skillLevelB[32]; // this one starts as -1 (except the first four reset in: 48b000)
@@ -143,33 +148,33 @@ namespace v2 {
 			// align 0x3
 		} inputData;
 
-		short unknown7D0[5]; // 48b000: = 0;
+		short unknown7D0[5]; // = 0;
 		char unknown7DA[2]; // align 0x2?
-		float unknown7DC[6]; // 48b000: = .0;
-		bool chargedAttack; char unknown7F5[2]; bool damageLimited; // 48b000: = 0;
-		short unknown7F8; // 48b000: = 0;
+		float unknown7DC[6]; // = .0;
+		bool chargedAttack; char unknown7F5[2]; bool damageLimited; // = 0;
+		short unknown7F8; // = 0;
 		char unknown7FA[2]; // align 2?
-		float unknown7FC; // 48b000: = .0;
-		char unknown800[5]; // 48b000: = 0;
+		float unknown7FC; // = .0;
+		char unknown800[5]; // = 0;
 		char unknown805[3]; // align 3?
-		float riverMistTimer; // 48b000: = .0;
+		float riverMistTimer; // = .0;
 		char unknown80C[4]; // 48b000: (+80D, +80E) = .0; (+80D = isAuraActive)
 		int unknown810, unknown814; // 48b000: = 0; (auraFXDelay, auraDuration)
-		short unknown818[10]; // 48b000: = 0;
-		float unknown82C, unknown830; // 48b000: = .0;
-		short tenguFans; // 48b000: = 0;
-		char unknown836[2]; // 48b000: +836 = 0;
-		float unknown838; // 48b000: = .0;
-		char unknown83C; // 48b000: = 0;
+		short unknown818[10]; // = 0;
+		float unknown82C, unknown830; // = .0;
+		short tenguFans; // = 0;
+		char unknown836[2]; // +0x836 = 0; align 1?
+		float unknown838; // = .0;
+		char unknown83C; // = 0;
 		char unknown83D[3]; // align 3?
-		float sacrificialDolls, controlRod, magicPotionTimeLeft; // 48b000: = .0;
-		short stopwatchTimeLeft, dragonStarTimeLeft, drops, dropInvulTimeLeft; // 48b000: = 0;
-		float unknown854[5]; // 48b000: = .0;
-		char unknown868[2]; // 48b000: +868 = 0;
-		short unknown86A; // 48b000: = 0;
-		int unknown86C[5]; // 48b000: = 0;
-		char unknown880[2]; // 48b000: +880 = 0;
-		short unknown882[7]; // 48b000: = 0;
+		float sacrificialDolls, controlRod, magicPotionTimeLeft; // = .0;
+		short stopwatchTimeLeft, dragonStarTimeLeft, drops, dropInvulTimeLeft; // = 0;
+		float unknown854[5]; // = .0;
+		char unknown868[2]; // +0x868 = 0; align 1?
+		short unknown86A; // = 0;
+		int unknown86C[5]; // = 0;
+		char unknown880[2]; // +0x880 = 0; align 1?
+		short unknown882[7]; // = 0;
 		// found shared data until size: 0x890 (0x48b088: short this[0x88e])
 
 		Player(const PlayerInfo& playerInfo);
@@ -214,8 +219,8 @@ namespace v2 {
 	void render2() override; \
 	void applyTransform() override; \
 	void onRenderEnd() override; \
-	bool initSequence() override; \
-	void update2() override; \
+	bool initializeAction() override; \
+	void updatePhysics() override; \
 	void initialize() override; \
 	bool VUnknown48() override; \
 	bool VUnknown4C(int a) override; \

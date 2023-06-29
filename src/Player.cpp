@@ -36,9 +36,9 @@
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[13]))(); } \
 	void CLS::onRenderEnd() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[14]))(); } \
-	bool CLS::initSequence() \
+	bool CLS::initializeAction() \
 		{ return (this->*union_cast<bool(CLS::*)()>(VTB[15]))(); } \
-	void CLS::update2() \
+	void CLS::updatePhysics() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[16]))(); } \
 	void CLS::initialize() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[17]))(); } \
