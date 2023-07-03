@@ -32,6 +32,8 @@ namespace v2 {
 			Vector2f unknown48C; // some coord
 			char unknown494;
 			// align 3
+
+			//void FUN_46ec50();
 		} stand;
 
 		// offset 0x498
@@ -122,9 +124,10 @@ namespace v2 {
 			char unknown729[3];
 		} unknown714;
 
-		Deque<int> unknown72C; // seems to hold textureIDs of spell backgrounds
-		short unknown740; // 46b9a0: = 0
-		char unknown742[2];
+		Deque<int> spellBgTextures;
+		short spellBgTimer; // = 0
+		unsigned char spellBgId;
+		char unknown743;
 		float additionalSpeedX; // 46b9a0: = .0
 		float unknown748; // 46b9a0: = .0
 		float riverMistAdditionalSpeed; // 46b9a0: = .0
@@ -188,8 +191,8 @@ namespace v2 {
 
 		// Gets the character from this->characterIndex
 		void loadResources(); // 0x46c0b0
-		bool updateXMovement(float value); // 0x487740
-		void fun004877C0(float, float); // 0x4877C0
+		bool updateGroundMovement(float value); // 0x487740
+		bool updateAirMovement(float, float); // 0x4877C0
 		void addCardMeter(float); // 0x487870
 		// 0x487890 input related
 		// 0x4878c0 input related
@@ -198,10 +201,17 @@ namespace v2 {
 		// 0x487ab0 input related
 		// 0x487b60 (+0x4ad flag 0x10)
 		// 0x487ba0 (+0x4ad flag 0x08)
-		// 0x487c20 swapDirection?
+		void Unknown487C20(); // swapDirection?
+		void playSpellBackground(int id, int timer);
 		bool applyGroundMechanics(); // 0x487ca0
 		// 0x487e90 always returns zero
 		bool applyAirMechanics(); // 0x487ea0
+		void playSFX(int id); // 0x464980
+		void consumeSpirit(int cost, int delay); // 0x47a9e0
+		void consumeCard(int index, int costOverride = 0, int cardNameTimer = 60); // 0x469c70
+		void eventSkillUse(); // 0x483ce0
+		void eventSpellUse(); // 0x483d60
+		void eventWeatherCycle(); // 0x483db0
 	};
 
 #define DECL_PLAYER_VIRTUALS() \

@@ -56,6 +56,12 @@ namespace v2 {
 		for (auto it : childrenA) it->parentA = 0;
 	}
 
+	void GameObjectBase::resetForces() { return (this->*union_cast<void (GameObjectBase::*)()>(0x4636b0))(); }
+	float GameObjectBase::getGroundHeight() const { return (this->*union_cast<float (GameObjectBase::*)() const>(0x4397f0))(); }
+	int GameObjectBase::isOnGround() const { return (this->*union_cast<int (GameObjectBase::*)() const>(0x439850))(); }
+	GameObjectBase* GameObjectBase::createEffect(int action, float x, float y, Direction dir, char layer)
+		{ return (this->*union_cast<GameObjectBase* (GameObjectBase::*)(int, float, float, Direction, char)>(0x438ce0))(action, x, y, dir, layer); }
+
 	GameObject::~GameObject() {
 		if (parentB) _erase(parentB->childrenB, this);
 		for (auto it : childrenB) it->parentB = 0;

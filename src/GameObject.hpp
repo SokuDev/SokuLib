@@ -83,6 +83,11 @@ namespace v2 {
 		virtual ~GameObjectBase();
 		virtual bool initializeAction() = 0;
 		virtual void updatePhysics() = 0;
+
+		void resetForces(); // 4636b0
+		float getGroundHeight() const; // 4397f0
+		int isOnGround() const; //439850
+		GameObjectBase* createEffect(int action, float x, float y, Direction dir, char layer); // 438ce0
 	}; // 0x34C
 
 	struct TailObject {

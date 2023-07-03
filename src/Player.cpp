@@ -120,11 +120,19 @@ namespace v2 {
 		{ return (this->*union_cast<SokuLib::CardInfo* (Player::DeckInfo::*)(unsigned short)>(0x436620))(id); }
 
 	void Player::loadResources() { return (this->*union_cast<void(Player::*)()>(0x46c0b0))(); }
-	bool Player::updateXMovement(float value) { return (this->*union_cast<bool(Player::*)(float)>(0x487740))(value); }
-	void Player::fun004877C0(float a0, float a1) { return (this->*union_cast<void(Player::*)(float,float)>(0x4877C0))(a0, a1); }
+	bool Player::updateGroundMovement(float value) { return (this->*union_cast<bool(Player::*)(float)>(0x487740))(value); }
+	bool Player::updateAirMovement(float a0, float a1) { return (this->*union_cast<bool(Player::*)(float,float)>(0x4877C0))(a0, a1); }
 	void Player::addCardMeter(float value) { return (this->*union_cast<void(Player::*)(float)>(0x487870))(value); }
+	void Player::Unknown487C20() { return (this->*union_cast<void(Player::*)()>(0x487C20))(); }
+	void Player::playSpellBackground(int a0, int a1) { return (this->*union_cast<void(Player::*)(int, int)>(0x46b370))(a0, a1); }
 	bool Player::applyGroundMechanics() { return (this->*union_cast<bool(Player::*)()>(0x487ca0))(); }
 	bool Player::applyAirMechanics() { return (this->*union_cast<bool(Player::*)()>(0x487ea0))(); }
+	void Player::playSFX(int id) { return (this->*union_cast<void(Player::*)(int)>(0x464980))(id); }
+	void Player::consumeSpirit(int cost, int delay) { return (this->*union_cast<void(Player::*)(int, int)>(0x47a9e0))(cost, delay); }
+	void Player::consumeCard(int a0, int a1, int a2) { return (this->*union_cast<void(Player::*)(int, int, int)>(0x469c70))(a0, a1, a2); }
+	void Player::eventSkillUse() { return (this->*union_cast<void(Player::*)()>(0x483ce0))(); }
+	void Player::eventSpellUse() { return (this->*union_cast<void(Player::*)()>(0x483d60))(); }
+	void Player::eventWeatherCycle() { return (this->*union_cast<void(Player::*)()>(0x483db0))(); }
 
 	IMPL_PLAYER_VIRTUALS(PlayerReimu, ((void** const)_vtable_info<v2::PlayerReimu>::baseAddr))
 	IMPL_PLAYER_VIRTUALS(PlayerMarisa, ((void** const)_vtable_info<v2::PlayerMarisa>::baseAddr))

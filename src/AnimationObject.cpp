@@ -47,7 +47,7 @@ namespace SokuLib {
 namespace v2 {
 	AnimationObject::~AnimationObject() { if (unknown154) delete unknown154; unknown154 = 0; }
 
-	bool AnimationObject::advanceFrame() { return (this->*union_cast<bool (__thiscall AnimationObject::*)()>(0x438c60))(); }
+	bool AnimationObject::advanceFrame() { return (this->*union_cast<bool (AnimationObject::*)()>(0x438c60))(); }
 
 	IMPL_EFFECTOBJECT_VIRTUALS(EffectObject, ((void** const)SokuLib::ADDR_VTBL_FX_EFFECT))
 	IMPL_EFFECTOBJECT_VIRTUALS(InfoEffectObject, ((void** const)SokuLib::ADDR_VTBL_FX_INFOFX))
