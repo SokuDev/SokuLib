@@ -105,7 +105,7 @@ namespace v2 {
 
 	Player::~Player() {
 		for (int i = commonTextures.size(); i < textures->size(); ++i) SokuLib::textureMgr.remove(textures->at(i));
-		for (int i : unknown72C) SokuLib::textureMgr.remove(i);
+		for (int i : spellBgTextures) SokuLib::textureMgr.remove(i);
 		if (portraitTexId) SokuLib::textureMgr.remove(portraitTexId);
 		for (int i = 0; i < 256; ++i) SokuLib::textureMgr.removeSound(gameData.soundTable[i]);
 		SokuLib::Delete(gameData.soundTable);
