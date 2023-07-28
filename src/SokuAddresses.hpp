@@ -155,6 +155,8 @@ namespace SokuLib
 		ADDR_TIME_ELAPSED                           = 0x008985D8,
 		ADDR_GAME_DATA_MANAGER                      = 0x008985DC,
 		ADDR_BATTLE_MANAGER                         = 0x008985E4,
+		ADDR_INFO_MANAGER                           = 0x008985E8,
+		ADDR_WEATHER_MANAGER                        = 0x008985EC,
 		ADDR_CAMERA_OBJ                             = 0x00898600,
 		ADDR_SUB_MODE                               = 0x00898688,
 		ADDR_COMM_MODE                              = 0x00898690,
