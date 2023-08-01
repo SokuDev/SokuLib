@@ -6,6 +6,7 @@
 #define SOKULIB_CHARACTERMANAGER_HPP
 
 
+#include "Weather.hpp"
 #include "Cards.hpp"
 #include "LinkedList.hpp"
 #include "Action.hpp"
@@ -217,13 +218,13 @@ namespace SokuLib
 		ObjectManager objectBase;
 
 		// 0x348
-		char offset_0x348[0x2];
+		char offset_0x348[0x4];
 
-		// 0x34A
+		// 0x34C
 		unsigned char characterIndex;
 
-		// 0x34B
-		unsigned char offset_0x34B[3];
+		// 0x34D
+		unsigned char offset_0x34D[1];
 
 		// 0x34E
 		unsigned char playerIndex;
@@ -312,7 +313,10 @@ namespace SokuLib
 		unsigned short healingCharmTimeLeft;
 
 		// 0x52A
-		char offset_0x52A[0x6];
+		char offset_0x52A[0x2];
+
+		// 0x52C
+		SokuLib::Weather effectiveWeather;
 
 		//  ADDR_ATTACKPOWEROFS     float             (4) 0x530
 		float attackPower;
