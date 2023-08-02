@@ -94,6 +94,23 @@ namespace DrawUtils
 	{
 	}
 
+	Texture::Texture(Texture &&o)
+	{
+		this->swap(o);
+	}
+
+	Texture &Texture::operator=(Texture &o)
+	{
+		this->swap(o);
+		return *this;
+	}
+
+	Texture &Texture::operator=(Texture &&o)
+	{
+		this->swap(o);
+		return *this;
+	}
+
 	Texture::~Texture() noexcept
 	{
 		this->destroy();
@@ -124,11 +141,14 @@ namespace DrawUtils
 	{
 		int handle = this->_handle;
 		bool loaded = this->_loaded;
+		Vector2u size = this->_size;
 
 		this->_handle = other._handle;
 		this->_loaded = other._loaded;
+		this->_size = other._size;
 		other._handle = handle;
 		other._loaded = loaded;
+		other._size = size;
 	}
 
 	void Texture::destroy()

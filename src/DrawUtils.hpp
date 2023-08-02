@@ -76,9 +76,9 @@ namespace DrawUtils
 		Texture() noexcept = default;
 		Texture(int handle, const Vector2u &size) noexcept;
 		Texture(Texture &) = delete;
-		Texture(Texture &&) = delete;
-		Texture &operator=(Texture &) = delete;
-		Texture &operator=(Texture &&) = delete;
+		Texture(Texture &&);
+		Texture &operator=(Texture &);
+		Texture &operator=(Texture &&);
 		~Texture() noexcept;
 
 		bool hasTexture() const noexcept;
