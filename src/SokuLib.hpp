@@ -22,6 +22,7 @@
 #include "Exceptions.hpp"
 #include "Font.hpp"
 #include "FrameData.hpp"
+#include "GameData.hpp"
 #include "GameObject.hpp"
 #include "HandleManager.hpp"
 #include "Hash.hpp"

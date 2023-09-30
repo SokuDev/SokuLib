@@ -46,6 +46,7 @@ namespace v2 {
 			unsigned short poseDuration;
 			char unknown14E[2]; // align 0x2?
 		} frameState;
+		// offset 0x150
 		v2::FrameData* frameData;
 		IColor* unknown154 = 0;
 
@@ -80,25 +81,47 @@ namespace v2 {
 		// align 0x3
 
 		// adds a virtual
-		virtual bool initSequence() = 0;
+		virtual bool initializeAction() = 0;
 	};
+
+#define DECL_EFFECTOBJECT_VIRTUALS() \
+	virtual void setActionSequence(short, short) override; \
+	virtual bool setAction(short) override; \
+	virtual void setSequence(short) override; \
+	virtual void resetSequence() override; \
+	virtual bool nextSequence() override; \
+	virtual void prevSequence() override; \
+	virtual void setPose(short) override; \
+	virtual bool nextPose() override; \
+	virtual void prevPose() override; \
+	virtual void update() override; \
+	virtual void render() override; \
+	virtual void render2() override; \
+	virtual void applyTransform() override; \
+	virtual void onRenderEnd() override; \
+	virtual bool initializeAction() override;
 
 	class EffectObject : public EffectObjectBase {
 	public:
 		char unknown170[0x8];
+		DECL_EFFECTOBJECT_VIRTUALS()
 	};
 
 	class InfoEffectObject : public EffectObjectBase {
 	public:
 		char unknown170[0x8];
+		DECL_EFFECTOBJECT_VIRTUALS()
 	};
 
 	class SelectEffectObject : public EffectObjectBase {
+	public:
+		DECL_EFFECTOBJECT_VIRTUALS()
 	};
 
 	class WeatherEffectObject : public EffectObjectBase {
 	public:
 		char unknown170[0x10];
+		DECL_EFFECTOBJECT_VIRTUALS()
 	};
 }
 }
