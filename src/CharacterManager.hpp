@@ -226,13 +226,13 @@ namespace SokuLib
 		unsigned char offset_0x34B[3];
 
 		// 0x34E
-		unsigned char playerIndex;
+		char offset_0x34E;
 
 		// 0x34F
 		char offset_0x34F;
 
 		// 0x350
-		bool isRightPlayer;
+		char playerIndex;
 
 		// 0x351
 		char offset_0x351[0x14A];
@@ -336,7 +336,16 @@ namespace SokuLib
 		char score;
 
 		// 0x574
-		char offset_0x574[8];
+		bool roundLost;
+
+		// 0x575
+		char offset_0x575[2];
+
+		// 0x577
+		bool kdAnimationFinished;
+
+		// 0x578
+		char offset_0x578[4];
 
 		// 0x57C
 		DeckInfo deckInfo;
@@ -375,7 +384,13 @@ namespace SokuLib
 		ObjListManager &objects;
 
 		// 0x6FC
-		char offset_0x6FC[0x54];
+		char offset_0x6FC[0x48];
+
+		// 0x744
+		Vector2f additionalSpeed;
+
+		// 0x74C
+		char offset_0x74C[0x4];
 
 		//  ADDR_KEYMGROFS          KeyManager &      (4) 0x750
 		KeyManager *keyManager;
@@ -383,8 +398,8 @@ namespace SokuLib
 		// 0x754
 		KeyInput keyMap;
 
-		// 0x774
-		char offset_0x774[0x54];
+		// 0x77C
+		char offset_0x77C[0x4C];
 
 		// CF_PRESSED_COMBINATION 0x7C8 // KeyCombination
 		KeyCombination keyCombination;

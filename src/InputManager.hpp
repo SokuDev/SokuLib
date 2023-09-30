@@ -17,12 +17,14 @@ namespace SokuLib
 		int d;
 		int changeCard;
 		int spellcard;
+		int pause;
+		int select;
 	};
 
 	//KEYMAPMGR
 	//CInputManagerCluster
 	struct KeymapManager {
-		char unknown[0x4];
+		void *vtable;
 		// isPlayer is -1 when using keyboard, 0 when using first gamepad, 1 when using second gamepad.
 		char isPlayer;
 
@@ -39,11 +41,12 @@ namespace SokuLib
 		int bindingChangeCard;
 		int bindingSpellCard;
 		int bindingPause;
+		int bindingSelect;
 
-		char unknown2[0x4];
 		//  ADDR_KEYMAPOFS          int[8] (32) 0x38
 		KeyInput input;
-		int pause;
+		// The class for sure is bigger but no idea how much.
+		char unknown[90];
 	};
 
 	//KEYMGR
