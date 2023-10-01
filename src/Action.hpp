@@ -7,6 +7,7 @@
 
 namespace SokuLib
 {
+    //! @brief Represents all actions a character can do.
 	enum Action : unsigned short {
 		/*   0 */ ACTION_IDLE,
 		/*   1 */ ACTION_CROUCHING,

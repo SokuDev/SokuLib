@@ -8,6 +8,7 @@
 
 namespace SokuLib
 {
+    //! @brief enum of all possible weathers in battle.
 	enum Weather {
 		WEATHER_SUNNY,
 		WEATHER_DRIZZLE,
@@ -33,8 +34,8 @@ namespace SokuLib
 		WEATHER_CLEAR,
 	};
 
-	extern Weather &activeWeather;
-	extern Weather &displayedWeather;
+	extern Weather &activeWeather; // Note: Aurora is not an active weather.
+	extern Weather &displayedWeather; // Note: Aurora is a displayed weather.
 	extern unsigned short &weatherCounter;
 }
 

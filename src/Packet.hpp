@@ -24,7 +24,7 @@ namespace SokuLib
 		//Base game opcodes
 		HELLO = 0x01,
 		PUNCH,
-		OLLEH,
+		OLLEH, // Answer packet to the "HELLO" packet.
 		CHAIN,
 		INIT_REQUEST,
 		INIT_SUCCESS,
@@ -102,6 +102,7 @@ namespace SokuLib
 
 	typedef struct sockaddr_in SockAddrIn;
 
+    //! @brief The first packet sent to establish a connection with a peer.
 	struct PacketHello {
 		PacketType type;
 		SockAddrIn peer;
@@ -256,6 +257,7 @@ namespace SokuLib
 		}
 	};
 
+    //! @brief All the information needed to start a match.
 	struct GameMatchEvent {
 		GameType type;
 		PlayerMatchData host;

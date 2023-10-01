@@ -13,6 +13,7 @@
 
 namespace SokuLib
 {
+    //! @brief Mode of the battle you are currently in.
 	enum BattleMode : unsigned char {
 		BATTLE_MODE_STORY,
 		BATTLE_MODE_ARCADE,
@@ -25,6 +26,7 @@ namespace SokuLib
 		BATTLE_MODE_PRACTICE
 	};
 
+    //! @brief Represents which character you are controlling, or if you are in replay.
 	enum BattleSubMode : unsigned char {
 		BATTLE_SUBMODE_PLAYING1,
 		BATTLE_SUBMODE_PLAYING2,

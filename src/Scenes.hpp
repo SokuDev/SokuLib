@@ -84,6 +84,7 @@ namespace SokuLib
 		int paletteUnused;
 	};
 
+    //! @brief Cursor to navigate in the menus.
 	struct SelectCursor {
 		int alwaysZero;
 		int alwaysTwenty;

@@ -10,6 +10,7 @@
 
 namespace SokuLib
 {
+    //! @brief The camera used during battle.
 	struct Camera {
 		char offset_0x00[0xC];
 		Vector2f translate;

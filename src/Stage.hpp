@@ -14,6 +14,7 @@ namespace SokuLib
 {
 	extern std::vector<std::string> stagesName;
 
+    //! @brief List of all the selectable stages.
 	enum Stage : unsigned char {
 		STAGE_HAKUREI_SHRINE_BROKEN,
 		STAGE_FOREST_OF_MAGIC,

@@ -10,6 +10,7 @@
 
 namespace SokuLib
 {
+    //! @brief enum of all menus.
 	enum Menu {
 		MENU_NONE,
 		MENU_CONNECT,

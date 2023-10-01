@@ -13,6 +13,7 @@
 
 namespace SokuLib
 {
+    //! @brief The information used to connect to an opponent in VS Network.
 	struct NetworkBase {
 		char unknown[0x3C];
 		// �T�[�o�A�h���X
@@ -24,6 +25,7 @@ namespace SokuLib
 		std::vector<struct ClientInfo> g_psvClients;
 	};
 
+    //! @brief The information exchanged during character select.
 	struct NetObject {
 		char unknown[4];
 		char profile1name[32];

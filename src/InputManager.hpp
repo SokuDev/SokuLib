@@ -8,6 +8,8 @@
 
 namespace SokuLib
 {
+    //! @brief Contains the time for which all buttons were pressed. 0 means not pressed.
+    //! horizontalAxis and verticalAxis can be negative to represent the opposite direction.
 	struct KeyInput {
 		int horizontalAxis;
 		int verticalAxis;
@@ -21,6 +23,7 @@ namespace SokuLib
 
 	//KEYMAPMGR
 	//CInputManagerCluster
+    //! @brief Manages the bindings between the hardware input and the game input.
 	struct KeymapManager {
 		char unknown[0x4];
 		char isPlayer;

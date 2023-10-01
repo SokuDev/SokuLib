@@ -32,6 +32,7 @@ namespace SokuLib
 		int (T::*onRender)();
 	};
 
+    //! @brief vtable for all scenes during a battle.
 	struct BattleManager_VTABLE {
 		BattleManager *(BattleManager::*destructor)(char unknown);
 		void (BattleManager::*onArenaStart)(void *param);

@@ -13,7 +13,8 @@
 
 namespace SokuLib
 {
-	struct BattleManager {
+    //! @brief Represents the state of the battle between characters, but not the state of the battle scene itself.
+ 	struct BattleManager {
 		// 0x000
 		char unknown[0xC];
 		// 0x00C
@@ -26,7 +27,7 @@ namespace SokuLib
 		char currentRound;
 	};
 
-	//! @brief Changes the current battle mode
+    //! @brief Changes the current battle mode
 	extern void (__cdecl * const setBattleMode)(BattleMode comm, BattleSubMode sub);
 	BattleManager &getBattleMgr();
 }

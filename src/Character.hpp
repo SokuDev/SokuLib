@@ -15,6 +15,7 @@
 
 namespace SokuLib
 {
+    //! @brief Enum of all playable characters.
 	enum Character : unsigned int {
 		CHARACTER_REIMU,
 		CHARACTER_MARISA,
@@ -56,6 +57,7 @@ namespace SokuLib
 		CHARACTER_SATORI
 	};
 
+    //! @brief Contains all the information of a character available at character select.
 	struct PlayerInfo {
 		Character character;
 		unsigned char isRight;

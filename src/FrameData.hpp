@@ -9,6 +9,7 @@
 
 namespace SokuLib
 {
+    //! @brief Represents all attack properties bound to a hitbox.
 	union AttackFlags {
 		struct {
 			/* 00 00 00 01 */ bool unk1: 1;
@@ -40,6 +41,7 @@ namespace SokuLib
 		unsigned int value;
 	};
 
+    //! @brief Represents all properties bound to a character.
 	union FrameFlags {
 		struct {
 			/* 00 00 00 01 */ bool stand: 1;
@@ -72,6 +74,7 @@ namespace SokuLib
 	};
 
 #pragma pack(push, 1)
+    //! @brief Holds all the information tied to an Action.
 	struct FrameData {
 		// 0x00
 		void *VTable;
@@ -128,6 +131,7 @@ namespace SokuLib
 	};
 #pragma pack(pop)
 
+    //! @brief Reads the data contained by a FrameData.
 	struct FrameDataReader {
 		// 0x00
 		void *VTable;
