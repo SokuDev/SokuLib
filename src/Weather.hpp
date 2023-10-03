@@ -8,6 +8,8 @@
 
 namespace SokuLib
 {
+	//! @brief All weathers that can occur in a battle.
+	//! Note: Twilight normally only occurs in story mode.
 	enum Weather {
 		/* 0  (0x00) */ WEATHER_SUNNY,
 		/* 1  (0x01) */ WEATHER_DRIZZLE,
@@ -33,8 +35,8 @@ namespace SokuLib
 		/* 21 (0x15) */ WEATHER_CLEAR,
 	};
 
-	extern Weather &activeWeather;
-	extern Weather &displayedWeather;
+	extern Weather &activeWeather; // Note: Aurora is not an active weather.
+	extern Weather &displayedWeather; // Note: Aurora is a displayed weather.
 	extern unsigned short &weatherCounter;
 	extern void (__stdcall * const activateWeather)(int weather, char unknown);
 }

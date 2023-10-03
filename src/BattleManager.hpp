@@ -13,6 +13,8 @@
 
 namespace SokuLib
 {
+	//! @brief Represents the state of the battle between characters, but
+	//! not the state of the battle scene itself.
 	struct BattleManager {
 		struct BattleManager_VTABLE *vtable;
 		// 0x004

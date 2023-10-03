@@ -7,6 +7,7 @@
 
 namespace SokuLib
 {
+	//! @brief Data used to play the BGM.
 	class BgmData {
 	public:
 		IFileReader* reader;
@@ -54,6 +55,7 @@ namespace SokuLib
 		int bufferSize;
 	};
 
+	//! @brief Represents the current state of the BGM.
 	class BgmBuffer {
 	public:
 		String filename;

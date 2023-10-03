@@ -16,6 +16,7 @@
 namespace SokuLib
 {
 	#pragma pack(push, 1)
+	//! @brief All the game scenes.
 	enum Scene {
 		SCENE_LOGO,
 		SCENE_OPENING,
@@ -142,6 +143,7 @@ namespace SokuLib
 		int paletteUnused;
 	};
 
+	//! @brief The cursor used to navigate in the menus.
 	struct SelectCursor {
 		int alwaysZero;
 		int alwaysTwenty;

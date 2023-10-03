@@ -15,6 +15,7 @@
 
 namespace SokuLib
 {
+	//! @brief All playable characters.
 	enum Character : unsigned int {
 		/* 0  */ CHARACTER_REIMU,
 		/* 1  */ CHARACTER_MARISA,
@@ -57,6 +58,7 @@ namespace SokuLib
 		/* 34 */ CHARACTER_RAN
 	};
 
+	//! @brief Contains all the player information required to load by the loading thread after the character select.
 	struct PlayerInfo {
 		Character character;
 		unsigned char isRight;
@@ -67,6 +69,7 @@ namespace SokuLib
 		KeyManager *keyManager;
 	};
 
+	//! @brief Contains all the information required to load by the loading thread after the character select.
 	struct GameStartParams {
 		char offset_0x00[4];
 		unsigned char stageId;

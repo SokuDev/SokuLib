@@ -10,6 +10,7 @@
 
 namespace SokuLib
 {
+	//! @brief The camera object used during battle.
 	struct Camera {
 		char offset_0x00[0x4];
 		// 0x04

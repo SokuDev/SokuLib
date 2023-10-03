@@ -49,6 +49,9 @@ namespace SokuLib
 	};
 
 	struct CharacterManager;
+
+	//! @brief An Object is any entity that exists within a battle: characters, bullets, visual effects, etc.
+	//! It also corresponds to v2::AnimationObject in SokuLib.
 	struct ObjectManager {
 		// 0x000
 		void *vtable;
@@ -189,12 +192,16 @@ namespace SokuLib
 		void doAnimation();
 	};
 
+	//! @brief Linked list of entities, here, specifically tied to a character subobject. An entity may hold such a
+	//! list for projectiles and visual effects. They are templated CObjectList<character, characterObject>
+	//! (i.e CObjectList<Remilia, RemiliaObject>)
 	struct ObjListManager {
 		char offset_0x00[0x58];
 		//  ADDR_OBJPROJOFS = 0x58
 		LinkedList<ObjectManager> list;
 	};
 
+	//! @brief Object for projectiles.
 	struct ProjectileManager {
 		// 0x000
 		ObjectManager objectBase;
@@ -213,6 +220,7 @@ namespace SokuLib
 	};
 
 	//CHARACTERMGR
+	//! @brief Object for characters.
 	struct CharacterManager {
 		// 0x000
 		ObjectManager objectBase;

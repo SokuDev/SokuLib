@@ -24,6 +24,7 @@ namespace SokuLib
 		std::vector<struct ClientInfo> g_psvClients;
 	};
 
+	//! @brief The NetObject handles all the packets and network-related operations.
 	struct NetObject {
 		char unknown[4];
 		char profile1name[32];

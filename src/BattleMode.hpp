@@ -13,6 +13,7 @@
 
 namespace SokuLib
 {
+	//! @brief Mode of the battle the player is currently in.
 	enum BattleMode : unsigned char {
 		BATTLE_MODE_STORY,
 		BATTLE_MODE_ARCADE,
@@ -25,6 +26,7 @@ namespace SokuLib
 		BATTLE_MODE_PRACTICE
 	};
 
+	//! @brief The submode represents the playing state.
 	enum BattleSubMode : unsigned char {
 		BATTLE_SUBMODE_PLAYING1,
 		BATTLE_SUBMODE_PLAYING2,

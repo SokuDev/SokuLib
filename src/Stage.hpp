@@ -14,6 +14,7 @@ namespace SokuLib
 {
 	extern std::vector<std::string> stagesName;
 
+	//! @brief All the selectable stages.
 	enum Stage : unsigned char {
 		STAGE_HAKUREI_SHRINE_BROKEN,
 		STAGE_FOREST_OF_MAGIC,
@@ -42,7 +43,7 @@ namespace SokuLib
 	};
 
 	//! @brief Takes the raw stage id and restrict it in the range [0-19]
-	//! @param The stage id to convert
+	//! @param id The stage id to convert
 	//! @return The stage index between 0 and 19 (bounds included)
 	unsigned char flattenStageId(Stage id);
 
