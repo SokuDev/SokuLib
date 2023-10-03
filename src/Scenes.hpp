@@ -59,7 +59,7 @@ namespace SokuLib
 	struct InputHandler {
 		int maxValue;
 		int offset_0x04;
-		KeyInput *keys;
+		int *axis;
 		int pos;
 		int posCopy;
 	};
