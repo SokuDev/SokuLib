@@ -11,6 +11,7 @@
 
 namespace SokuLib {
 namespace v2 {
+	//! @brief Holds all the information tied to a player during battle.
 	class Player : public GameObjectBase {
 	public:
 		// offset 0x34C

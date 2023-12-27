@@ -11,6 +11,7 @@
 
 namespace SokuLib
 {
+	//! @brief Represents all attack properties bound to a hitbox.
 	union AttackFlags {
 		struct {
 			/* 00 00 00 01 */ bool unk1: 1;
@@ -42,6 +43,7 @@ namespace SokuLib
 		unsigned int value;
 	};
 
+	//! @brief Represents all properties bound to a character.
 	union FrameFlags {
 		struct {
 			/* 00 00 00 01 */ bool stand: 1;
@@ -74,6 +76,7 @@ namespace SokuLib
 	};
 
 #pragma pack(push, 1)
+	//! @brief Holds all the information tied to an Action.
 	struct FrameData {
 		// 0x00
 		void *VTable;
@@ -130,6 +133,7 @@ namespace SokuLib
 	};
 #pragma pack(pop)
 
+	//! @brief Reads the data contained by a Framedata.
 	struct FrameDataReader {
 		// 0x00
 		void *VTable;
@@ -166,6 +170,7 @@ namespace SokuLib
 			float rotateX, rotateY, rotateZ;
 		};
 
+		//! @brief Holds all the rendering information tied to an Action.
 		class FrameData {
 		public:
 			enum RenderGroup : unsigned char { SPRITE = 0, TEXTURE = 1, WITHBLEND = 2 };
@@ -183,6 +188,7 @@ namespace SokuLib
 			virtual ~FrameData();
 		}; // 0x1C
 
+		//! @brief Holds the framedata held by a character.
 		class CharacterFrameData : public FrameData {
 		public:
 			// 0x1C
@@ -225,6 +231,7 @@ namespace SokuLib
 			virtual ~SequenceData() = default;
 		};
 
+		//! @brief Represents the sequence that the character is in when performing an Action.
 		class CharacterSequenceData {
 		public:
 			Vector<CharacterFrameData> frames;

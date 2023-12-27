@@ -5,7 +5,7 @@
 #ifndef SWRSTOYS_KEYCOMBINATION_HPP
 #define SWRSTOYS_KEYCOMBINATION_HPP
 
-
+//! @brief Key combinations for all motion inputs.
 struct KeyCombination {
 	/* 0x1        */ bool _236a : 1;
 	/* 0x2        */ bool _236b : 1;

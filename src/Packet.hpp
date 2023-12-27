@@ -16,6 +16,9 @@
 
 namespace SokuLib
 {
+	// For a general understanding of Soku's network protocol, read this:
+	// https://github.com/delthas/touhou-protocol-docs/blob/master/protocol_123.md
+
 	extern uint8_t Soku110acRollSWRAllChars[16];
 	extern uint8_t Soku110acNoRollSWRAllChars[16];
 	extern uint8_t Soku110acNoSWRAllChars[16];

@@ -9,7 +9,10 @@
 #include "Player.hpp"
 
 namespace SokuLib {
+
+// The v2 namespace is a namespace created to prevent any breaking change for previously made mods.
 namespace v2 {
+	//! @brief Manages all the dynamically allocated player data, events and threads.
 	struct GameDataManager {
 		// 0x00
 		List<std::pair<int, PlayerInfo*>> createQueue;
@@ -34,6 +37,7 @@ namespace v2 {
 		static GameDataManager*& instance;
 	}; // 0x58
 
+	//! @brief Manages all the data that is to be saved, so they can be retrieved when restarting the game.
 	struct SaveDataManager {
 		// 0x00
 		int unknown00;

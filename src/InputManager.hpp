@@ -8,6 +8,8 @@
 
 namespace SokuLib
 {
+	//! @brief Contains the time for which all buttons were pressed. 0 means "not pressed".
+	//! horizontalAxis and verticalAxis can be negative to represent the opposite direction.
 	struct KeyInput {
 		int horizontalAxis;
 		int verticalAxis;
@@ -18,7 +20,8 @@ namespace SokuLib
 		int changeCard;
 		int spellcard;
 	};
-	
+
+	//! @brief Represents which buttons were pressed keys used during character select.
 	struct CharacterSelectKeys {
 		bool up: 1;
 		bool down: 1;
@@ -33,6 +36,7 @@ namespace SokuLib
 		unsigned char padding: 6;
 	};
 
+	//! @brief Represents which buttons were pressed keys used during battle.
 	struct BattleKeys {
 		bool up: 1;
 		bool down: 1;
@@ -51,6 +55,7 @@ namespace SokuLib
 
 	//KEYMAPMGR
 	//CInputManagerCluster
+	//! @brief Manages the bindings between the hardware input and the game input.
 	struct KeymapManager {
 		void *unknown;
 		// isPlayer is -1 when using keyboard, 0 when using first gamepad, 1 when using second gamepad.

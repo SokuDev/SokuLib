@@ -28,6 +28,7 @@ namespace SokuLib
 		float v;
 	};
 
+	//! @brief Data of the bitmap image that is loaded into the game.
 	class BitmapData {
 	public:
 		unsigned char bitsPerPixel = 0;
@@ -59,6 +60,7 @@ namespace SokuLib
 		virtual ~SpriteBase() = default;
 	};
 
+	//! @brief The sprite of any drawn object on screen.
 	class Sprite : public SpriteBase {
 	public:
 		Vector2f pos;
@@ -118,6 +120,7 @@ namespace SokuLib
 		void renderGray(int texId, float x, float y, float w, float h);
 	};
 
+	//! @brief The palette data currently used for rendering a character.
 	class Palette {
 	public:
 		unsigned char bitsPerPixel;

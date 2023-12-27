@@ -11,6 +11,7 @@
 
 namespace SokuLib
 {
+	//! @brief All menus in the game.
 	enum Menu {
 		MENU_NONE,
 		MENU_CONNECT,
