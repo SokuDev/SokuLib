@@ -35,6 +35,7 @@ namespace SokuLib
 
 	extern Weather &activeWeather;
 	extern Weather &displayedWeather;
+	extern Weather &displayedWeatherOrb;
 	extern unsigned short &weatherCounter;
 	extern void (__stdcall * const activateWeather)(int weather, char unknown);
 }

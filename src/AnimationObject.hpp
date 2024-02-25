@@ -109,7 +109,8 @@ namespace v2 {
 
 	class InfoEffectObject : public EffectObjectBase {
 	public:
-		char unknown170[0x8];
+		char unknown170[0x4];
+		float unknown174;
 		DECL_EFFECTOBJECT_VIRTUALS()
 	};
 

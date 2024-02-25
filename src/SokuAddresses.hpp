@@ -152,6 +152,7 @@ namespace SokuLib
 		ADDR_PRACTICE_SETTINGS_STRUCT               = 0x008971C8,
 		ADDR_WEATHER_COUNTER                        = 0x008971CC,
 		ADDR_LOADED_STAGE_ID                        = 0x008971CE,
+		ADDR_DISPLAYED_WEATHER_ORB                  = 0x008971D0,
 		ADDR_TIME_ELAPSED                           = 0x008985D8,
 		ADDR_GAME_DATA_MANAGER                      = 0x008985DC,
 		ADDR_BATTLE_MANAGER                         = 0x008985E4,
