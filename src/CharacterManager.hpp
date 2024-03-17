@@ -334,7 +334,31 @@ namespace SokuLib
 		unsigned short grimoires;
 
 		// 0x562
-		char offset_0x562[0x11];
+		unsigned short offset_0x562;
+
+		// 0x564
+		Vector2f speedMultiplier;
+
+		// 0x56C
+		bool canGrazeMelees;
+
+		// 0x56D
+		bool crushOnWB;
+
+		// 0x56E
+		bool forceSkillsMax;
+
+		// 0x56F
+		bool offset_0x56F;
+
+		// 0x570
+		bool offset_0x570;
+
+		// 0x571
+		bool lockedInStageX;
+
+		// 0x572
+		bool lockedInStageY;
 
 		// 0x573
 		char score;
