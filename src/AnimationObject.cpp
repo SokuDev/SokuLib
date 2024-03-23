@@ -45,9 +45,24 @@ namespace SokuLib {
 	const int _vtable_info<v2::WeatherEffectObject>::baseAddr   = ADDR_VTBL_FX_WEATHER;
 
 namespace v2 {
-	AnimationObject::~AnimationObject() { if (unknown154) delete unknown154; unknown154 = 0; }
+	AnimationObject::~AnimationObject() { if (unknown154) SokuLib::Delete(unknown154); unknown154 = 0; }
 
 	bool AnimationObject::advanceFrame() { return (this->*union_cast<bool (AnimationObject::*)()>(0x438c60))(); }
+
+	void *AnimationObject::operator new(size_t size)
+	{
+		return SokuLib::NewFct(size);
+	}
+
+	void *AnimationObject::operator new(size_t, std::align_val_t, void *p)
+	{
+		return p;
+	}
+
+	void AnimationObject::operator delete(void *p)
+	{
+		return SokuLib::DeleteFct(p);
+	}
 
 	IMPL_EFFECTOBJECT_VIRTUALS(EffectObject, ((void** const)SokuLib::ADDR_VTBL_FX_EFFECT))
 	IMPL_EFFECTOBJECT_VIRTUALS(InfoEffectObject, ((void** const)SokuLib::ADDR_VTBL_FX_INFOFX))

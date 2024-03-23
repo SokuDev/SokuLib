@@ -68,6 +68,10 @@ namespace v2 {
 		virtual void onRenderEnd() = 0;
 
 		bool advanceFrame(); // 0x438c60
+
+		void *operator new(size_t size, std::align_val_t align, void *p);
+		void *operator new(size_t size);
+		void operator delete(void *p);
 	};
 
 	class EffectObjectBase : public AnimationObject {
