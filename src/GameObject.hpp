@@ -133,6 +133,10 @@ namespace v2 {
 		GameObject* parentB = 0;
 		List<GameObject*> childrenB;
 
+		void *operator new(size_t size, std::align_val_t align, void *p);
+		void *operator new(size_t size);
+		void operator delete(void *p);
+
 		inline GameObject() { HP = MaxHP = 0; }
 		virtual ~GameObject();
 		virtual GameObject* createObject(Action actionId, float x, int y, Direction dir, char layer, void* customData, unsigned int customDataSize) = 0;

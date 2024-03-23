@@ -84,6 +84,21 @@ namespace v2 {
 			(actionId, paramA, paramB, paramC, paramD);
 	}
 
+	void *GameObject::operator new(size_t size, std::align_val_t align, void *p)
+	{
+		return p;
+	}
+
+	void *GameObject::operator new(size_t size)
+	{
+		return SokuLib::NewFct(size);
+	}
+
+	void GameObject::operator delete(void *p)
+	{
+		SokuLib::DeleteFct(p);
+	}
+
 	void TailObject::initialize(GameObjectBase* parent, FrameData* frameData, float paramA, int paramB, int paramC, int paramD) {
 		return (this->*union_cast<void (TailObject::*)(GameObjectBase*, FrameData*, float, int, int, int)>(0x433f90))
 			(parent, frameData, paramA, paramB, paramC, paramD);
