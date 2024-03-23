@@ -54,7 +54,7 @@ namespace SokuLib
 		void *vtable;
 
 		// 0x004
-		char offset_0x004[0xE8];
+		SokuLib::SpriteEx sprite;
 
 		//  ADDR_POINTXOFS          float             (4) 0x0EC
 		//  ADDR_POINTYOFS          float             (4) 0x0F0
@@ -70,8 +70,11 @@ namespace SokuLib
 		//  ADDR_DIRECTIONOFS       enum Direction    (1) 0x104
 		Direction direction;
 
-		// 0x105
-		char offset_0x105[0xB];
+		// 0x105 (alignment)
+		char offset_0x105[0x3];
+
+		// 0x108
+		SokuLib::Vector2f center;
 
 		// 0x110
 		RenderInfo renderInfos;
@@ -236,10 +239,13 @@ namespace SokuLib
 		bool isRightPlayer;
 
 		// 0x351
-		char offset_0x351[0x14A];
+		char offset_0x351[0x149];
+
+		//  ADDR_AIRDASHCOUNTOFS    unsigned char     (1) 0x49A
+		unsigned char groundDashCount;
 
 		//  ADDR_AIRDASHCOUNTOFS    unsigned char     (1) 0x49B
-		unsigned char airdashCount;
+		unsigned char airDashCount;
 
 		char offset_0x49C[2];
 
