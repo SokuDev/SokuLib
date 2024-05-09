@@ -6,6 +6,8 @@
 #define SOKULIB_MEMORY_HPP
 
 
+#include <type_traits>
+
 namespace SokuLib
 {
 	extern void *(* const NewFct)(size_t size);
@@ -36,8 +38,8 @@ namespace SokuLib
 		Allocator () = default;
 		template <typename U> constexpr Allocator (const Allocator <U>&) noexcept {}
 		template <typename U> struct rebind { typedef Allocator<U> other; };
-		T* allocate(std::size_t size) { return (T*)SokuLib::NewFct(size*sizeof(T)); }
-		void deallocate(T* value, std::size_t size) { SokuLib::DeleteFct(value); }
+		T* allocate(size_t size) { return (T*)SokuLib::NewFct(size*sizeof(T)); }
+		void deallocate(T* value, size_t size) { SokuLib::DeleteFct(value); }
 	};
 }
 

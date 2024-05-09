@@ -19,6 +19,14 @@ namespace SokuLib
 		int counter;
 		int size;
 
+		Dequeue() :
+			unknown1(0),
+			data(nullptr),
+			chunkSize(0),
+			counter(0),
+			size(0)
+		{}
+
 		//Assumes ChunkSize == 8
 		//PeekCard
 		T &at(int id) {

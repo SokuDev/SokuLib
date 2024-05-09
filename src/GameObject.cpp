@@ -59,44 +59,41 @@ namespace v2 {
 	void GameObjectBase::resetForces() { return (this->*union_cast<void (GameObjectBase::*)()>(0x4636b0))(); }
 	float GameObjectBase::getGroundHeight() const { return (this->*union_cast<float (GameObjectBase::*)() const>(0x4397f0))(); }
 	int GameObjectBase::isOnGround() const { return (this->*union_cast<int (GameObjectBase::*)() const>(0x439850))(); }
-	GameObjectBase* GameObjectBase::createEffect(int action, float x, float y, Direction dir, char layer)
-		{ return (this->*union_cast<GameObjectBase* (GameObjectBase::*)(int, float, float, Direction, char)>(0x438ce0))(action, x, y, dir, layer); }
+	GameObjectBase* GameObjectBase::createEffect(int action, float x, float y, int dir, char layer) { return (this->*union_cast<GameObjectBase* (GameObjectBase::*)(int, float, float, int, char)>(0x438ce0))(action, x, y, dir, layer); }
 
-	GameObject::~GameObject() {
-		if (parentB) _erase(parentB->childrenB, this);
-		for (auto it : childrenB) it->parentB = 0;
-
-		if (customData) {
-			SokuLib::DeleteFct(customData);
-			customData = 0;
-		}
-
-		if (tail) {
-			// unknown object destructor
-			reinterpret_cast<void (__fastcall*)(void*)>(0x433c60)(tail);
-			SokuLib::DeleteFct(tail);
-			tail = 0;
-		}
-	}
+	void GameObjectBase::setActionSequence(short action, short sequence) { return (this->*union_cast<void (GameObjectBase::*)(short, short)>(0x464950))(action, sequence); }
+	bool GameObjectBase::setAction(short action) { return (this->*union_cast<bool (GameObjectBase::*)(short)>(0x464930))(action); }
+	void GameObjectBase::setSequence(short sequence) { return (this->*union_cast<void (GameObjectBase::*)(short)>(0x4652A0))(sequence); }
+	void GameObjectBase::resetSequence() { return (this->*union_cast<void (GameObjectBase::*)()>(0x465370))(); }
+	bool GameObjectBase::nextSequence() { return (this->*union_cast<bool (GameObjectBase::*)()>(0x464BF0))(); }
+	void GameObjectBase::prevSequence() { return (this->*union_cast<void (GameObjectBase::*)()>(0x464C800))(); }
+	void GameObjectBase::setPose(short pose) { return (this->*union_cast<void (GameObjectBase::*)(short)>(0x464B50))(pose); }
+	bool GameObjectBase::nextPose() { return (this->*union_cast<bool (GameObjectBase::*)()>(0x464B70))(); }
+	void GameObjectBase::prevPose() { return (this->*union_cast<void (GameObjectBase::*)()>(0x464BC0))(); }
+	void GameObjectBase::updatePhysics() {}
 
 	void GameObject::setTail(Action actionId, float paramA, int paramB, int paramC, int paramD) {
 		return (this->*union_cast<void (GameObject::*)(Action, float, int, int, int)>(0x4b0f50))
 			(actionId, paramA, paramB, paramC, paramD);
 	}
 
-	void *GameObject::operator new(size_t size, std::align_val_t align, void *p)
-	{
-		return p;
-	}
+	GameObject::~GameObject() {
+		if (this->parentB)
+			_erase(this->parentB->childrenB, this);
+		for (auto it : this->childrenB)
+			it->parentB = nullptr;
 
-	void *GameObject::operator new(size_t size)
-	{
-		return SokuLib::NewFct(size);
-	}
+		if (this->customData) {
+			SokuLib::DeleteFct(this->customData);
+			this->customData = nullptr;
+		}
 
-	void GameObject::operator delete(void *p)
-	{
-		SokuLib::DeleteFct(p);
+		if (this->tail) {
+			// unknown object destructor
+			reinterpret_cast<void (__fastcall*)(void*)>(0x433c60)(this->tail);
+			SokuLib::DeleteFct(this->tail);
+			this->tail = nullptr;
+		}
 	}
 
 	void TailObject::initialize(GameObjectBase* parent, FrameData* frameData, float paramA, int paramB, int paramC, int paramD) {
@@ -141,10 +138,10 @@ namespace v2 {
 		{ return (this->*union_cast<bool(CLS::*)()>(VTB[15]))(); } \
 	void CLS::updatePhysics() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[16]))(); } \
-	SokuLib::v2::GameObject* CLS::createObject(SokuLib::Action a0, float a1, int a2, SokuLib::Direction a3, char a4, void* a5, unsigned int a6) \
-		{ return (this->*union_cast<SokuLib::v2::GameObject*(CLS::*)(SokuLib::Action, float, int, SokuLib::Direction, char, void*, unsigned int)>(VTB[17]))(a0, a1, a2, a3, a4, a5, a6); } \
-	SokuLib::v2::GameObject* CLS::createChild(SokuLib::Action a0, float a1, int a2, SokuLib::Direction a3, char a4, void* a5, unsigned int a6) \
-		{ return (this->*union_cast<SokuLib::v2::GameObject*(CLS::*)(SokuLib::Action, float, int, SokuLib::Direction, char, void*, unsigned int)>(VTB[18]))(a0, a1, a2, a3, a4, a5, a6); }
+	SokuLib::v2::GameObject* CLS::createObject(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) \
+		{ return (this->*union_cast<SokuLib::v2::GameObject*(CLS::*)(short, float, float, SokuLib::Direction, char, float*, unsigned int)>(VTB[17]))(actionId, x, y, dir, layer, customData, customDataSize); } \
+	SokuLib::v2::GameObject* CLS::createChild(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) \
+		{ return (this->*union_cast<SokuLib::v2::GameObject*(CLS::*)(short, float, float, SokuLib::Direction, char, float*, unsigned int)>(VTB[18]))(actionId, x, y, dir, layer, customData, customDataSize); }
 
 	IMPL_GAMEOBJECT_VIRTUALS(GameObjectReimu,     ((void** const)_vtable_info<GameObjectReimu>::baseAddr))
 	IMPL_GAMEOBJECT_VIRTUALS(GameObjectMarisa,    ((void** const)_vtable_info<GameObjectMarisa>::baseAddr))

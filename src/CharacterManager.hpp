@@ -13,7 +13,7 @@
 #include "InputManager.hpp"
 #include "FrameData.hpp"
 #include "Boxes.hpp"
-#include "KeyCombination.hpp"
+#include "InputCombination.hpp"
 #include "DrawUtils.hpp"
 
 #pragma pack(push,1)
@@ -421,7 +421,7 @@ namespace SokuLib
 		char offset_0x774[0x54];
 
 		// CF_PRESSED_COMBINATION 0x7C8 // KeyCombination
-		KeyCombination keyCombination;
+		CommandCombination keyCombination;
 
 		// 0x7CC
 		bool nameHidden;

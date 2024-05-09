@@ -16,6 +16,7 @@ PRAGMA_WARNING(These will be removed in later versions. Use at your own risks !)
 
 #include "SokuLib.hpp"
 
+#define KeyCombination CommandCombination
 #define SCENE_SELECTSENARIO SCENE_SELECTSCENARIO
 #define mVC9Dequeue Dequeue
 #define deckInfos deckInfo

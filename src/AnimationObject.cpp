@@ -48,21 +48,13 @@ namespace v2 {
 	AnimationObject::~AnimationObject() { if (unknown154) SokuLib::Delete(unknown154); unknown154 = 0; }
 
 	bool AnimationObject::advanceFrame() { return (this->*union_cast<bool (AnimationObject::*)()>(0x438c60))(); }
-
-	void *AnimationObject::operator new(size_t size)
-	{
-		return SokuLib::NewFct(size);
-	}
-
-	void *AnimationObject::operator new(size_t, std::align_val_t, void *p)
-	{
-		return p;
-	}
-
-	void AnimationObject::operator delete(void *p)
-	{
-		return SokuLib::DeleteFct(p);
-	}
+	void AnimationObject::setActionSequence(short action, short sequence) { return (this->*union_cast<void (AnimationObject::*)(short, short)>(0x438cc0))(action, sequence); }
+	bool AnimationObject::setAction(short action) { return (this->*union_cast<bool (AnimationObject::*)(short)>(0x438ca0))(action); }
+	void AnimationObject::render() { return (this->*union_cast<void (AnimationObject::*)()>(0x438d20))(); }
+	void AnimationObject::render2() { return (this->*union_cast<void (AnimationObject::*)()>(0x439190))(); }
+	void AnimationObject::applyTransform() { return (this->*union_cast<void (AnimationObject::*)()>(0x438E00))(); }
+	void AnimationObject::onRenderEnd() { return (this->*union_cast<void (AnimationObject::*)()>(0x439040))(); }
+	void AnimationObject::resetRenderInfo() { return (reinterpret_cast<void (__thiscall *)(SpriteEx &)>(0x438BB0))(this->sprite); }
 
 	IMPL_EFFECTOBJECT_VIRTUALS(EffectObject, ((void** const)SokuLib::ADDR_VTBL_FX_EFFECT))
 	IMPL_EFFECTOBJECT_VIRTUALS(InfoEffectObject, ((void** const)SokuLib::ADDR_VTBL_FX_INFOFX))

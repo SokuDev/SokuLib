@@ -41,10 +41,8 @@ namespace v2 {
 			unsigned short poseId;
 			unsigned short poseFrame;
 			unsigned int currentFrame;
-			unsigned short sequenceSize;
-			char unknown14A[2]; // align 0x2?
-			unsigned short poseDuration;
-			char unknown14E[2]; // align 0x2?
+			unsigned sequenceSize;
+			unsigned poseDuration;
 		} frameState;
 		// offset 0x150
 		v2::FrameData* frameData;
@@ -52,26 +50,23 @@ namespace v2 {
 
 		inline AnimationObject() = default;
 		virtual ~AnimationObject();
-		virtual void setActionSequence(short, short) = 0;
-		virtual bool setAction(short) = 0;
-		virtual void setSequence(short) = 0;
+		virtual void setActionSequence(short action, short sequence);
+		virtual bool setAction(short action);
+		virtual void setSequence(short sequence) = 0;
 		virtual void resetSequence() = 0;
 		virtual bool nextSequence() = 0;
 		virtual void prevSequence() = 0;
-		virtual void setPose(short) = 0;
+		virtual void setPose(short pose) = 0;
 		virtual bool nextPose() = 0;
 		virtual void prevPose() = 0;
 		virtual void update() = 0;
-		virtual void render() = 0;
-		virtual void render2() = 0;
-		virtual void applyTransform() = 0;
-		virtual void onRenderEnd() = 0;
+		virtual void render();
+		virtual void render2();
+		virtual void applyTransform();
+		virtual void onRenderEnd();
 
+		void resetRenderInfo(); // 0x438BB0
 		bool advanceFrame(); // 0x438c60
-
-		void *operator new(size_t size, std::align_val_t align, void *p);
-		void *operator new(size_t size);
-		void operator delete(void *p);
 	};
 
 	class EffectObjectBase : public AnimationObject {

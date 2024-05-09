@@ -46,10 +46,16 @@
 		{ return (this->*union_cast<bool(CLS::*)()>(VTB[18]))(); } \
 	bool CLS::VUnknown4C(int a0) \
 		{ return (this->*union_cast<bool(CLS::*)(int)>(VTB[19]))(a0); } \
-	void CLS::VUnknown50() \
+	void CLS::handleInputs() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[20]))(); } \
-	void CLS::VUnknown54() \
-		{ return (this->*union_cast<void(CLS::*)()>(VTB[21]))(); }
+	void CLS::checkAllMotionInputs() \
+		{ return (this->*union_cast<void(CLS::*)()>(VTB[21]))(); } \
+	void CLS::VUnknown58() \
+		{ return (this->*union_cast<void(CLS::*)()>(VTB[22]))(); } \
+	void CLS::VUnknown5C() \
+		{ return (this->*union_cast<void(CLS::*)()>(VTB[23]))(); } \
+	bool CLS::VUnknown60(int a) \
+		{ return (this->*union_cast<bool(CLS::*)(int)>(VTB[24]))(a); }
 
 namespace SokuLib {
 	const int _vtable_info<v2::PlayerReimu>::baseAddr       = 0x0085bf4c;
@@ -133,6 +139,31 @@ namespace v2 {
 	void Player::eventSkillUse() { return (this->*union_cast<void(Player::*)()>(0x483ce0))(); }
 	void Player::eventSpellUse() { return (this->*union_cast<void(Player::*)()>(0x483d60))(); }
 	void Player::eventWeatherCycle() { return (this->*union_cast<void(Player::*)()>(0x483db0))(); }
+	bool Player::handleCardSwitch() { return (this->*union_cast<bool(Player::*)()>(0x487890))(); }
+	void Player::FUN_0046d950() { return (this->*union_cast<void(Player::*)()>(0x46d950))(); }
+	bool Player::handleHJ() { return (this->*union_cast<bool(Player::*)()>(0x487900))(); }
+	bool Player::handleGroundBE() { return (this->*union_cast<bool(Player::*)()>(0x487990))(); }
+	bool Player::handleGroundDash(int moveLock, int hjCancelable) { return (this->*union_cast<bool(Player::*)(int, int)>(0x48a220))(moveLock, hjCancelable); }
+	bool Player::handleHJInput(int moveLock, int hjCancelable) { return (this->*union_cast<bool(Player::*)(int, int)>(0x489e90))(moveLock, hjCancelable); }
+	bool Player::handleAirBE() { return (this->*union_cast<bool(Player::*)()>(0x487ab0))(); }
+	bool Player::handleFwdAirDash(int moveLock, int hjCancelable, int allowedAirMoves, int airDashCancelSeq) { return (this->*union_cast<bool(Player::*)(int, int, int, int)>(0x48a380))(moveLock, hjCancelable, allowedAirMoves, airDashCancelSeq); }
+	bool Player::handleBackAirDash(int moveLock, int hjCancelable, int allowedAirMoves, int airDashCancelSeq) { return (this->*union_cast<bool(Player::*)(int, int, int, int)>(0x48a470))(moveLock, hjCancelable, allowedAirMoves, airDashCancelSeq); }
+	bool Player::handleNormalFlight(int moveLock, int hjCancelable, int allowedAirMoves) { return (this->*union_cast<bool(Player::*)(int, int, int)>(0x48a560))(moveLock, hjCancelable, allowedAirMoves); }
+	bool Player::initializeAction() { return (this->*union_cast<bool(Player::*)()>(0x48b210))(); }
+	void Player::applyTransform() { return (this->*union_cast<void(Player::*)()>(0x46A510))(); }
+	void Player::updatePhysics() { return (this->*union_cast<void(Player::*)()>(0x487EF0))(); }
+	void Player::initialize() { return (this->*union_cast<void(Player::*)()>(0x48B000))(); }
+	bool Player::VUnknown48() { return (this->*union_cast<bool(Player::*)()>(0x4636D0))(); }
+	bool Player::VUnknown4C(int a) { return (this->*union_cast<bool(Player::*)(int)>(0x487220))(a); }
+	void Player::checkAllMotionInputs() { return (this->*union_cast<void(Player::*)()>(0x487020))(); }
+	void Player::updateDefaultBehavior() { return (this->*union_cast<void(Player::*)()>(0x483F40))(); }
+	bool Player::isGrounded() { return (this->*union_cast<bool(Player::*)()>(0x463530))(); }
+	bool Player::canActivateCard(int slot) { return (this->*union_cast<bool(Player::*)(int)>(0x468E80))(slot); }
+	bool Player::useSystemCard(int moveLock) { return (this->*union_cast<bool(Player::*)(int)>(0x48A700))(moveLock); }
+	SokuLib::v2::GameObject *Player::createObject(short action, float x, float y, Direction direction, char layer, float *extraData, unsigned int extraDataSize) {
+		// Mimics 0x46EB30
+		return this->objectList->createObject(nullptr, this, action, x, y, direction, layer, extraData, extraDataSize);
+	}
 
 	IMPL_PLAYER_VIRTUALS(PlayerReimu, ((void** const)_vtable_info<v2::PlayerReimu>::baseAddr))
 	IMPL_PLAYER_VIRTUALS(PlayerMarisa, ((void** const)_vtable_info<v2::PlayerMarisa>::baseAddr))
@@ -210,6 +241,7 @@ namespace v2 {
 		if (GetPrivateProfileIntA((char*)0x85a2e4, (char*)0x85a2e8, -1, buffer) == 1) { // "etc", "limit"
 			this->unknown890[0] = 1;
 		}
+		objectList = new GameObjectList_Utsuho(this);
 	}
 
 	PlayerYoumu::~PlayerYoumu() {
