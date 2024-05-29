@@ -80,6 +80,14 @@ namespace SokuLib
 		void init(int texture, int texOffsetX, int texOffsetY, int width, int height);
 	};
 
+	class ManagedSprite {
+	public:
+		int texId = 0;
+		Sprite data;
+
+		//inline ~ManagedSprite() { if (texId) SokuLib::textureMgr.deallocate(texId); texId = 0; }
+	};
+
 	class SpriteEx : public SpriteBase {
 	public:
 		struct Coord { float x, y, z; };

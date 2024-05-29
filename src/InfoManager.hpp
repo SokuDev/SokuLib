@@ -46,6 +46,8 @@ namespace v2 {
 		CDesign::Number* unknown48C;
 		CDesign::Number* unknown490;
 		char unknown494[0x04];
+
+		static InfoManagerBase*& instance; // 0x8985e8
 	};
 
 	class InfoManager : public InfoManagerBase {

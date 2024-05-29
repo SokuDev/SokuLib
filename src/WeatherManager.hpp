@@ -2,26 +2,27 @@
 // Created by DPhoenix on 27/07/2023.
 //
 
-#ifndef SOKULIB_WEATHER__MANAGER_HPP
-#define SOKULIB_WEATHER__MANAGER_HPP
+#ifndef SOKULIB_WEATHER_MANAGER_HPP
+#define SOKULIB_WEATHER_MANAGER_HPP
 
 #include "Map.hpp"
 #include "IEffectManager.hpp"
+#include "Stage.hpp"
+#include "Weather.hpp"
 
 namespace SokuLib {
 namespace v2 {
 	class WeatherManager {
 	public:
-		int unknown00; // some weather id
-		char unknown04;  // some weather id but can be -1 on practice/replay
+		int currentWeatherId; // unsure
+		char currentSkyId;  // unsure
 		// align 3
-		Vector<unsigned int> someTexIds;
-		// 0x18
-		Vector<SpriteEx> someSprites; // EffectSprite with 0xE8 size
+		// 0x08
+		Vector<unsigned int> skyTexIds;
+		Vector<SpriteEx> skySprites;
 		// 0x28
-		Deque<std::pair<unsigned int, SpriteEx*>> unknown28;
-		// 0x3C
-		Map<BYTE, Vector<BYTE>> unknown3C; // unsure inner size
+		Deque<std::pair<unsigned int, SpriteEx*>> activeSky; // pair<color, sprite>
+		Map<BYTE, Vector<BYTE>> stageToSkyMap; // check `data_csv_background_sky.csv`
 
 		// 0x48:
 		EffectManager_Weather effects;
@@ -29,6 +30,9 @@ namespace v2 {
 		float unknownDC[4];
 
 		static WeatherManager*& instance;
+
+		void setCurrentStage(Stage stageId); // 478370
+		void setCurrentWeather(Weather weatherId); // 478410
 	};
 }
 }

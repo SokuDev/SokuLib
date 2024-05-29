@@ -312,7 +312,10 @@ namespace SokuLib
 		unsigned short healingCharmTimeLeft;
 
 		// 0x52A
-		char offset_0x52A[0x6];
+		char offset_0x52A[0x2];
+
+		// 0x52C
+		unsigned int effectiveWeather;
 
 		//  ADDR_ATTACKPOWEROFS     float             (4) 0x530
 		float attackPower;

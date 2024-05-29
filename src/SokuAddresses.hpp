@@ -154,6 +154,7 @@ namespace SokuLib
 		ADDR_LOADED_STAGE_ID                        = 0x008971CE,
 		ADDR_TIME_ELAPSED                           = 0x008985D8,
 		ADDR_GAME_DATA_MANAGER                      = 0x008985DC,
+		ADDR_STAGE_MANAGER                          = 0x008985E0,
 		ADDR_BATTLE_MANAGER                         = 0x008985E4,
 		ADDR_INFO_MANAGER                           = 0x008985E8,
 		ADDR_WEATHER_MANAGER                        = 0x008985EC,

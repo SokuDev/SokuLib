@@ -16,8 +16,6 @@
 
 namespace SokuLib
 {
-	using TexSpritePair = std::pair<int, Sprite>;
-
 	class ScenarioData {
 	public:
 		v2::SystemEffectManager effects;
@@ -30,9 +28,9 @@ namespace SokuLib
 		Vector2f unknown328; // position of the text bubble
 		Vector2i unknown330; // width matches the text bubble, but not the height
 		char unknown338[4];
-		Map<String, TexSpritePair> unknown33C; // portrait mapping
+		Map<String, ManagedSprite> unknown33C; // portrait mapping
 		// 0x348
-		List<TexSpritePair> unknown348, unknown354, unknown360;
+		List<ManagedSprite> unknown348, unknown354, unknown360;
 		// 0x36C
 		CommandParser commandParser; // constructor is inlined
 		// 0x3A0
@@ -52,7 +50,7 @@ namespace SokuLib
 			CTile rankFont;
 			// 0x100
 			int unknown100[3]; // = 3
-		} unknown3A0;
+		} resultPanel;
 		// 0x4AC
 		char unknown4AC[0x1C];
 		// 0x4C8
