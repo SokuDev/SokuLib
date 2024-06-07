@@ -20,12 +20,12 @@ namespace v2 {
 			CharacterSequenceData* sequenceData;
 			Map<int, CharacterSequenceData*>* patternMap;
 			int* soundTable;
-			Player* owner = 0;
-			Player* ally = 0;
-			Player* opponent = 0;
+			Player* owner = nullptr;
+			Player* ally = nullptr;
+			Player* opponent = nullptr;
 		} gameData;
 		// offset 0x174
-		GameObjectBase* parentA = 0; // composed boundingbox?
+		GameObjectBase* parentA = nullptr; // composed boundingbox?
 		List<GameObjectBase*> childrenA;
 
 		// offset 0x184 (hp and state)
@@ -47,7 +47,7 @@ namespace v2 {
 		float unknown1A8; // = .0
 		char unknown1AC = 1;
 		char unknown1AD[3]; // align 0x3?
-		void* unknown1B0 = 0;
+		void* unknown1B0 = nullptr;
 
 		// offset 0x1B4
 		struct BoxInfo {
@@ -199,6 +199,10 @@ namespace v2 {
 	extern void* const __GameObjectList_lower_vtable[];
 
 	class IGameObjectList {
+	private:
+		// this is used to simulate the double inheritance in GameObjectList
+		void** __lower_vtable = (void**)__GameObjectList_lower_vtable;
+
 	public:
 		virtual ~IGameObjectList() = default;
 		virtual SokuLib::v2::GameObject* createObject(GameObject* a0, Player* a1, short a2, float a3, float a4, Direction a5, char a6, void* a7, unsigned int a8) = 0;
@@ -214,10 +218,7 @@ namespace v2 {
 
 	template<class T>
 	class GameObjectList : public IGameObjectList {
-	private:
 		static_assert(std::is_base_of<GameObject, T>::value);
-		// this is used to simulate the double inheritance in GameObjectList
-		void** __lower_vtable = (void**)__GameObjectList_lower_vtable;
 
 	public:
 		HandleManagerEx<T> handles;

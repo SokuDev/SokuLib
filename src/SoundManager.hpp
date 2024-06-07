@@ -13,9 +13,9 @@ namespace SokuLib
 		SFX_PUNCH_HIT,               // 002 -> Reimu f5a hit
 		SFX_MEDIUM_HIT,              // 003 -> Remi 6a hit
 		SFX_BIG_HIT,                 // 004 -> Remi j6a hit
-		SFX_BIG_PIECE_HIT,           // 005 -> Remi j2a hit
-		SFX_MEDIUM_PIECE_HIT,        // 006 -> Remi 4a hit
-		SFX_BIG_PIERCE_HIT,          // 007 -> Remi fork hit
+		SFX_BIG_PIERCE_HIT,          // 005 -> Remi j2a hit
+		SFX_MEDIUM_PIERCE_HIT,       // 006 -> Remi 4a hit
+		SFX_SMALL_PIERCE_HIT,        // 007 -> Remi fork hit
 		SFX_CLAW_HIT,                // 008 -> Remi claw hit
 		SFX_BIG_SPIRIT_HIT,          // 009 -> Reimu 5c hit
 		SFX_ELECTRIC_HIT,            // 010 -> Exodia hit

@@ -229,8 +229,8 @@ namespace SokuLib
 		public:
 			Vector<CharacterFrameData> frames;
 			// 0x10
-			short actionLock;
 			short moveLock;
+			short actionLock;
 			bool isLoop;
 			// align 0x3
 
