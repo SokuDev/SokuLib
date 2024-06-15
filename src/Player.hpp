@@ -49,7 +49,7 @@ namespace v2 {
 		short unknown4C0, unknown4C2; // = 0
 		char unknown4C4, unknown4C5; // 48b000: +0x4c4 = 0 align 1?
 		short unknown4C6; // = 0
-		int unknown4C8; // = 0
+		int skillCancelTime; // = 0
 		char unknown4CC, hasSpotlight; // = 0
 		short spotlightStrength; // = 0
 		float speedPower; // = 1.0
@@ -170,7 +170,7 @@ namespace v2 {
 		short unknown7F8; // = 0;
 		char unknown7FA[2]; // align 2?
 		float unknown7FC; // = .0;
-		char unknown800[5]; // = 0;
+		bool skillCancelsUsed[5]; // = 0;
 		char unknown805[3]; // align 3?
 		float riverMistTimer; // = .0;
 		char unknown80C[4]; // 48b000: (+80D, +80E) = .0; (+80D = isAuraActive)
@@ -228,10 +228,11 @@ namespace v2 {
 		void loadResources(); // 0x46c0b0
 		bool updateGroundMovement(float value); // 0x487740
 		bool updateAirMovement(float, float); // 0x4877C0
-		void addCardMeter(float); // 0x487870
+		void addCardMeter(int); // 0x487870
 		bool handleCardSwitch(); // 0x487890 input related
 		bool useSystemCard(int moveLock); // 0x48a700
-		// 0x4878c0 input related
+		bool canSpendSpirit(); // 0x4878c0 input related (canSpendSpirit???)
+		unsigned short getMoveLock(unsigned short action); // 0x489610
 		bool canActivateCard(int slot);// 0x468e80
 		bool handleHJ(); // 0x487900 input related
 		bool handleHJInput(int moveLock, int hjCancelable); // 0x489e90

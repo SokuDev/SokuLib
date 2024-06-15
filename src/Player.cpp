@@ -113,7 +113,7 @@ namespace v2 {
 		for (int i = commonTextures.size(); i < textures->size(); ++i) SokuLib::textureMgr.remove(textures->at(i));
 		for (int i : spellBgTextures) SokuLib::textureMgr.remove(i);
 		if (portraitTexId) SokuLib::textureMgr.remove(portraitTexId);
-		for (int i = 0; i < 256; ++i) SokuLib::textureMgr.removeSound(gameData.soundTable[i]);
+		for (int i = 0; i < 256; ++i) ((TextureManager *)0x89F9F8)->removeSound(gameData.soundTable[i]);
 		SokuLib::Delete(gameData.soundTable);
 		if (objectList) delete objectList; // has virtual destructor so we use delete
 		SokuLib::Delete(textures);
@@ -128,7 +128,7 @@ namespace v2 {
 	void Player::loadResources() { return (this->*union_cast<void(Player::*)()>(0x46c0b0))(); }
 	bool Player::updateGroundMovement(float value) { return (this->*union_cast<bool(Player::*)(float)>(0x487740))(value); }
 	bool Player::updateAirMovement(float a0, float a1) { return (this->*union_cast<bool(Player::*)(float,float)>(0x4877C0))(a0, a1); }
-	void Player::addCardMeter(float value) { return (this->*union_cast<void(Player::*)(float)>(0x487870))(value); }
+	void Player::addCardMeter(int value) { return (this->*union_cast<void(Player::*)(float)>(0x487870))(value); }
 	void Player::Unknown487C20() { return (this->*union_cast<void(Player::*)()>(0x487C20))(); }
 	void Player::playSpellBackground(int a0, int a1) { return (this->*union_cast<void(Player::*)(int, int)>(0x46b370))(a0, a1); }
 	bool Player::applyGroundMechanics() { return (this->*union_cast<bool(Player::*)()>(0x487ca0))(); }
@@ -160,6 +160,7 @@ namespace v2 {
 	bool Player::isGrounded() { return (this->*union_cast<bool(Player::*)()>(0x463530))(); }
 	bool Player::canActivateCard(int slot) { return (this->*union_cast<bool(Player::*)(int)>(0x468E80))(slot); }
 	bool Player::useSystemCard(int moveLock) { return (this->*union_cast<bool(Player::*)(int)>(0x48A700))(moveLock); }
+	unsigned short Player::getMoveLock(unsigned short action) { return (this->*union_cast<unsigned short(Player::*)(unsigned short)>(0x489610))(action); }
 	SokuLib::v2::GameObject *Player::createObject(short action, float x, float y, Direction direction, char layer, float *extraData, unsigned int extraDataSize) {
 		// Mimics 0x46EB30
 		return this->objectList->createObject(nullptr, this, action, x, y, direction, layer, extraData, extraDataSize);

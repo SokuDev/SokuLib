@@ -36,7 +36,7 @@ namespace v2 {
 
 		// offset 0x13C
 		struct FrameState {
-			Action actionId;
+			unsigned short actionId;
 			unsigned short sequenceId;
 			unsigned short poseId;
 			unsigned short poseFrame;
@@ -46,7 +46,7 @@ namespace v2 {
 		} frameState;
 		// offset 0x150
 		v2::FrameData* frameData;
-		IColor* unknown154 = 0;
+		SpriteEx* unknown154 = nullptr;
 
 		inline AnimationObject() = default;
 		virtual ~AnimationObject();
