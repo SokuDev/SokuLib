@@ -8,6 +8,7 @@
 
 #include "Cards.hpp"
 #include "String.hpp"
+#include "InputManager.hpp"
 
 namespace SokuLib
 {
@@ -28,7 +29,15 @@ namespace SokuLib
 		void *InputManagerExObj;
 
 		// 0x0D4
-		unsigned char offset_0x0D4[0xD8];
+		char offset_0x0D4[0x6C];
+
+		// 0x140
+		KeyBindings keyboardBindings;
+		// 0x174
+		KeyBindings controllerBindings;
+
+		// 0x1A8
+		int offset_0x1A8;
 
 		// 0x1AC
 		Dequeue<unsigned short> cards[20][4];
