@@ -242,7 +242,7 @@ namespace v2 {
 		bool handleFwdAirDash(int moveLock, int hjCancelable, int allowedAirMoves, int airDashCancelSeq); // 0x48a380
 		bool handleBackAirDash(int moveLock, int hjCancelable, int allowedAirMoves, int airDashCancelSeq); // 0x48a470
 		bool handleNormalFlight(int moveLock, int hjCancelable, int allowedAirMoves); // 0x48a560
-		// 0x487b60 (+0x4ad flag 0x10)
+		void useSpellCard(int id, short action); // 0x487b60 (+0x4ad flag 0x10)
 		// 0x487ba0 (+0x4ad flag 0x08)
 		void Unknown487C20(); // swapDirection?
 		void playSpellBackground(int id, int timer);
@@ -259,6 +259,12 @@ namespace v2 {
 		bool isGrounded(); // 0x463530
 		void updateDefaultBehavior();
 		SokuLib::v2::GameObject* createObject(short action, float x, float y, Direction direction, char layer, float *extraData, unsigned int extraDataSize); // 46eb30
+
+		template<size_t size>
+		SokuLib::v2::GameObject *createObject(short action, float x, float y, Direction direction, char layer, float (&extraData)[size]) {
+			// Mimics 0x46EB30
+			return this->objectList->createObject(nullptr, this, action, x, y, direction, layer, extraData, size);
+		}
 	};
 
 #define DECL_PLAYER_VIRTUALS() \

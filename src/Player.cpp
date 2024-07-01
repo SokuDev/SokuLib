@@ -105,8 +105,10 @@ namespace v2 {
 		paletteId = playerInfo.palette;
 		deckInfo.original = playerInfo.effectiveDeck;
 		deckInfo.queue = playerInfo.effectiveDeck;
-		if (playerInfo.keyManager) inputData.unknown7CC = playerInfo.padding2;
-		else inputData.unknown7CC = 0;
+		if (playerInfo.keyManager)
+			inputData.unknown7CC = playerInfo.padding2;
+		else
+			inputData.unknown7CC = 0;
 	}
 
 	Player::~Player() {
@@ -160,6 +162,7 @@ namespace v2 {
 	bool Player::isGrounded() { return (this->*union_cast<bool(Player::*)()>(0x463530))(); }
 	bool Player::canActivateCard(int slot) { return (this->*union_cast<bool(Player::*)(int)>(0x468E80))(slot); }
 	bool Player::useSystemCard(int moveLock) { return (this->*union_cast<bool(Player::*)(int)>(0x48A700))(moveLock); }
+	void Player::useSpellCard(int id, short action) { return (this->*union_cast<void(Player::*)(int, short)>(0x487B60))(id, action); }
 	unsigned short Player::getMoveLock(unsigned short action) { return (this->*union_cast<unsigned short(Player::*)(unsigned short)>(0x489610))(action); }
 	SokuLib::v2::GameObject *Player::createObject(short action, float x, float y, Direction direction, char layer, float *extraData, unsigned int extraDataSize) {
 		// Mimics 0x46EB30
