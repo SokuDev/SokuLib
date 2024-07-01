@@ -3,6 +3,7 @@
 //
 
 #include "Weather.hpp"
+#include "WeatherManager.hpp"
 #include "SokuAddresses.hpp"
 
 namespace SokuLib
@@ -12,4 +13,5 @@ namespace SokuLib
 	Weather &displayedWeatherOrb = *reinterpret_cast<Weather *>(ADDR_DISPLAYED_WEATHER_ORB);
 	unsigned short &weatherCounter = *reinterpret_cast<unsigned short *>(ADDR_WEATHER_COUNTER);
 	void (__stdcall * const activateWeather)(int weather, char unknown) = reinterpret_cast<void (__stdcall *)(int, char)>(0x439770);
+	v2::WeatherManager*& v2::WeatherManager::instance = *reinterpret_cast<v2::WeatherManager**>(ADDR_WEATHER_MANAGER);
 }

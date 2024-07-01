@@ -60,6 +60,15 @@ namespace v2 {
 	using EffectManager_InfoEffect = EffectManager<InfoEffectObject>;
 	using EffectManager_Select = EffectManager<SelectEffectObject>;
 	using EffectManager_Weather = EffectManager<WeatherEffectObject>;
+
+	class SystemEffectManager {
+	public:
+		HandleManagerEx<SystemEffectObject> handles;
+		List<SystemEffectObject*> objects;
+
+		virtual ~SystemEffectManager() = default;
+		SystemEffectObject* createEffect(const char* textureName, short actionId, float x, float y); // 0x460560
+	}; // 0x60
 }
 }
 

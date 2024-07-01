@@ -10,37 +10,97 @@
 #include "CharacterManager.hpp"
 #include "BattleMode.hpp"
 #include "String.hpp"
+#include "IEffectManager.hpp"
+#include "SceneScript.hpp"
+#include "Design.hpp"
 
 namespace SokuLib
 {
+	class ScenarioData {
+	public:
+		v2::SystemEffectManager effects;
+		// 0x64
+		KeymapManager* inputCluster;
+		SWRFont fontObject;
+		// 0x1FC
+		FontDescription fontDesc;
+		// 0x328
+		Vector2f unknown328; // position of the text bubble
+		Vector2i unknown330; // width matches the text bubble, but not the height
+		char unknown338[4];
+		Map<String, ManagedSprite> unknown33C; // portrait mapping
+		// 0x348
+		List<ManagedSprite> unknown348, unknown354, unknown360;
+		// 0x36C
+		CommandParser commandParser; // constructor is inlined
+		// 0x3A0
+		struct {
+			char unknown00[0x8];
+			CDesign resultGui;
+			// 0x3C
+			CDesign::Sprite* resultTitle;
+			CDesign::Sprite* panelA;
+			CDesign::Sprite* panelB;
+			CDesign::Sprite* panelC;
+			// 0x4C
+			CDesign::Object* anchorA;
+			CDesign::Object* anchorB;
+			CDesign::Object* anchorC;
+			int texRankFont = 0;
+			CTile rankFont;
+			// 0x100
+			int unknown100[3]; // = 3
+		} resultPanel;
+		// 0x4AC
+		char unknown4AC[0x1C];
+		// 0x4C8
+		struct {
+			int textureIds[5] = {0};
+			Sprite sprites[5];
+			// 0x2F8
+			int leftWidth, rightWidth, centerWidth, loopHeight;
+			struct UnknownDataC {char data[0xC4];};
+			List<UnknownDataC> unknown308;
+		} scenarioEffect;
+		// 0x7DC
+		char unknown7DC[0xC];
+		String bubbleText, unknown804, unknown820;
+		// 0x83C
+		char unknown83C[0x38];
+
+		virtual void VUnknown00(); // reset state (not destructor)
+		virtual void VUnknown04(); // clear (maybe destructor)
+		virtual void VUnknown08(); // maybe update
+		virtual void render();
+	}; // 0x874
+
 	struct BattleManager {
 		struct BattleManager_VTABLE *vtable;
 		// 0x004
 		unsigned frameCount;
 		// 0x008
-		char unknown[0x4];
+		int fightFXreachesFrame30;
 		// 0x00C
 		CharacterManager &leftCharacterManager;
 		// 0x010
 		CharacterManager &rightCharacterManager;
 		// 0x014
-		// 0x01C: Box collisionBuffer
-		// 0x02C: List<v2::GameObjectBase*> colliderBufferA[2];
-		// 0x044: List<v2::GameObjectBase*> colliderBufferB[2];
-		// 0x05C: List<v2::GameObjectBase*> colliderBufferC[2];
-		char offset_0x014[0x74];
+		CharacterManager* characterManager3;
+		CharacterManager* characterManager4;
+		// 0x01C
+		Box collisionBuffer;
+		List<ObjectManager*> attackColliders[2];
+		List<ProjectileManager*> densityColliders[2];
+		List<ObjectManager*> canHitProjectileColliders[2];
+		// 0x074
+		int lastHpDamage[2]; // unsure
+		int lastCardDamage[2]; // unsure
+		int leaveCode; // 1 = select screen, 2 = title screen
 		// 0x088
-		char matchState; // this one is read as 4bytes on switches
-		// 0x089
-		// 0x08C: vtable[3]: (CScenarioData, SystemObjectManager, HandleManagerEx)
-		// 0x0E4: List<> SystemObjects
-		// 0x100: FontDescription (0x12C)
-		// 0x288: FontDescription (0x12C)
-		// 0x434: CDesign (0x34)
-		// 0x488: CTile (0xA4)
-		// 0x568: CSprite[5] (end in 0x84C)
-		// 0x85C: List<Unknown>
-		char offset_0x089[0x87B];
+		int matchState;
+		// 0x08C
+		ScenarioData scenario;
+		char unknown900[4];
 		// 0x904
 		char currentRound;
 
@@ -50,7 +110,7 @@ namespace SokuLib
 		//   FUN_00463ce0(p);
 		//   p->update();
 		//   p->objectList.VUnknown0C();
-		//   p->VUnknown40();
+		//   p->updatePhysics();
 		// }
 
 		// UpdateMovement:

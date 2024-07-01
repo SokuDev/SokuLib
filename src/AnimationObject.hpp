@@ -69,6 +69,35 @@ namespace v2 {
 		bool advanceFrame(); // 0x438c60
 	};
 
+	class SystemEffectObject {
+	public:
+		int unknown04 = 1;
+		int unknown08 = 0;
+		SpriteEx sprite; // this is actually EffectSprite, but it's a child with identical structure
+
+		// offset 0xF4
+		Vector2f position;
+		Vector2f speed;
+		Vector2f gravity;
+		Direction direction;
+		// align 0x3
+
+		// offset 0x110
+		Vector2f center = {0, 0};
+		RenderInfo renderInfos;
+		// ^ maybe EffectSprite comes until here (0x438bb0)
+
+		// offset 0x138
+		int textureId = 0;
+		int actionId; // this is actually an integer
+		int unknown140; // some custom data (actionIds 0, 1 and 2)
+
+		virtual ~SystemEffectObject();
+		virtual void update();
+		virtual void initializeAction();
+		virtual void render();
+	}; // 0x144
+
 	class EffectObjectBase : public AnimationObject {
 	public:
 		int unknown158 = 1;
