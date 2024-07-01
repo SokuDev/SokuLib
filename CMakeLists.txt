@@ -123,7 +123,10 @@ add_library(
 	src/GameObject.hpp
 	src/Player.cpp
 	src/Player.hpp
-	src/KeyCombination.hpp src/Menus/PauseMenu.cpp src/Menus/PauseMenu.hpp)
+	src/InputCombination.hpp
+	src/Menus/PauseMenu.cpp
+	src/Menus/PauseMenu.hpp
+)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	target_compile_definitions(

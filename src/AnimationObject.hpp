@@ -36,37 +36,36 @@ namespace v2 {
 
 		// offset 0x13C
 		struct FrameState {
-			Action actionId;
+			unsigned short actionId;
 			unsigned short sequenceId;
 			unsigned short poseId;
 			unsigned short poseFrame;
 			unsigned int currentFrame;
-			unsigned short sequenceSize;
-			char unknown14A[2]; // align 0x2?
-			unsigned short poseDuration;
-			char unknown14E[2]; // align 0x2?
+			unsigned sequenceSize;
+			unsigned poseDuration;
 		} frameState;
 		// offset 0x150
 		v2::FrameData* frameData;
-		IColor* unknown154 = 0;
+		SpriteEx* unknown154 = nullptr;
 
 		inline AnimationObject() = default;
 		virtual ~AnimationObject();
-		virtual void setActionSequence(short, short) = 0;
-		virtual bool setAction(short) = 0;
-		virtual void setSequence(short) = 0;
+		virtual void setActionSequence(short action, short sequence);
+		virtual bool setAction(short action);
+		virtual void setSequence(short sequence) = 0;
 		virtual void resetSequence() = 0;
 		virtual bool nextSequence() = 0;
 		virtual void prevSequence() = 0;
-		virtual void setPose(short) = 0;
+		virtual void setPose(short pose) = 0;
 		virtual bool nextPose() = 0;
 		virtual void prevPose() = 0;
 		virtual void update() = 0;
-		virtual void render() = 0;
-		virtual void render2() = 0;
-		virtual void applyTransform() = 0;
-		virtual void onRenderEnd() = 0;
+		virtual void render();
+		virtual void render2();
+		virtual void applyTransform();
+		virtual void onRenderEnd();
 
+		void resetRenderInfo(); // 0x438BB0
 		bool advanceFrame(); // 0x438c60
 	};
 
@@ -138,7 +137,8 @@ namespace v2 {
 
 	class InfoEffectObject : public EffectObjectBase {
 	public:
-		char unknown170[0x8];
+		char unknown170[0x4];
+		float unknown174;
 		DECL_EFFECTOBJECT_VIRTUALS()
 	};
 

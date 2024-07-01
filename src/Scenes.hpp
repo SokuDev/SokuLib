@@ -166,9 +166,9 @@ namespace SokuLib
 		char offset_0x004[0xC];
 
 		//0x10 Left Keys
-		KeyManager *leftKeys;
+		KeymapManager *leftKeys;
 		//0x14 Right Keys
-		KeyManager *rightKeys;
+		KeymapManager *rightKeys;
 
 		char offset_0x018[0x110];
 

@@ -94,6 +94,23 @@ namespace DrawUtils
 	{
 	}
 
+	Texture::Texture(Texture &&o)
+	{
+		this->swap(o);
+	}
+
+	Texture &Texture::operator=(Texture &o)
+	{
+		this->swap(o);
+		return *this;
+	}
+
+	Texture &Texture::operator=(Texture &&o)
+	{
+		this->swap(o);
+		return *this;
+	}
+
 	Texture::~Texture() noexcept
 	{
 		this->destroy();
@@ -124,11 +141,14 @@ namespace DrawUtils
 	{
 		int handle = this->_handle;
 		bool loaded = this->_loaded;
+		Vector2u size = this->_size;
 
 		this->_handle = other._handle;
 		this->_loaded = other._loaded;
+		this->_size = other._size;
 		other._handle = handle;
 		other._loaded = loaded;
+		other._size = size;
 	}
 
 	void Texture::destroy()
@@ -173,9 +193,9 @@ namespace DrawUtils
 			info.Width,
 			info.Height,
 			info.MipLevels,
-			D3DUSAGE_RENDERTARGET,
+			0,
 			info.Format,
-			D3DPOOL_DEFAULT,
+			D3DPOOL_MANAGED,
 			D3DX_DEFAULT,
 			D3DX_DEFAULT,
 			0,
@@ -231,9 +251,9 @@ namespace DrawUtils
 			info.Width,
 			info.Height,
 			info.MipLevels,
-			D3DUSAGE_RENDERTARGET,
+			0,
 			info.Format,
-			D3DPOOL_DEFAULT,
+			D3DPOOL_MANAGED,
 			D3DX_DEFAULT,
 			D3DX_DEFAULT,
 			0,
@@ -387,17 +407,17 @@ namespace DrawUtils
 
 	void GradiantRect::draw() const
 	{
-		Vertex vertexs[4];
+		Vertex vertices[4];
 		Vertex borders[5];
 
 		for (int i = 0; i < 4; i++) {
-			vertexs[i] = borders[i] = this->_vertex[i];
-			vertexs[i].color = this->fillColors[i];
+			vertices[i] = borders[i] = this->_vertex[i];
+			vertices[i].color = this->fillColors[i];
 			borders[i].color = this->borderColors[i];
 		}
 		borders[4] = borders[0];
 		SokuLib::textureMgr.setTexture(0, 0);
-		SokuLib::pd3dDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertexs, sizeof(*vertexs));
+		SokuLib::pd3dDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertices, sizeof(*vertices));
 		SokuLib::pd3dDev->DrawPrimitiveUP(D3DPT_LINESTRIP, 4, borders, sizeof(*borders));
 	}
 
@@ -440,13 +460,13 @@ namespace DrawUtils
 
 	void Sprite::draw() const
 	{
-		Vertex vertexs[4];
+		Vertex vertices[4];
 
 		for (int i = 0; i < 4; i++) {
-			vertexs[i] = this->_vertex[i];
-			vertexs[i].x -= 0.5;
-			vertexs[i].y -= 0.5;
-			vertexs[i].color = this->fillColors[i] * this->tint;
+			vertices[i] = this->_vertex[i];
+			vertices[i].x -= 0.5;
+			vertices[i].y -= 0.5;
+			vertices[i].color = this->fillColors[i] * this->tint;
 		}
 
 		auto size = this->texture.getSize();
@@ -457,17 +477,17 @@ namespace DrawUtils
 			float right = static_cast<float>(this->rect.left + this->rect.width) / size.x;
 			float bottom = static_cast<float>(this->rect.top + this->rect.height) / size.y;
 
-			vertexs[3].u = vertexs[0].u = left;
-			vertexs[2].u = vertexs[1].u = right;
-			vertexs[1].v = vertexs[0].v = top;
-			vertexs[2].v = vertexs[3].v = bottom;
-			vertexs[2].x++;
-			vertexs[1].x++;
-			vertexs[2].y++;
-			vertexs[3].y++;
+			vertices[3].u = vertices[0].u = left;
+			vertices[2].u = vertices[1].u = right;
+			vertices[1].v = vertices[0].v = top;
+			vertices[2].v = vertices[3].v = bottom;
+			vertices[2].x++;
+			vertices[1].x++;
+			vertices[2].y++;
+			vertices[3].y++;
 		}
 		this->texture.activate();
-		SokuLib::pd3dDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertexs, sizeof(*vertexs));
+		SokuLib::pd3dDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertices, sizeof(*vertices));
 	}
 
 	Sprite::Sprite(const Camera &camera) noexcept :

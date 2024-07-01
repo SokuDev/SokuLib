@@ -6,13 +6,14 @@
 #define SOKULIB_CHARACTERMANAGER_HPP
 
 
+#include "Weather.hpp"
 #include "Cards.hpp"
 #include "LinkedList.hpp"
 #include "Action.hpp"
 #include "InputManager.hpp"
 #include "FrameData.hpp"
 #include "Boxes.hpp"
-#include "KeyCombination.hpp"
+#include "InputCombination.hpp"
 #include "DrawUtils.hpp"
 
 #pragma pack(push,1)
@@ -53,7 +54,7 @@ namespace SokuLib
 		void *vtable;
 
 		// 0x004
-		char offset_0x004[0xE8];
+		SokuLib::SpriteEx sprite;
 
 		//  ADDR_POINTXOFS          float             (4) 0x0EC
 		//  ADDR_POINTYOFS          float             (4) 0x0F0
@@ -69,8 +70,11 @@ namespace SokuLib
 		//  ADDR_DIRECTIONOFS       enum Direction    (1) 0x104
 		Direction direction;
 
-		// 0x105
-		char offset_0x105[0xB];
+		// 0x105 (alignment)
+		char offset_0x105[0x3];
+
+		// 0x108
+		SokuLib::Vector2f center;
 
 		// 0x110
 		RenderInfo renderInfos;
@@ -217,13 +221,13 @@ namespace SokuLib
 		ObjectManager objectBase;
 
 		// 0x348
-		char offset_0x348[0x2];
+		char offset_0x348[0x4];
 
-		// 0x34A
+		// 0x34C
 		unsigned char characterIndex;
 
-		// 0x34B
-		unsigned char offset_0x34B[3];
+		// 0x34D
+		unsigned char offset_0x34D[1];
 
 		// 0x34E
 		unsigned char playerIndex;
@@ -235,10 +239,13 @@ namespace SokuLib
 		bool isRightPlayer;
 
 		// 0x351
-		char offset_0x351[0x14A];
+		char offset_0x351[0x149];
+
+		//  ADDR_AIRDASHCOUNTOFS    unsigned char     (1) 0x49A
+		unsigned char groundDashCount;
 
 		//  ADDR_AIRDASHCOUNTOFS    unsigned char     (1) 0x49B
-		unsigned char airdashCount;
+		unsigned char airDashCount;
 
 		char offset_0x49C[2];
 
@@ -315,7 +322,7 @@ namespace SokuLib
 		char offset_0x52A[0x2];
 
 		// 0x52C
-		unsigned int effectiveWeather;
+		SokuLib::Weather effectiveWeather;
 
 		//  ADDR_ATTACKPOWEROFS     float             (4) 0x530
 		float attackPower;
@@ -333,7 +340,31 @@ namespace SokuLib
 		unsigned short grimoires;
 
 		// 0x562
-		char offset_0x562[0x11];
+		unsigned short offset_0x562;
+
+		// 0x564
+		Vector2f speedMultiplier;
+
+		// 0x56C
+		bool canGrazeMelees;
+
+		// 0x56D
+		bool crushOnWB;
+
+		// 0x56E
+		bool forceSkillsMax;
+
+		// 0x56F
+		bool offset_0x56F;
+
+		// 0x570
+		bool offset_0x570;
+
+		// 0x571
+		bool lockedInStageX;
+
+		// 0x572
+		bool lockedInStageY;
 
 		// 0x573
 		char score;
@@ -390,7 +421,7 @@ namespace SokuLib
 		char offset_0x774[0x54];
 
 		// CF_PRESSED_COMBINATION 0x7C8 // KeyCombination
-		KeyCombination keyCombination;
+		CommandCombination keyCombination;
 
 		// 0x7CC
 		bool nameHidden;

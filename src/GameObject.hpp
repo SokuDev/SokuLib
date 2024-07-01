@@ -20,12 +20,12 @@ namespace v2 {
 			CharacterSequenceData* sequenceData;
 			Map<int, CharacterSequenceData*>* patternMap;
 			int* soundTable;
-			Player* owner = 0;
-			Player* ally = 0;
-			Player* opponent = 0;
+			Player* owner = nullptr;
+			Player* ally = nullptr;
+			Player* opponent = nullptr;
 		} gameData;
 		// offset 0x174
-		GameObjectBase* parentA = 0; // composed boundingbox?
+		GameObjectBase* parentA = nullptr; // composed boundingbox?
 		List<GameObjectBase*> childrenA;
 
 		// offset 0x184 (hp and state)
@@ -47,7 +47,7 @@ namespace v2 {
 		float unknown1A8; // = .0
 		char unknown1AC = 1;
 		char unknown1AD[3]; // align 0x3?
-		void* unknown1B0 = 0;
+		void* unknown1B0 = nullptr;
 
 		// offset 0x1B4
 		struct BoxInfo {
@@ -58,7 +58,7 @@ namespace v2 {
 			// align 3
 
 			// offset 0x1C0
-			CharacterFrameData* frameData = 0;
+			CharacterFrameData* frameData = nullptr;
 			CharacterSequenceData* sequenceData;
 			Action actionId; // (short)
 			Direction direction; // (char) this may be set to 0 in some cases
@@ -75,19 +75,28 @@ namespace v2 {
 			Box collisionBoxBuffer;
 
 			// offset 0x320
-			RotationBox* hitBoxesRotation[5] = {0};
-			RotationBox* hurtBoxesRotation[5] = {0};
-			Box* collisionBoxPtr = 0;
+			RotationBox* hitBoxesRotation[5] = {nullptr};
+			RotationBox* hurtBoxesRotation[5] = {nullptr};
+			Box* collisionBoxPtr = nullptr;
 		} boxData;
 
-		virtual ~GameObjectBase();
+		~GameObjectBase() override;
+		void setActionSequence(short action, short sequence) override;
+		bool setAction(short action) override;
+		void setSequence(short sequence) override;
+		void resetSequence() override;
+		bool nextSequence() override;
+		void prevSequence() override;
+		void setPose(short pose) override;
+		bool nextPose() override;
+		void prevPose() override;
 		virtual bool initializeAction() = 0;
-		virtual void updatePhysics() = 0;
+		virtual void updatePhysics();
 
 		void resetForces(); // 4636b0
 		float getGroundHeight() const; // 4397f0
 		int isOnGround() const; //439850
-		GameObjectBase* createEffect(int action, float x, float y, Direction dir, char layer); // 438ce0
+		GameObjectBase* createEffect(int action, float x, float y, int dir, char layer); // 438ce0
 	}; // 0x34C
 
 	struct TailObject {
@@ -103,7 +112,7 @@ namespace v2 {
 		Deque<Vector2f> unknown3C;
 
 		// offset 0x50
-		DxVertex* vertexBuffer = 0;
+		DxVertex* vertexBuffer = nullptr;
 
 		void initialize(GameObjectBase* parent, FrameData* frameData, float paramA, int paramB, int paramC, int paramD);
 		void update();
@@ -117,11 +126,11 @@ namespace v2 {
 		// offset 0x34C
 		int lifetime = 1;
 		int handleId = 0;
-		TailObject* tail = 0;
+		TailObject* tail = nullptr;
 		char layer;
 		char unknown359[3]; // align 3?
 		// offset 0x35C: an object starts here?
-		void* customData = 0;
+		float* customData = nullptr;
 		short unknown360 = 0; // compared togheter with enemy->TimeStop
 		short unknown362 = 0;
 		Player* parentPlayer;
@@ -133,10 +142,13 @@ namespace v2 {
 		GameObject* parentB = 0;
 		List<GameObject*> childrenB;
 
-		inline GameObject() { HP = MaxHP = 0; }
+		inline GameObject() {
+			this->HP = 0;
+			this->MaxHP = 0;
+		}
 		virtual ~GameObject();
-		virtual GameObject* createObject(Action actionId, float x, int y, Direction dir, char layer, void* customData, unsigned int customDataSize) = 0;
-		virtual GameObject* createChild(Action actionId, float x, int y, Direction dir, char layer, void* customData, unsigned int customDataSize) = 0;
+		virtual GameObject* createObject(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) = 0;
+		virtual GameObject* createChild(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) = 0;
 
 		void setTail(Action actionId, float paramA, int paramB, int paramC, int paramD); // unsure
 	}; // 0x3AC
@@ -158,8 +170,8 @@ namespace v2 {
 	void onRenderEnd() override; \
 	bool initializeAction() override; \
 	void updatePhysics() override; \
-	GameObject* createObject(Action, float, int, Direction, char, void*, unsigned int) override; \
-	GameObject* createChild(Action, float, int, Direction, char, void*, unsigned int) override;
+	GameObject* createObject(short, float, float, Direction, char, float*, unsigned int) override; \
+	GameObject* createChild(short, float, float, Direction, char, float*, unsigned int) override;
 
 	class GameObjectReimu     : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
 	class GameObjectMarisa    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
@@ -183,29 +195,30 @@ namespace v2 {
 	class GameObjectSuwako    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
 	class GameObjectNamazu    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
 
-	class IGameObjectList {
-	public:
-		virtual ~IGameObjectList() = default;
-		virtual GameObject* CreateObject(GameObject* parent, Player* ally, Action actionId, float x, float y, Direction direction, char layer, void* customData, unsigned int customDataSize) = 0;
-		virtual void Clear() = 0;
-		virtual void UpdatePhysics() = 0;
-		virtual void Update() = 0;
-		virtual void Render1(char layer) = 0;
-		virtual void Render2() = 0;
-		virtual void UpdateCamera() = 0;
-		virtual void ReplaceOpponent(Player* from, Player* to) = 0; // change opponent from 'a' to 'b' 
-		virtual List<GameObject*>& GetList() = 0;
-	};
-
 	// this is used to simulate the double inheritance in GameObjectList
 	extern void* const __GameObjectList_lower_vtable[];
 
-	template<class T, void** base_vtable>
-	class GameObjectList : public IGameObjectList {
+	class IGameObjectList {
 	private:
-		static_assert(std::is_base_of<GameObject, T>::value);
 		// this is used to simulate the double inheritance in GameObjectList
 		void** __lower_vtable = (void**)__GameObjectList_lower_vtable;
+
+	public:
+		virtual ~IGameObjectList() = default;
+		virtual SokuLib::v2::GameObject* createObject(GameObject* a0, Player* a1, short a2, float a3, float a4, Direction a5, char a6, void* a7, unsigned int a8) = 0;
+		virtual void clear() = 0;
+		virtual void updatePhysics() = 0;
+		virtual void update() = 0;
+		virtual void render1(char layer) = 0;
+		virtual void render2() = 0;
+		virtual void updateCamera() = 0;
+		virtual void replaceOpponent(Player* a0, Player* a1) = 0;
+		virtual List<GameObject*>& getList() = 0;
+	};
+
+	template<class T>
+	class GameObjectList : public IGameObjectList {
+		static_assert(std::is_base_of<GameObject, T>::value);
 
 	public:
 		HandleManagerEx<T> handles;
@@ -214,40 +227,55 @@ namespace v2 {
 
 		inline GameObjectList(Player* player) : player(player) {} // TODO i think it reserves 256 objects, but not sure
 		virtual ~GameObjectList() = default;
-		
-		SokuLib::v2::GameObject* CreateObject(GameObject* a0, Player* a1, Action a2, float a3, float a4, Direction a5, char a6, void* a7, unsigned int a8) override
-			{ return (this->*union_cast<SokuLib::v2::GameObject*(GameObjectList::*)(GameObject*, Player*, Action, float, float, Direction, char, void*, unsigned int)>(base_vtable[1]))(a0, a1, a2, a3, a4, a5, a6, a7, a8); }
-		void Clear() override { return (this->*union_cast<void(GameObjectList::*)()>(base_vtable[2]))(); }
-		void UpdatePhysics() override { return (this->*union_cast<void(GameObjectList::*)()>(base_vtable[3]))(); }
-		void Update() override { return (this->*union_cast<void(GameObjectList::*)()>(base_vtable[4]))(); }
-		void Render1(char a0) override { return (this->*union_cast<void(GameObjectList::*)(char)>(base_vtable[5]))(a0); }
-		void Render2() override { return (this->*union_cast<void(GameObjectList::*)()>(base_vtable[6]))(); }
-		void UpdateCamera() override { return (this->*union_cast<void(GameObjectList::*)()>(base_vtable[7]))(); }
-		void ReplaceOpponent(Player* a0, Player* a1) override { return (this->*union_cast<void(GameObjectList::*)(Player*, Player*)>(base_vtable[8]))(a0, a1); }
-		List<GameObject*>& GetList() override { return (this->*union_cast<List<GameObject*>& (GameObjectList::*)()>(base_vtable[9]))(); }
+		void clear() override { return (this->*union_cast<void(GameObjectList::*)()>(0x633E00))(); }
+		void updatePhysics() override { return (this->*union_cast<void(GameObjectList::*)()>(0x783FE0))(); }
+		void update() override { return (this->*union_cast<void(GameObjectList::*)()>(0x633CE0))(); }
+		void render1(char a0) override { return (this->*union_cast<void(GameObjectList::*)(char)>(0x59BE00))(a0); }
+		void render2() override { return (this->*union_cast<void(GameObjectList::*)()>(0x784000))(); }
+		void updateCamera() override { return (this->*union_cast<void(GameObjectList::*)()>(0x7EC330))(); }
+		void replaceOpponent(Player* a0, Player* a1) override { return (this->*union_cast<void(GameObjectList::*)(Player*, Player*)>(0x5DEC10))(a0, a1); }
+		List<GameObject*>& getList() override { return (this->*union_cast<List<GameObject*>& (GameObjectList::*)()>(0x4D2600))(); }
+
+		template<class T2>
+		GameObjectList<T2> *to() { return reinterpret_cast<GameObjectList<T2> *>(this); }
 	};
 
-	using GameObjectList_Reimu      = GameObjectList<GameObjectReimu,     (void**)0x85bf1c>;
-	using GameObjectList_Marisa     = GameObjectList<GameObjectMarisa,    (void**)0x85c34c>;
-	using GameObjectList_Sakuya     = GameObjectList<GameObjectSakuya,    (void**)0x85c6d4>;
-	using GameObjectList_Alice      = GameObjectList<GameObjectAlice,     (void**)0x85c9c4>;
-	using GameObjectList_Patchouli  = GameObjectList<GameObjectPatchouli, (void**)0x85ccfc>;
-	using GameObjectList_Youmu      = GameObjectList<GameObjectYoumu,     (void**)0x85cfac>;
-	using GameObjectList_Remilia    = GameObjectList<GameObjectRemilia,   (void**)0x85d254>;
-	using GameObjectList_Yuyuko     = GameObjectList<GameObjectYuyuko,    (void**)0x85d4f4>;
-	using GameObjectList_Yukari     = GameObjectList<GameObjectYukari,    (void**)0x85d78c>;
-	using GameObjectList_Suika      = GameObjectList<GameObjectSuika,     (void**)0x85da54>;
-	using GameObjectList_Udonge     = GameObjectList<GameObjectUdonge,    (void**)0x85dd2c>;
-	using GameObjectList_Aya        = GameObjectList<GameObjectAya,       (void**)0x85e20c>;
-	using GameObjectList_Komachi    = GameObjectList<GameObjectKomachi,   (void**)0x85df7c>;
-	using GameObjectList_Iku        = GameObjectList<GameObjectIku,       (void**)0x85e474>;
-	using GameObjectList_Tenshi     = GameObjectList<GameObjectTenshi,    (void**)0x85e6ec>;
-	using GameObjectList_Sanae      = GameObjectList<GameObjectSanae,     (void**)0x85efbc>;
-	using GameObjectList_Chirno     = GameObjectList<GameObjectChirno,    (void**)0x85ea84>;
-	using GameObjectList_Meirin     = GameObjectList<GameObjectMeirin,    (void**)0x85ed0c>;
-	using GameObjectList_Utsuho     = GameObjectList<GameObjectUtsuho,    (void**)0x85f5bc>;
-	using GameObjectList_Suwako     = GameObjectList<GameObjectSuwako,    (void**)0x85f28c>;
-	using GameObjectList_Namazu     = GameObjectList<GameObjectNamazu,    (void**)0x85f7f4>;
+	template<class T, unsigned base_vtable>
+	class VTableGameObjectList : public GameObjectList<T> {
+	public:
+		inline VTableGameObjectList(Player* player) : GameObjectList<T>(player) {} // TODO i think it reserves 256 objects, but not sure
+		~VTableGameObjectList() override { (this->*union_cast<char *(VTableGameObjectList::*)()>(((void **)base_vtable)[0]))(); };
+
+		GameObject* createObject(GameObject* a0, Player* a1, short a2, float a3, float a4, Direction a5, char a6, void* a7, unsigned int a8) override
+		{
+			auto addr = ((void **)base_vtable)[1];
+			auto fct = union_cast<GameObject*(VTableGameObjectList::*)(GameObject*, Player*, short, float, float, Direction, char, void*, unsigned int)>(addr);
+
+			return (this->*fct)(a0, a1, a2, a3, a4, a5, a6, a7, a8);
+		}
+	};
+
+	using GameObjectList_Reimu      = VTableGameObjectList<GameObjectReimu,     0x85bf1c>;
+	using GameObjectList_Marisa     = VTableGameObjectList<GameObjectMarisa,    0x85c34c>;
+	using GameObjectList_Sakuya     = VTableGameObjectList<GameObjectSakuya,    0x85c6d4>;
+	using GameObjectList_Alice      = VTableGameObjectList<GameObjectAlice,     0x85c9c4>;
+	using GameObjectList_Patchouli  = VTableGameObjectList<GameObjectPatchouli, 0x85ccfc>;
+	using GameObjectList_Youmu      = VTableGameObjectList<GameObjectYoumu,     0x85cfac>;
+	using GameObjectList_Remilia    = VTableGameObjectList<GameObjectRemilia,   0x85d254>;
+	using GameObjectList_Yuyuko     = VTableGameObjectList<GameObjectYuyuko,    0x85d4f4>;
+	using GameObjectList_Yukari     = VTableGameObjectList<GameObjectYukari,    0x85d78c>;
+	using GameObjectList_Suika      = VTableGameObjectList<GameObjectSuika,     0x85da54>;
+	using GameObjectList_Udonge     = VTableGameObjectList<GameObjectUdonge,    0x85dd2c>;
+	using GameObjectList_Aya        = VTableGameObjectList<GameObjectAya,       0x85e20c>;
+	using GameObjectList_Komachi    = VTableGameObjectList<GameObjectKomachi,   0x85df7c>;
+	using GameObjectList_Iku        = VTableGameObjectList<GameObjectIku,       0x85e474>;
+	using GameObjectList_Tenshi     = VTableGameObjectList<GameObjectTenshi,    0x85e6ec>;
+	using GameObjectList_Sanae      = VTableGameObjectList<GameObjectSanae,     0x85efbc>;
+	using GameObjectList_Chirno     = VTableGameObjectList<GameObjectChirno,    0x85ea84>;
+	using GameObjectList_Meirin     = VTableGameObjectList<GameObjectMeirin,    0x85ed0c>;
+	using GameObjectList_Utsuho     = VTableGameObjectList<GameObjectUtsuho,    0x85f5bc>;
+	using GameObjectList_Suwako     = VTableGameObjectList<GameObjectSuwako,    0x85f28c>;
+	using GameObjectList_Namazu     = VTableGameObjectList<GameObjectNamazu,    0x85f7f4>;
 
 }
 }

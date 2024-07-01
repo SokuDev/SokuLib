@@ -28,7 +28,7 @@ namespace SokuLib
 		void *InputManagerExObj;
 
 		// 0x0D4
-		void *offset_0x0D4[0xC8];
+		unsigned char offset_0x0D4[0xD8];
 
 		// 0x1AC
 		Dequeue<unsigned short> cards[20][4];
