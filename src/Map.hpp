@@ -139,8 +139,8 @@ namespace SokuLib
 		void _erase(Node* root) {
 			for (Node* node = root; !node->isNil; root = node) {
 				_erase(node->right);
-				node = node->left;
 				node->val.~value_type();
+				node = node->left;
 				SokuLib::DeleteFct(root);
 			}
 		}

@@ -2,6 +2,7 @@
 // Created by DPhoenix on 20/09/2022.
 //
 
+#include "Player.hpp"
 #include "GameObject.hpp"
 #include "VTables.hpp"
 #include <algorithm>
@@ -94,6 +95,21 @@ namespace v2 {
 			SokuLib::DeleteFct(this->tail);
 			this->tail = nullptr;
 		}
+	}
+
+	bool GameObject::checkTurnIntoCrystals(bool onlyAirHit, int bigCrystalCount, int smallCrystalCount)
+	{
+		if (this->parentPlayer->frameState.actionId < ACTION_STAND_GROUND_HIT_SMALL_HITSTUN)
+			return false;
+		if (onlyAirHit && this->parentPlayer->frameState.actionId < ACTION_AIR_HIT_MEDIUM_HITSTUN)
+			return false;
+		if (this->parentPlayer->frameState.actionId >= ACTION_RIGHTBLOCK_HIGH_SMALL_BLOCKSTUN)
+			return false;
+		while (bigCrystalCount--)
+			this->createEffect(200, this->position.x, this->position.y, this->direction, 1);
+		while (smallCrystalCount--)
+			this->createEffect(201, this->position.x, this->position.y, this->direction, 1);
+		return true;
 	}
 
 	void TailObject::initialize(GameObjectBase* parent, FrameData* frameData, float paramA, int paramB, int paramC, int paramD) {

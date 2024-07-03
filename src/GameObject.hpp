@@ -14,6 +14,17 @@ namespace v2 {
 
 	class GameObjectBase : public AnimationObject {
 	public:
+		enum CollisionType {
+			COLLISION_TYPE_NONE,
+			COLLISION_TYPE_HIT,
+			COLLISION_TYPE_BLOCKED,
+			COLLISION_TYPE_3, // Can't cancel stuff if set to 3
+			COLLISION_TYPE_4,
+			COLLISION_TYPE_5,
+			COLLISION_TYPE_GRAZED,
+			COLLISION_TYPE_ARMORED,
+		};
+
 		// offset 0x158
 		struct GameInfo {
 			CharacterFrameData* frameData;
@@ -34,11 +45,11 @@ namespace v2 {
 		int unknown188 = 0;
 		char unknown18c = -1;
 		char unknown18d[3]; // align 0x3?
-		int collisionType = 0;
+		CollisionType collisionType = COLLISION_TYPE_NONE;
 		char collisionLimit = 0;
 		char unknown195; // align 0x1?
 		short hitStop = 0;
-		float unknown198;
+		float counterHitDmgMultiplier = 1;
 		float unknown19C; // = .0
 		char unknown1A0 = 0;
 		char unknown1A1 = 0;
@@ -150,6 +161,7 @@ namespace v2 {
 		virtual GameObject* createObject(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) = 0;
 		virtual GameObject* createChild(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) = 0;
 
+		bool checkTurnIntoCrystals(bool onlyAirHit, int bigCrystalCount, int smallCrystalCount);
 		void setTail(Action actionId, float paramA, int paramB, int paramC, int paramD); // unsure
 	}; // 0x3AC
 
