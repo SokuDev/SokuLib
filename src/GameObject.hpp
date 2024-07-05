@@ -146,7 +146,10 @@ namespace v2 {
 		short unknown362 = 0;
 		Player* parentPlayer;
 		GameObject* parentObject;
-		char unknown36C[0x2C]; // +0x378: float
+		char unknown36C[0xC]; // +0x378: float
+		float unknown378 = 0;
+		float unknown37C = 0;
+		char unknown380[0x18]; // +0x378: float
 
 		// offset 0x398
 		Player* parentPlayerB;

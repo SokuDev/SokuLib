@@ -8,6 +8,7 @@
 
 #include "UnionCast.hpp"
 #include "Memory.hpp"
+#include "SokuAddresses.hpp"
 
 namespace SokuLib
 {
