@@ -41,8 +41,10 @@ namespace v2 {
 			unsigned short poseId;
 			unsigned short poseFrame;
 			unsigned int currentFrame;
-			unsigned sequenceSize;
-			unsigned poseDuration;
+			unsigned short sequenceSize;
+			unsigned short unknown;
+			unsigned short poseDuration;
+			// align 0x2
 		} frameState;
 		// offset 0x150
 		v2::FrameData* frameData;

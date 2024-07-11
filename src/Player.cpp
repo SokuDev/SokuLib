@@ -163,7 +163,9 @@ namespace v2 {
 	bool Player::canActivateCard(int slot) { return (this->*union_cast<bool(Player::*)(int)>(0x468E80))(slot); }
 	bool Player::useSystemCard(int moveLock) { return (this->*union_cast<bool(Player::*)(int)>(0x48A700))(moveLock); }
 	void Player::useSpellCard(int id, short action) { return (this->*union_cast<void(Player::*)(int, short)>(0x487B60))(id, action); }
+	void Player::useSkill(int id, short action) { return (this->*union_cast<void(Player::*)(int, short)>(0x487BA0))(id, action); }
 	unsigned short Player::getMoveLock(unsigned short action) { return (this->*union_cast<unsigned short(Player::*)(unsigned short)>(0x489610))(action); }
+	void Player::onSkillUpgrade() { return (this->*union_cast<void(Player::*)()>(0x489660))(); }
 	SokuLib::v2::GameObject *Player::createObject(short action, float x, float y, Direction direction, char layer, float *extraData, unsigned int extraDataSize) {
 		// Mimics 0x46EB30
 		return this->objectList->createObject(nullptr, this, action, x, y, direction, layer, extraData, extraDataSize);

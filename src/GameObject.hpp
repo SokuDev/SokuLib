@@ -19,10 +19,11 @@ namespace v2 {
 			COLLISION_TYPE_HIT,
 			COLLISION_TYPE_BLOCKED,
 			COLLISION_TYPE_3, // Can't cancel stuff if set to 3
-			COLLISION_TYPE_4,
+			COLLISION_TYPE_BULLET_COLLIDE_HIGH_DENSITY,
 			COLLISION_TYPE_5,
 			COLLISION_TYPE_GRAZED,
 			COLLISION_TYPE_ARMORED,
+			COLLISION_TYPE_BULLET_COLLIDE_SAME_DENSITY
 		};
 
 		// offset 0x158
@@ -43,7 +44,7 @@ namespace v2 {
 		short HP; // = 10000
 		short MaxHP; // = 10000
 		int unknown188 = 0;
-		char unknown18c = -1;
+		char skillIndex = -1;
 		char unknown18d[3]; // align 0x3?
 		CollisionType collisionType = COLLISION_TYPE_NONE;
 		char collisionLimit = 0;
@@ -53,9 +54,9 @@ namespace v2 {
 		float unknown19C; // = .0
 		char unknown1A0 = 0;
 		char unknown1A1 = 0;
-		short unknown1A2; // = 0
-		float unknown1A4; // = .0
-		float unknown1A8; // = .0
+		short forcedCounterHits = 0; // = 0
+		float unknown1A4 = 0; // = .0
+		float unknown1A8 = 0; // = .0
 		char unknown1AC = 1;
 		char unknown1AD[3]; // align 0x3?
 		void* unknown1B0 = nullptr;

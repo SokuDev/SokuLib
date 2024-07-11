@@ -49,7 +49,7 @@ namespace v2 {
 		short unknown4C0, unknown4C2; // = 0
 		char unknown4C4, unknown4C5; // 48b000: +0x4c4 = 0 align 1?
 		short unknown4C6; // = 0
-		int skillCancelTime; // = 0
+		int skillCancelCount; // = 0
 		char unknown4CC, hasSpotlight; // = 0
 		short spotlightStrength; // = 0
 		float speedPower; // = 1.0
@@ -102,8 +102,8 @@ namespace v2 {
 		// offset 0x610
 		Sprite unknown610;
 		// offset 0x6A4
-		char skillLevelA[32]; // this one starts as 0
-		char skillLevelB[32]; // this one starts as -1 (except the first four reset in: 48b000)
+		char effectiveSkillLevel[32]; // this one starts as 0
+		char skilledSkillLevel[32]; // this one starts as -1 (except the first four reset in: 48b000)
 		int unknown6E4, unknown6E8; // 46b9a0: = 0
 		int unknown6EC, unknown6F0; // 46b9a0: = -1
 		char unknown6F4, unknown6F5; // 46b9a0: = 0
@@ -147,7 +147,7 @@ namespace v2 {
 			Deque<unsigned short> commandInputBuffer;
 			MovementCombination movementCombination; // 46b9a0: = 0
 			CommandCombination commandCombination; // 46b9a0: = 0
-			char unknown7CC; // type of input? (checks for 0, 1 or 2)
+			char unknown7CC = 0; // type of input? (checks for 0, 1 or 2)
 			// align 0x3
 		} inputData;
 
@@ -243,7 +243,8 @@ namespace v2 {
 		bool handleBackAirDash(int moveLock, int hjCancelable, int allowedAirMoves, int airDashCancelSeq); // 0x48a470
 		bool handleNormalFlight(int moveLock, int hjCancelable, int allowedAirMoves); // 0x48a560
 		void useSpellCard(int id, short action); // 0x487b60 (+0x4ad flag 0x10)
-		// 0x487ba0 (+0x4ad flag 0x08)
+		void useSkill(int id, short action); // 0x487ba0 (+0x4ad flag 0x08)
+		void onSkillUpgrade(); // 0x489660
 		void Unknown487C20(); // swapDirection?
 		void playSpellBackground(int id, int timer);
 		bool applyGroundMechanics(); // 0x487ca0
