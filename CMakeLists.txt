@@ -121,6 +121,8 @@ add_library(
 	src/Misc.hpp
 	src/GameObject.cpp
 	src/GameObject.hpp
+	src/GameData.cpp
+	src/GameData.hpp
 	src/Player.cpp
 	src/Player.hpp
 	src/InputCombination.hpp

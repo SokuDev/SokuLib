@@ -102,8 +102,8 @@ namespace v2 {
 		void setPose(short pose) override;
 		bool nextPose() override;
 		void prevPose() override;
-		virtual bool initializeAction() = 0;
-		virtual void updatePhysics();
+		virtual bool initializeAction() = 0; // 0x3C
+		virtual void updatePhysics(); // 0x40
 
 		void resetForces(); // 4636b0
 		float getGroundHeight() const; // 4397f0
@@ -154,7 +154,7 @@ namespace v2 {
 
 		// offset 0x398
 		Player* parentPlayerB;
-		GameObject* parentB = 0;
+		GameObject* parentB = nullptr;
 		List<GameObject*> childrenB;
 
 		inline GameObject() {

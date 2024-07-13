@@ -51,21 +51,21 @@ namespace v2 {
 		SpriteEx* unknown154 = nullptr;
 
 		inline AnimationObject() = default;
-		virtual ~AnimationObject();
-		virtual void setActionSequence(short action, short sequence);
-		virtual bool setAction(short action);
-		virtual void setSequence(short sequence) = 0;
-		virtual void resetSequence() = 0;
-		virtual bool nextSequence() = 0;
-		virtual void prevSequence() = 0;
-		virtual void setPose(short pose) = 0;
-		virtual bool nextPose() = 0;
-		virtual void prevPose() = 0;
-		virtual void update() = 0;
-		virtual void render();
-		virtual void render2();
-		virtual void applyTransform();
-		virtual void onRenderEnd();
+		virtual ~AnimationObject(); // 0x00
+		virtual void setActionSequence(short action, short sequence); // 0x04
+		virtual bool setAction(short action); // 0x08
+		virtual void setSequence(short sequence) = 0; // 0x0C
+		virtual void resetSequence() = 0; // 0x10
+		virtual bool nextSequence() = 0; // 0x14
+		virtual void prevSequence() = 0; // 0x18
+		virtual void setPose(short pose) = 0; // 0x1C
+		virtual bool nextPose() = 0; // 0x20
+		virtual void prevPose() = 0; // 0x24
+		virtual void update() = 0; // 0x28
+		virtual void render(); // 0x2C
+		virtual void render2(); // 0x30
+		virtual void applyTransform(); // 0x34
+		virtual void onRenderEnd(); // 0x38
 
 		void resetRenderInfo(); // 0x438BB0
 		bool advanceFrame(); // 0x438c60

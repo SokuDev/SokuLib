@@ -5,6 +5,8 @@
 #include "GameData.hpp"
 
 namespace SokuLib {
+	float (&v2::groundHeight)[1280] = *(float (*)[1280])0x8971D8;
+
 	v2::GameDataManager*& v2::GameDataManager::instance = *reinterpret_cast<GameDataManager**>(SokuLib::ADDR_GAME_DATA_MANAGER);
 	v2::SaveDataManager& v2::SaveDataManager::instance = *reinterpret_cast<SaveDataManager*>(0x899f60);
 	void v2::SaveDataManager::enableStage(int stageId) { return (this->*union_cast<void (v2::SaveDataManager::*)(int)>(0x430c60))(stageId); }
