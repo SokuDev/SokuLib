@@ -147,10 +147,18 @@ namespace v2 {
 		short unknown362 = 0;
 		Player* parentPlayer;
 		GameObject* parentObject;
-		char unknown36C[0xC]; // +0x378: float
+		short unknown36C = 0;
+		short unknown36E = 0;
+		short unknown370 = 0;
+		short unknown372 = 0;
+		short unknown374 = 0;
+		short unknown376 = 0;
 		float unknown378 = 0;
 		float unknown37C = 0;
-		char unknown380[0x18]; // +0x378: float
+		float unknown380 = 0;
+		char unknown384[0x10];
+		short grazeCounter = 0;
+		short otherProjectileHit = 0;
 
 		// offset 0x398
 		Player* parentPlayerB;
@@ -165,8 +173,10 @@ namespace v2 {
 		virtual GameObject* createObject(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) = 0;
 		virtual GameObject* createChild(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) = 0;
 
+		bool checkGrazed(int density);
+		bool checkProjectileHit(int density);
 		bool checkTurnIntoCrystals(bool onlyAirHit, int bigCrystalCount, int smallCrystalCount);
-		void setTail(Action actionId, float paramA, int paramB, int paramC, int paramD); // unsure
+		void setTail(short actionId, float paramA, int paramB, int paramC, int paramD); // unsure
 	}; // 0x3AC
 
 #define DECL_GAMEOBJECT_VIRTUALS() \
