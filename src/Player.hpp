@@ -58,7 +58,7 @@ namespace v2 {
 		char unknown4D9[3]; // align 3?
 		int unknown4DC[16]; // = 0
 		short meleeInvulTimer, grabInvulTimer, projectileInvulTimer, grazeTimer; // = 0
-		short unknown524, SORDebuffTimer, healCharmTimer; // = 0
+		short confusionDebuffTimer, SORDebuffTimer, healCharmTimer; // = 0
 		char unknown52A, unknown52B; // 48b000: +0x52A = 0 align 1?
 		int weatherId; // = 0;
 
@@ -252,7 +252,7 @@ namespace v2 {
 		bool applyAirMechanics(); // 0x487ea0
 		void playSFX(int id); // 0x464980
 		void consumeSpirit(int cost, int delay); // 0x47a9e0
-		void consumeCard(int index, int costOverride = 0, int cardNameTimer = 60); // 0x469c70
+		void consumeCard(int index = 0, int costOverride = 0, int cardNameTimer = 60); // 0x469c70
 		void eventSkillUse(); // 0x483ce0
 		void eventSpellUse(); // 0x483d60
 		void eventWeatherCycle(); // 0x483db0
