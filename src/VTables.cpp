@@ -5,6 +5,7 @@
 #include "VTables.hpp"
 #include "Menus/ConnectMenu.hpp"
 #include "Menus/ProfileDeckEdit.hpp"
+#include "Packet.hpp"
 
 namespace SokuLib
 {
@@ -26,6 +27,7 @@ namespace SokuLib
 	Menu_VTABLE<MenuResult>     &VTable_Result         = *reinterpret_cast<Menu_VTABLE<MenuResult>     *>(ADDR_VTBL_RESULT_MENU);
 	Menu_VTABLE<PauseMenu>      &VTable_PauseMenu      = *reinterpret_cast<Menu_VTABLE<PauseMenu>      *>(ADDR_VTBL_PAUSE_MENU);
 	BattleManager_VTABLE        &VTable_BattleManager  = *reinterpret_cast<BattleManager_VTABLE        *>(ADDR_VTBL_BATTLE_MANAGER);
+	DPP_VTABLE<DPP_REPLAY>      &VTable_DPP_REPLAY     = *reinterpret_cast<DPP_VTABLE<DPP_REPLAY>      *>(ADDR_VTBL_DPP_REPLAY);
 
 	int _vtable_offset_helper::r0()  { return 0; }
 	int _vtable_offset_helper::r1()  { return 1; }

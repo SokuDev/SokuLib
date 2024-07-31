@@ -11,6 +11,7 @@
 #include "Scenes.hpp"
 #include "SokuAddresses.hpp"
 #include "Menus.hpp"
+#include "Packet.hpp"
 
 namespace SokuLib
 {
@@ -53,6 +54,12 @@ namespace SokuLib
 		void (BattleManager::*maybeOnRender2)(); // After select arena render???? Last function???
 	};
 
+	template<typename T>
+	struct DPP_VTABLE {
+		size_t (T::*encode)(GameEvent * buf) const;
+		void (T::*decode)(GameEvent * const buf);
+	};
+
 	extern Scene_VTABLE<Select>        &VTable_Select;
 	extern Scene_VTABLE<Logo>          &VTable_Logo;
 	extern Scene_VTABLE<Title>         &VTable_Title;
@@ -71,6 +78,7 @@ namespace SokuLib
 	extern Menu_VTABLE<MenuResult>     &VTable_Result;
 	extern Menu_VTABLE<PauseMenu>      &VTable_PauseMenu;
 	extern BattleManager_VTABLE        &VTable_BattleManager;
+	extern DPP_VTABLE<DPP_REPLAY>      &VTable_DPP_REPLAY;
 
 	struct _vtable_offset_helper {
 		virtual int r0();  virtual int r1();  virtual int r2();  virtual int r3();
