@@ -133,6 +133,7 @@ namespace SokuLib
 		ADDR_VTBL_DECK_CONSTRUCTION_CHR_SELECT_MENU = 0x00859980,
 		ADDR_VTBL_CHANGE_KEYS_MENU                  = 0x00859A3C,
 		ADDR_VTBL_PROFILE_MENU                      = 0x00859BD0,
+		ADDR_VTBL_DPP_REPLAY                        = 0x00859c44,
 		ADDR_VTBL_FXMANAGER_INFOFX                  = 0x0085B4A4,
 		ADDR_VTBL_FX_INFOFX                         = 0x0085B4CC,
 		ADDR_VTBL_CGAGE                             = 0x0087109C,
