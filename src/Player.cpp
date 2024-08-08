@@ -36,8 +36,8 @@
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[13]))(); } \
 	void CLS::onRenderEnd() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[14]))(); } \
-	bool CLS::initializeAction() \
-		{ return (this->*union_cast<bool(CLS::*)()>(VTB[15]))(); } \
+	void CLS::initializeAction() \
+		{ return (this->*union_cast<void(CLS::*)()>(VTB[15]))(); } \
 	void CLS::updatePhysics() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[16]))(); } \
 	void CLS::initialize() \
@@ -151,7 +151,7 @@ namespace v2 {
 	bool Player::handleFwdAirDash(int moveLock, int hjCancelable, int allowedAirMoves, int airDashCancelSeq) { return (this->*union_cast<bool(Player::*)(int, int, int, int)>(0x48a380))(moveLock, hjCancelable, allowedAirMoves, airDashCancelSeq); }
 	bool Player::handleBackAirDash(int moveLock, int hjCancelable, int allowedAirMoves, int airDashCancelSeq) { return (this->*union_cast<bool(Player::*)(int, int, int, int)>(0x48a470))(moveLock, hjCancelable, allowedAirMoves, airDashCancelSeq); }
 	bool Player::handleNormalFlight(int moveLock, int hjCancelable, int allowedAirMoves) { return (this->*union_cast<bool(Player::*)(int, int, int)>(0x48a560))(moveLock, hjCancelable, allowedAirMoves); }
-	bool Player::initializeAction() { return (this->*union_cast<bool(Player::*)()>(0x48b210))(); }
+	void Player::initializeAction() { (this->*union_cast<void(Player::*)()>(0x48b210))(); }
 	void Player::applyTransform() { return (this->*union_cast<void(Player::*)()>(0x46A510))(); }
 	void Player::updatePhysics() { return (this->*union_cast<void(Player::*)()>(0x487EF0))(); }
 	void Player::initialize() { return (this->*union_cast<void(Player::*)()>(0x48B000))(); }

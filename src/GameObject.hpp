@@ -102,7 +102,7 @@ namespace v2 {
 		void setPose(short pose) override;
 		bool nextPose() override;
 		void prevPose() override;
-		virtual bool initializeAction() = 0; // 0x3C
+		virtual void initializeAction() = 0; // 0x3C
 		virtual void updatePhysics(); // 0x40
 
 		void resetForces(); // 4636b0
@@ -194,7 +194,7 @@ namespace v2 {
 	void render2() override; \
 	void applyTransform() override; \
 	void onRenderEnd() override; \
-	bool initializeAction() override; \
+	void initializeAction() override; \
 	void updatePhysics() override; \
 	GameObject* createObject(short, float, float, Direction, char, float*, unsigned int) override; \
 	GameObject* createChild(short, float, float, Direction, char, float*, unsigned int) override;

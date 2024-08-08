@@ -40,7 +40,7 @@ namespace v2 {
 		short redHP;
 		char groundDashCount, airDashCount, unknown49C, unknown49D; // = 0
 		short currentSpirit, maxSpirit; // = 100
-		short spiritRegenDelay, timeWithBrokenOrb, unknown4A6, timeStop, unknown4AA; // = 0
+		short spiritRegenDelay, timeWithBrokenOrb, spellStopCounter, timeStop, unknown4AA; // = 0
 		char unknown4AC, unknown4AD; // = 0
 		char unknown4AE[2]; // align 2?
 		float comboRate; // = 1.0
@@ -212,7 +212,7 @@ namespace v2 {
 		Player(const PlayerInfo& playerInfo);
 		~Player() override;
 
-		bool initializeAction() override;
+		void initializeAction() override;
 		void applyTransform() override;
 		void updatePhysics() override;
 		virtual void initialize(); // character specific initialization
@@ -287,7 +287,7 @@ namespace v2 {
 	void render2() override; \
 	void applyTransform() override; \
 	void onRenderEnd() override; \
-	bool initializeAction() override; \
+	void initializeAction() override; \
 	void updatePhysics() override; \
 	void initialize() override; \
 	bool VUnknown48() override; \

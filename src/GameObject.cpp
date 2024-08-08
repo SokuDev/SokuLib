@@ -177,8 +177,8 @@ namespace v2 {
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[13]))(); } \
 	void CLS::onRenderEnd() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[14]))(); } \
-	bool CLS::initializeAction() \
-		{ return (this->*union_cast<bool(CLS::*)()>(VTB[15]))(); } \
+	void CLS::initializeAction() \
+		{ return (this->*union_cast<void(CLS::*)()>(VTB[15]))(); } \
 	void CLS::updatePhysics() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[16]))(); } \
 	SokuLib::v2::GameObject* CLS::createObject(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) \
