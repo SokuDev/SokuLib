@@ -14,6 +14,18 @@ namespace v2 {
 
 	class GameObjectBase : public AnimationObject {
 	public:
+		enum CollisionType {
+			COLLISION_TYPE_NONE,
+			COLLISION_TYPE_HIT,
+			COLLISION_TYPE_BLOCKED,
+			COLLISION_TYPE_3, // Can't cancel stuff if set to 3
+			COLLISION_TYPE_BULLET_COLLIDE_HIGH_DENSITY,
+			COLLISION_TYPE_5,
+			COLLISION_TYPE_GRAZED,
+			COLLISION_TYPE_ARMORED,
+			COLLISION_TYPE_BULLET_COLLIDE_SAME_DENSITY
+		};
+
 		// offset 0x158
 		struct GameInfo {
 			CharacterFrameData* frameData;
@@ -32,19 +44,19 @@ namespace v2 {
 		short HP; // = 10000
 		short MaxHP; // = 10000
 		int unknown188 = 0;
-		char unknown18c = -1;
+		char skillIndex = -1;
 		char unknown18d[3]; // align 0x3?
-		int collisionType = 0;
+		CollisionType collisionType = COLLISION_TYPE_NONE;
 		char collisionLimit = 0;
 		char unknown195; // align 0x1?
 		short hitStop = 0;
-		float unknown198;
+		float counterHitDmgMultiplier = 1;
 		float unknown19C; // = .0
 		char unknown1A0 = 0;
 		char unknown1A1 = 0;
-		short unknown1A2; // = 0
-		float unknown1A4; // = .0
-		float unknown1A8; // = .0
+		short forcedCounterHits = 0; // = 0
+		float unknown1A4 = 0; // = .0
+		float unknown1A8 = 0; // = .0
 		char unknown1AC = 1;
 		char unknown1AD[3]; // align 0x3?
 		void* unknown1B0 = nullptr;
@@ -90,8 +102,8 @@ namespace v2 {
 		void setPose(short pose) override;
 		bool nextPose() override;
 		void prevPose() override;
-		virtual bool initializeAction() = 0;
-		virtual void updatePhysics();
+		virtual void initializeAction() = 0; // 0x3C
+		virtual void updatePhysics(); // 0x40
 
 		void resetForces(); // 4636b0
 		float getGroundHeight() const; // 4397f0
@@ -135,11 +147,22 @@ namespace v2 {
 		short unknown362 = 0;
 		Player* parentPlayer;
 		GameObject* parentObject;
-		char unknown36C[0x2C]; // +0x378: float
+		short unknown36C = 0;
+		short unknown36E = 0;
+		short unknown370 = 0;
+		short unknown372 = 0;
+		short unknown374 = 0;
+		short unknown376 = 0;
+		float unknown378 = 0;
+		float unknown37C = 0;
+		float unknown380 = 0;
+		char unknown384[0x10];
+		short grazeCounter = 0;
+		short otherProjectileHit = 0;
 
 		// offset 0x398
 		Player* parentPlayerB;
-		GameObject* parentB = 0;
+		GameObject* parentB = nullptr;
 		List<GameObject*> childrenB;
 
 		inline GameObject() {
@@ -150,7 +173,10 @@ namespace v2 {
 		virtual GameObject* createObject(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) = 0;
 		virtual GameObject* createChild(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) = 0;
 
-		void setTail(Action actionId, float paramA, int paramB, int paramC, int paramD); // unsure
+		bool checkGrazed(int density);
+		bool checkProjectileHit(int density);
+		bool checkTurnIntoCrystals(bool onlyAirHit, int bigCrystalCount, int smallCrystalCount);
+		void setTail(short actionId, float paramA, int paramB, int paramC, int paramD); // unsure
 	}; // 0x3AC
 
 #define DECL_GAMEOBJECT_VIRTUALS() \
@@ -168,7 +194,7 @@ namespace v2 {
 	void render2() override; \
 	void applyTransform() override; \
 	void onRenderEnd() override; \
-	bool initializeAction() override; \
+	void initializeAction() override; \
 	void updatePhysics() override; \
 	GameObject* createObject(short, float, float, Direction, char, float*, unsigned int) override; \
 	GameObject* createChild(short, float, float, Direction, char, float*, unsigned int) override;

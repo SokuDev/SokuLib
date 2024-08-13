@@ -71,6 +71,8 @@ namespace v2 {
 		void saveData(); // 0x42fa10
 		void saveScenarioResult(int characterId, unsigned char score); // 0x431c20
 	};
+
+	extern float (&groundHeight)[1280];
 }}
 
 #endif

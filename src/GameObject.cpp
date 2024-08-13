@@ -2,6 +2,7 @@
 // Created by DPhoenix on 20/09/2022.
 //
 
+#include "Player.hpp"
 #include "GameObject.hpp"
 #include "VTables.hpp"
 #include <algorithm>
@@ -72,8 +73,8 @@ namespace v2 {
 	void GameObjectBase::prevPose() { return (this->*union_cast<void (GameObjectBase::*)()>(0x464BC0))(); }
 	void GameObjectBase::updatePhysics() {}
 
-	void GameObject::setTail(Action actionId, float paramA, int paramB, int paramC, int paramD) {
-		return (this->*union_cast<void (GameObject::*)(Action, float, int, int, int)>(0x4b0f50))
+	void GameObject::setTail(short actionId, float paramA, int paramB, int paramC, int paramD) {
+		return (this->*union_cast<void (GameObject::*)(short, float, int, int, int)>(0x4b0f50))
 			(actionId, paramA, paramB, paramC, paramD);
 	}
 
@@ -94,6 +95,48 @@ namespace v2 {
 			SokuLib::DeleteFct(this->tail);
 			this->tail = nullptr;
 		}
+	}
+
+	bool GameObject::checkTurnIntoCrystals(bool onlyAirHit, int bigCrystalCount, int smallCrystalCount)
+	{
+		if (this->parentPlayer->frameState.actionId < ACTION_STAND_GROUND_HIT_SMALL_HITSTUN)
+			return false;
+		if (onlyAirHit && this->parentPlayer->frameState.actionId < ACTION_AIR_HIT_MEDIUM_HITSTUN)
+			return false;
+		if (this->parentPlayer->frameState.actionId >= ACTION_RIGHTBLOCK_HIGH_SMALL_BLOCKSTUN)
+			return false;
+		while (bigCrystalCount--)
+			this->createEffect(200, this->position.x, this->position.y, this->direction, 1);
+		while (smallCrystalCount--)
+			this->createEffect(201, this->position.x, this->position.y, this->direction, 1);
+		return true;
+	}
+
+	bool GameObject::checkProjectileHit(int density)
+	{
+		if (this->collisionType == COLLISION_TYPE_BULLET_COLLIDE_SAME_DENSITY) {
+			this->otherProjectileHit++;
+			if (0 < density && density <= this->otherProjectileHit)
+				return true;
+			this->collisionLimit++;
+			this->collisionType = COLLISION_TYPE_NONE;
+		}
+		if (this->collisionType != COLLISION_TYPE_BULLET_COLLIDE_HIGH_DENSITY)
+			return false;
+		this->collisionLimit = 0;
+		return true;
+	}
+
+	bool GameObject::checkGrazed(int density)
+	{
+		if (this->collisionType == COLLISION_TYPE_GRAZED) {
+			this->grazeCounter++;
+			if (0 < density && density <= this->grazeCounter)
+				return true;
+			this->collisionLimit++;
+			this->collisionType = COLLISION_TYPE_NONE;
+		}
+		return false;
 	}
 
 	void TailObject::initialize(GameObjectBase* parent, FrameData* frameData, float paramA, int paramB, int paramC, int paramD) {
@@ -134,8 +177,8 @@ namespace v2 {
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[13]))(); } \
 	void CLS::onRenderEnd() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[14]))(); } \
-	bool CLS::initializeAction() \
-		{ return (this->*union_cast<bool(CLS::*)()>(VTB[15]))(); } \
+	void CLS::initializeAction() \
+		{ return (this->*union_cast<void(CLS::*)()>(VTB[15]))(); } \
 	void CLS::updatePhysics() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[16]))(); } \
 	SokuLib::v2::GameObject* CLS::createObject(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) \

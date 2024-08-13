@@ -41,33 +41,64 @@ namespace v2 {
 			unsigned short poseId;
 			unsigned short poseFrame;
 			unsigned int currentFrame;
-			unsigned sequenceSize;
-			unsigned poseDuration;
+			unsigned short sequenceSize;
+			unsigned short unknown;
+			unsigned short poseDuration;
+			// align 0x2
 		} frameState;
 		// offset 0x150
 		v2::FrameData* frameData;
 		SpriteEx* unknown154 = nullptr;
 
 		inline AnimationObject() = default;
-		virtual ~AnimationObject();
-		virtual void setActionSequence(short action, short sequence);
-		virtual bool setAction(short action);
-		virtual void setSequence(short sequence) = 0;
-		virtual void resetSequence() = 0;
-		virtual bool nextSequence() = 0;
-		virtual void prevSequence() = 0;
-		virtual void setPose(short pose) = 0;
-		virtual bool nextPose() = 0;
-		virtual void prevPose() = 0;
-		virtual void update() = 0;
-		virtual void render();
-		virtual void render2();
-		virtual void applyTransform();
-		virtual void onRenderEnd();
+		virtual ~AnimationObject(); // 0x00
+		virtual void setActionSequence(short action, short sequence); // 0x04
+		virtual bool setAction(short action); // 0x08
+		virtual void setSequence(short sequence) = 0; // 0x0C
+		virtual void resetSequence() = 0; // 0x10
+		virtual bool nextSequence() = 0; // 0x14
+		virtual void prevSequence() = 0; // 0x18
+		virtual void setPose(short pose) = 0; // 0x1C
+		virtual bool nextPose() = 0; // 0x20
+		virtual void prevPose() = 0; // 0x24
+		virtual void update() = 0; // 0x28
+		virtual void render(); // 0x2C
+		virtual void render2(); // 0x30
+		virtual void applyTransform(); // 0x34
+		virtual void onRenderEnd(); // 0x38
 
 		void resetRenderInfo(); // 0x438BB0
 		bool advanceFrame(); // 0x438c60
 	};
+
+	class SystemEffectObject {
+	public:
+		int unknown04 = 1;
+		int unknown08 = 0;
+		SpriteEx sprite; // this is actually EffectSprite, but it's a child with identical structure
+
+		// offset 0xF4
+		Vector2f position;
+		Vector2f speed;
+		Vector2f gravity;
+		Direction direction;
+		// align 0x3
+
+		// offset 0x110
+		Vector2f center = {0, 0};
+		RenderInfo renderInfos;
+		// ^ maybe EffectSprite comes until here (0x438bb0)
+
+		// offset 0x138
+		int textureId = 0;
+		int actionId; // this is actually an integer
+		int unknown140; // some custom data (actionIds 0, 1 and 2)
+
+		virtual ~SystemEffectObject();
+		virtual void update();
+		virtual void initializeAction();
+		virtual void render();
+	}; // 0x144
 
 	class EffectObjectBase : public AnimationObject {
 	public:

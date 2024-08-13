@@ -40,7 +40,7 @@ namespace v2 {
 		short redHP;
 		char groundDashCount, airDashCount, unknown49C, unknown49D; // = 0
 		short currentSpirit, maxSpirit; // = 100
-		short spiritRegenDelay, timeWithBrokenOrb, unknown4A6, timeStop, unknown4AA; // = 0
+		short spiritRegenDelay, timeWithBrokenOrb, spellStopCounter, timeStop, unknown4AA; // = 0
 		char unknown4AC, unknown4AD; // = 0
 		char unknown4AE[2]; // align 2?
 		float comboRate; // = 1.0
@@ -49,7 +49,7 @@ namespace v2 {
 		short unknown4C0, unknown4C2; // = 0
 		char unknown4C4, unknown4C5; // 48b000: +0x4c4 = 0 align 1?
 		short unknown4C6; // = 0
-		int skillCancelTime; // = 0
+		int skillCancelCount; // = 0
 		char unknown4CC, hasSpotlight; // = 0
 		short spotlightStrength; // = 0
 		float speedPower; // = 1.0
@@ -58,7 +58,7 @@ namespace v2 {
 		char unknown4D9[3]; // align 3?
 		int unknown4DC[16]; // = 0
 		short meleeInvulTimer, grabInvulTimer, projectileInvulTimer, grazeTimer; // = 0
-		short unknown524, SORDebuffTimer, healCharmTimer; // = 0
+		short confusionDebuffTimer, SORDebuffTimer, healCharmTimer; // = 0
 		char unknown52A, unknown52B; // 48b000: +0x52A = 0 align 1?
 		int weatherId; // = 0;
 
@@ -102,8 +102,8 @@ namespace v2 {
 		// offset 0x610
 		Sprite unknown610;
 		// offset 0x6A4
-		char skillLevelA[32]; // this one starts as 0
-		char skillLevelB[32]; // this one starts as -1 (except the first four reset in: 48b000)
+		char effectiveSkillLevel[32]; // this one starts as 0
+		char skilledSkillLevel[32]; // this one starts as -1 (except the first four reset in: 48b000)
 		int unknown6E4, unknown6E8; // 46b9a0: = 0
 		int unknown6EC, unknown6F0; // 46b9a0: = -1
 		char unknown6F4, unknown6F5; // 46b9a0: = 0
@@ -147,7 +147,7 @@ namespace v2 {
 			Deque<unsigned short> commandInputBuffer;
 			MovementCombination movementCombination; // 46b9a0: = 0
 			CommandCombination commandCombination; // 46b9a0: = 0
-			char unknown7CC; // type of input? (checks for 0, 1 or 2)
+			char unknown7CC = 0; // type of input? (checks for 0, 1 or 2)
 			// align 0x3
 		} inputData;
 
@@ -212,7 +212,7 @@ namespace v2 {
 		Player(const PlayerInfo& playerInfo);
 		~Player() override;
 
-		bool initializeAction() override;
+		void initializeAction() override;
 		void applyTransform() override;
 		void updatePhysics() override;
 		virtual void initialize(); // character specific initialization
@@ -242,8 +242,9 @@ namespace v2 {
 		bool handleFwdAirDash(int moveLock, int hjCancelable, int allowedAirMoves, int airDashCancelSeq); // 0x48a380
 		bool handleBackAirDash(int moveLock, int hjCancelable, int allowedAirMoves, int airDashCancelSeq); // 0x48a470
 		bool handleNormalFlight(int moveLock, int hjCancelable, int allowedAirMoves); // 0x48a560
-		// 0x487b60 (+0x4ad flag 0x10)
-		// 0x487ba0 (+0x4ad flag 0x08)
+		void useSpellCard(int id, short action); // 0x487b60 (+0x4ad flag 0x10)
+		void useSkill(int id, short action); // 0x487ba0 (+0x4ad flag 0x08)
+		void onSkillUpgrade(); // 0x489660
 		void Unknown487C20(); // swapDirection?
 		void playSpellBackground(int id, int timer);
 		bool applyGroundMechanics(); // 0x487ca0
@@ -251,7 +252,7 @@ namespace v2 {
 		bool applyAirMechanics(); // 0x487ea0
 		void playSFX(int id); // 0x464980
 		void consumeSpirit(int cost, int delay); // 0x47a9e0
-		void consumeCard(int index, int costOverride = 0, int cardNameTimer = 60); // 0x469c70
+		void consumeCard(int index = 0, int costOverride = 0, int cardNameTimer = 60); // 0x469c70
 		void eventSkillUse(); // 0x483ce0
 		void eventSpellUse(); // 0x483d60
 		void eventWeatherCycle(); // 0x483db0
@@ -259,6 +260,16 @@ namespace v2 {
 		bool isGrounded(); // 0x463530
 		void updateDefaultBehavior();
 		SokuLib::v2::GameObject* createObject(short action, float x, float y, Direction direction, char layer, float *extraData, unsigned int extraDataSize); // 46eb30
+
+		template<size_t size>
+		SokuLib::v2::GameObject *createObject(short action, float x, float y, Direction direction, char layer, float (&extraData)[size]) {
+			// Mimics 0x46EB30
+			return this->objectList->createObject(nullptr, this, action, x, y, direction, layer, extraData, size);
+		}
+		SokuLib::v2::GameObject *createObject(short action, float x, float y, Direction direction, char layer) {
+			// Mimics 0x46EB30
+			return this->objectList->createObject(nullptr, this, action, x, y, direction, layer, nullptr, 0);
+		}
 	};
 
 #define DECL_PLAYER_VIRTUALS() \
@@ -276,7 +287,7 @@ namespace v2 {
 	void render2() override; \
 	void applyTransform() override; \
 	void onRenderEnd() override; \
-	bool initializeAction() override; \
+	void initializeAction() override; \
 	void updatePhysics() override; \
 	void initialize() override; \
 	bool VUnknown48() override; \

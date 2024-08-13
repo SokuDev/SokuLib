@@ -38,19 +38,29 @@ namespace SokuLib
 		// 0x30
 		float offset_0x30;
 		// 0x34
-		char offset_0x34[0x10];
+		char offset_0x34[0xC];
+		// 0x40
+		float shake;
 		// 0x44
-		float *offset_0x44;
+		float *p1X;
 		// 0x48
-		float *offset_0x48;
+		float *p2X;
 		// 0x4C
-		float *offset_0x4C;
+		float *p1Y;
 		// 0x50
-		float *offset_0x50;
+		float *p2Y;
 		// 0x54
 		float offset_0x54;
 		// 0x58
 		float offset_0x58;
+		// 0x5C
+		float leftEdge;
+		// 0x60
+		float topEdge;
+		// 0x64
+		float rightEdge;
+		// 0x68
+		float bottomEdge;
 
 		void _update1();
 		void _update2();

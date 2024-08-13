@@ -165,6 +165,12 @@ namespace SokuLib {
 			new (_GetMap()[block] + offset%_BlockMax) T(std::forward<_Valty>(value)...); // TODO check constructor
 			++_GetSize();
 		}
+
+		inline void resize(size_t count) {
+			// TODO this isn't the real implementation
+			while (count > size()) emplace_back();
+			while (count < size()) pop_front();
+		}
 	};
 }
 

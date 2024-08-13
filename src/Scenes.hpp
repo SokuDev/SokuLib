@@ -48,6 +48,16 @@ namespace SokuLib
 		}
 	};
 
+	class IScene {
+	public:
+		virtual ~IScene() = default;
+		virtual int onProcess() = 0;
+		virtual bool onRender() = 0;
+		virtual void unknown0C() {}
+		virtual void onEnter(int prevSceneId) {}
+		virtual void onLeave(int nextSceneId) {}
+	};
+
 	struct Logo {
 		SceneBase base;
 	};

@@ -139,8 +139,8 @@ namespace SokuLib
 		void _erase(Node* root) {
 			for (Node* node = root; !node->isNil; root = node) {
 				_erase(node->right);
-				node = node->left;
 				node->val.~value_type();
+				node = node->left;
 				SokuLib::DeleteFct(root);
 			}
 		}
@@ -329,7 +329,7 @@ namespace SokuLib
 
 	public:
 		Map(const Map& o) : Map() {
-			this->head->parent = this->_copy(o.head, this->head);
+			this->head->parent = this->_copy(o.head->parent, this->head);
 			this->size = o.size;
 			if (this->head->parent->isNil) {
 				this->head->left = this->head;

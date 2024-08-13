@@ -53,7 +53,7 @@ namespace SokuLib
 		bool inRubyTag;
 		// align 0x2
 		String rubyParam; // sizeof = 0x1c
-		char unknown18C[0x18];
+		char unknown18C[0x8]; // final object size may be 0x18C or 0x194
 
 		void create();
 		void destruct();

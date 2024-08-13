@@ -464,8 +464,6 @@ namespace DrawUtils
 
 		for (int i = 0; i < 4; i++) {
 			vertices[i] = this->_vertex[i];
-			vertices[i].x -= 0.5;
-			vertices[i].y -= 0.5;
 			vertices[i].color = this->fillColors[i] * this->tint;
 		}
 

@@ -36,8 +36,8 @@
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[13]))(); } \
 	void CLS::onRenderEnd() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[14]))(); } \
-	bool CLS::initializeAction() \
-		{ return (this->*union_cast<bool(CLS::*)()>(VTB[15]))(); } \
+	void CLS::initializeAction() \
+		{ return (this->*union_cast<void(CLS::*)()>(VTB[15]))(); } \
 	void CLS::updatePhysics() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[16]))(); } \
 	void CLS::initialize() \
@@ -105,8 +105,10 @@ namespace v2 {
 		paletteId = playerInfo.palette;
 		deckInfo.original = playerInfo.effectiveDeck;
 		deckInfo.queue = playerInfo.effectiveDeck;
-		if (playerInfo.keyManager) inputData.unknown7CC = playerInfo.padding2;
-		else inputData.unknown7CC = 0;
+		if (playerInfo.keyManager)
+			inputData.unknown7CC = playerInfo.padding2;
+		else
+			inputData.unknown7CC = 0;
 	}
 
 	Player::~Player() {
@@ -128,7 +130,7 @@ namespace v2 {
 	void Player::loadResources() { return (this->*union_cast<void(Player::*)()>(0x46c0b0))(); }
 	bool Player::updateGroundMovement(float value) { return (this->*union_cast<bool(Player::*)(float)>(0x487740))(value); }
 	bool Player::updateAirMovement(float a0, float a1) { return (this->*union_cast<bool(Player::*)(float,float)>(0x4877C0))(a0, a1); }
-	void Player::addCardMeter(int value) { return (this->*union_cast<void(Player::*)(float)>(0x487870))(value); }
+	void Player::addCardMeter(int value) { return (this->*union_cast<void(Player::*)(int)>(0x487870))(value); }
 	void Player::Unknown487C20() { return (this->*union_cast<void(Player::*)()>(0x487C20))(); }
 	void Player::playSpellBackground(int a0, int a1) { return (this->*union_cast<void(Player::*)(int, int)>(0x46b370))(a0, a1); }
 	bool Player::applyGroundMechanics() { return (this->*union_cast<bool(Player::*)()>(0x487ca0))(); }
@@ -149,7 +151,7 @@ namespace v2 {
 	bool Player::handleFwdAirDash(int moveLock, int hjCancelable, int allowedAirMoves, int airDashCancelSeq) { return (this->*union_cast<bool(Player::*)(int, int, int, int)>(0x48a380))(moveLock, hjCancelable, allowedAirMoves, airDashCancelSeq); }
 	bool Player::handleBackAirDash(int moveLock, int hjCancelable, int allowedAirMoves, int airDashCancelSeq) { return (this->*union_cast<bool(Player::*)(int, int, int, int)>(0x48a470))(moveLock, hjCancelable, allowedAirMoves, airDashCancelSeq); }
 	bool Player::handleNormalFlight(int moveLock, int hjCancelable, int allowedAirMoves) { return (this->*union_cast<bool(Player::*)(int, int, int)>(0x48a560))(moveLock, hjCancelable, allowedAirMoves); }
-	bool Player::initializeAction() { return (this->*union_cast<bool(Player::*)()>(0x48b210))(); }
+	void Player::initializeAction() { (this->*union_cast<void(Player::*)()>(0x48b210))(); }
 	void Player::applyTransform() { return (this->*union_cast<void(Player::*)()>(0x46A510))(); }
 	void Player::updatePhysics() { return (this->*union_cast<void(Player::*)()>(0x487EF0))(); }
 	void Player::initialize() { return (this->*union_cast<void(Player::*)()>(0x48B000))(); }
@@ -160,7 +162,10 @@ namespace v2 {
 	bool Player::isGrounded() { return (this->*union_cast<bool(Player::*)()>(0x463530))(); }
 	bool Player::canActivateCard(int slot) { return (this->*union_cast<bool(Player::*)(int)>(0x468E80))(slot); }
 	bool Player::useSystemCard(int moveLock) { return (this->*union_cast<bool(Player::*)(int)>(0x48A700))(moveLock); }
+	void Player::useSpellCard(int id, short action) { return (this->*union_cast<void(Player::*)(int, short)>(0x487B60))(id, action); }
+	void Player::useSkill(int id, short action) { return (this->*union_cast<void(Player::*)(int, short)>(0x487BA0))(id, action); }
 	unsigned short Player::getMoveLock(unsigned short action) { return (this->*union_cast<unsigned short(Player::*)(unsigned short)>(0x489610))(action); }
+	void Player::onSkillUpgrade() { return (this->*union_cast<void(Player::*)()>(0x489660))(); }
 	SokuLib::v2::GameObject *Player::createObject(short action, float x, float y, Direction direction, char layer, float *extraData, unsigned int extraDataSize) {
 		// Mimics 0x46EB30
 		return this->objectList->createObject(nullptr, this, action, x, y, direction, layer, extraData, extraDataSize);
