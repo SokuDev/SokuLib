@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 project(SokuLib)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 add_library(
 	SokuLib STATIC
@@ -147,7 +147,7 @@ target_include_directories(SokuLibTests PRIVATE directx)
 target_link_libraries(SokuLibTests SokuLib)
 
 add_library(
-	SokuLibDllTests
+	SokuLibDllTests SHARED
 	test/main.dll.cpp
 )
 target_include_directories(SokuLibDllTests PRIVATE directx)

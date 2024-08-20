@@ -5,10 +5,12 @@
 #ifndef SOKULIB_SCRIPT_HPP
 #define SOKULIB_SCRIPT_HPP
 
+
 #include <type_traits>
 #include "String.hpp"
 #include "Deque.hpp"
 #include "Map.hpp"
+#include "List.hpp"
 #include "UnionCast.hpp"
 
 namespace SokuLib {
@@ -62,5 +64,6 @@ namespace SokuLib {
         void render();
     };
 }
+
 
 #endif //SOKULIB_SCRIPT_HPP
