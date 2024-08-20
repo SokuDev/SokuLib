@@ -18,7 +18,7 @@ void testCharacterManager()
 	check_offset(manager, objectBase.speed.x     , 0x0F4);
 	check_offset(manager, objectBase.speed.y     , 0x0F8);
 
-	check_offset(manager, objectBase.offset_0x0FC, 0x0FC);
+	check_offset(manager, objectBase.gravity     , 0x0FC);
 	check_offset(manager, objectBase.direction   , 0x104);
 
 	check_offset(manager, objectBase.offset_0x105       , 0x105);
@@ -80,7 +80,7 @@ void testCharacterManager()
 	check_offset(manager, spiritRegenDelay , 0x4A2);
 	check_offset(manager, timeWithBrokenOrb, 0x4A4);
 
-	check_offset(manager, offset_0x4A6, 0x4A6);
+	check_offset(manager, nextTimeStop, 0x4A6);
 	check_offset(manager, timeStop    , 0x4A8);
 
 	check_offset(manager, offset_0x4AA, 0x4AA);
@@ -161,6 +161,7 @@ void testCharacterManager()
 	check_offset(manager, skillMap[15], 0x6D3);
 
 	check_offset(manager, offset_0x6D4         , 0x6D4);
+	//check_offset(manager, patternData          , 0x6FC);
 	check_offset(manager, offset_0x6FC         , 0x6FC);
 	check_offset(manager, keyMap               , 0x754);
 	check_offset(manager, keyMap.horizontalAxis, 0x754);
@@ -219,6 +220,29 @@ void testCharacterManager()
 	check_offset(manager, stateOfEnlightenmentTimeLeft, 0x924);
 
 	check_offset(manager, offset_0x926, 0x926);
+
+	// v2
+	using namespace SokuLib;
+
+	assert_equal(sizeof(v2::GameObjectBase), 0x34C);
+	assert_equal(offsetof(v2::GameObjectBase, gameData), 0x158);
+	assert_equal(offsetof(v2::GameObjectBase, HP), 0x184);
+	assert_equal(offsetof(v2::GameObjectBase, boxData), 0x1B4);
+
+	assert_equal(sizeof(v2::GameObject), 0x3AC);
+	assert_equal(offsetof(v2::GameObject, lifetime), 0x34C);
+	assert_equal(offsetof(v2::GameObject, parentB), 0x39C);
+
+	assert_equal(sizeof(v2::Player), 0x890);
+	assert_equal(offsetof(v2::Player, characterIndex), 0x34C);
+	assert_equal(offsetof(v2::Player, redHP), 0x498);
+	assert_equal(offsetof(v2::Player, deckInfo), 0x57C);
+	assert_equal(offsetof(v2::Player, handInfo), 0x5E4);
+	assert_equal(offsetof(v2::Player, unknown610), 0x610);
+	assert_equal(offsetof(v2::Player, objectList), 0x6f8);
+	assert_equal(offsetof(v2::Player, unknown714), 0x714);
+	assert_equal(offsetof(v2::Player, inputData), 0x754);
+	assert_equal(offsetof(v2::Player, unknown7D0), 0x7D0);
 }
 
 void testSelectScene()
@@ -226,7 +250,7 @@ void testSelectScene()
 	SokuLib::Select *select = reinterpret_cast<SokuLib::Select *>(&select);
 
 	check_offset(select, base, 0x00);
-	check_offset(select, offset_0x001, 0x01);
+//	check_offset(select, offset_0x001, 0x01);
 	check_offset(select, leftKeys, 0x10);
 	check_offset(select, rightKeys, 0x14);
 	check_offset(select, offset_0x018, 0x18);
@@ -298,6 +322,99 @@ void testFrameData()
 	check_offset(frameData, collisionBox, 0x54);
 	check_offset(frameData, offset_0x58, 0x58);
 	assert_equal(sizeof(*frameData), 0xA8);
+
+	// v2
+	assert_equal(sizeof(SokuLib::v2::FrameData), 0x1C);
+	assert_equal(offsetof(SokuLib::v2::FrameData, offset.x), 0x4);
+	assert_equal(offsetof(SokuLib::v2::FrameData, offset.y), 0x6);
+	assert_equal(sizeof(SokuLib::v2::CharacterFrameData), 0xA8);
+	assert_equal(offsetof(SokuLib::v2::CharacterFrameData, damage), 0x1C);
+	assert_equal(offsetof(SokuLib::v2::CharacterFrameData, spiritdamage), 0x22);
+	assert_equal(offsetof(SokuLib::v2::CharacterFrameData, frameFlags), 0x4C);
+	assert_equal(offsetof(SokuLib::v2::CharacterFrameData, attackFlags), 0x50);
+	assert_equal(offsetof(SokuLib::v2::CharacterFrameData, collisionBox), 0x54);
+}
+
+void testDeckConstructMenu()
+{
+	SokuLib::ProfileDeckEdit *menu = reinterpret_cast<SokuLib::ProfileDeckEdit *>(&menu);
+
+	check_offset(menu, vtable, 0x0);
+	check_offset(menu, offset_0x04, 0x4);
+	check_offset(menu, editedCharacter, 0x8);
+	check_offset(menu, offset_0x0C, 0xC);
+	check_offset(menu, editedDeck, 0x468);
+	check_offset(menu, deck1, 0x46C);
+	check_offset(menu, deck2, 0x478);
+	check_offset(menu, deck3, 0x484);
+	check_offset(menu, deck4, 0x490);
+	check_offset(menu, unknownMap, 0x49C);
+	check_offset(menu, offset_0x4A0, 0x4A0);
+	check_offset(menu, displayedNumberOfCards, 0x4B1);
+	check_offset(menu, offset_0x4B2, 0x4B2);
+	check_offset(menu, selectedCardIndex, 0x4C0);
+	check_offset(menu, offset_0x4C4, 0x4C4);
+	check_offset(menu, panel, 0x4D4);
+	check_offset(menu, offset_0x4D8, 0x4D8);
+	check_offset(menu, selectedDeck, 0x4E8);
+	check_offset(menu, offset_0x4EC, 0x4EC);
+	check_offset(menu, cursorOnDeckChangeBox, 0x4F4);
+	check_offset(menu, offset_0x4F5, 0x4F5);
+	check_offset(menu, guideVector, 0x4F8);
+}
+
+void testEffectManager()
+{
+	using namespace SokuLib;
+
+	assert_equal(sizeof(Deque<int>), 0x14);
+	assert_equal(sizeof(Deque<int>::iterator), 0xC);
+
+	assert_equal(sizeof(v2::AnimationObject), 0x158);
+	assert_equal(offsetof(v2::AnimationObject, position), 0xEC);
+	assert_equal(offsetof(v2::AnimationObject, center), 0x108);
+	assert_equal(offsetof(v2::AnimationObject, textures), 0x130);
+	assert_equal(offsetof(v2::AnimationObject, frameState), 0x13C);
+	assert_equal(offsetof(v2::AnimationObject, frameData), 0x150);
+
+	assert_equal(sizeof(Sprite), 0x94);
+	assert_equal(sizeof(SpriteEx), 0xE8);
+	assert_equal(sizeof(v2::EffectObject), 0x178);
+	assert_equal(sizeof(v2::InfoEffectObject), 0x178);
+	assert_equal(sizeof(v2::SelectEffectObject), 0x170);
+	assert_equal(sizeof(v2::WeatherEffectObject), 0x180);
+
+	assert_equal(sizeof(HandleManager<void*>), 0x64);
+	assert_equal(offsetof(HandleManager<void*>, deque), 0x4);
+	assert_equal(offsetof(HandleManager<void*>, vector), 0x18);
+	assert_equal(offsetof(HandleManager<void*>, usedIndexes), 0x28);
+	assert_equal(offsetof(HandleManager<void*>, unusedIndexes), 0x38);
+	assert_equal(offsetof(HandleManager<void*>, nextBase), 0x44);
+	assert_equal(offsetof(HandleManager<void*>, mutex), 0x48);
+
+	assert_equal(sizeof(HandleManagerEx<v2::EffectObject>), 0x50);
+	assert_equal(offsetof(HandleManagerEx<v2::EffectObject>, vector), 0x4);
+	assert_equal(offsetof(HandleManagerEx<v2::EffectObject>, usedIndexes), 0x14);
+	assert_equal(offsetof(HandleManagerEx<v2::EffectObject>, unusedIndexes), 0x24);
+	assert_equal(offsetof(HandleManagerEx<v2::EffectObject>, nextBase), 0x30);
+	assert_equal(offsetof(HandleManagerEx<v2::EffectObject>, mutex), 0x34);
+}
+
+void testGameData()
+{
+	using namespace SokuLib;
+
+	assert_equal(sizeof(v2::GameDataManager), 0x58);
+	assert_equal(offsetof(v2::GameDataManager, createQueue), 0x00);
+	assert_equal(offsetof(v2::GameDataManager, players), 0x28);
+	assert_equal(offsetof(v2::GameDataManager, enabledPlayers), 0x38);
+	assert_equal(offsetof(v2::GameDataManager, activePlayers), 0x3C);
+	assert_equal(offsetof(v2::GameDataManager, destroyQueue), 0x4C);
+
+	//assert_equal(sizeof(v2::SaveDataManager), unknown);
+	assert_equal(offsetof(v2::SaveDataManager, enabledCharacters), 0x30);
+	assert_equal(offsetof(v2::SaveDataManager, systemCards), 0x9C);
+	assert_equal(offsetof(v2::SaveDataManager, characterCards), 0xA8);
 }
 
 int main()
@@ -305,5 +422,8 @@ int main()
 	testFrameData();
 	testCharacterManager();
 	testSelectScene();
+	testDeckConstructMenu();
+	testEffectManager();
+	testGameData();
 	return 0;
 }

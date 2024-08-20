@@ -1,8 +1,9 @@
 //
-// Created by Gegel85 on 04/11/2020.
+// Created by PinkySmile on 04/11/2020.
 //
 
 #include "Stage.hpp"
+#include "StageManager.hpp"
 
 namespace SokuLib
 {
@@ -41,4 +42,7 @@ namespace SokuLib
 	}
 
 	Stage &stageId = *reinterpret_cast<Stage *>(ADDR_LOADED_STAGE_ID);
+	v2::StageManager*& v2::StageManager::instance = *reinterpret_cast<v2::StageManager**>(ADDR_STAGE_MANAGER);
+	void v2::StageManager::loadStage(Stage stage, int divider, bool useThread)
+		{ return (this->*union_cast<void (v2::StageManager::*)(int, int, bool)>(0x471500))((int)stage, divider, useThread); };
 }

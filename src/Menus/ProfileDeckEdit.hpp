@@ -60,7 +60,11 @@ namespace SokuLib
 		// 0x4E8
 		unsigned int selectedDeck;
 		// 0x4EC
-		char offset_0x4EC[0x8];
+		char offset_0x4EC[0x6];
+		// 0x4F2
+		bool saveDialogDisplayed;
+		// 0x4F3
+		char offset_0x4F3;
 		// 0x4F4
 		bool cursorOnDeckChangeBox;
 		// 0x4F5

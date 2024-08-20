@@ -9,6 +9,7 @@
 #include "Stack.hpp"
 #include "UnionCast.hpp"
 #include "Sprite.hpp"
+#include "String.hpp"
 
 namespace SokuLib
 {
@@ -43,7 +44,7 @@ namespace SokuLib
 		Sprite &pushCard(const Card &card);
 	};
 
-	struct UnknownCardStruct {
+	struct [[deprecated("Use CardInfo instead")]] UnknownCardStruct {
 		// 0x00
 		char offset_0x00[0x1C];
 		// 0x1C
@@ -56,6 +57,29 @@ namespace SokuLib
 		char offset_0x20[0x38];
 		// 0x58
 		int unknown;
+	};
+
+	struct CardInfo {
+		String name;
+
+		// offset: 0x1C
+		char type; // align 1
+		unsigned short costOrSlot;
+		String description;
+
+		// offset: 0x2C
+		short apparency;
+		char rarity; // align 1
+		short cellH, cellJ, cellL;
+		char cellI, cellK, cellM;
+		// align 3
+		int cellN;
+
+		// offset: 0x44
+		short sort; // align 2
+		int texIdA; // seem to be the same for all cards
+		int texIdB; // this one differs
+		int unknown5C; // multiple of 16 (some kind of coord?)
 	};
 
 	struct CardData {

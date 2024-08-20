@@ -1,5 +1,5 @@
 //
-// Created by Gegel85 on 05/11/2020.
+// Created by PinkySmile on 05/11/2020.
 //
 
 #ifndef SOKULIB_MENUS_HPP
@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include "List.hpp"
 
 namespace SokuLib
 {
@@ -23,16 +24,24 @@ namespace SokuLib
 		MENU_COUNT
 	};
 
+	class IMenu {
+	public:
+		virtual ~IMenu() = default;
+		virtual void _() = 0;
+		virtual int onProcess() = 0;
+		virtual int onRender() = 0;
+	};
+
 	extern void (* const activateMenu)(void *addr);
+	extern List<IMenu*> &menuManager;
 
 	template<typename T>
 	//! @brief Gives the currently used menu object.
 	//! @tparam T The type of the expected object.
 	//! @warning Unsafe if not currently in a title screen submenu.
 	//! @return The current menu object.
-	T *getMenuObj()
-	{
-		return reinterpret_cast<T *>(menuManager.unknownPointer->unknownPointer->CMenuObj);
+	T *getMenuObj() {
+		return reinterpret_cast<T *>(menuManager.back());
 	}
 
 	//! @brief Returns the name of the currently active menu.
@@ -40,29 +49,21 @@ namespace SokuLib
 
 	Menu getCurrentMenu();
 
-	struct UnknownStruct3 {
-		char unknownField[8];
-		void *CMenuObj;
-	};
-
-	struct UnknownStruct2 {
-		char unknownField[4];
-		UnknownStruct3 *unknownPointer;
-	};
-
-	struct UnknownStruct1 {
-		UnknownStruct2 *unknownPointer;
-		bool isInMenu;
-	};
-
-	extern UnknownStruct1 &menuManager;
-
-	class IMenu {
+	class MenuCursor {
 	public:
-		virtual ~IMenu() = default;
-		virtual void _() = 0;
-		virtual int onProcess() = 0;
-		virtual int onRender() = 0;
+		int max = 1, unknown04 = 0;
+		const int* valueAddr = 0; // valueAddr = &inputMgrs.input.<key>;
+		int pos = 0, unknown10 = 0;
+
+		inline void set(const int* valueAddr, int max = 1, int pos = 0) {
+			this->max = max;
+			//this->unknown04 = 0;
+			this->valueAddr = valueAddr;
+			this->pos = this->unknown10 = pos;
+		}
+
+		bool update();
+		static void render(float x, float y, float width);
 	};
 }
 

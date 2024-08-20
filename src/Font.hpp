@@ -1,5 +1,5 @@
 //
-// Created by Gegel85 on 04/11/2020.
+// Created by PinkySmile on 04/11/2020.
 //
 
 #ifndef SOKULIB_FONT_HPP
@@ -7,10 +7,11 @@
 
 
 #include <Windows.h>
+#include "String.hpp"
+#include "Vector2.hpp"
 
 namespace SokuLib
 {
-	// �t�H���g�f�B�X�N���v�^
 	#pragma pack(push, 4)
 	struct FontDescription {
 		char faceName[0x100];
@@ -34,16 +35,32 @@ namespace SokuLib
 	#pragma pack(pop)
 
 	struct SWRFont {
-		char data[0x1A4];
+		HDC hdc;
+		HFONT font;
+		HGDIOBJ gdiobj;
+		FontDescription description; // sizeof = 0x128
+		Vector2i cursor;
+		LONG tmAscent;
+		void* output1;
+		void* output2;
+		int maxHeight, maxWidth;
+		int lineWidth;
+		void* gradient1;
+		void* gradient2;
+		char unknown15C[0xC]; // this is probably a list or stack
+		unsigned int singleColor;
+		bool inAccentTag;
+		bool inRubyTag;
+		// align 0x2
+		String rubyParam; // sizeof = 0x1c
+		char unknown18C[0x8]; // final object size may be 0x18C or 0x194
 
-		// �t�H���g�I�u�W�F�N�g���\�b�h
 		void create();
 		void destruct();
 		void setIndirect(const FontDescription &pdesc);
 	};
 
 
-	// �f�t�H���g�t�H���g��
 	extern const char * const defaultFontName;
 }
 

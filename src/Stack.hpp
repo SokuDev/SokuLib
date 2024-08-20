@@ -8,6 +8,7 @@
 
 #include "UnionCast.hpp"
 #include "Memory.hpp"
+#include "SokuAddresses.hpp"
 
 namespace SokuLib
 {
@@ -18,6 +19,14 @@ namespace SokuLib
 		int chunkSize;
 		int counter;
 		int size;
+
+		Dequeue() :
+			unknown1(0),
+			data(nullptr),
+			chunkSize(0),
+			counter(0),
+			size(0)
+		{}
 
 		//Assumes ChunkSize == 8
 		//PeekCard

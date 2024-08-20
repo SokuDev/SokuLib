@@ -9,7 +9,7 @@
 namespace SokuLib
 {
 	void (* const activateMenu)(void *addr) = reinterpret_cast<void (*)(void *)>(ADDR_ACTIVATE_MENU);
-	UnknownStruct1 &menuManager = *reinterpret_cast<UnknownStruct1 *>(ADDR_UNKNOWN_VAR_MENU);
+	List<IMenu*> &menuManager = *reinterpret_cast<List<IMenu*>*>(ADDR_MENU_LIST);
 
 	std::string getCurrentMenuName()
 	{
@@ -43,7 +43,7 @@ namespace SokuLib
 		if (sceneId != SCENE_TITLE)
 			return MENU_COUNT;
 
-		if (!menuManager.isInMenu)
+		if (!menuManager.size())
 			return MENU_NONE;
 
 		switch (*getMenuObj<DWORD>()) {
@@ -67,5 +67,13 @@ namespace SokuLib
 		default:
 			return MENU_COUNT;
 		}
+	}
+
+	bool MenuCursor::update() {
+		return (this->*union_cast<bool (MenuCursor::*)()>(ADDR_MENUCURSOR_UPDATE))();
+	}
+
+	void MenuCursor::render(float x, float y, float width) {
+		union_cast<void(*)(float, float, float)>(ADDR_MENUCURSOR_RENDER)(x, y, width);
 	}
 }

@@ -1,11 +1,12 @@
 //
-// Created by Gegel85 on 04/11/2020.
+// Created by PinkySmile on 04/11/2020.
 //
 
 #ifndef SOKULIB_VTABLES_HPP
 #define SOKULIB_VTABLES_HPP
 
 
+#include "Menus/PauseMenu.hpp"
 #include "BattleManager.hpp"
 #include "Scenes.hpp"
 #include "SokuAddresses.hpp"
@@ -21,7 +22,7 @@ namespace SokuLib
 		void (T::*unknown)();
 		void (T::*unknown2)();
 		void (T::*unknown3)();
-		void (T::*unknown4)();
+		int (T::*update)();
 	};
 
 	template<typename T>
@@ -48,7 +49,7 @@ namespace SokuLib
 		void (BattleManager::*onRoundStart)();
 		void (BattleManager::*onShowLogo)(int param);
 		void (BattleManager::*onRender)();       // After select arena render or draw()
-		void (BattleManager::*maybeOnRender)();  // After select arena render????
+		void (BattleManager::*updateEffects)();
 		void (BattleManager::*maybeOnRender2)(); // After select arena render???? Last function???
 	};
 
@@ -68,7 +69,51 @@ namespace SokuLib
 	extern Menu_VTABLE<MenuConnect>    &VTable_ConnectMenu;
 	extern Menu_VTABLE<ProfileDeckEdit>&VTable_ProfileDeckEdit;
 	extern Menu_VTABLE<MenuResult>     &VTable_Result;
+	extern Menu_VTABLE<PauseMenu>      &VTable_PauseMenu;
 	extern BattleManager_VTABLE        &VTable_BattleManager;
+
+	struct _vtable_offset_helper {
+		virtual int r0();  virtual int r1();  virtual int r2();  virtual int r3();
+		virtual int r4();  virtual int r5();  virtual int r6();  virtual int r7();
+		virtual int r8();  virtual int r9();  virtual int r10(); virtual int r11();
+		virtual int r12(); virtual int r13(); virtual int r14(); virtual int r15();
+		virtual int r16(); virtual int r17(); virtual int r18(); virtual int r19();
+		virtual int r20(); virtual int r21(); virtual int r22(); virtual int r23();
+		virtual int r24(); virtual int r25(); virtual int r26(); virtual int r27();
+	};
+
+	template<class T> struct _vtable_info {
+		static const int baseAddr;
+		template <typename F> static inline F& get(int index) {
+			static_assert(std::is_member_function_pointer<F>::value);
+			return reinterpret_cast<F*>(baseAddr)[index];
+		}
+
+		template <typename F> static inline F T::*& get(F T::* f) {
+			static_assert(std::is_member_function_pointer<decltype(f)>::value);
+			_vtable_offset_helper vt;
+			return reinterpret_cast<F T::**>(_vtable_info<T>::baseAddr)
+				[(vt.*reinterpret_cast<int (_vtable_offset_helper::*)()>(f))()];
+		}
+
+		// Reference arguments must be declared (no deduction)
+		template <unsigned int index, typename R = void, typename ... A>
+		static inline R call(T* This, A& ... a) {
+			return (This->*reinterpret_cast<R(T::**)(A...)>(baseAddr)[index])(a...);
+		}
+	};
+
+	/// *Only use with virtual functions*
+	template<class T, typename F>
+	inline DWORD GetVirtualTableOf(F T::* f) {
+		return reinterpret_cast<DWORD>(&_vtable_info<T>::get(f));
+	}
+
+	/// *Only use with virtual functions*
+	template<class T, typename F>
+	inline F T::*& GetVirtualFunc(F T::* f) {
+		return _vtable_info<T>::get(f);
+	}
 }
 
 

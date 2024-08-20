@@ -1,5 +1,5 @@
 //
-// Created by Gegel85 on 04/11/2020.
+// Created by PinkySmile on 04/11/2020.
 //
 
 #ifndef SOKULIB_TAMPER_HPP
@@ -49,16 +49,16 @@ namespace SokuLib
 
 	// NEAR JMP��������
 	template<typename T>
-	inline void TamperNearJmp(DWORD addr, T target) {
+	inline T TamperNearJmp(DWORD addr, T target) {
 		*reinterpret_cast<PBYTE>(addr + 0) = 0xE9;
-		TamperNearJmpOpr(addr, target);
+		return TamperNearJmpOpr(addr, target);
 	}
 
 	// NEAR CALL��������
 	template<typename T>
-	inline void TamperNearCall(DWORD addr, T target) {
+	inline T TamperNearCall(DWORD addr, T target) {
 		*reinterpret_cast<PBYTE>(addr + 0) = 0xE8;
-		TamperNearJmpOpr(addr, target);
+		return TamperNearJmpOpr(addr, target);
 	}
 
 	class Trampoline {
@@ -68,6 +68,16 @@ namespace SokuLib
 		int _offset;
 
 	public:
+		unsigned char *getTrampoline()
+		{
+			return this->_trampoline;
+		}
+
+		const unsigned char *getTrampoline() const
+		{
+			return this->_trampoline;
+		}
+
 		Trampoline(unsigned addr, void (*target)(), int offset) :
 			_base(addr),
 			_offset(offset)
@@ -118,12 +128,17 @@ namespace SokuLib
 			DWORD dwOldProtect;
 
 			::VirtualProtect(lpAddr, this->_offset, PAGE_EXECUTE_READWRITE, &dwOldProtect);
-			memcpy(lpAddr, &lpTramp[5], this->_offset);
+			memcpy(lpAddr, &lpTramp[17], this->_offset);
 			::VirtualProtect(lpAddr, this->_offset, dwOldProtect, &dwOldProtect);
 
 			::VirtualProtect(lpTramp, this->_offset + 5, PAGE_READWRITE, &dwOldProtect);
 			::FlushInstructionCache(GetCurrentProcess(), nullptr, 0);
 			delete[] lpTramp;
+		}
+
+		template<typename fct, typename ...Args>
+		auto operator()(Args ...args) {
+			return reinterpret_cast<fct>(&this->_trampoline[17])(args...);
 		}
 	};
 }

@@ -5,7 +5,10 @@
 #ifndef SOKULIB_FRAMEDATA_HPP
 #define SOKULIB_FRAMEDATA_HPP
 
+
+#include "Vector.hpp"
 #include "Boxes.hpp"
+#include "Vector2.hpp"
 
 namespace SokuLib
 {
@@ -147,6 +150,102 @@ namespace SokuLib
 		// 0x1C
 		FrameDataReader *nextFrameDataArray;
 	};
+
+	namespace v2 {
+		struct BlendOptions {
+			enum Mode : unsigned int {
+				// The game only uses 1, 2 and 3. But the other values are valid
+				NONE = 0, NORMAL = 1, ADDITIVE = 2, MULTIPLY = 3,
+				UNK09 = 0x09, UNK0A = 0x0a, UNK0B = 0x0b,
+				UNK10 = 0x10, UNK12 = 0x12, UNK13 = 0x13,
+				UNK18 = 0x18, UNK19 = 0x19, UNK1B = 0x1b,
+				UNK20 = 0x20, UNK21 = 0x21, UNK22 = 0x22 };
+
+			Mode mode;
+			unsigned int color;
+			Vector2f scale;
+			float rotateX, rotateY, rotateZ;
+		};
+
+		class FrameData {
+		public:
+			enum RenderGroup : unsigned char { SPRITE = 0, TEXTURE = 1, WITHBLEND = 2 };
+
+			// 0x04
+			Vector2<short> offset = {0, 0};
+			short duration = 0;
+			short texIndex = 0;
+			Vector2<short> texOffset = {0, 0};
+			Vector2<short> texSize = {0, 0};
+			RenderGroup renderGroup = SPRITE;
+			// align 0x3
+			BlendOptions* blendOptionsPtr = 0;
+
+			virtual ~FrameData();
+		}; // 0x1C
+
+		class CharacterFrameData : public FrameData {
+		public:
+			// 0x1C
+			short damage, ratio, chipdamage, spiritdamage, untech, power, limit;
+			short onHitPStun, onHitEStun, onBlockPStun, onBlockEStun;
+			short onHitCardGain, onBlockCardGain, onAirHitSet, onGroundHitSet;
+			// align 0x2
+			// 0x3C
+			Vector2<float> onHitSpeed;
+			short onHitSFX, onHitFX;
+			unsigned char attackType, comboFlags;
+			// align 0x2
+			FrameFlags frameFlags;
+			AttackFlags attackFlags;
+
+			// 0x54
+			Box* collisionBox = 0;
+			Vector<Box> hurtBoxes;
+			Vector<Box> attackBoxes;
+			Vector<Box*> extraBoxes;
+			// 0x88
+			Vector2<int> extra1, extra2, extra3;
+			short unknownA0, unknownA2, unknownA4;
+			// align 0x2
+
+			virtual ~CharacterFrameData();
+		};
+
+		class SequenceData {
+		public:
+			// 0x04
+			Vector<FrameData> frames;
+			bool isLoop;
+			// align 0x3
+
+			// 0x18
+			SequenceData* previous; // if null then it is the first
+			SequenceData* next; // loops into the first
+
+			virtual ~SequenceData() = default;
+		};
+
+		class CharacterSequenceData {
+		public:
+			Vector<CharacterFrameData> frames;
+			// 0x10
+			short moveLock;
+			short actionLock;
+			bool isLoop;
+			// align 0x3
+
+			// 0x18
+			CharacterSequenceData* previous; // if null then it is the first
+			CharacterSequenceData* next; // loops into the first
+
+			~CharacterSequenceData() {
+				// Workaround
+				*(unsigned *)this = 0;
+			};
+		};
+	}
 }
+
 
 #endif //SOKULIB_FRAMEDATA_HPP

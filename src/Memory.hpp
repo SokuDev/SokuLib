@@ -1,10 +1,12 @@
 //
-// Created by Gegel85 on 04/11/2020.
+// Created by PinkySmile on 04/11/2020.
 //
 
 #ifndef SOKULIB_MEMORY_HPP
 #define SOKULIB_MEMORY_HPP
 
+
+#include <type_traits>
 
 namespace SokuLib
 {
@@ -29,6 +31,16 @@ namespace SokuLib
 			ptr->~T();
 		DeleteFct(ptr);
 	}
+
+	template <class T>
+	struct Allocator {
+		typedef T value_type;
+		Allocator () = default;
+		template <typename U> constexpr Allocator (const Allocator <U>&) noexcept {}
+		template <typename U> struct rebind { typedef Allocator<U> other; };
+		T* allocate(size_t size) { return (T*)SokuLib::NewFct(size*sizeof(T)); }
+		void deallocate(T* value, size_t size) { SokuLib::DeleteFct(value); }
+	};
 }
 
 

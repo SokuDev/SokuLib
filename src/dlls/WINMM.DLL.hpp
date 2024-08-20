@@ -6,6 +6,7 @@
 #define SOKULIB_WINMM_DLL_HPP
 
 #include <windows.h>
+#include <timeapi.h>
 
 namespace SokuLib::DLL
 {

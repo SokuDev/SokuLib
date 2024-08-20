@@ -1,5 +1,5 @@
 //
-// Created by Gegel85 on 04/06/2020.
+// Created by PinkySmile on 04/06/2020.
 //
 
 #ifndef SOKULIB_PACKET_HPP
@@ -8,8 +8,12 @@
 
 #include <cstdint>
 #include <vector>
+#ifdef _WIN32
 #include <winsock.h>
-#include "Character.hpp"
+#else
+#include <arpa/inet.h>
+#endif
+#include "InputManager.hpp"
 #include "Weather.hpp"
 
 #pragma pack(push, 1)
@@ -49,6 +53,11 @@ namespace SokuLib
 		//DesyncDetector
 		DESDET_MOD_ENABLE_REQUEST = 0x20,
 		DESDET_STATE,
+
+		GR_BATTLE_INPUT = 0x6B,
+
+		//Soku2
+		SOKU2_PLAY_REQU = 0xD3,
 	};
 
 	enum RequestType : unsigned char {
@@ -78,30 +87,31 @@ namespace SokuLib
 	};
 
 	enum CharacterPacked : unsigned char {
-		PACKED_CHARACTER_REIMU     = CHARACTER_REIMU,
-		PACKED_CHARACTER_MARISA    = CHARACTER_MARISA,
-		PACKED_CHARACTER_SAKUYA    = CHARACTER_SAKUYA,
-		PACKED_CHARACTER_ALICE     = CHARACTER_ALICE,
-		PACKED_CHARACTER_PATCHOULI = CHARACTER_PATCHOULI,
-		PACKED_CHARACTER_YOUMU     = CHARACTER_YOUMU,
-		PACKED_CHARACTER_REMILIA   = CHARACTER_REMILIA,
-		PACKED_CHARACTER_YUYUKO    = CHARACTER_YUYUKO,
-		PACKED_CHARACTER_YUKARI    = CHARACTER_YUKARI,
-		PACKED_CHARACTER_SUIKA     = CHARACTER_SUIKA,
-		PACKED_CHARACTER_REISEN    = CHARACTER_REISEN,
-		PACKED_CHARACTER_AYA       = CHARACTER_AYA,
-		PACKED_CHARACTER_KOMACHI   = CHARACTER_KOMACHI,
-		PACKED_CHARACTER_IKU       = CHARACTER_IKU,
-		PACKED_CHARACTER_TENSHI    = CHARACTER_TENSHI,
-		PACKED_CHARACTER_SANAE     = CHARACTER_SANAE,
-		PACKED_CHARACTER_CIRNO     = CHARACTER_CIRNO,
-		PACKED_CHARACTER_MEILING   = CHARACTER_MEILING,
-		PACKED_CHARACTER_UTSUHO    = CHARACTER_UTSUHO,
-		PACKED_CHARACTER_SUWAKO    = CHARACTER_SUWAKO,
+		PACKED_CHARACTER_REIMU,
+		PACKED_CHARACTER_MARISA,
+		PACKED_CHARACTER_SAKUYA,
+		PACKED_CHARACTER_ALICE,
+		PACKED_CHARACTER_PATCHOULI,
+		PACKED_CHARACTER_YOUMU,
+		PACKED_CHARACTER_REMILIA,
+		PACKED_CHARACTER_YUYUKO,
+		PACKED_CHARACTER_YUKARI,
+		PACKED_CHARACTER_SUIKA,
+		PACKED_CHARACTER_REISEN,
+		PACKED_CHARACTER_AYA,
+		PACKED_CHARACTER_KOMACHI,
+		PACKED_CHARACTER_IKU,
+		PACKED_CHARACTER_TENSHI,
+		PACKED_CHARACTER_SANAE,
+		PACKED_CHARACTER_CIRNO,
+		PACKED_CHARACTER_MEILING,
+		PACKED_CHARACTER_UTSUHO,
+		PACKED_CHARACTER_SUWAKO,
 	};
 
 	typedef struct sockaddr_in SockAddrIn;
 
+	static_assert(sizeof(SockAddrIn) == 16);
 	struct PacketHello {
 		PacketType type;
 		SockAddrIn peer;
@@ -129,39 +139,6 @@ namespace SokuLib
 		char name[1];
 	};
 
-	struct CharacterSelectKeys {
-		bool up: 1;
-		bool down: 1;
-		bool left: 1;
-		bool right: 1;
-		bool Z: 1;
-		bool X: 1;
-		bool C: 1;
-		bool A: 1;
-		bool dash: 1;
-		bool Q: 1;
-		unsigned char padding: 6;
-	};
-
-	struct BattleKeys {
-		bool up: 1;
-		bool down: 1;
-		bool left: 1;
-		bool right: 1;
-		bool A: 1;
-		bool B: 1;
-		bool C: 1;
-		bool dash: 1;
-		bool AandB: 1;
-		bool BandC: 1;
-		unsigned char padding: 6;
-	};
-
-	union Inputs {
-		CharacterSelectKeys charSelect;
-		BattleKeys battle;
-	};
-
 	struct PacketInitSuccAdd {
 		PacketType type;
 		uint8_t unknown1[8];
@@ -172,8 +149,8 @@ namespace SokuLib
 	struct PacketInitSucc {
 		PacketType type;
 		uint8_t unknown1[8];
-		uint8_t dataSize;
-		uint8_t unknown2[3];
+		uint16_t dataSize;
+		uint8_t unknown2[2];
 		char hostProfileName[32];
 		char clientProfileName[32];
 		uint32_t swrDisabled;
@@ -225,7 +202,8 @@ namespace SokuLib
 		uint32_t frameId;
 		uint32_t endFrameId;
 		uint8_t matchId;
-		std::vector<Inputs> replayInputs;
+		uint8_t length;
+		Inputs replayInputs[0];
 	};
 
 	struct PlayerMatchData {
@@ -278,7 +256,7 @@ namespace SokuLib
 
 		uint32_t &randomSeed()
 		{
-			return *reinterpret_cast<uint32_t *>(this->client().getEndPtr()[2]);
+			return *reinterpret_cast<uint32_t *>(&this->client().getEndPtr()[2]);
 		}
 
 		uint8_t &matchId()
@@ -303,7 +281,7 @@ namespace SokuLib
 
 		const uint32_t &randomSeed() const
 		{
-			return *reinterpret_cast<const uint32_t *>(this->client().getEndPtr()[2]);
+			return *reinterpret_cast<const uint32_t *>(&this->client().getEndPtr()[2]);
 		}
 
 		const uint8_t &matchId() const
@@ -393,6 +371,13 @@ namespace SokuLib
 		bool _ : 1;
 	};
 
+	struct PacketSoku2PlayRequ {
+		PacketType type;
+		unsigned char major;
+		unsigned char minor;
+		char letter;
+	};
+
 	union Packet {
 		PacketType type;
 		PacketHello hello;
@@ -409,6 +394,7 @@ namespace SokuLib
 		PacketApmStartSessionResponse apmResponse;
 		PacketApmElemUpdated apmElemUpdated;
 		PacketDesDetState desDetState;
+		PacketSoku2PlayRequ soku2PlayRequ;
 	};
 
 	std::string PacketTypeToString(PacketType);

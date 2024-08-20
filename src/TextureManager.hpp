@@ -1,12 +1,12 @@
 //
-// Created by Gegel85 on 04/11/2020.
+// Created by PinkySmile on 04/11/2020.
 //
 
 #ifndef SOKULIB_TEXTUREMANAGER_HPP
 #define SOKULIB_TEXTUREMANAGER_HPP
 
 
-#include <Windows.h>
+#include <windows.h>
 #include "UnionCast.hpp"
 #include "SokuAddresses.hpp"
 #include "HandleManager.hpp"
@@ -16,7 +16,7 @@ struct IDirect3DTexture9;
 
 namespace SokuLib
 {
-	struct TextureManager {
+	struct TextureManager : public HandleManager<IDirect3DTexture9 *> {
 		int *loadTexture(int *ret, LPCSTR path, void *width, void *height);
 		int *createTextTexture(int *ret, LPCSTR str, struct SWRFont &font, int width, int height, int *realWidth, int *realHeight);
 		void *remove(int id);
@@ -28,6 +28,7 @@ namespace SokuLib
 
 		int *loadSound(int *ret, LPCSTR path);
 		void playSound(int id);
+		void removeSound(int id);
 	};
 
 	extern char (&getProfile1NamePrintCode)[ADDR_PROFILENAME_PRINT_CODE1_END - ADDR_PROFILENAME_PRINT_CODE1];
@@ -37,6 +38,8 @@ namespace SokuLib
 	extern IDirect3DDevice9 *(&pd3dDev);
 
 	extern HWND &window;
+
+	extern bool (* const appendDatFile)(const char*);
 }
 
 

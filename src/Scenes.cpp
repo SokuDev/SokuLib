@@ -1,5 +1,5 @@
 //
-// Created by Gegel85 on 04/11/2020.
+// Created by PinkySmile on 04/11/2020.
 //
 
 #include <windows.h>
@@ -55,6 +55,7 @@ namespace SokuLib
 	void waitForSceneChange()
 	{
 		while (sceneId != newSceneId)
-			std::this_thread::sleep_for(std::chrono::seconds(1));
+			std::this_thread::sleep_for(std::chrono::milliseconds (10));
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }

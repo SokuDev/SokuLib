@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.13)
 project(SokuLib)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 add_library(
 	SokuLib STATIC
+	src/AnimationObject.cpp
+	src/AnimationObject.hpp
 	src/BattleManager.cpp
 	src/BattleManager.hpp
 	src/BattleMode.cpp
@@ -40,20 +42,24 @@ add_library(
 	src/dlls/WS2_32.DLL.hpp
 	src/DrawUtils.cpp
 	src/DrawUtils.hpp
+	src/Deque.hpp
+	src/Design.cpp
+	src/Design.hpp
 	src/Exceptions.hpp
 	src/Font.cpp
 	src/Font.hpp
 	src/HandleManager.hpp
 	src/Hash.cpp
 	src/Hash.hpp
+	src/IEffectManager.cpp
 	src/IEffectManager.hpp
+	src/IFileReader.cpp
 	src/IFileReader.hpp
 	src/InputManager.cpp
 	src/InputManager.hpp
 	src/Key.cpp
 	src/Key.hpp
 	src/LinkedList.hpp
-	src/Map.cpp
 	src/Map.hpp
 	src/Memory.cpp
 	src/Memory.hpp
@@ -75,11 +81,14 @@ add_library(
 	src/SceneCreaters.hpp
 	src/Scenes.cpp
 	src/Scenes.hpp
+	src/SceneScript.cpp
+	src/SceneScript.hpp
 	src/SceneSize.cpp
 	src/SceneSize.hpp
 	src/SokuAddresses.hpp
 	src/UnionCast.hpp
 	src/SokuLib.hpp
+	src/SoundData.hpp
 	src/SoundManager.cpp
 	src/SoundManager.hpp
 	src/Stack.cpp
@@ -100,6 +109,7 @@ add_library(
 	src/Sprite.hpp
 	src/Vector2.hpp
 	src/Action.hpp
+	src/FrameData.cpp
 	src/FrameData.hpp
 	src/Boxes.hpp
 	src/DeprecatedElements.cpp
@@ -109,7 +119,16 @@ add_library(
 	src/Menus/ResultMenu.hpp
 	src/Misc.cpp
 	src/Misc.hpp
-	src/KeyCombination.hpp)
+	src/GameObject.cpp
+	src/GameObject.hpp
+	src/GameData.cpp
+	src/GameData.hpp
+	src/Player.cpp
+	src/Player.hpp
+	src/InputCombination.hpp
+	src/Menus/PauseMenu.cpp
+	src/Menus/PauseMenu.hpp
+)
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	target_compile_definitions(
@@ -118,12 +137,18 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL Debug)
 	)
 endif()
 
-target_include_directories(SokuLib INTERFACE src/ PRIVATE directx)
+target_include_directories(SokuLib INTERFACE src/ PUBLIC directx)
 
 add_executable(
 	SokuLibTests
 	test/main.cpp
 )
 target_include_directories(SokuLibTests PRIVATE directx)
-
 target_link_libraries(SokuLibTests SokuLib)
+
+add_library(
+	SokuLibDllTests SHARED
+	test/main.dll.cpp
+)
+target_include_directories(SokuLibDllTests PRIVATE directx)
+target_link_libraries(SokuLibDllTests SokuLib)
