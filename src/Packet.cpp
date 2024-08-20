@@ -8,8 +8,28 @@
 #include <string>
 #include "Packet.hpp"
 
+#ifndef SOKULIB_NO_MOD
+#include "dlls/WS2_32.DLL.hpp"
+#define htons(s) DLL::ws2_32.htons(s)
+#endif
+
+
+#ifdef _WIN32
+#define s_b1 S_un.S_un_b.s_b1
+#define s_b2 S_un.S_un_b.s_b2
+#define s_b3 S_un.S_un_b.s_b3
+#define s_b4 S_un.S_un_b.s_b4
+#else
+#define s_b1 s_addr >> 0 & 0xFF
+#define s_b2 s_addr >> 8 & 0xFF
+#define s_b3 s_addr >> 16 & 0xFF
+#define s_b4 s_addr >> 24 & 0xFF
+#endif
+
 namespace SokuLib
 {
+	extern std::vector<std::string> charactersName;
+
 	uint8_t Soku110acRollSWRAllChars[16] = {
 		0x64, 0x73, 0x65, 0xD9,
 		0xFF, 0xC4, 0x6E, 0x48,
@@ -87,15 +107,15 @@ namespace SokuLib
 		switch (packet.type) {
 		case HELLO:
 			stream << ", peer: ";
-			stream << static_cast<int>(packet.hello.peer.sin_addr.S_un.S_un_b.s_b1) << ".";
-			stream << static_cast<int>(packet.hello.peer.sin_addr.S_un.S_un_b.s_b2) << ".";
-			stream << static_cast<int>(packet.hello.peer.sin_addr.S_un.S_un_b.s_b3) << ".";
-			stream << static_cast<int>(packet.hello.peer.sin_addr.S_un.S_un_b.s_b4) << ":";
+			stream << static_cast<int>(packet.hello.peer.sin_addr.s_b1) << ".";
+			stream << static_cast<int>(packet.hello.peer.sin_addr.s_b2) << ".";
+			stream << static_cast<int>(packet.hello.peer.sin_addr.s_b3) << ".";
+			stream << static_cast<int>(packet.hello.peer.sin_addr.s_b4) << ":";
 			stream << static_cast<int>(htons(packet.hello.peer.sin_port)) << ", target: ";
-			stream << static_cast<int>(packet.hello.target.sin_addr.S_un.S_un_b.s_b1) << ".";
-			stream << static_cast<int>(packet.hello.target.sin_addr.S_un.S_un_b.s_b2) << ".";
-			stream << static_cast<int>(packet.hello.target.sin_addr.S_un.S_un_b.s_b3) << ".";
-			stream << static_cast<int>(packet.hello.target.sin_addr.S_un.S_un_b.s_b4) << ":";
+			stream << static_cast<int>(packet.hello.target.sin_addr.s_b1) << ".";
+			stream << static_cast<int>(packet.hello.target.sin_addr.s_b2) << ".";
+			stream << static_cast<int>(packet.hello.target.sin_addr.s_b3) << ".";
+			stream << static_cast<int>(packet.hello.target.sin_addr.s_b4) << ":";
 			stream << static_cast<int>(htons(packet.hello.target.sin_port)) << ", unknown: [";
 			stream << std::hex;
 			for (int i = 0; i < 4; i++)
@@ -104,10 +124,10 @@ namespace SokuLib
 			break;
 		case PUNCH:
 			stream << ", addr: ";
-			stream << static_cast<int>(packet.punch.addr.sin_addr.S_un.S_un_b.s_b1) << ".";
-			stream << static_cast<int>(packet.punch.addr.sin_addr.S_un.S_un_b.s_b2) << ".";
-			stream << static_cast<int>(packet.punch.addr.sin_addr.S_un.S_un_b.s_b3) << ".";
-			stream << static_cast<int>(packet.punch.addr.sin_addr.S_un.S_un_b.s_b4) << ":";
+			stream << static_cast<int>(packet.punch.addr.sin_addr.s_b1) << ".";
+			stream << static_cast<int>(packet.punch.addr.sin_addr.s_b2) << ".";
+			stream << static_cast<int>(packet.punch.addr.sin_addr.s_b3) << ".";
+			stream << static_cast<int>(packet.punch.addr.sin_addr.s_b4) << ":";
 			stream << static_cast<int>(htons(packet.punch.addr.sin_port)) << ", unknown: [";
 			stream << std::hex;
 			for (int i = 0; i < 4; i++)
@@ -135,7 +155,7 @@ namespace SokuLib
 				stream << (i == 0 ? "" : ", ") << "0x" << static_cast<int>(packet.initSuccess.unknown1[i]);
 			stream << "], dataSize: " << std::dec << static_cast<int>(packet.initSuccess.dataSize);
 			stream << ", unknown2: [" << std::hex;
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 2; i++)
 				stream << (i == 0 ? "" : ", ") << "0x" << static_cast<int>(packet.initSuccess.unknown2[i]);
 			stream << "]" << std::dec;
 			if (packet.initSuccess.dataSize) {
@@ -150,10 +170,10 @@ namespace SokuLib
 		case REDIRECT:
 			stream << ", childId: " << packet.redirect.childId;
 			stream << ", target: ";
-			stream << static_cast<int>(packet.redirect.target.sin_addr.S_un.S_un_b.s_b1) << ".";
-			stream << static_cast<int>(packet.redirect.target.sin_addr.S_un.S_un_b.s_b2) << ".";
-			stream << static_cast<int>(packet.redirect.target.sin_addr.S_un.S_un_b.s_b3) << ".";
-			stream << static_cast<int>(packet.redirect.target.sin_addr.S_un.S_un_b.s_b4) << ":";
+			stream << static_cast<int>(packet.redirect.target.sin_addr.s_b1) << ".";
+			stream << static_cast<int>(packet.redirect.target.sin_addr.s_b2) << ".";
+			stream << static_cast<int>(packet.redirect.target.sin_addr.s_b3) << ".";
+			stream << static_cast<int>(packet.redirect.target.sin_addr.s_b4) << ":";
 			stream << static_cast<int>(htons(packet.redirect.target.sin_port)) << ", unknown: [" << std::hex;
 			for (int i = 0; i < 48; i++)
 				stream << (i == 0 ? "" : ", ") << "0x" << static_cast<int>(packet.redirect.unknown[i]);

@@ -33,11 +33,13 @@ namespace SokuLib
 		/* 21 (0x15) */ WEATHER_CLEAR,
 	};
 
+#ifndef SOKULIB_NO_MOD
 	extern Weather &activeWeather;
 	extern Weather &displayedWeather;
 	extern Weather &displayedWeatherOrb;
 	extern unsigned short &weatherCounter;
 	extern void (__stdcall * const activateWeather)(int weather, char unknown);
+#endif
 }
 
 

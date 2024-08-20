@@ -171,7 +171,12 @@ namespace SokuLib
 		float charPortraitSliceWidth;
 		float charPortraitStartX;
 
-		char offset_0x1E50[0x470];
+		char offset_0x1E50[0x280];
+
+		Sprite *p1ProfileTextSprite;
+		Sprite *p2ProfileTextSprite;
+
+		char offset_0x20D8[0x1E8];
 
 		// 0x22C0 Left selection stage
 		char leftSelectionStage;

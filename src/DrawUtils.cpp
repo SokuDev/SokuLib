@@ -320,12 +320,12 @@ namespace DrawUtils
 		auto bottomLeft = (this->_position + Vector2<unsigned>{0, size.y}).rotate(this->_rotation, center);
 		auto bottomRight = (this->_position + size).rotate(this->_rotation, center);
 
-		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].x = topLeft.x;
-		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].y = topLeft.y;
+		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].x = topLeft.x - 1;
+		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].y = topLeft.y - 1;
 		this->_vertex[!this->_mirroring.x + this->_mirroring.y *  2].x = topRight.x;
 		this->_vertex[!this->_mirroring.x + this->_mirroring.y *  2].y = topRight.y;
-		this->_vertex[ this->_mirroring.x + this->_mirroring.y * -2 + 2].x = bottomRight.x;
-		this->_vertex[ this->_mirroring.x + this->_mirroring.y * -2 + 2].y = bottomRight.y;
+		this->_vertex[ this->_mirroring.x + this->_mirroring.y * -2 + 2].x = bottomRight.x - 1;
+		this->_vertex[ this->_mirroring.x + this->_mirroring.y * -2 + 2].y = bottomRight.y - 1;
 		this->_vertex[!this->_mirroring.x + this->_mirroring.y * -2 + 2].x = bottomLeft.x;
 		this->_vertex[!this->_mirroring.x + this->_mirroring.y * -2 + 2].y = bottomLeft.y;
 
@@ -498,9 +498,9 @@ namespace DrawUtils
 		auto size = RectangularRenderingElement::_getRealSize();
 
 		if (std::abs(static_cast<int>(size.x)) >= 2)
-			size.x -= std::copysign(1, size.x) * (this->getMirroring().x ? -1 : 1);
+			size.x -= (this->getMirroring().x ? -1 : 1);
 		if (std::abs(static_cast<int>(size.y)) >= 2)
-			size.y -= std::copysign(1, size.y) * (this->getMirroring().y ? -1 : 1);
+			size.y -= (this->getMirroring().y ? -1 : 1);
 		return size;
 	}
 }

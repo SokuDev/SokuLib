@@ -69,6 +69,12 @@ namespace SokuLib
 		unsigned char padding: 4;
 	};
 
+	union Inputs {
+		CharacterSelectKeys charSelect;
+		BattleKeys battle;
+		unsigned short raw;
+	};
+
 	//KEYMAPMGR
 	//CInputManagerCluster
 	struct KeymapManager {
@@ -78,8 +84,8 @@ namespace SokuLib
 		KeyInput input;
 
 		// copies to/from during replays and netplay:
-		BattleKeys inKeys;
-		BattleKeys outKeys;
+		Inputs inKeys;
+		Inputs outKeys;
 		bool readInKeys;
 	};
 
