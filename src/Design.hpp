@@ -1,14 +1,15 @@
 #ifndef SOKULIB_DESIGN_HPP
 #define SOKULIB_DESIGN_HPP
 
+
+#include "Vector.hpp"
+#include "List.hpp"
 #include "Map.hpp"
 #include "Memory.hpp"
 #include "Sprite.hpp"
 #include "String.hpp"
 #include "UnionCast.hpp"
 #include "Deque.hpp"
-#include <list>
-#include <vector>
 
 namespace SokuLib
 {
@@ -41,8 +42,8 @@ namespace SokuLib
 		IValue* value = 0;
 
 		CGauge() = default;
-		CGauge(IValue* value); // takes control, use SokuLib::New
-		void set(IValue* value); // takes control, use SokuLib::New
+		CGauge(IValue* value); // takes control, use New
+		void set(IValue* value); // takes control, use New
 		void set(const int* ptr, float offset, float length);
 		void set(const short* ptr, float offset, float length);
 		void fromTexture(int textureId, int width, int height, int type);
@@ -73,8 +74,8 @@ namespace SokuLib
 		CTile tiles;
 
 		CNumber() = default;
-		CNumber(IValue* value); // takes control, use SokuLib::New
-		void set(IValue* value); // takes control, use SokuLib::New
+		CNumber(IValue* value); // takes control, use New
+		void set(IValue* value); // takes control, use New
 		void set(const char* ptr);
 		void set(const float* ptr);
 		void set(const int* ptr);
@@ -119,7 +120,7 @@ namespace SokuLib
 
 		class Gauge : public Object {
 		public:
-			SokuLib::CGauge gauge;
+			CGauge gauge;
 
 			virtual ~Gauge() = default;
 			virtual void setColor(int a1) override;
@@ -132,7 +133,7 @@ namespace SokuLib
 
 		class Number : public Object {
 		public:
-			SokuLib::CNumber number;
+			CNumber number;
 
 			virtual ~Number() = default;
 			virtual void setColor(int a1) override;
@@ -144,9 +145,9 @@ namespace SokuLib
 		};
 
 		// --- Data ---
-		SokuLib::Vector<int> textures;
-		SokuLib::List<Object*> objects;
-		SokuLib::Map<int, Object*> objectMap;
+		Vector<int> textures;
+		List<Object*> objects;
+		Map<int, Object*> objectMap;
 		// the data below may be a iterator
 		void* unknown0x2C;
 		void* unknown0x30;
@@ -171,10 +172,10 @@ namespace SokuLib
 
 	class CFileList {
 	public:
-		SokuLib::Deque<String> names;
-		SokuLib::Deque<char> types;
-		SokuLib::Deque<int> textures;
-		SokuLib::Deque<CTile> tiles;
+		Deque<String> names;
+		Deque<char> types;
+		Deque<int> textures;
+		Deque<CTile> tiles;
 		String fileFormat;
 		String basePath; // unsure
 		String currentPath;
@@ -188,7 +189,7 @@ namespace SokuLib
 		virtual void updateList();
 		virtual void updateResources();
 		virtual void clear();
-		virtual int appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index);
+		virtual int appendLine(String& out, void* unknown, Deque<String>& list, int index);
 
 		inline int getLength() { return this->names.size(); }
 		bool goToParent(); // unsure
@@ -203,7 +204,7 @@ namespace SokuLib
 		virtual void updateList() override;
 		virtual void updateResources() override;
 		virtual void clear() override;
-		virtual int appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) override;
+		virtual int appendLine(String& out, void* unknown, Deque<String>& list, int index) override;
 	};
 
 	class CProfileList : public CFileList {
@@ -214,13 +215,13 @@ namespace SokuLib
 		virtual void updateList() override;
 		virtual void updateResources() override;
 		virtual void clear() override;
-		virtual int appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) override;
+		virtual int appendLine(String& out, void* unknown, Deque<String>& list, int index) override;
 	};
 
 	class CMusicList : public CFileList {
 	public:
-		SokuLib::Deque<String> unknownB4;
-		SokuLib::Deque<String> unknownC8;
+		Deque<String> unknownB4;
+		Deque<String> unknownC8;
 
 		CMusicList();
 		// Remember to call `clear` to release the resources
@@ -228,16 +229,16 @@ namespace SokuLib
 		virtual void updateList() override;
 		virtual void updateResources() override;
 		virtual void clear() override;
-		virtual int appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) override;
+		virtual int appendLine(String& out, void* unknown, Deque<String>& list, int index) override;
 	};
 
 	class CResultList : public CFileList {
 	public:
 		void* unknownB4;
-		SokuLib::Deque<String> unknownB8;
-		SokuLib::Deque<char> unknownCC;
-		SokuLib::Deque<char> unknownE0;
-		SokuLib::Deque<char> unknownF4;
+		Deque<String> unknownB8;
+		Deque<char> unknownCC;
+		Deque<char> unknownE0;
+		Deque<char> unknownF4;
 
 		CResultList();
 		// Remember to call `clear` to release the resources
@@ -245,7 +246,7 @@ namespace SokuLib
 		virtual void updateList() override;
 		virtual void updateResources() override;
 		virtual void clear() override;
-		virtual int appendLine(String& out, void* unknown, SokuLib::Deque<String>& list, int index) override;
+		virtual int appendLine(String& out, void* unknown, Deque<String>& list, int index) override;
 	};
 }
 

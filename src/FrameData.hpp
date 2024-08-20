@@ -5,8 +5,9 @@
 #ifndef SOKULIB_FRAMEDATA_HPP
 #define SOKULIB_FRAMEDATA_HPP
 
+
+#include "Vector.hpp"
 #include "Boxes.hpp"
-#include "Map.hpp"
 #include "Vector2.hpp"
 
 namespace SokuLib
@@ -245,5 +246,6 @@ namespace SokuLib
 		};
 	}
 }
+
 
 #endif //SOKULIB_FRAMEDATA_HPP
