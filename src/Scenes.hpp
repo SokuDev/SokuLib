@@ -220,6 +220,7 @@ namespace SokuLib
 
 	struct SelectClient {
 		Select base;
+		bool characterSelectEnded;
 	};
 
 	struct LoadingServer {

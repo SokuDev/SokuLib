@@ -403,6 +403,7 @@ namespace SokuLib
 	std::string InitErrorsToString(InitErrors);
 	std::string GameTypeToString(GameType);
 	void displayPacketContent(std::ostream &stream, const Packet &packet);
+	void displayGameEvent(std::ostream &stream, const GameEvent &event);
 }
 
 #pragma pack(pop)

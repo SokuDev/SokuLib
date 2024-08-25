@@ -63,23 +63,23 @@ namespace SokuLib
 			stream << ", inputCount: " << static_cast<int>(event.input.inputCount);
 			stream << ", inputs: [" << std::hex;
 			for (int i = 0; i < event.input.inputCount; i++)
-				stream << (i == 0 ? "" : ", ") << *reinterpret_cast<const uint16_t *>(&event.input.inputs[i]);
+				stream << (i == 0 ? "" : ", ") << event.input.inputs[i].raw;
 			stream << "]" << std::dec;
 			break;
 		case GAME_MATCH:
 			stream << ", host: " << event.match.host;
 			stream << ", client: " << event.match.client();
-			stream << ", stageId: " << +event.match.stageId();
-			stream << ", musicId: " << +event.match.musicId();
+			stream << ", stageId: " << (int)event.match.stageId();
+			stream << ", musicId: " << (int)event.match.musicId();
 			stream << ", randomSeed: " << event.match.randomSeed();
-			stream << ", matchId: " << +event.match.matchId();
+			stream << ", matchId: " << (int)event.match.matchId();
 			break;
 		case GAME_REPLAY:
-			stream << ", replaySize: " << +event.replay.replaySize;
+			stream << ", replaySize: " << (int)event.replay.replaySize;
 			break;
 		case GAME_REPLAY_REQUEST:
-			stream << ", frameId: " << +event.replayRequest.frameId;
-			stream << ", matchId: " << +event.replayRequest.matchId;
+			stream << ", frameId: " << (int)event.replayRequest.frameId;
+			stream << ", matchId: " << (int)event.replayRequest.matchId;
 			break;
 		case GAME_MATCH_ACK:
 		case GAME_MATCH_REQUEST:
@@ -90,14 +90,14 @@ namespace SokuLib
 	std::ostream &operator<<(std::ostream &stream, const PlayerMatchData &data)
 	{
 		stream << "{character: " << (data.character < SokuLib::charactersName.size() ? SokuLib::charactersName.at(data.character) : "Character " + std::to_string(data.character));
-		stream << ", skinId: " << +data.skinId;
-		stream << ", deckId: " << +data.deckId;
-		stream << ", deckSize: " << +data.deckSize;
-		stream << ", cards: [" << std::hex;
+		stream << ", skinId: " << std::dec << (int)data.skinId;
+		stream << ", deckId: " << (int)data.deckId;
+		stream << ", deckSize: " << (int)data.deckSize;
+		stream << ", cards: [";
 		for (int i = 0; i < data.deckSize; i++)
 			stream << (i == 0 ? "" : ", ") << data.cards[i];
 		stream << "]";
-		stream << ", disabledSimultaneousButton: " << std::boolalpha << +data.disabledSimultaneousButton() << std::noboolalpha << "}" << std::dec;
+		stream << ", disabledSimultaneousButton: " << std::boolalpha << (int)data.disabledSimultaneousButton() << std::noboolalpha << "}" << std::dec;
 		return stream;
 	}
 
@@ -186,7 +186,7 @@ namespace SokuLib
 		case DESDET_MOD_ENABLE_REQUEST:
 			break;
 		case SOKU2_PLAY_REQU:
-			stream << ", version: " << +packet.soku2PlayRequ.major << "." << +packet.soku2PlayRequ.minor << packet.soku2PlayRequ.letter;
+			stream << ", version: " << (int)packet.soku2PlayRequ.major << "." << (int)packet.soku2PlayRequ.minor << packet.soku2PlayRequ.letter;
 			break;
 		case DESDET_STATE:
 			stream << ", lX: " << std::dec << packet.desDetState.lX;

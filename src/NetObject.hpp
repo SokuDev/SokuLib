@@ -12,6 +12,7 @@
 #include "Sprite.hpp"
 #include "UnionCast.hpp"
 #include "SokuAddresses.hpp"
+#include "InfoManager.hpp"
 
 namespace SokuLib
 {
@@ -38,9 +39,12 @@ namespace SokuLib
 		char unknown2[84];
 		int frameId;
 		// 0x9C
-		char offset_0x9C[0xC4];
+		char offset_0x9C[0x5C];
+		// 0xF8
+		KeymapManager p1InputMgr;
 		Deque<unsigned short> p1Inputs;
-		char offset_0x174[0x68];
+		// 0x174
+		KeymapManager p2InputMgr;
 		Deque<unsigned short> p2Inputs;
 		char offset_0x1F0[0x8C];
 		// 0x27C
