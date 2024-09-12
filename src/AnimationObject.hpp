@@ -5,6 +5,8 @@
 #ifndef SOKULIB_ANIMATIONOBJECT_HPP
 #define SOKULIB_ANIMATIONOBJECT_HPP
 
+
+#include "Map.hpp"
 #include "Sprite.hpp"
 #include "FrameData.hpp"
 #include "CharacterManager.hpp"

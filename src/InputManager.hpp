@@ -8,6 +8,24 @@
 
 namespace SokuLib
 {
+	struct KeyBindings {
+		// index is -1 when using keyboard, 0 when using first gamepad, 1 when using second gamepad.
+		int index;
+		// for keyboard, these are DirectX key codes (see dinput.h)
+		// for controller, these are DIJOYPOD::rgbButton indices; for the directions they're -1.
+		int up;
+		int down;
+		int left;
+		int right;
+		int a;
+		int b;
+		int c;
+		int d;
+		int changeCard;
+		int spellcard;
+		int pause;
+		int select;
+	};
 	struct KeyInput {
 		int horizontalAxis;
 		int verticalAxis;
@@ -17,8 +35,10 @@ namespace SokuLib
 		int d;
 		int changeCard;
 		int spellcard;
+		int pause;
+		int select;
 	};
-	
+
 	struct CharacterSelectKeys {
 		bool up: 1;
 		bool down: 1;
@@ -49,36 +69,23 @@ namespace SokuLib
 		unsigned char padding: 4;
 	};
 
+	union Inputs {
+		CharacterSelectKeys charSelect;
+		BattleKeys battle;
+		unsigned short raw;
+	};
+
 	//KEYMAPMGR
 	//CInputManagerCluster
 	struct KeymapManager {
-		void *unknown;
-		// isPlayer is -1 when using keyboard, 0 when using first gamepad, 1 when using second gamepad.
-		char isPlayer;
-
-		// for keyboard, these are DirectX key codes (see dinput.h / DIKEY.md)
-		// for controller, these are DIJOYPAD::rgbButton indices (and -1 for up/down/left/right).
-		int bindingUp;
-		int bindingDown;
-		int bindingLeft;
-		int bindingRight;
-		int bindingA;
-		int bindingB;
-		int bindingC;
-		int bindingD;
-		int bindingChangeCard;
-		int bindingSpellCard;
-		int bindingPause;
-		int bindingSelect;
-		
+		void *vtable;
+		KeyBindings bindings;
 		//  ADDR_KEYMAPOFS          int[8] (32) 0x38
 		KeyInput input;
-		int pause;
-		int select;
-		
+
 		// copies to/from during replays and netplay:
-		BattleKeys inKeys;
-		BattleKeys outKeys;
+		Inputs inKeys;
+		Inputs outKeys;
 		bool readInKeys;
 	};
 

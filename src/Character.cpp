@@ -42,7 +42,8 @@ namespace SokuLib
 		"Minamitsu Murasa",
 		"Sekibanki",
 		"Satori Komeiji",
-		"Shinki"
+		"Ran Yakumo",
+		"Tewi Inaba"
 	};
 
 	// �L�����N�^ID

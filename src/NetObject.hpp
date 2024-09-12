@@ -6,22 +6,30 @@
 #define SOKULIB_NETOBJECT_HPP
 
 
-#include <vector>
 #include <winsock.h>
+#include "Vector.hpp"
+#include "Deque.hpp"
+#include "Sprite.hpp"
 #include "UnionCast.hpp"
 #include "SokuAddresses.hpp"
+#include "InfoManager.hpp"
 
 namespace SokuLib
 {
 	struct NetworkBase {
-		char unknown[0x3C];
+		char unknown[0x28];
+		SOCKET socket;
+		char offset_0x2C[0xC];
 		// �T�[�o�A�h���X
 		// in_addr
 		in_addr g_ptoAddr;
-		char unknown2[0xD0 - sizeof(in_addr)];
+		char offset_0x3C[0x84];
+		sockaddr_in opponent;
+		char offset_0xD0[0x38];
 		// �s�A���
 		// vector<SWRClientInfo> ?
-		std::vector<struct ClientInfo> g_psvClients;
+		// 0x108
+		Vector<struct ClientInfo> g_psvClients;
 	};
 
 	struct NetObject {
@@ -30,9 +38,23 @@ namespace SokuLib
 		char profile2name[32];
 		char unknown2[84];
 		int frameId;
-		char unknown3[0x320];
+		// 0x9C
+		char offset_0x9C[0x5C];
+		// 0xF8
+		KeymapManager p1InputMgr;
+		Deque<unsigned short> p1Inputs;
+		// 0x174
+		KeymapManager p2InputMgr;
+		Deque<unsigned short> p2Inputs;
+		char offset_0x1F0[0x8C];
+		// 0x27C
+		int p1ProfileNameTexture;
+		int p2ProfileNameTexture;
+		Sprite p1ProfileNameSprite;
+		Sprite p2ProfileNameSprite;
+		char offset_0x3AC[0x10];
 		// UDP�l�b�g���[�N�I�u�W�F�N�g
-		// CNetworkBase
+		// CNetworkBase, 0x3BC
 		NetworkBase netUdp;
 	};
 

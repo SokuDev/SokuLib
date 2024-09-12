@@ -12,6 +12,7 @@
 #include "Design.hpp"
 #include "CharacterManager.hpp"
 #include "SokuAddresses.hpp"
+#include "Character.hpp"
 
 namespace SokuLib
 {
@@ -68,7 +69,7 @@ namespace SokuLib
 	struct InputHandler {
 		int maxValue;
 		int offset_0x04;
-		KeyInput *keys;
+		int *axis;
 		int pos;
 		int posCopy;
 	};
@@ -128,30 +129,6 @@ namespace SokuLib
 		char offset_0x68C[0x8];
 	};
 
-	struct ObjectSelect {
-		// 0x00 Always 5
-		int alwaysFive;
-		// 0x04 Always 0
-		int alwaysZero;
-		// 0x08 KeyInput
-		KeyInput *keys;
-		// 0x0C Deck index
-		int deck;
-		// 0x10 Deck index duplicate (unused by the game)
-		int deckUnused;
-		// 0x14 Always 8
-		int alwaysEight;
-		// 0x18 Always 0
-		int alwaysZero2;
-		int dunno;
-		// 0x20 Selected palette
-		// Warning: This is only used when changing palette.
-		// The effective palette is the CharacterInfo.
-		int palette;
-		// 0x24 Selected palette (Unused by the game)
-		int paletteUnused;
-	};
-
 	struct SelectCursor {
 		int alwaysZero;
 		int alwaysTwenty;
@@ -163,7 +140,9 @@ namespace SokuLib
 	struct Select {
 		SceneBase base;
 
-		char offset_0x004[0xC];
+		void *fadePtr;
+		int chrsSelected;
+		PlayerInfo *pinfo;
 
 		//0x10 Left Keys
 		KeymapManager *leftKeys;
@@ -172,25 +151,32 @@ namespace SokuLib
 
 		char offset_0x018[0x110];
 
-		// 0x128 ??? (Value seems to always be 0)
-		// 0x12C ??? (Value seems to always be 0x14 hex, 20 dec)
-		// 0x130 Left keys duplicate
-		// 0x134 Left cursor pos
-		// 0x138 Left cursor pos duplicate (the game sets it but doesn't use it)
-		SelectCursor leftCursor;
-		// 0x13C ??? (Value seems to always be 0)
-		// 0x140 ??? (Value seems to always be 0x14 hex, 20 dec)
-		// 0x144 Right keys duplicate
-		// 0x148 Right cursor pos
-		// 0x14C Right cursor pos duplicate (the game sets it but doesn't use it)
-		SelectCursor rightCursor;
+		// 0x128
+		InputHandler leftCharInput;
+		InputHandler rightCharInput;
+		InputHandler leftDeckInput;
+		InputHandler leftPalInput;
+		InputHandler rightDeckInput;
+		InputHandler rightPalInput;
+		SokuLib::CDesign designBase3;
+		char offset_0x1D4[0x2C4];
 
-		// 0x150 Left ObjectSelect
-		ObjectSelect leftSelect;
-		// 0x178 Right ObjectSelect
-		ObjectSelect rightSelect;
+		// 0x498
+		SokuLib::Sprite charNameSprites[21];
 
-		char offset_0x1A0[0x2120];
+		// 0x10BC
+		char offset_0x10BC[0xD8C];
+
+		// 0x1E48
+		float charPortraitSliceWidth;
+		float charPortraitStartX;
+
+		char offset_0x1E50[0x280];
+
+		Sprite *p1ProfileTextSprite;
+		Sprite *p2ProfileTextSprite;
+
+		char offset_0x20D8[0x1E8];
 
 		// 0x22C0 Left selection stage
 		char leftSelectionStage;
@@ -212,7 +198,13 @@ namespace SokuLib
 
 		// 0x244C Selected music index
 		unsigned int selectedMusic;
+
+		// 0x50C0 Total size
+		char offset_0x2450[0x2C70];
 	};
+	static_assert(offsetof(Select, offset_0x1D4) == 0x1D4);
+	static_assert(offsetof(Select, offset_0x2450) == 0x2450);
+	static_assert(sizeof(Select) == 0x50C0);
 
 	struct Battle {
 		SceneBase base;
@@ -228,6 +220,7 @@ namespace SokuLib
 
 	struct SelectClient {
 		Select base;
+		bool characterSelectEnded;
 	};
 
 	struct LoadingServer {

@@ -22,7 +22,7 @@ namespace SokuLib
 		void (T::*unknown)();
 		void (T::*unknown2)();
 		void (T::*unknown3)();
-		void (T::*unknown4)();
+		int (T::*update)();
 	};
 
 	template<typename T>

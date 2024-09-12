@@ -6,12 +6,11 @@
 #define SOKULIB_HANDLEMANAGER_HPP
 
 
+#include <windows.h>
 #include "SokuAddresses.hpp"
 #include "Deque.hpp"
-#include "Map.hpp"
-
-#include <Windows.h>
-#include <assert.h>
+#include "Vector.hpp"
+#include "List.hpp"
 
 namespace SokuLib
 {
