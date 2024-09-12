@@ -80,6 +80,11 @@ namespace SokuLib
 			} return where;
 		}
 
+		iterator erase(iterator where, iterator finish) {
+			while ((where = this->erase(where)) != finish);
+			return where;
+		}
+
 		iterator insert(iterator where, value_type&& val) {
 			node_type* inode = where._ptr;
 			node_type* newnode = _allocNode(inode, inode->prev);

@@ -84,6 +84,13 @@ namespace SokuLib
 			++this->m_last;
 		}
 
+		template<typename ...Args>
+		void emplace_back(Args... args) {
+			if (this->m_last == this->m_end) _grow(1);
+			std::construct_at(this->m_last, args...);
+			++this->m_last;
+		}
+
 		void pop_back() {
 			if (this->m_last > this->m_first) {
 				std::destroy_at(--this->m_last);
@@ -119,6 +126,18 @@ namespace SokuLib
 			if (N <= this->m_end - this->m_first) return; // there's space, ignore
 			if (N > max_size()) throw std::runtime_error("SokuLib: Vector<T> too long.");
 			_reallocate(N);
+		}
+
+		void erase(iterator where) {
+			this->erase(where, where + 1);
+		}
+
+		void erase(iterator where, iterator finish) {
+			if (finish == this->end()) {
+				this->m_last = finish._ptr;
+				return;
+			}
+			throw std::runtime_error("Not implemented");
 		}
 
 	private:
