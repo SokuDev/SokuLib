@@ -81,7 +81,8 @@ namespace SokuLib
 		}
 
 		iterator erase(iterator where, iterator finish) {
-			while ((where = this->erase(where)) != finish);
+			while (where != finish)
+				where = this->erase(where);
 			return where;
 		}
 

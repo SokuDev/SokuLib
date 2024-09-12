@@ -5,6 +5,7 @@
 #ifndef SOKULIB_VECTOR_HPP
 #define SOKULIB_VECTOR_HPP
 
+#include <windows.h>
 #include "Memory.hpp"
 #include <stdexcept>
 #include <memory>
@@ -85,10 +86,10 @@ namespace SokuLib
 		}
 
 		template<typename ...Args>
-		void emplace_back(Args... args) {
+		value_type &emplace_back(Args... args) {
 			if (this->m_last == this->m_end) _grow(1);
 			std::construct_at(this->m_last, args...);
-			++this->m_last;
+			return *(this->m_last++);
 		}
 
 		void pop_back() {
@@ -133,11 +134,13 @@ namespace SokuLib
 		}
 
 		void erase(iterator where, iterator finish) {
+			std::destroy_n(where, finish._ptr - where._ptr);
 			if (finish == this->end()) {
-				this->m_last = finish._ptr;
+				this->m_last = where._ptr;
 				return;
 			}
-			throw std::runtime_error("Not implemented");
+			MessageBoxA(nullptr, "SokuLib::Vector::erase(it, not end()): Not implemented", "Not implemented", MB_ICONERROR);
+			abort();
 		}
 
 	private:

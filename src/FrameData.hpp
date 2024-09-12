@@ -238,11 +238,6 @@ namespace SokuLib
 			// 0x18
 			CharacterSequenceData* previous; // if null then it is the first
 			CharacterSequenceData* next; // loops into the first
-
-			~CharacterSequenceData() {
-				// Workaround
-				*(unsigned *)this = 0;
-			};
 		};
 	}
 }

@@ -100,6 +100,13 @@ namespace SokuLib {
 		template<class _It> inline Deque(_It b, _It e) { for (;b != e; ++b) push_back(*b); }
 		inline ~Deque() { clear(); }
 
+		Deque &operator=(const Deque &other) {
+			this->clear();
+			for (const auto &val : other)
+				this->push_back(val);
+			return *this;
+		}
+
 		inline iterator begin() const { return iterator(m_offset, this); }
 		inline iterator end() const { return iterator(m_offset + m_size, this); }
 		inline bool empty() const { return this->m_size == 0; }

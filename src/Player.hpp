@@ -136,9 +136,9 @@ namespace v2 {
 		KeyManager& keyManager;
 		struct InputInfo {
 			// offset 0x754
-			KeyInput keyInput; // sizeof = 0x20
+			KeyInputLight keyInput; // sizeof = 0x20
 			// offset 0x774
-			KeyInput bufferedKeyInput;
+			KeyInputLight bufferedKeyInput;
 			// offset 0x794
 			int keyUpA, keyUpB, keyUpC, keyUpD, keyUpE, keyUpF; // 46cac0: = 0;
 			char bufferTimer; // 46cac0: = 0;
@@ -271,6 +271,7 @@ namespace v2 {
 			return this->objectList->createObject(nullptr, this, action, x, y, direction, layer, nullptr, 0);
 		}
 	};
+	static_assert(sizeof(Player) == 0x890);
 
 #define DECL_PLAYER_VIRTUALS() \
 	void setActionSequence(short, short) override; \

@@ -38,6 +38,16 @@ namespace SokuLib
 		int pause;
 		int select;
 	};
+	struct KeyInputLight {
+		int horizontalAxis;
+		int verticalAxis;
+		int a;
+		int b;
+		int c;
+		int d;
+		int changeCard;
+		int spellcard;
+	};
 
 	struct CharacterSelectKeys {
 		bool up: 1;
