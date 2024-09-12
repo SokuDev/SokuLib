@@ -175,7 +175,7 @@ namespace v2 {
 
 		bool checkGrazed(int density);
 		bool checkProjectileHit(int density);
-		bool checkTurnIntoCrystals(bool onlyAirHit, int bigCrystalCount, int smallCrystalCount);
+		bool checkTurnIntoCrystals(bool onlyAirHit, int bigCrystalCount, int smallCrystalCount, float offsetX = 0, float offsetY = 0);
 		void setTail(short actionId, float paramA, int paramB, int paramC, int paramD); // unsure
 	}; // 0x3AC
 

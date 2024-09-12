@@ -98,7 +98,7 @@ namespace v2 {
 		gameData.patternMap = SokuLib::New<Map<int, CharacterSequenceData*>>(1, commonPatternData);
 		textures = SokuLib::New<Vector<int>>(1, commonTextures);
 		gameData.soundTable = SokuLib::New<int>(400);
-		memset(gameData.soundTable, 0, 400);
+		memset(gameData.soundTable, 0, 400 * 4);
 
 		characterIndex = playerInfo.character;
 		teamId = playerInfo.isRight;

@@ -97,7 +97,7 @@ namespace v2 {
 		}
 	}
 
-	bool GameObject::checkTurnIntoCrystals(bool onlyAirHit, int bigCrystalCount, int smallCrystalCount)
+	bool GameObject::checkTurnIntoCrystals(bool onlyAirHit, int bigCrystalCount, int smallCrystalCount, float offsetX, float offsetY)
 	{
 		if (this->parentPlayer->frameState.actionId < ACTION_STAND_GROUND_HIT_SMALL_HITSTUN)
 			return false;
@@ -106,9 +106,9 @@ namespace v2 {
 		if (this->parentPlayer->frameState.actionId >= ACTION_RIGHTBLOCK_HIGH_SMALL_BLOCKSTUN)
 			return false;
 		while (bigCrystalCount--)
-			this->createEffect(200, this->position.x, this->position.y, this->direction, 1);
+			this->createEffect(200, this->position.x + offsetX, this->position.y + offsetY, this->direction, 1);
 		while (smallCrystalCount--)
-			this->createEffect(201, this->position.x, this->position.y, this->direction, 1);
+			this->createEffect(201, this->position.x + offsetX, this->position.y + offsetY, this->direction, 1);
 		return true;
 	}
 

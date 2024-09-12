@@ -23,18 +23,19 @@ namespace SokuLib
 		// 0x18
 		Vector2f backgroundTranslate;
 		// 0x20
-		float offset_0x20;
+		float forcedXCenter;
 		// 0x24
-		float offset_0x24;
+		float forcedYCenter;
 		// 0x28
-		float forcedScaleValue;
+		float forcedScale;
 		// 0x2C
-		bool offset_0x2C;
+		bool forceXCenter;
 		// 0x2D
-		bool offset_0x2D;
+		bool forceYCenter;
 		// 0x2E
-		bool scaleForced;
-		char padding2F;
+		bool forceScale;
+		// Padding
+
 		// 0x30
 		float offset_0x30;
 		// 0x34
