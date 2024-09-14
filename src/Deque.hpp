@@ -155,12 +155,12 @@ namespace SokuLib {
 			if (m_blockCount <= block) block -= m_blockCount;
 			if (m_table[block] == 0)
 				m_table[block] = Allocator<T>().allocate(_BlockMax);
-			new (m_table[block] + offset%_BlockMax) T(value); // TODO check constructor
+			std::construct_at<T>(m_table[block] + offset%_BlockMax, value);
 			++m_size;
 		}
 
 		template<class... _Valty>
-		inline void emplace_back(_Valty&&... value) {
+		inline T& emplace_back(_Valty&&... value) {
 			// depends on _Growmap, so must use the custom grow
 			if ((m_offset + m_size) % _BlockMax == 0 && m_blockCount <= (m_size + _BlockMax) / _BlockMax) {
 				_Growmap(1);
@@ -171,8 +171,10 @@ namespace SokuLib {
 			if (m_blockCount <= block) block -= m_blockCount;
 			if (m_table[block] == 0)
 				m_table[block] = Allocator<T>().allocate(_BlockMax);
-			new (m_table[block] + offset%_BlockMax) T(std::forward<_Valty>(value)...); // TODO check constructor
+			const T* ptr = m_table[block] + offset%_BlockMax;
+			std::construct_at<T>(ptr, std::forward<_Valty>(value)...);
 			++m_size;
+			return *ptr;
 		}
 
 		inline void resize(size_t count) {

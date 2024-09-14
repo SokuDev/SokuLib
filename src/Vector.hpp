@@ -129,18 +129,27 @@ namespace SokuLib
 			_reallocate(N);
 		}
 
-		void erase(iterator where) {
-			this->erase(where, where + 1);
+		inline iterator erase(iterator where) {
+			return this->erase(where, where + 1);
 		}
 
-		void erase(iterator where, iterator finish) {
-			std::destroy_n(where, finish._ptr - where._ptr);
-			if (finish == this->end()) {
-				this->m_last = where._ptr;
-				return;
+		iterator erase(iterator where, iterator finish) {
+			if (where == begin() && finish == end()) clear();
+			else if(where != finish) {
+				if (where._ptr > finish._ptr || where._ptr < this->m_first || finish._ptr >= this->m_last) {
+					std::runtime_error("SokuLib: Vector<T> erase outside bounds.");
+				}
+
+				const size_t movesize = (this->m_last - finish._ptr) * sizeof(value_type);
+				if (memmove_s(where._ptr, movesize, finish._ptr, movesize)) { // can handle overlap
+					std::runtime_error("SokuLib: Vector<T> error moving array.");
+				}
+
+				value_type* const newlast = where._ptr + (this->m_last - finish._ptr);
+				std::destroy_n(newlast, this->m_last - newlast);
+				this->m_last = newlast;
 			}
-			MessageBoxA(nullptr, "SokuLib::Vector::erase(it, not end()): Not implemented", "Not implemented", MB_ICONERROR);
-			abort();
+			return where;
 		}
 
 	private:
