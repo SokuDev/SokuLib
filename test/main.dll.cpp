@@ -84,6 +84,20 @@ static void test_List() {
 		}
 	}
 
+	list.insert(++list.begin(), 4);
+	list.insert(list.begin(), 9);
+	c = 0; for (auto val : list) {
+		static const short v[] = {9, 5, 4, 2};
+		assert(v[c++] == val);
+	}
+	assert(c == 4);
+	list.erase(++list.begin(), --list.end());
+	c = 0; for (auto val : list) {
+		static const short v[] = {9, 2};
+		assert(v[c++] == val);
+	}
+	assert(c == 2);
+
 	list.clear();
 	assert(list.empty());
 	assert(list.size() == 0);
@@ -119,6 +133,31 @@ static void test_Deque() {
 			case 2: assert(iter == deque.end()); break;
 		}
 	}
+
+	deque.push_front(8);
+	deque.pop_back();
+	assert(deque.size() == 2);
+	i = 0; for (auto iter = deque.begin(); i < 3; ++i, ++iter) {
+		switch (i) {
+			case 0: assert(*iter == 8); break;
+			case 1: assert(*iter == 2); break;
+			case 3: assert(iter == deque.end()); break;
+		}
+	}
+
+	deque.insert(deque.begin()+1, 4);
+	deque.insert(deque.begin(), 9);
+	c = 0; for (auto val : deque) {
+		static const short v[] = {9, 8, 4, 2};
+		assert(v[c++] == val);
+	}
+	assert(c == 4);
+	deque.erase(deque.begin()+1, deque.end()-1);
+	c = 0; for (auto val : deque) {
+		static const short v[] = {9, 2};
+		assert(v[c++] == val);
+	}
+	assert(c == 2);
 
 	deque.clear();
 	assert(deque.empty());

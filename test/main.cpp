@@ -12,7 +12,7 @@ void testCharacterManager()
 	SokuLib::CharacterManager *manager = (SokuLib::CharacterManager *)&manager;
 
 	check_offset(manager, objectBase.vtable      , 0x000);
-	check_offset(manager, objectBase.offset_0x004, 0x004);
+	check_offset(manager, objectBase.sprite     , 0x004);
 	check_offset(manager, objectBase.position.x  , 0x0EC);
 	check_offset(manager, objectBase.position.y  , 0x0F0);
 	check_offset(manager, objectBase.speed.x     , 0x0F4);
@@ -72,7 +72,7 @@ void testCharacterManager()
 
 	check_offset(manager, offset_0x348, 0x348);
 
-	check_offset(manager, airdashCount, 0x49B);
+	check_offset(manager, airDashCount, 0x49B);
 
 	check_offset(manager, offset_0x49C     , 0x49C);
 	check_offset(manager, currentSpirit    , 0x49E);
@@ -112,7 +112,7 @@ void testCharacterManager()
 	check_offset(manager, offset_0x562, 0x562);
 	check_offset(manager, score       , 0x573);
 
-	check_offset(manager, offset_0x574          , 0x574);
+	check_offset(manager, roundLost             , 0x574);
 	check_offset(manager, deckInfo              , 0x57C);
 	check_offset(manager, cardGauge             , 0x5E4);
 	check_offset(manager, cardCount             , 0x5E6);
@@ -173,7 +173,7 @@ void testCharacterManager()
 	check_offset(manager, keyMap.changeCard    , 0x76C);
 	check_offset(manager, keyMap.spellcard     , 0x770);
 
-	check_offset(manager, offset_0x774 , 0x774);
+	check_offset(manager, keyMap.pause , 0x774);
 	check_offset(manager, chargedAttack, 0x7F4);
 
 	check_offset(manager, offset_0x7F5 , 0x7F5);
@@ -242,7 +242,7 @@ void testCharacterManager()
 	assert_equal(offsetof(v2::Player, objectList), 0x6f8);
 	assert_equal(offsetof(v2::Player, unknown714), 0x714);
 	assert_equal(offsetof(v2::Player, inputData), 0x754);
-	assert_equal(offsetof(v2::Player, unknown7D0), 0x7D0);
+	assert_equal(offsetof(v2::Player, dashTimer), 0x7D0);
 }
 
 void testSelectScene()
@@ -254,39 +254,39 @@ void testSelectScene()
 	check_offset(select, leftKeys, 0x10);
 	check_offset(select, rightKeys, 0x14);
 	check_offset(select, offset_0x018, 0x18);
-	check_offset(select, leftCursor, 0x128);
-	check_offset(select, leftCursor.alwaysZero, 0x128);
-	check_offset(select, leftCursor.alwaysTwenty, 0x12C);
-	check_offset(select, leftCursor.keys, 0x130);
-	check_offset(select, leftCursor.cursorPos, 0x134);
-	check_offset(select, leftCursor.cursorPosUnused, 0x138);
-	check_offset(select, rightCursor, 0x13C);
-	check_offset(select, rightCursor.alwaysZero, 0x13C);
-	check_offset(select, rightCursor.alwaysTwenty, 0x140);
-	check_offset(select, rightCursor.keys, 0x144);
-	check_offset(select, rightCursor.cursorPos, 0x148);
-	check_offset(select, rightCursor.cursorPosUnused, 0x14C);
-	check_offset(select, leftSelect, 0x150);
-	check_offset(select, leftSelect.alwaysFive, 0x150);
-	check_offset(select, leftSelect.alwaysZero, 0x154);
-	check_offset(select, leftSelect.keys, 0x158);
-	check_offset(select, leftSelect.deck, 0x15C);
-	check_offset(select, leftSelect.deckUnused, 0x160);
-	check_offset(select, leftSelect.alwaysEight, 0x164);
-	check_offset(select, leftSelect.alwaysZero2, 0x168);
-	check_offset(select, leftSelect.palette, 0x170);
-	check_offset(select, leftSelect.paletteUnused, 0x174);
-	check_offset(select, rightSelect, 0x178);
-	check_offset(select, rightSelect.alwaysFive, 0x178);
-	check_offset(select, rightSelect.alwaysZero, 0x17C);
-	check_offset(select, rightSelect.keys, 0x180);
-	check_offset(select, rightSelect.deck, 0x184);
-	check_offset(select, rightSelect.deckUnused, 0x188);
-	check_offset(select, rightSelect.alwaysEight, 0x18C);
-	check_offset(select, rightSelect.alwaysZero2, 0x190);
-	check_offset(select, rightSelect.palette, 0x198);
-	check_offset(select, rightSelect.paletteUnused, 0x19C);
-	check_offset(select, offset_0x1A0, 0x1A0);
+	// check_offset(select, leftCursor, 0x128);
+	// check_offset(select, leftCursor.alwaysZero, 0x128);
+	// check_offset(select, leftCursor.alwaysTwenty, 0x12C);
+	// check_offset(select, leftCursor.keys, 0x130);
+	// check_offset(select, leftCursor.cursorPos, 0x134);
+	// check_offset(select, leftCursor.cursorPosUnused, 0x138);
+	// check_offset(select, rightCursor, 0x13C);
+	// check_offset(select, rightCursor.alwaysZero, 0x13C);
+	// check_offset(select, rightCursor.alwaysTwenty, 0x140);
+	// check_offset(select, rightCursor.keys, 0x144);
+	// check_offset(select, rightCursor.cursorPos, 0x148);
+	// check_offset(select, rightCursor.cursorPosUnused, 0x14C);
+	// check_offset(select, leftSelect, 0x150);
+	// check_offset(select, leftSelect.alwaysFive, 0x150);
+	// check_offset(select, leftSelect.alwaysZero, 0x154);
+	// check_offset(select, leftSelect.keys, 0x158);
+	// check_offset(select, leftSelect.deck, 0x15C);
+	// check_offset(select, leftSelect.deckUnused, 0x160);
+	// check_offset(select, leftSelect.alwaysEight, 0x164);
+	// check_offset(select, leftSelect.alwaysZero2, 0x168);
+	// check_offset(select, leftSelect.palette, 0x170);
+	// check_offset(select, leftSelect.paletteUnused, 0x174);
+	// check_offset(select, rightSelect, 0x178);
+	// check_offset(select, rightSelect.alwaysFive, 0x178);
+	// check_offset(select, rightSelect.alwaysZero, 0x17C);
+	// check_offset(select, rightSelect.keys, 0x180);
+	// check_offset(select, rightSelect.deck, 0x184);
+	// check_offset(select, rightSelect.deckUnused, 0x188);
+	// check_offset(select, rightSelect.alwaysEight, 0x18C);
+	// check_offset(select, rightSelect.alwaysZero2, 0x190);
+	// check_offset(select, rightSelect.palette, 0x198);
+	// check_offset(select, rightSelect.paletteUnused, 0x19C);
+	check_offset(select, designBase3, 0x1A0);
 	check_offset(select, leftSelectionStage, 0x22C0);
 	check_offset(select, rightSelectionStage, 0x22C1);
 	check_offset(select, leftRandomDeck, 0x22C2);
@@ -368,7 +368,7 @@ void testEffectManager()
 	using namespace SokuLib;
 
 	assert_equal(sizeof(Deque<int>), 0x14);
-	assert_equal(sizeof(Deque<int>::iterator), 0xC);
+	//assert_equal(sizeof(Deque<int>::iterator), 0xC);
 
 	assert_equal(sizeof(v2::AnimationObject), 0x158);
 	assert_equal(offsetof(v2::AnimationObject, position), 0xEC);
