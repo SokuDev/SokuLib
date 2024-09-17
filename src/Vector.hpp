@@ -35,12 +35,15 @@ namespace SokuLib
 
 			inline iterator& operator+=(const int value) { _ptr += value; return *this; }
 			inline iterator operator+(const int value) const { iterator tmp = *this; return (tmp += value); }
-			inline std::ptrdiff_t operator+(const iterator& o) const { return this->_ptr + o._ptr; }
 			inline iterator& operator-=(const int value) { _ptr -= value; return *this; }
 			inline iterator operator-(const int value) const { iterator tmp = *this; return (tmp -= value); }
 			inline std::ptrdiff_t operator-(const iterator& o) const { return this->_ptr - o._ptr; }
 			inline bool operator==(const iterator& o) const { return _ptr == o._ptr; }
 			inline bool operator!=(const iterator& o) const { return _ptr != o._ptr; }
+			inline bool operator<(const iterator& o) const { return _ptr < o._ptr; }
+			inline bool operator>(const iterator& o) const { return o < *this; }
+			inline bool operator<=(const iterator& o) const { return !(o < *this); }
+			inline bool operator>=(const iterator& o) const { return !(*this < o); }
 		};
 
 		// Data

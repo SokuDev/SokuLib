@@ -8,7 +8,6 @@
 
 #include "Memory.hpp"
 
-#include <deque>
 #include <stdexcept>
 
 namespace SokuLib {
@@ -89,13 +88,18 @@ namespace SokuLib {
 			inline iterator operator+(const int value) const { iterator tmp = *this; return tmp += value; }
 			inline iterator& operator-=(const int value) { m_offset -= value; return *this; }
 			inline iterator operator-(const int value) const { iterator tmp = *this; return tmp -= value; }
+			inline std::ptrdiff_t operator-(const iterator& o) const { return static_cast<std::ptrdiff_t>(m_offset - o.m_offset); }
 			inline bool operator==(const iterator& o) const { return m_offset == o.m_offset; }
 			inline bool operator!=(const iterator& o) const { return m_offset != o.m_offset; }
+			inline bool operator<(const iterator& o) const { return m_offset < o.m_offset; }
+			inline bool operator>(const iterator& o) const { return o < *this; }
+			inline bool operator<=(const iterator& o) const { return !(o < *this); }
+			inline bool operator>=(const iterator& o) const { return !(*this < o); }
 		};
 
 		inline Deque() = default;
-		// explicit inline Deque(size_t s) { resize(s); }
-		// explicit inline Deque(size_t s, const T& v) { resize(s, v); }
+		explicit inline Deque(size_t s) { resize(s); }
+		explicit inline Deque(size_t s, const T& v) { resize(s, v); }
 		inline Deque(const Deque& other) { for (const auto& val : other) push_back(val); }
 		template<class _It> inline Deque(_It b, _It e) { for (;b != e; ++b) push_back(*b); }
 		inline ~Deque() { clear(); }
@@ -159,7 +163,7 @@ namespace SokuLib {
 				_Growmap(1);
 			}
 
-			const size_t offset = m_offset != 0 ? m_offset : m_blockCount * _BlockMax;
+			size_t offset = m_offset != 0 ? m_offset : m_blockCount * _BlockMax;
 			size_t block = _GetBlock(--offset);
 			if (m_blockCount <= block) block -= m_blockCount;
 			if (m_table[block] == 0)
@@ -236,7 +240,7 @@ namespace SokuLib {
 		}
 
 		iterator erase(iterator where, iterator finish) {
-			if (finish < where || where < begin() || end < finish)
+			if (finish < where || where < begin() || end() < finish)
 				throw std::runtime_error("SokuLib: Deque<T> erase outside range");
 
 			const size_t offset = where - begin();
@@ -257,6 +261,11 @@ namespace SokuLib {
 		inline void resize(size_t count) {
 			if (count < size()) erase(begin() + count, end());
 			else while(count > size()) emplace_back();
+		}
+
+		inline void resize(size_t count, const T& value) {
+			if (count < size()) erase(begin() + count, end());
+			else while(count > size()) push_back(value);
 		}
 	};
 }
