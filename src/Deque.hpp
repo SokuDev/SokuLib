@@ -200,7 +200,7 @@ namespace SokuLib {
 			if (m_blockCount <= block) block -= m_blockCount;
 			if (m_table[block] == 0)
 				m_table[block] = Allocator<T>().allocate(_BlockMax);
-			const T* ptr = m_table[block] + offset%_BlockMax;
+			T* const ptr = m_table[block] + offset%_BlockMax;
 			std::construct_at<T>(ptr, std::forward<_Valty>(value)...);
 			m_offset = offset;
 			++m_size;
@@ -219,7 +219,7 @@ namespace SokuLib {
 			if (m_blockCount <= block) block -= m_blockCount;
 			if (m_table[block] == 0)
 				m_table[block] = Allocator<T>().allocate(_BlockMax);
-			const T* ptr = m_table[block] + offset%_BlockMax;
+			T* const ptr = m_table[block] + offset%_BlockMax;
 			std::construct_at<T>(ptr, std::forward<_Valty>(value)...);
 			++m_size;
 			return *ptr;
