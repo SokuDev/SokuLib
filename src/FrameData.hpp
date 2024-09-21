@@ -200,7 +200,7 @@ namespace SokuLib
 			AttackFlags attackFlags;
 
 			// 0x54
-			Box* collisionBox = 0;
+			Box *collisionBox = nullptr;
 			Vector<Box> hurtBoxes;
 			Vector<Box> attackBoxes;
 			Vector<Box*> extraBoxes;
