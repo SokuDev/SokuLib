@@ -37,8 +37,13 @@ namespace SokuLib
 			inline iterator operator+(const int value) const { iterator tmp = *this; return (tmp += value); }
 			inline iterator& operator-=(const int value) { _ptr -= value; return *this; }
 			inline iterator operator-(const int value) const { iterator tmp = *this; return (tmp -= value); }
+			inline std::ptrdiff_t operator-(const iterator& o) const { return this->_ptr - o._ptr; }
 			inline bool operator==(const iterator& o) const { return _ptr == o._ptr; }
 			inline bool operator!=(const iterator& o) const { return _ptr != o._ptr; }
+			inline bool operator<(const iterator& o) const { return _ptr < o._ptr; }
+			inline bool operator>(const iterator& o) const { return o < *this; }
+			inline bool operator<=(const iterator& o) const { return !(o < *this); }
+			inline bool operator>=(const iterator& o) const { return !(*this < o); }
 		};
 
 		// Data
@@ -129,18 +134,32 @@ namespace SokuLib
 			_reallocate(N);
 		}
 
-		void erase(iterator where) {
-			this->erase(where, where + 1);
+		void resize(size_t N) {
+			if (N < size()) erase(begin() + N, end());
+			else {
+				reserve(N);
+				for (; size() < N; ++this->m_last) {
+					std::construct_at<T>(&this->m_first[size()]);
+				}
+			}
 		}
 
-		void erase(iterator where, iterator finish) {
-			std::destroy_n(where, finish._ptr - where._ptr);
-			if (finish == this->end()) {
-				this->m_last = where._ptr;
-				return;
+		inline iterator erase(iterator where) {
+			return this->erase(where, where + 1);
+		}
+
+		iterator erase(iterator where, iterator finish) {
+			if (where == begin() && finish == end()) clear();
+			else if(where != finish) {
+				if (where._ptr > finish._ptr || where._ptr < this->m_first || finish._ptr >= this->m_last) {
+					std::runtime_error("SokuLib: Vector<T> erase outside bounds.");
+				}
+
+				const iterator newlast = std::move(finish, end(), where);
+				std::destroy_n(newlast, end() - newlast);
+				this->m_last = newlast._ptr;
 			}
-			MessageBoxA(nullptr, "SokuLib::Vector::erase(it, not end()): Not implemented", "Not implemented", MB_ICONERROR);
-			abort();
+			return where;
 		}
 
 	private:

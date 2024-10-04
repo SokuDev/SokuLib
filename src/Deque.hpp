@@ -8,7 +8,6 @@
 
 #include "Memory.hpp"
 
-#include <deque>
 #include <stdexcept>
 
 namespace SokuLib {
@@ -89,13 +88,18 @@ namespace SokuLib {
 			inline iterator operator+(const int value) const { iterator tmp = *this; return tmp += value; }
 			inline iterator& operator-=(const int value) { m_offset -= value; return *this; }
 			inline iterator operator-(const int value) const { iterator tmp = *this; return tmp -= value; }
+			inline std::ptrdiff_t operator-(const iterator& o) const { return static_cast<std::ptrdiff_t>(m_offset - o.m_offset); }
 			inline bool operator==(const iterator& o) const { return m_offset == o.m_offset; }
 			inline bool operator!=(const iterator& o) const { return m_offset != o.m_offset; }
+			inline bool operator<(const iterator& o) const { return m_offset < o.m_offset; }
+			inline bool operator>(const iterator& o) const { return o < *this; }
+			inline bool operator<=(const iterator& o) const { return !(o < *this); }
+			inline bool operator>=(const iterator& o) const { return !(*this < o); }
 		};
 
 		inline Deque() = default;
-		// explicit inline Deque(size_t s) { resize(s); }
-		// explicit inline Deque(size_t s, const T& v) { resize(s, v); }
+		explicit inline Deque(size_t s) { resize(s); }
+		explicit inline Deque(size_t s, const T& v) { resize(s, v); }
 		inline Deque(const Deque& other) { for (const auto& val : other) push_back(val); }
 		template<class _It> inline Deque(_It b, _It e) { for (;b != e; ++b) push_back(*b); }
 		inline ~Deque() { clear(); }
@@ -139,9 +143,34 @@ namespace SokuLib {
 			// depends on _GetBlock
 			if (empty()) return;
 			const size_t _Block = _GetBlock(m_offset);
-			m_table[_Block][m_offset%_BlockMax].~T(); // TODO check destructor
+			std::destroy_at<T>(&m_table[_Block][m_offset%_BlockMax]);
 			if (++m_offset >= m_blockCount*_BlockMax) m_offset = 0;
 			if (--m_size == 0) m_offset = 0;
+		}
+
+		inline void pop_back() {
+			// depends on _GetBlock
+			if (empty()) return;
+			const size_t offset = m_offset + m_size - 1;
+			const size_t _Block = _GetBlock(offset);
+			std::destroy_at<T>(&m_table[_Block][offset%_BlockMax]);
+			if (--m_size == 0) m_offset = 0;
+		}
+
+		inline void push_front(const T& value) {
+			// depends on _Growmap, so must use the custom grow
+			if (m_offset % _BlockMax == 0 && m_blockCount <= (m_size + _BlockMax) / _BlockMax) {
+				_Growmap(1);
+			}
+
+			size_t offset = m_offset != 0 ? m_offset : m_blockCount * _BlockMax;
+			size_t block = _GetBlock(--offset);
+			if (m_blockCount <= block) block -= m_blockCount;
+			if (m_table[block] == 0)
+				m_table[block] = Allocator<T>().allocate(_BlockMax);
+			std::construct_at<T>(m_table[block] + offset%_BlockMax, value);
+			m_offset = offset;
+			++m_size;
 		}
 
 		inline void push_back(const T& value) {
@@ -155,12 +184,31 @@ namespace SokuLib {
 			if (m_blockCount <= block) block -= m_blockCount;
 			if (m_table[block] == 0)
 				m_table[block] = Allocator<T>().allocate(_BlockMax);
-			new (m_table[block] + offset%_BlockMax) T(value); // TODO check constructor
+			std::construct_at<T>(m_table[block] + offset%_BlockMax, value);
 			++m_size;
 		}
 
 		template<class... _Valty>
-		inline void emplace_back(_Valty&&... value) {
+		inline T& emplace_front(_Valty&&... value) {
+			// depends on _Growmap, so must use the custom grow
+			if (m_offset % _BlockMax == 0 && m_blockCount <= (m_size + _BlockMax) / _BlockMax) {
+				_Growmap(1);
+			}
+
+			const size_t offset = m_offset != 0 ? m_offset : m_blockCount * _BlockMax;
+			size_t block = _GetBlock(--offset);
+			if (m_blockCount <= block) block -= m_blockCount;
+			if (m_table[block] == 0)
+				m_table[block] = Allocator<T>().allocate(_BlockMax);
+			T* const ptr = m_table[block] + offset%_BlockMax;
+			std::construct_at<T>(ptr, std::forward<_Valty>(value)...);
+			m_offset = offset;
+			++m_size;
+			return *ptr;
+		}
+
+		template<class... _Valty>
+		inline T& emplace_back(_Valty&&... value) {
 			// depends on _Growmap, so must use the custom grow
 			if ((m_offset + m_size) % _BlockMax == 0 && m_blockCount <= (m_size + _BlockMax) / _BlockMax) {
 				_Growmap(1);
@@ -171,14 +219,53 @@ namespace SokuLib {
 			if (m_blockCount <= block) block -= m_blockCount;
 			if (m_table[block] == 0)
 				m_table[block] = Allocator<T>().allocate(_BlockMax);
-			new (m_table[block] + offset%_BlockMax) T(std::forward<_Valty>(value)...); // TODO check constructor
+			T* const ptr = m_table[block] + offset%_BlockMax;
+			std::construct_at<T>(ptr, std::forward<_Valty>(value)...);
 			++m_size;
+			return *ptr;
+		}
+
+		iterator insert(iterator where, const T& value) {
+			size_t offset = where - begin();
+			if (m_size < offset) throw std::runtime_error("SokuLib: Deque<T> iterator outside range");
+
+			if (offset <= m_size / 2) {
+				push_front(value);
+				for (iterator i = begin(); i < begin() + offset; ++i) std::swap(*i, *(i+1));
+			} else {
+				push_back(value);
+				for (iterator i = end() - 1; i >= begin() + offset; --i) std::swap(*i, *(i-1));
+			}
+			return begin() + offset;
+		}
+
+		iterator erase(iterator where, iterator finish) {
+			if (finish < where || where < begin() || end() < finish)
+				throw std::runtime_error("SokuLib: Deque<T> erase outside range");
+
+			const size_t offset = where - begin();
+			size_t count = finish - where;
+			const size_t rem = end() - finish;
+
+			if (count > 0) if (offset < rem) {
+				std::move_backward(begin(), where, finish);
+				while (count-- > 0) pop_front();
+			} else {
+				std::move(finish, end(), where);
+				while (count-- > 0) pop_back();
+			}
+
+			return begin() + offset;
 		}
 
 		inline void resize(size_t count) {
-			// TODO this isn't the real implementation
-			while (count > size()) emplace_back();
-			while (count < size()) pop_front();
+			if (count < size()) erase(begin() + count, end());
+			else while(count > size()) emplace_back();
+		}
+
+		inline void resize(size_t count, const T& value) {
+			if (count < size()) erase(begin() + count, end());
+			else while(count > size()) push_back(value);
 		}
 	};
 }
