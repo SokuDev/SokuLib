@@ -52,9 +52,9 @@ namespace v2 {
 	void* const __GameObjectList_lower_vtable[] = {__lower_dtor};
 
 	GameObjectBase::~GameObjectBase() {
-		if (unknown1B0) { SokuLib::DeleteFct((void*)unknown1B0); unknown1B0 = 0; }
+		if (customHitBox) { SokuLib::DeleteFct(customHitBox); customHitBox = nullptr; }
 		if (parentA) _erase(parentA->childrenA, this);
-		for (auto it : childrenA) it->parentA = 0;
+		for (auto it : childrenA) it->parentA = nullptr;
 	}
 
 	void GameObjectBase::resetForces() { return (this->*union_cast<void (GameObjectBase::*)()>(0x4636b0))(); }
@@ -73,9 +73,12 @@ namespace v2 {
 	void GameObjectBase::prevPose() { return (this->*union_cast<void (GameObjectBase::*)()>(0x464BC0))(); }
 	void GameObjectBase::updatePhysics() {}
 
+	void GameObjectBase::setHitBoxData(int left, int top, int right, int bottom, short rotation, short rotAnchorX, short rotAnchorY) {
+		return (this->*union_cast<void (GameObjectBase::*)(int, int, int, int, short, short, short)>(0x4B0E40))(left, top, right, bottom, rotation, rotAnchorX, rotAnchorY);
+	}
+
 	void GameObject::setTail(short actionId, float paramA, int paramB, int paramC, int paramD) {
-		return (this->*union_cast<void (GameObject::*)(short, float, int, int, int)>(0x4b0f50))
-			(actionId, paramA, paramB, paramC, paramD);
+		return (this->*union_cast<void (GameObject::*)(short, float, int, int, int)>(0x4b0f50))(actionId, paramA, paramB, paramC, paramD);
 	}
 
 	GameObject::~GameObject() {

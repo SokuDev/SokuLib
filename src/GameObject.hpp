@@ -58,8 +58,12 @@ namespace v2 {
 		float unknown1A4 = 0; // = .0
 		float unknown1A8 = 0; // = .0
 		char unknown1AC = 1;
-		char unknown1AD[3]; // align 0x3?
-		void* unknown1B0 = nullptr;
+		char unknown1AD[3]; // align 0x3?// offset 0x1b0
+		struct CustomHitBox {
+			Box box;
+			short rotation;
+			Vector2<short> rotationAnchor;
+		} *customHitBox = nullptr;
 
 		// offset 0x1B4
 		struct BoxInfo {
@@ -108,6 +112,7 @@ namespace v2 {
 		void resetForces(); // 4636b0
 		float getGroundHeight() const; // 4397f0
 		int isOnGround() const; //439850
+		void setHitBoxData(int left, int top, int right, int bottom, short rotation, short rotAnchorX, short rotAnchorY); // 4b0e40;
 		GameObjectBase* createEffect(int action, float x, float y, int dir, char layer); // 438ce0
 	}; // 0x34C
 
