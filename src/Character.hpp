@@ -80,6 +80,8 @@ namespace SokuLib
 
 	extern std::vector<std::string> charactersName;
 
+	extern char *(* const getCharName)(unsigned);
+
 	extern Character &leftChar;
 	extern Character &rightChar;
 	extern PlayerInfo &leftPlayerInfo;
