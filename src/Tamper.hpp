@@ -67,6 +67,33 @@ namespace SokuLib
 		unsigned _base;
 		int _offset;
 
+		void _placeCCall(size_t &index, unsigned char *buffer, int target, const std::vector<unsigned char> *extra)
+		{
+			// TODO: Saving only caller saved registers should be enough
+			//       As the target is meant to be a void() function
+			if (extra)
+				for (auto c : *extra)
+					buffer[index++] = c;
+
+			buffer[index++] = 0x50; // push eax
+			buffer[index++] = 0x57; // push edi
+			buffer[index++] = 0x51; // push ecx
+			buffer[index++] = 0x56; // push esi
+			buffer[index++] = 0x53; // push ebx
+			buffer[index++] = 0x52; // push edx
+
+			buffer[index] = 0xE8; // call target
+			*(int *)&buffer[index + 1] = (int)target - (int)(buffer + index + 5);
+			index += 5;
+
+			buffer[index++] = 0x5A; // pop edx
+			buffer[index++] = 0x5B; // pop ebx
+			buffer[index++] = 0x5E; // pop esi
+			buffer[index++] = 0x59; // pop ecx
+			buffer[index++] = 0x5F; // pop edi
+			buffer[index++] = 0x58; // pop eax
+		}
+
 	public:
 		unsigned char *getTrampoline()
 		{
@@ -78,7 +105,7 @@ namespace SokuLib
 			return this->_trampoline;
 		}
 
-		Trampoline(unsigned addr, void (*target)(), int offset) :
+		Trampoline(unsigned addr, void (*target)(), int offset, const std::vector<unsigned char> *extra = nullptr, bool execCodeAfterHook = false, bool placeJumpAtEnd = false) :
 			_base(addr),
 			_offset(offset)
 		{
@@ -88,34 +115,33 @@ namespace SokuLib
 			auto lpAddr = (unsigned char *)addr;
 			auto lpTramp = new unsigned char[offset + 22];
 			DWORD dwOldProtect;
+			size_t index = 0;
 
-			lpTramp[0] = 0x50; // push eax
-			lpTramp[1] = 0x57; // push edi
-			lpTramp[2] = 0x51; // push ecx
-			lpTramp[3] = 0x56; // push esi
-			lpTramp[4] = 0x53; // push ebx
-			lpTramp[5] = 0x52; // push edx
+			if (execCodeAfterHook) {
+				memcpy(&lpTramp[index], lpAddr, offset);
+				index += offset;
+			}
 
-			lpTramp[6] = 0xE8; // call target
-			*(int *)&lpTramp[7] = (int)target - (int)(lpTramp + 6 + 5);
+			this->_placeCCall(index, lpTramp, (int)target, extra);
 
-			lpTramp[11] = 0x5A; // pop edx
-			lpTramp[12] = 0x5B; // pop ebx
-			lpTramp[13] = 0x5E; // pop esi
-			lpTramp[14] = 0x59; // pop ecx
-			lpTramp[15] = 0x5F; // pop edi
-			lpTramp[16] = 0x58; // pop eax
+			if (!execCodeAfterHook) {
+				memcpy(&lpTramp[index], lpAddr, offset);
+				index += offset;
+			}
 
-			// Copy overwritten data
-			memcpy(&lpTramp[17], lpAddr, offset);
-
-			lpTramp[offset + 17] = 0xE9; // jmp addr + offset
-			*(int *)&lpTramp[offset + 18] = (int)addr - (int)(lpTramp + 22);
-			::VirtualProtect(lpTramp, offset + 22, PAGE_EXECUTE_READWRITE, &dwOldProtect);
+			lpTramp[index++] = 0xE9; // jmp addr + offset
+			*(int *)&lpTramp[index] = (int)(addr + offset) - (int)(lpTramp + index + 4);
+			::VirtualProtect(lpTramp, index, PAGE_EXECUTE_READWRITE, &dwOldProtect);
 
 			::VirtualProtect(lpAddr, offset, PAGE_EXECUTE_READWRITE, &dwOldProtect);
-			*lpAddr = 0xE9; // jmp trampoline
-			*(int *)(lpAddr + 1) = (int)lpTramp - (int)lpAddr - 5;
+			memset(lpAddr, 0x90, offset);
+			if (placeJumpAtEnd) {
+				lpAddr[offset - 5] = 0xE9; // jmp trampoline
+				*(int *)&lpAddr[offset - 4] = (int)lpTramp - (int)&lpAddr[offset - 5] - 5;
+			} else {
+				lpAddr[0] = 0xE9; // jmp trampoline
+				*(int *)&lpAddr[1] = (int)lpTramp - (int)lpAddr - 5;
+			}
 			::VirtualProtect(lpAddr, offset, dwOldProtect, &dwOldProtect);
 
 			::FlushInstructionCache(GetCurrentProcess(), nullptr, 0);
@@ -134,11 +160,6 @@ namespace SokuLib
 			::VirtualProtect(lpTramp, this->_offset + 5, PAGE_READWRITE, &dwOldProtect);
 			::FlushInstructionCache(GetCurrentProcess(), nullptr, 0);
 			delete[] lpTramp;
-		}
-
-		template<typename fct, typename ...Args>
-		auto operator()(Args ...args) {
-			return reinterpret_cast<fct>(&this->_trampoline[17])(args...);
 		}
 	};
 }
