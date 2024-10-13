@@ -22,8 +22,8 @@ static void __declspec(naked) __lower_dtor() {
 		{ return (this->*union_cast<void(CLS::*)(const char*, int)>(VTB[1]))(fileName, reserve); } \
 	void CLS::ClearPattern() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[2]))(); } \
-	SokuLib::v2::EffectObjectBase* CLS::CreateEffect(int action, float x, float y, SokuLib::Direction dir, char layer, int unknown164) \
-		{ return (this->*union_cast<SokuLib::v2::EffectObjectBase*(CLS::*)(int, float, float, SokuLib::Direction, char, int)>(VTB[3]))(action, x, y, dir, layer, unknown164); } \
+	SokuLib::v2::EffectObjectBase* CLS::CreateEffect(int action, float x, float y, char dir, char layer, int unknown164) \
+		{ return (this->*union_cast<SokuLib::v2::EffectObjectBase*(CLS::*)(int, float, float, char, char, int)>(VTB[3]))(action, x, y, dir, layer, unknown164); } \
 	void CLS::ClearEffects() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[4]))(); } \
 	void CLS::Update() \

@@ -77,7 +77,7 @@ namespace v2 {
 			CharacterFrameData* frameData = nullptr;
 			CharacterSequenceData* sequenceData;
 			Action actionId; // (short)
-			Direction direction; // (char) this may be set to 0 in some cases
+			char direction; // (char) this may be set to 0 in some cases
 			char hitBoxCount = 0;
 			char hurtBoxCount = 0;
 			// align 0x3
@@ -170,8 +170,8 @@ namespace v2 {
 			this->MaxHP = 0;
 		}
 		virtual ~GameObject();
-		virtual GameObject* createObject(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) = 0;
-		virtual GameObject* createChild(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) = 0;
+		virtual GameObject* createObject(short actionId, float x, float y, char dir, char layer, float* customData, unsigned int customDataSize) = 0;
+		virtual GameObject* createChild(short actionId, float x, float y, char dir, char layer, float* customData, unsigned int customDataSize) = 0;
 
 		bool checkGrazed(int density);
 		bool checkProjectileHit(int density);
@@ -196,8 +196,8 @@ namespace v2 {
 	void onRenderEnd() override; \
 	void initializeAction() override; \
 	void updatePhysics() override; \
-	GameObject* createObject(short, float, float, Direction, char, float*, unsigned int) override; \
-	GameObject* createChild(short, float, float, Direction, char, float*, unsigned int) override;
+	GameObject* createObject(short, float, float, char, char, float*, unsigned int) override; \
+	GameObject* createChild(short, float, float, char, char, float*, unsigned int) override;
 
 	class GameObjectReimu     : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
 	class GameObjectMarisa    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
@@ -231,7 +231,7 @@ namespace v2 {
 
 	public:
 		virtual ~IGameObjectList() = default;
-		virtual SokuLib::v2::GameObject* createObject(GameObject* a0, Player* a1, short a2, float a3, float a4, Direction a5, char a6, void* a7, unsigned int a8) = 0;
+		virtual SokuLib::v2::GameObject* createObject(GameObject* a0, Player* a1, short a2, float a3, float a4, char a5, char a6, void* a7, unsigned int a8) = 0;
 		virtual void clear() = 0;
 		virtual void updatePhysics() = 0;
 		virtual void update() = 0;
@@ -272,10 +272,10 @@ namespace v2 {
 		inline VTableGameObjectList(Player* player) : GameObjectList<T>(player) {} // TODO i think it reserves 256 objects, but not sure
 		~VTableGameObjectList() override { (this->*union_cast<char *(VTableGameObjectList::*)()>(((void **)base_vtable)[0]))(); };
 
-		GameObject* createObject(GameObject* a0, Player* a1, short a2, float a3, float a4, Direction a5, char a6, void* a7, unsigned int a8) override
+		GameObject* createObject(GameObject* a0, Player* a1, short a2, float a3, float a4, char a5, char a6, void* a7, unsigned int a8) override
 		{
 			auto addr = ((void **)base_vtable)[1];
-			auto fct = union_cast<GameObject*(VTableGameObjectList::*)(GameObject*, Player*, short, float, float, Direction, char, void*, unsigned int)>(addr);
+			auto fct = union_cast<GameObject*(VTableGameObjectList::*)(GameObject*, Player*, short, float, float, char, char, void*, unsigned int)>(addr);
 
 			return (this->*fct)(a0, a1, a2, a3, a4, a5, a6, a7, a8);
 		}

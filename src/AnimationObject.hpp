@@ -21,7 +21,7 @@ namespace v2 {
 		Vector2f position;
 		Vector2f speed;
 		Vector2f gravity;
-		Direction direction;
+		char direction;
 		// align 0x3
 
 		// offset 0x108

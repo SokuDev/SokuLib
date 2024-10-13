@@ -184,10 +184,10 @@ namespace v2 {
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[15]))(); } \
 	void CLS::updatePhysics() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[16]))(); } \
-	SokuLib::v2::GameObject* CLS::createObject(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) \
-		{ return (this->*union_cast<SokuLib::v2::GameObject*(CLS::*)(short, float, float, SokuLib::Direction, char, float*, unsigned int)>(VTB[17]))(actionId, x, y, dir, layer, customData, customDataSize); } \
-	SokuLib::v2::GameObject* CLS::createChild(short actionId, float x, float y, Direction dir, char layer, float* customData, unsigned int customDataSize) \
-		{ return (this->*union_cast<SokuLib::v2::GameObject*(CLS::*)(short, float, float, SokuLib::Direction, char, float*, unsigned int)>(VTB[18]))(actionId, x, y, dir, layer, customData, customDataSize); }
+	SokuLib::v2::GameObject* CLS::createObject(short actionId, float x, float y, char dir, char layer, float* customData, unsigned int customDataSize) \
+		{ return (this->*union_cast<SokuLib::v2::GameObject*(CLS::*)(short, float, float, char, char, float*, unsigned int)>(VTB[17]))(actionId, x, y, dir, layer, customData, customDataSize); } \
+	SokuLib::v2::GameObject* CLS::createChild(short actionId, float x, float y, char dir, char layer, float* customData, unsigned int customDataSize) \
+		{ return (this->*union_cast<SokuLib::v2::GameObject*(CLS::*)(short, float, float, char, char, float*, unsigned int)>(VTB[18]))(actionId, x, y, dir, layer, customData, customDataSize); }
 
 	IMPL_GAMEOBJECT_VIRTUALS(GameObjectReimu,     ((void** const)_vtable_info<GameObjectReimu>::baseAddr))
 	IMPL_GAMEOBJECT_VIRTUALS(GameObjectMarisa,    ((void** const)_vtable_info<GameObjectMarisa>::baseAddr))

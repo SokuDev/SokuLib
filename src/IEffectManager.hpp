@@ -21,7 +21,7 @@ namespace SokuLib
 		virtual ~IEffectManager() {}
 		virtual void LoadPattern(const char* fileName, int reserve) = 0;
 		virtual void ClearPattern() = 0;
-		virtual v2::EffectObjectBase* CreateEffect(int action, float x, float y, Direction dir, char layer, int unknown164) = 0;
+		virtual v2::EffectObjectBase* CreateEffect(int action, float x, float y, char dir, char layer, int unknown164) = 0;
 		virtual void ClearEffects() = 0;
 		virtual void Update() = 0;
 		virtual void Render(char layer) = 0;
@@ -48,7 +48,7 @@ namespace v2 {
 		virtual ~EffectManager() = default;
 		void LoadPattern(const char* fileName, int reserve) override;
 		void ClearPattern() override;
-		v2::EffectObjectBase* CreateEffect(int action, float x, float y, Direction dir, char layer, int unknown164) override;
+		v2::EffectObjectBase* CreateEffect(int action, float x, float y, char dir, char layer, int unknown164) override;
 		void ClearEffects() override;
 		void Update() override;
 		void Render(char layer) override;

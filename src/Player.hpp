@@ -259,14 +259,14 @@ namespace v2 {
 		void FUN_0046d950(); // 0x46d950
 		bool isGrounded(); // 0x463530
 		void updateDefaultBehavior();
-		SokuLib::v2::GameObject* createObject(short action, float x, float y, Direction direction, char layer, float *extraData, unsigned int extraDataSize); // 46eb30
+		SokuLib::v2::GameObject* createObject(short action, float x, float y, char direction, char layer, float *extraData, unsigned int extraDataSize); // 46eb30
 
 		template<size_t size>
-		SokuLib::v2::GameObject *createObject(short action, float x, float y, Direction direction, char layer, float (&extraData)[size]) {
+		SokuLib::v2::GameObject *createObject(short action, float x, float y, char direction, char layer, float (&extraData)[size]) {
 			// Mimics 0x46EB30
 			return this->objectList->createObject(nullptr, this, action, x, y, direction, layer, extraData, size);
 		}
-		SokuLib::v2::GameObject *createObject(short action, float x, float y, Direction direction, char layer) {
+		SokuLib::v2::GameObject *createObject(short action, float x, float y, char direction, char layer) {
 			// Mimics 0x46EB30
 			return this->objectList->createObject(nullptr, this, action, x, y, direction, layer, nullptr, 0);
 		}

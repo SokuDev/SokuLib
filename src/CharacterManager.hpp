@@ -68,7 +68,7 @@ namespace SokuLib
 		SokuLib::Vector2<float> gravity;
 
 		//  ADDR_DIRECTIONOFS       enum Direction    (1) 0x104
-		Direction direction;
+		char direction;
 
 		// 0x105 (alignment)
 		char offset_0x105[0x3];
