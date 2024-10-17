@@ -71,6 +71,7 @@ namespace v2 {
 
 		void resetRenderInfo(); // 0x438BB0
 		bool advanceFrame(); // 0x438c60
+		void updateSpeedAngled(float angle, float velocity); // 0x438c00
 	};
 
 	class SystemEffectObject {

@@ -320,12 +320,12 @@ namespace DrawUtils
 		auto bottomLeft = (this->_position + Vector2<unsigned>{0, size.y}).rotate(this->_rotation, center);
 		auto bottomRight = (this->_position + size).rotate(this->_rotation, center);
 
-		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].x = topLeft.x - 1;
-		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].y = topLeft.y - 1;
+		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].x = topLeft.x;
+		this->_vertex[ this->_mirroring.x + this->_mirroring.y *  2].y = topLeft.y;
 		this->_vertex[!this->_mirroring.x + this->_mirroring.y *  2].x = topRight.x;
 		this->_vertex[!this->_mirroring.x + this->_mirroring.y *  2].y = topRight.y;
-		this->_vertex[ this->_mirroring.x + this->_mirroring.y * -2 + 2].x = bottomRight.x - 1;
-		this->_vertex[ this->_mirroring.x + this->_mirroring.y * -2 + 2].y = bottomRight.y - 1;
+		this->_vertex[ this->_mirroring.x + this->_mirroring.y * -2 + 2].x = bottomRight.x;
+		this->_vertex[ this->_mirroring.x + this->_mirroring.y * -2 + 2].y = bottomRight.y;
 		this->_vertex[!this->_mirroring.x + this->_mirroring.y * -2 + 2].x = bottomLeft.x;
 		this->_vertex[!this->_mirroring.x + this->_mirroring.y * -2 + 2].y = bottomLeft.y;
 
@@ -479,10 +479,18 @@ namespace DrawUtils
 			vertices[2].u = vertices[1].u = right;
 			vertices[1].v = vertices[0].v = top;
 			vertices[2].v = vertices[3].v = bottom;
-			vertices[2].x++;
-			vertices[1].x++;
-			vertices[2].y++;
-			vertices[3].y++;
+			vertices[0].x -= 0.5;
+			vertices[1].x -= 0.5;
+			vertices[2].x -= 0.5;
+			vertices[3].x -= 0.5;
+			vertices[0].y -= 0.5;
+			vertices[1].y -= 0.5;
+			vertices[2].y -= 0.5;
+			vertices[3].y -= 0.5;
+			vertices[0].z += 0.5;
+			vertices[1].z += 0.5;
+			vertices[2].z += 0.5;
+			vertices[3].z += 0.5;
 		}
 		this->texture.activate();
 		SokuLib::pd3dDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertices, sizeof(*vertices));

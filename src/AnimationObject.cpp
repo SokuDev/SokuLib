@@ -55,6 +55,7 @@ namespace v2 {
 	void AnimationObject::applyTransform() { return (this->*union_cast<void (AnimationObject::*)()>(0x438E00))(); }
 	void AnimationObject::onRenderEnd() { return (this->*union_cast<void (AnimationObject::*)()>(0x439040))(); }
 	void AnimationObject::resetRenderInfo() { return (reinterpret_cast<void (__thiscall *)(SpriteEx &)>(0x438BB0))(this->sprite); }
+	void AnimationObject::updateSpeedAngled(float angle, float velocity) { return (reinterpret_cast<void (__thiscall *)(SpriteEx &, float, float)>(0x438C00))(this->sprite, angle, velocity); }
 
 	IMPL_EFFECTOBJECT_VIRTUALS(EffectObject, ((void** const)SokuLib::ADDR_VTBL_FX_EFFECT))
 	IMPL_EFFECTOBJECT_VIRTUALS(InfoEffectObject, ((void** const)SokuLib::ADDR_VTBL_FX_INFOFX))

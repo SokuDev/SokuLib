@@ -156,7 +156,7 @@ namespace v2 {
 		// General purpose counters (0x36C)
 		short gpShort[6] = {0};
 		float gpFloat[3] = {0};
-		char unknown384[0x10];
+		char unknown384[0x10] = {0};
 		short grazeCounter = 0;
 		short otherProjectileHit = 0;
 

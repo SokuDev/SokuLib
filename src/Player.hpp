@@ -205,8 +205,7 @@ namespace v2 {
 		short unknown886;
 		short unknown888;
 		short unknown88A;
-		short unknown88C;
-		short unknown88E; // = 0;
+		Vector2<short> spinRotationCenter = {0, 0};
 		// found shared data until size: 0x890 (0x48b088: short this[0x88e])
 
 		Player(const PlayerInfo& playerInfo);
