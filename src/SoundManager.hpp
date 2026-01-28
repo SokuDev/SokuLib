@@ -5,6 +5,8 @@
 #ifndef SOKULIB_SOUNDMANAGER_HPP
 #define SOKULIB_SOUNDMANAGER_HPP
 
+#include "HandleManager.hpp"
+#include "SoundData.hpp"
 
 namespace SokuLib
 {
@@ -78,6 +80,60 @@ namespace SokuLib
 	{
 		((void (*)(const char *))0x43ff10)(path);
 	}
+
+	// size = 0x458
+	struct SFXManager {
+		HandleManager<WaveData*> handlesA;
+		HandleManager<DSBuffer*> handleB;
+		DSBuffer buffers[32];
+		DS3DBuffer buffers3D[32];
+		char unknown448[8];
+		float volume, volumeCoef;
+
+		static SFXManager*& instance; // 0x89F9F8
+
+		// void initialize();                   // 0x401990
+		// void unloadBuffers();                // 0x401A80
+		unsigned int load(unsigned int& id, const char* soundPath); // 0x401AF0
+		bool unload(unsigned int id);           // 0x401BD0
+		// void setVolume(float value);         // 0x401C20
+		// void setItemVolume(unsigned int id, float value);        // 0x401CE0
+		void play(unsigned int id);             // 0x401D50
+	};
+
+	// size = 0xB8
+	struct BGMManager {
+		HANDLE threadAHandle;
+		LPDWORD threadAID;
+		HANDLE threadBHandle;
+		LPDWORD threadBID;
+		HANDLE eventHandle10;
+		HANDLE eventHandle14;
+		bool isActive;
+		// offset 3
+
+		CriticalSection criticalSection;
+		HandleManagerEx<BgmBuffer> handles;
+		List<void*> unknownList88; // playing? data type is probably the handleID
+		List<void*> unknownList94; // queued?
+		List<void*> unknownListA0; // stopped?
+		float volume, volumeCoef;
+		char unknownB4[0x04];
+
+		static BGMManager*& instance; // 0x89FE50
+
+		// 0x899d5c == current_bgm_id
+
+		// void initialize();                           // 0x403740
+		// void unloadBuffers();                        // 0x4037d0
+		// unsigned int* create(unsigned int& id);      // 0x4039A0
+		// bool load(unsigned int id, const char* soundPath, bool useListB, float unknown); // 0x4039C0
+		// void somethingA(unsigned int id, int time);  // 0x403B20
+		// void somethingB(unsigned int id);            // 0x403BB0
+		// void somethingC(unsigned int id, int time, int startTime, bool alwaysTrue);      // 0x403C20 (playFadeIn?)
+		// void somethingD(unsigned int id, int time, int startTime, float unknown);        // 0x403C70 (stopFadeOut?)
+		// void setItemVolume(unsigned int id, float);  // 0x403D10
+	};
 }
 
 

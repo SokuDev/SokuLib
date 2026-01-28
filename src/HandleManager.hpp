@@ -83,7 +83,6 @@ namespace SokuLib
 
 	template<class T>
 	class HandleManagerEx {
-		static_assert(std::has_virtual_destructor<T>::value);
 	public:
 		Vector<T*> vector;
 		Vector<unsigned int> usedIndexes;
@@ -122,6 +121,7 @@ namespace SokuLib
 			if (usedIndexes.at(index) == (id >> 16)) {
 				usedIndexes[index] = 0;
 				unusedIndexes.push_back(index);
+				static_assert(std::has_virtual_destructor<T>::value);
 				vector.at(index)->~T();
 			}
 			mutex.unlock();
