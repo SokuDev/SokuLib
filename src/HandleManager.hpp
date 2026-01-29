@@ -90,7 +90,16 @@ namespace SokuLib
 		unsigned int nextBase = 0;
 		CriticalSection mutex;
 
-		virtual ~HandleManagerEx() { for(auto t : vector) delete t; }
+		virtual ~HandleManagerEx() {
+			// when the destructor is virtual
+			// the memory allocation is always removed
+			// from the heap the class was defined
+			// for others we can choose the heap
+			for(auto t : vector) {
+				if constexpr (std::has_virtual_destructor<T>::value) delete t;
+				else SokuLib::Delete<T>(t);
+			}
+		}
 
 		template<typename... Args>
 		inline T* Allocate(unsigned int& retId, Args... args) {
@@ -108,7 +117,9 @@ namespace SokuLib
 				index = vector.size();
 				if(++nextBase > 0xffff) nextBase = 1;
 				retId = (index & 0xffff) | (nextBase << 16);
-				vector.push_back(ret = new T(args...));
+				if constexpr(std::has_virtual_destructor<T>::value) ret = new T(args...);
+				else ret = SokuLib::New<T>(sizeof(T), args...);
+				vector.push_back(ret);
 				usedIndexes.push_back(retId >> 16);
 			}
 			mutex.unlock();
@@ -121,7 +132,6 @@ namespace SokuLib
 			if (usedIndexes.at(index) == (id >> 16)) {
 				usedIndexes[index] = 0;
 				unusedIndexes.push_back(index);
-				static_assert(std::has_virtual_destructor<T>::value);
 				vector.at(index)->~T();
 			}
 			mutex.unlock();
