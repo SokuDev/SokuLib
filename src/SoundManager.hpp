@@ -90,7 +90,7 @@ namespace SokuLib
 		char unknown448[8];
 		float volume, volumeCoef;
 
-		static SFXManager*& instance; // 0x89F9F8
+		static SFXManager& instance; // 0x89F9F8
 
 		// void initialize();                   // 0x401990
 		// void unloadBuffers();                // 0x401A80
@@ -120,7 +120,7 @@ namespace SokuLib
 		float volume, volumeCoef;
 		char unknownB4[0x04];
 
-		static BGMManager*& instance; // 0x89FE50
+		static BGMManager& instance; // 0x89FE50
 
 		// 0x899d5c == current_bgm_id
 
