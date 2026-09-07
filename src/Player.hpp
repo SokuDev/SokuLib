@@ -475,11 +475,11 @@ namespace v2 {
 	public:
 		short parasolSpawned;//the dropping parasol when Yukari got hit
 		short gapAbsorbCount;//0~13
-		bool unknown894;// =0, set 0 when ran is destroyed
+		bool unknown894;// =0, set 0 when ran is destroyed, but never used?
 		char unknown895;// =0, unused?
 		char unknown896[2];//align 2?
 		//Universe of Matter and Antimatter
-		float antimatterPosX1, antimatterPosX2, antimatterPosY1, antimatterPosY2;
+		float antimatterPosX[2], antimatterPosY[2];
 		short antimatterCount;//0~2
 		//story spell: Fantacy Nest "Flying Noctilucae's Nest"
 		short fireflyFireTimer;//E/N/H/L:180/210/240/270
