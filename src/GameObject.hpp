@@ -56,8 +56,7 @@ namespace v2 {
 		char reflectCounter = 0; // used by youmu reflection shield
 		char unknown1A1 = 0;
 		short forcedCounterHits = 0; // = 0
-		float unknown1A4 = 0; // = .0
-		float unknown1A8 = 0; // = .0
+		Vector2f hitLaunchSpeed; // = {0,0}, set by attack framedata, used by air hit action
 		bool allowEntity = true; // entity collision will be ignored if 0
 		char unknown1AD[3]; // align 0x3?// offset 0x1b0
 		struct CustomHitBox {
@@ -216,9 +215,14 @@ namespace v2 {
 	class GameObjectReimu     : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
 	class GameObjectMarisa    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
 	class GameObjectSakuya    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
-	class GameObjectAlice     : public GameObject { public: char unknown3AC[4]; DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectAlice     : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS()
+		short dollIndex;//0x3ac 0~3, used by C dolls
+		char unknown3AE[2]; // align 2?
+	};
 	class GameObjectPatchouli : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
-	class GameObjectYoumu     : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
+	class GameObjectYoumu     : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS()
+		void updateClone(int index);//57d000
+	};
 	class GameObjectRemilia   : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
 	class GameObjectYuyuko    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };
 	class GameObjectYukari    : public GameObject { public: DECL_GAMEOBJECT_VIRTUALS() };

@@ -27,13 +27,14 @@ namespace v2 {
 			Sprite sprite;
 
 			// offset 0x484
-			int playerId;
-			int unknown488; // 0x46eb80: = -1;
-			Vector2f unknown48C; // some coord
-			char unknown494;
+			int teamId;
+			int standState; // 0x46eb80: = -1; -1: stand hide, 0: stand roll in, 1: stand keep, 2: stand fade out
+			int standCounter;
+			float standOffset;// x axis offset; y fixed 32.0f
+			unsigned char standOpacity;
 			// align 3
-
-			//void FUN_46ec50();
+			//void FUN_46ec50(); //begin
+			//void FUN_46ec90(); //update
 		} stand;
 
 		union ComboModifers {
@@ -136,17 +137,25 @@ namespace v2 {
 		// offset 0x6f8
 		IGameObjectList* objectList;
 		Deque<CharacterSequenceData> patternData;
-		int unknown710; // 46b9a0: = 0
-
-		struct {
-			List<SpriteEx> unknown714; // unsure (maybe struct {SpriteEx,byte})
-			char unknown720 = 5;
-			char unknown721;
-			short unknown722 = 15;
-			char unknown724[4];
+		
+		int trailTimer; // 46b9a0: = 0
+		struct TrailImage {
+			using SpriteTrail = struct {
+				SpriteEx sprite;
+				char mode;//blend mode 0: normal, 1: add, 2:sub
+				char unknownf1[3];//align 3
+			};
+			List<SpriteTrail> trailSprites;
+			char trailStep = 5;//skip n-1 sprites by n step when rendering
+			char unknown721;//align 1?
+			short trailLength = 15;
+			unsigned int colorMask;//4631e9: masking trail sprites color (not for alpha)
 			char unknown728; // 46b9a0: = 0
-			char unknown729[3];
-		} unknown714;
+			char unknown729[3];// align 3?
+			//void FUN_463440(); //append, has a bug that forgets to reset color after rendering shadow
+			//void FUN_463330(); //clear
+			//void FUN_463100(); //render
+		} trailImage;
 
 		Deque<int> spellBgTextures;
 		short spellBgTimer; // = 0
@@ -233,13 +242,13 @@ namespace v2 {
 		void applyTransform() override;
 		void updatePhysics() override;
 		virtual void initialize(); // character specific initialization
-		virtual bool VUnknown48(); // check for landing
-		virtual bool VUnknown4C(int a); // something with actionId in [700,799]
+		virtual bool handleGroundMovement(); // handle landing, walking, jump, crouch input
+		virtual bool setScenarioAction(int scenarioActionId); // remap story scenario action to real action stuff
 		virtual void handleInputs() = 0; // seems to handle inputs (differs for each character)
 		virtual void checkAllMotionInputs(); // compare input buffer for sequences
-		virtual void VUnknown58() = 0;
-		virtual void VUnknown5C() = 0;
-		virtual bool VUnknown60(int a) = 0;
+		virtual void computerInputs() = 0;// generate computer AI input
+		virtual void updateStory() = 0; //
+		virtual bool setCustomScenarioAction(int customScenarioActionId) = 0; //handle character specified scenario action, ret true means repeat instruction
 
 		// Gets the character from this->characterIndex
 		void loadResources(); // 0x46c0b0
@@ -277,6 +286,7 @@ namespace v2 {
 		void refreshInputBuffer(); // 0x46cac0
 		bool isGrounded(); // 0x463530
 		void updateDefaultBehavior();
+		void setTrailImage(int timer, int step, unsigned int colorMask); //0x46a750
 		SokuLib::v2::GameObject* createObject(short action, float x, float y, char direction, char layer, float *extraData, unsigned int extraDataSize); // 46eb30
 		SokuLib::v2::GameObject *createObject(short action, float x, float y, char direction, char layer);
 		template<size_t size>
@@ -315,21 +325,25 @@ namespace v2 {
 	void initializeAction() override; \
 	void updatePhysics() override; \
 	void initialize() override; \
-	bool VUnknown48() override; \
-	bool VUnknown4C(int a) override; \
+	bool handleGroundMovement() override; \
+	bool setScenarioAction(int scenarioActionId) override; \
 	void handleInputs() override; \
 	void checkAllMotionInputs() override; \
-	void VUnknown58() override; \
-	void VUnknown5C() override; \
-	bool VUnknown60(int a) override;
+	void computerInputs() override; \
+	void updateStory() override; \
+	bool setCustomScenarioAction(int customScenarioActionId) override;
 
 	class PlayerReimu : public Player {
 	public:
-		char unknown890[0x24];
+		short rodSpawned;//the dropping gohei(purification rod) when Reimu got hit
+		char unknown892[0x2];//align 2?
+		int unknown894[8];//4ac600: = 0, maybe for replaced SWR cards
+
 		unsigned short fantasyHeavenTimer;
-		unsigned short fantasyHeavenStacks;
-		unsigned short fantasyHeavenAlreadyHit;
-		char unknown8BA[0x2];
+		unsigned short fantasyHeavenStacks;//0~7
+		unsigned short fantasyHeavenAlreadyHit;// 0~1 hit recorded
+		bool dsRiftUsed;//block another Demon Sealing use before landed
+		char unknown8BB;//align 1?
 
 		PlayerReimu(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -338,9 +352,16 @@ namespace v2 {
 
 	class PlayerMarisa : public Player {
 	public:
-		char unknown890[0x2];
-		unsigned short orreriesTimer;
-		char unknown894[0x18];
+		unsigned short orreriesAttackType;//0: None, 1:B bullets, [2~5]: B emitter index, 8:C lasers, 50: thrown boomerang
+		unsigned short orreriesTimer;//countdown 600f
+		unsigned short orreriesActiveTimer;//countdown, B:40f, C:60f
+		char unknown896[2];//align 2?
+
+		float orreriesRotatePhase;// -=speed
+		float orreriesRotateSpeed;//type0: 3, type1: 12, type8: 0.5, type50: 12
+		Vector2f orreriesThrowPos;//record decided target pos when throwing out
+		bool orreriesThrown;//reusing 2sc throws orreries out as boomerang
+		char unknown8A9[3];//align 3?
 
 		PlayerMarisa(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -349,9 +370,14 @@ namespace v2 {
 
 	class PlayerSakuya : public Player {
 	public:
-		unsigned short worldTimer;
-		unsigned short psTimer;
-		char unknown894[0xC];
+		unsigned short worldTimer;//countdown | The World:300f, Luna Dial:210f
+		unsigned short psTimer;//Private Square, countdown 300f
+		unsigned short stopwatchTimer;//4SC Stopwatch
+		unsigned short unknown896;//4fdf9b: = 0
+		unsigned short noLimitTimer;//also lessen rate loss by 0.25
+		unsigned short dsSwordCount;//Dancing Star Sword
+		bool dsSwordTriggering;//signal one sword to shoot out
+		char unknown89D[3];//align 3?
 
 		PlayerSakuya(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -360,9 +386,15 @@ namespace v2 {
 
 	class PlayerAlice : public Player {
 	public:
-		char unknown890[0x2];
-		unsigned short dollCount;
-		char unknown894[0x30];
+		unsigned short SPdollCount;//0x890 max 3
+		unsigned short dollCount;//0x892 max 4
+		unsigned short unknown894, unknown896;//5235a4: =0
+		unsigned short SPcirclePhase;//0x898 0~359 looping
+		short DRTdollCount;//0x89A used by story SC: Knight "Doll of Round Table"
+		float dollPosX[4], dollPosY[4];//0x89C~0x8B8 used by Seeker Wire tracing
+		bool SPdollTriggering;//used by SP, signal one/all dolls to shoot laser
+		bool dollTriggering[4];//used by Seeker Wire, signal the ready C doll to next seq
+		char unknown8c1[3];//align 3?
 
 		PlayerAlice(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -371,10 +403,14 @@ namespace v2 {
 
 	class PlayerPatchouli : public Player {
 	public:
-		unsigned short philStoneTimer;
-		char unknown892[0xE];
-		unsigned short dHardnessTimer;
-		char unknown8A2[0x6];
+		unsigned short philStoneTimer;//countdown 1200f
+		unsigned short unknown892;//56413c: =360, only set when jellyfish bubble is breached, but never reset or used
+		short unknown894, unknown896, unknown898, unknown89A;//554c70: = 0, maybe for replaced SWR cards
+		unsigned short atmEdgeActivationTime;//countdown 2f, if >0 and lv1+, triggers autumn edge to trace
+		short sBubbleHitCount;//0~10
+		unsigned short dHardnessTimer;//0x8A0
+		unsigned short jfPrincessTimer;//countdown 360f
+		float sprWindSpeed;//B:14.5, C:18.5
 
 		PlayerPatchouli(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -383,14 +419,28 @@ namespace v2 {
 
 	class PlayerYoumu : public Player {
 	public:
-		char unknown890[0x2C];
-		void *unknownObject;
-		char unknown8C0[0x16];
-		unsigned short youmuCloneTimeLeft;
-		char unknown8D8[0x14];
+		struct CloneData {
+			CharacterFrameData* frameData;
+			Vector2f position, center, scale;
+			float rotationX, rotationY, rotationZ;
+			Direction direction;
+			char hitCount;//set along with youmu's collisionLimit
+			char unknown2A[2];//align 2?
+		} cloneData;//size 0x2C
+		Deque<CloneData> cloneBuffer;//ring history buffer, maximum 60 clones
+		bool myonSpawned;//done in initAction...
+		bool myonAttackActivated;
+		short myonAttackType;//None:0, (j)5C:1, (j)6C:2, (j)2C:3, d22B:4, d22C:7, a122:5, a222B:6, a222C:8, eye slash:10
+		unsigned short mediumBindTimer;// =(Lv+6)*30
+		unsigned short cloneTimer;// 600f
+		short cloneActivated;//block meter gain, but only set in 2sc clone
+		char unknown8DA[2];//align 2?
+		//implemente bullet-cutting in story spell: Closed-Eye Slash "The Bullet-Cutting Spirit Eye from Roukan"
+		float eyeSlashPosX, eyeSlashPosY, eyeSlashRotZ;
+		bool eyeSlashActivated;
+		char unknown8E9[3];//align 3?
 
 		PlayerYoumu(const PlayerInfo&);
-		~PlayerYoumu() override;
 		DECL_PLAYER_VIRTUALS()
 	};
 	static_assert(sizeof(PlayerYoumu) == 0x8EC);
@@ -398,7 +448,7 @@ namespace v2 {
 	class PlayerRemilia : public Player {
 	public:
 		unsigned short millVampireTimer;
-		char unknown892[0x02];
+		char unknown892[0x02];//align 2?
 
 		PlayerRemilia(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -407,9 +457,14 @@ namespace v2 {
 
 	class PlayerYuyuko : public Player {
 	public:
-		char unknown890[0x10];
-		unsigned short resButterfliesUsed;
-		char unknown8A2[0xA];
+		//story spell: Banquet "All Things Come Full Circle in Death"
+		int banquetRestTimer;//rest 180f after rings reached max
+		int banquetElapsedTime;//dec by frame
+		int banquetRingCount;//max E/N/H/L: 1/3/4/6
+		int unknown89C;//5b8170: = 0
+		int resButterfliesUsed;
+		int giftsCount;//Gifts to the Deceased, 0~8
+		int giftsTimer;//countdown Lv*30+(count+1)*20 frames
 
 		PlayerYuyuko(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -418,7 +473,28 @@ namespace v2 {
 
 	class PlayerYukari : public Player {
 	public:
-		char unknown890[0x44];
+		short parasolSpawned;//the dropping parasol when Yukari got hit
+		short gapAbsorbCount;//0~13
+		bool unknown894;// =0, set 0 when ran is destroyed, but never used?
+		char unknown895;// =0, unused?
+		char unknown896[2];//align 2?
+		//Universe of Matter and Antimatter
+		float antimatterPosX[2], antimatterPosY[2];
+		short antimatterCount;//0~2
+		//story spell: Fantacy Nest "Flying Noctilucae's Nest"
+		short fireflyFireTimer;//E/N/H/L:180/210/240/270
+		short fireflyRestTimer;//120~179 random
+		//story spell: Aerial Bait "Hyperactive High Speed Flying Object"
+		short flyObjAimedCD;//EN/H/L:70/65/60, additional aimed bait when hp below 1/3
+		short flyObjTimer;//E/N/H/L:45/80/115/150, gen new line per 10f
+		short flyObjLines;//horizontal line index, inc from 0
+		//Wings of Chimera
+		short wingsCount;//0~3
+		char unknown8B6[2];//align 2?
+		float wingsPosX[3], wingsPosY[3];
+		//story spell: "Yakumo's Nest"
+		short yakumoNestElapsedTime;//inc by frame, fire per 300f
+		char unknown8D2[2];//align 2?
 
 		PlayerYukari(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -427,9 +503,10 @@ namespace v2 {
 
 	class PlayerSuika : public Player {
 	public:
-		char unknown890[0x2];
-		unsigned short mppTimer;
-		char unknown894[0x4];
+		unsigned short gakiBindTimer;//countdown 600f, dec opponent's spirit by 2 per frame (regen delay 30f)
+		unsigned short mppTimer;//countdown 480f
+		bool upMistUsed;//block another Unpleasant Mist before landed
+		char unknown895[3];
 
 		PlayerSuika(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -438,14 +515,22 @@ namespace v2 {
 
 	class PlayerUdonge : public Player {
 	public:
-		char unknown890[0x8];
+		short unkown890;// =0
+		short reisenOpacity;//0~255
+		float reisenOpacityFactor;//normally 1.0, invisible 6D related; towards 0.5 with Infrared Moon
+
 		unsigned short urFieldActive;
 		unsigned short uvFieldActive;
-		char unknown89C[0x4];
-		unsigned short elixirUsed;
-		char unknown8A2[0x10];
+		float scanAngle;//Eyesight Cleansing scan range angle
+		int elixirUsed;
+		int elixirElapsedTime;
+		short uvCloneCount;//0~2
+		char unknown8AA[2];//align 2?
+		float uvCloneSpacing;//horizontal
+		unsigned short xwaveTimeLeft;//countdown 360f
 		unsigned short infraredMoonTimeLeft;
-		char unknown8B4[0x4];
+		bool ocularSpectralUsed;//block another Ocular Spectral before landed
+		char unknown8B5[3];//align 3?
 
 		PlayerUdonge(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -454,7 +539,11 @@ namespace v2 {
 
 	class PlayerAya : public Player {
 	public:
-		char unknown890[0x08];
+		short pebbleCount;//maximum 20
+		short limitedSpecialTimeLeft;//2sc speed up, ground 360f/ air 450f countdown
+		short routeForbiddenTimeLeft;//300f countdown
+		bool unknown896;//block Graceful Dash if true, but never set?
+		char unknown897;//align 1?
 
 		PlayerAya(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -463,7 +552,9 @@ namespace v2 {
 
 	class PlayerKomachi : public Player {
 	public:
-		char unknown890[0x08];
+		short unknown890;//656d06: = 0
+		char unknown892[2];//align 2?
+		int wispActivationTime;//countdown 2f(a214)/10f(2C), spirits will be activated if > 0
 
 		PlayerKomachi(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -472,10 +563,17 @@ namespace v2 {
 
 	class PlayerIku : public Player {
 	public:
-		char unknown890[0xC];
-		unsigned short veilsLikeWind;
-		unsigned short veilsLikeTime;
-		char unknown8A0[0x8];
+		//story spell: Cloud Realm "The Thunder Court in the Sea of Abstruse Clouds"
+		int realmTotalTimer;//harassing fire CD ENH/L:300/240f
+		int realmLaserCount;//E/N/H/L: 4/6/7/8
+		int realmTimer;// E/N/H/L: 150/140/130/120f per turn, gen new laser per 8 frames
+
+		unsigned short veilsLikeSky;//0x89c, 900f countdown
+		unsigned short veilsLikeTime;//0x89e, 600f countdown
+
+		unsigned short cutsceneColor;//0x8a0 as story cutscene color (channel G/B) for iku's stage entrance, 0~255 increased by frame
+		char unknown8A2[2];//align 2?
+		float backgroundOffset;//change stage#4 background horizon for stage entrance cutscene
 
 		PlayerIku(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -489,33 +587,44 @@ namespace v2 {
 		float keystoneIndex;//0x910 0~11 looping
 		float backgroundOffset;//0x914 change stage#5 background horizon for the last 2 story spells
 		bool pillarEnabled;//0x918
-		char unknown919;//align?
+		char unknown919;//align 1?
 
-		short guardingKeystonesTimer;//0x91a
-		short guardingKeystonesType;//0x91c 0 for None, 1 for B ver, 2 for C ver
+		unsigned short guardingKeystonesTimer;//0x91a
+		unsigned short guardingKeystonesType;//0x91c 0 for None, 1 for B ver, 2 for C ver
 		char unknown91E[2];//align 2?
 		int guardingKeystonesCount;//0x920
 
-		unsigned short stateOfEnlightenmentTimeLeft;
-		char unknown926[6];
+		int stateOfEnlightenmentTimeLeft;
+		//story spell: Spirit Thought "Stone that Calms the Lands"
+		int spiritThoughtTimer;//inc, drop CD E/N/H/L: 120/80/60/50f
 
 		bool skyAttackUsed; //0x92c block movement cancel or another sky attack before landed
-		char unknown92D;//align?
+		char unknown92D;//align 1?
 
 		short swordState;// for final spell ko cutscene, 0= not started, 1 = flying, 2 = landed
 
 		PlayerTenshi(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
-	}; // TODO There's something wrong with Tenshi
+	};
 	static_assert(sizeof(PlayerTenshi) == 0x930);
 
 	class PlayerSanae : public Player {
 	public:
-		char unknown890[0xC];
-		int kanakoTimer;
-		int suwakoTimeLeft;
-		char unknown8A4[0xC];
+		float windSpeed;//flight wind
+		float windAngle;
+		Direction windDirection;
+		char unknown899[3];//align 3?
 
+		int kanakoCdTimer;//countdown reference kanakoCD, dec by frame
+		int suwakoCdTimer;//countdown reference suwakoCD, dec by frame
+		int kanakoCooldown;//reference value, changed with skill level
+		int suwakoCooldown;//reference value, changed with skill level
+
+		bool bshotTriggering;//signal B bullet to emit
+		bool star2cTrigerring;//signal (j)2C star to emit
+		bool blackoutSpawned;//used by sanae story blackout narrative
+		char unknown8AF;//align 1?
+		
 		PlayerSanae(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
 	};
@@ -523,7 +632,7 @@ namespace v2 {
 
 	class PlayerChirno : public Player {
 	public:
-		char unknown890[0x04];
+		int freezeAtmosphereTimeLeft;//used by 3SC Freeze Atmosphere, 180f countdown
 
 		PlayerChirno(const PlayerInfo&);
 		DECL_PLAYER_VIRTUALS()
@@ -542,8 +651,14 @@ namespace v2 {
 	class PlayerUtsuho : public Player {
 	public:
 		bool capeDisabled;
+		char unknown891[3];//align 3?
 		int capeTexture;
-		char unknown898[0x10];
+		float capeOffset;//texture x+y axis moving, +0.25 per frame, 0~255 looping
+		bool bshotTriggering;//signal 5B/J5B/J2B... to emit
+		bool unknown89d;//7b5eba: = 0
+		char unknown89e[0x2];//align 2?
+		int unknown8a0;//timer for an unused sc #616 like iku's Stickleback, 600f countdown
+		int abyssNovaGlow;//0~255; btw nova explosion timer is handled by a UtsuhoObject
 
 		PlayerUtsuho(const PlayerInfo&);
 		~PlayerUtsuho() override;
@@ -553,7 +668,9 @@ namespace v2 {
 
 	class PlayerSuwako : public Player {
 	public:
-		char unknown890[4];
+		bool unknown890;//782982: = 0
+		bool rock5cTriggering;//0x891 signal L5C/J5C rocks to emit
+		char unknown892[2];//align 2?
 		int curseType;//0x894, enum {None=0, Red, Green, Blue}
 		int punishType;//0x898, enum {None=0, Crush, Block, Attack, Dash}
 		bool orbsSpawned;//0x89C
