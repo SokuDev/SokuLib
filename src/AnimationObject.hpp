@@ -113,10 +113,10 @@ namespace v2 {
 
 	class EffectObjectBase : public AnimationObject {
 	public:
-		int unknown158 = 1;
-		int unknown15C = 0;
-		Map<unsigned int, SequenceData*>* patternMap;
-		int unknown164;
+		int lifetime = 1;
+		int handle = 0; //HandleManagerEx<EffectObjectBase>
+		Map<int, SequenceData*>* patternMap;
+		AnimationObject* parent;//used for Effect in battle, val GameObject*/Player*
 		SequenceData* currentSequence;
 		char layer;
 		// align 0x3
