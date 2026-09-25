@@ -174,6 +174,8 @@ namespace SokuLib
 		ADDR_RCHARID                                = 0x00899D30,
 		ADDR_INPUT_MANAGER_CLUSTER                  = 0x0089A248,
 		ADDR_MENU_LIST                              = 0x0089A884,
+		ADDR_SFX_MANAGER                            = 0x0089F9F8,
+		ADDR_BGM_MANAGER                            = 0x0089FE50,
 		ADDR_TEXTURE_MANAGER                        = 0x0089FF08,
 		ADDR_WINDOW_HWND                            = 0x0089FF90,
 		ADDR_LOAD_GRAPHICS_THREAD                   = 0x0089FFF4,

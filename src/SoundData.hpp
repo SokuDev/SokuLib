@@ -54,6 +54,14 @@ namespace SokuLib
 		int bufferSize;
 	};
 
+	class DS3DBuffer {
+	public:
+		void** vtable;
+		void* dsHandle; // IDirectSoundBuffer*
+		int bufferSize;
+		void* ds3dHandle; // IDirectSound3DBuffer*
+	};
+
 	class BgmBuffer {
 	public:
 		String filename;
