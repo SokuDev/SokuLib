@@ -73,6 +73,10 @@ namespace v2 {
 	void GameObjectBase::prevPose() { return (this->*union_cast<void (GameObjectBase::*)()>(0x464BC0))(); }
 	void GameObjectBase::updatePhysics() {}
 
+	void GameObjectBase::updateRainbowColor(int frame) {
+		(this->*union_cast<void(GameObjectBase::*)(int)>(0x48C750))(frame);
+	}
+
 	void GameObjectBase::initDefaultObject() {
 		(this->*union_cast<void(GameObjectBase::*)()>(0x48D000))();
 	}

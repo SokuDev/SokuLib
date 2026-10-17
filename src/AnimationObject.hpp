@@ -75,6 +75,7 @@ namespace v2 {
 		virtual void applyTransform(); // 0x34
 		virtual void onRenderEnd(); // 0x38
 
+		void setTextureOffset(float x, float y); // 0x439020
 		void refreshSprite(); // 0x43A250
 		void resetRenderInfo(); // 0x438BB0
 		bool advanceFrame(); // 0x438c60

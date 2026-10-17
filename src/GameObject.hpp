@@ -15,16 +15,16 @@ namespace v2 {
 	class GameObjectBase : public AnimationObject {
 	public:
 		enum CollisionType {
-			COLLISION_TYPE_NONE,
-			COLLISION_TYPE_HIT,
-			COLLISION_TYPE_BLOCKED,
-			COLLISION_TYPE_INVUL,
-			COLLISION_TYPE_BULLET_COLLIDE_HIGH_DENSITY,
-			COLLISION_TYPE_BULLET_ABSORBED,
-			COLLISION_TYPE_GRAZED,
-			COLLISION_TYPE_ARMORED,
-			COLLISION_TYPE_BULLET_COLLIDE_SAME_DENSITY,
-			COLLISION_TYPE_HIT_ENTITY
+			/* 0 */ COLLISION_TYPE_NONE,
+			/* 1 */ COLLISION_TYPE_HIT,
+			/* 2 */ COLLISION_TYPE_BLOCKED,
+			/* 3 */ COLLISION_TYPE_INVUL,
+			/* 4 */ COLLISION_TYPE_BULLET_COLLIDE_HIGH_DENSITY,
+			/* 5 */ COLLISION_TYPE_BULLET_ABSORBED,
+			/* 6 */ COLLISION_TYPE_GRAZED,
+			/* 7 */ COLLISION_TYPE_ARMORED,
+			/* 8 */ COLLISION_TYPE_BULLET_COLLIDE_SAME_DENSITY,
+			/* 9 */ COLLISION_TYPE_HIT_ENTITY
 		};
 
 		// offset 0x158
@@ -110,6 +110,7 @@ namespace v2 {
 		virtual void initializeAction() = 0; // 0x3C
 		virtual void updatePhysics(); // 0x40
 
+		void updateRainbowColor(int frame); // 48c750
 		void reflectedBy(GameObjectBase *other); // 465100
 		void initDefaultObject(); // 48d000
 		void updateDefaultObject(); // 48db20

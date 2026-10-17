@@ -45,7 +45,7 @@ namespace SokuLib {
 	const int _vtable_info<v2::WeatherEffectObject>::baseAddr   = ADDR_VTBL_FX_WEATHER;
 
 namespace v2 {
-	AnimationObject::~AnimationObject() { if (clipMask) SokuLib::Delete(clipMask); clipMask = nullptr; }
+	AnimationObject::~AnimationObject() { if (this->clipMask) SokuLib::Delete(this->clipMask); this->clipMask = nullptr; }
 
 	bool AnimationObject::advanceFrame() { return (this->*union_cast<bool (AnimationObject::*)()>(0x438c60))(); }
 	void AnimationObject::setActionSequence(short action, short sequence) { return (this->*union_cast<void (AnimationObject::*)(short, short)>(0x438cc0))(action, sequence); }
@@ -54,6 +54,7 @@ namespace v2 {
 	void AnimationObject::render2() { return (this->*union_cast<void (AnimationObject::*)()>(0x439190))(); }
 	void AnimationObject::applyTransform() { return (this->*union_cast<void (AnimationObject::*)()>(0x438E00))(); }
 	void AnimationObject::onRenderEnd() { return (this->*union_cast<void (AnimationObject::*)()>(0x439040))(); }
+	void AnimationObject::setTextureOffset(float x, float y) { return (this->*union_cast<void(AnimationObject::*)(float, float)>(0x439020))(x, y); }
 	void AnimationObject::refreshSprite() { return (this->*union_cast<void (AnimationObject::*)()>(0x43A250))(); }
 	void AnimationObject::resetRenderInfo() { return (reinterpret_cast<void (__thiscall *)(SpriteEx &)>(0x438BB0))(this->sprite); }
 	void AnimationObject::updateSpeedAngled(float angle, float velocity) { return (reinterpret_cast<void (__thiscall *)(SpriteEx &, float, float)>(0x438C00))(this->sprite, angle, velocity); }
