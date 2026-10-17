@@ -45,7 +45,9 @@ namespace v2 {
 		Map<int, SequenceData*> patternById;
 
 		EffectManager() = default;
-		virtual ~EffectManager() = default;
+		inline virtual ~EffectManager() {
+			ClearPattern();
+		}
 		void LoadPattern(const char* fileName, int reserve) override;
 		void ClearPattern() override;
 		v2::EffectObjectBase* CreateEffect(int action, float x, float y, char dir, char layer, int unknown164) override;

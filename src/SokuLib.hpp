@@ -58,5 +58,6 @@
 #include "Vector2.hpp"
 #include "VTables.hpp"
 #include "Weather.hpp"
+#include "WeatherManager.hpp"
 
 #endif //SOKULIB_SOKULIB_HPP

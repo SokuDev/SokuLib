@@ -42,19 +42,19 @@
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[16]))(); } \
 	void CLS::initialize() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[17]))(); } \
-	bool CLS::VUnknown48() \
+	bool CLS::handleGroundMovement() \
 		{ return (this->*union_cast<bool(CLS::*)()>(VTB[18]))(); } \
-	bool CLS::VUnknown4C(int a0) \
+	bool CLS::setScenarioAction(int a0) \
 		{ return (this->*union_cast<bool(CLS::*)(int)>(VTB[19]))(a0); } \
 	void CLS::handleInputs() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[20]))(); } \
 	void CLS::checkAllMotionInputs() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[21]))(); } \
-	void CLS::VUnknown58() \
+	void CLS::computerInputs() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[22]))(); } \
-	void CLS::VUnknown5C() \
+	void CLS::updateStory() \
 		{ return (this->*union_cast<void(CLS::*)()>(VTB[23]))(); } \
-	bool CLS::VUnknown60(int a) \
+	bool CLS::setCustomScenarioAction(int a) \
 		{ return (this->*union_cast<bool(CLS::*)(int)>(VTB[24]))(a); }
 
 namespace SokuLib {
@@ -167,8 +167,8 @@ namespace v2 {
 	void Player::applyTransform() { return (this->*union_cast<void(Player::*)()>(0x46A510))(); }
 	void Player::updatePhysics() { return (this->*union_cast<void(Player::*)()>(0x487EF0))(); }
 	void Player::initialize() { return (this->*union_cast<void(Player::*)()>(0x48B000))(); }
-	bool Player::VUnknown48() { return (this->*union_cast<bool(Player::*)()>(0x4636D0))(); }
-	bool Player::VUnknown4C(int a) { return (this->*union_cast<bool(Player::*)(int)>(0x487220))(a); }
+	bool Player::handleGroundMovement() { return (this->*union_cast<bool(Player::*)()>(0x4636D0))(); }
+	bool Player::setScenarioAction(int a) { return (this->*union_cast<bool(Player::*)(int)>(0x487220))(a); }
 	void Player::checkAllMotionInputs() { return (this->*union_cast<void(Player::*)()>(0x487020))(); }
 	void Player::updateDefaultBehavior() { return (this->*union_cast<void(Player::*)()>(0x483F40))(); }
 	bool Player::isGrounded() { return (this->*union_cast<bool(Player::*)()>(0x463530))(); }
@@ -178,6 +178,7 @@ namespace v2 {
 	void Player::useSkill(int id, short action) { return (this->*union_cast<void(Player::*)(int, short)>(0x487BA0))(id, action); }
 	unsigned short Player::getMoveLock(unsigned short action) { return (this->*union_cast<unsigned short(Player::*)(unsigned short)>(0x489610))(action); }
 	void Player::onSkillUpgrade() { return (this->*union_cast<void(Player::*)()>(0x489660))(); }
+	void Player::setTrailImage(int timer, int step, unsigned int colorMask) { return (this->*union_cast<void(Player::*)(int,int,unsigned int)>(0x46A750))(timer, step, colorMask); }
 	SokuLib::v2::GameObject *Player::createObject(short action, float x, float y, char direction, char layer, float *extraData, unsigned int extraDataSize) {
 		// Mimics 0x46EB30
 		return this->objectList->createObject(nullptr, this, action, x, y, direction, layer, extraData, extraDataSize);
@@ -310,7 +311,6 @@ namespace v2 {
 	PlayerYoumu::PlayerYoumu(const PlayerInfo& info) :
 		Player(info)
 	{
-		memset(this->unknown8C0, 0, 0x10); // [0x8c0-0x8d0] = 0
 		this->objectList = new GameObjectList_Youmu(this);
 	}
 	PlayerUtsuho::PlayerUtsuho(const PlayerInfo& info) :
@@ -329,11 +329,6 @@ namespace v2 {
 		this->objectList = new GameObjectList_Utsuho(this);
 	}
 
-	PlayerYoumu::~PlayerYoumu()
-	{
-		// unknown object destructor
-		reinterpret_cast<void (__fastcall*)(void*)>(0x433a50)(&this->unknownObject);
-	}
 	PlayerUtsuho::~PlayerUtsuho()
 	{
 		SokuLib::textureMgr.remove(this->capeTexture); // remove texture in +0x894
